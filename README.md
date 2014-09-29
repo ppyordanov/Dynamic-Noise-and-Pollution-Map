@@ -12,4 +12,4 @@ Project Supervisors:
   Mr Richard Mccreadie - Richard.Mccreadie@glasgow.ac.uk
   
   
-A dynamically generated University of Glasgow campus map via the innovative Smart Citizen Kit developed in Barcelona, Spain by FabLab.
+A dynamically generated University of Glasgow noise and pollution campus map via the innovative Smart Citizen Kit developed in Barcelona, Spain by FabLab.

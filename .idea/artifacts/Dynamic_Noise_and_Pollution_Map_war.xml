@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" build-on-make="true" name="Dynamic-Noise-and-Pollution-Map:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="Dynamic-Noise-and-Pollution-Map.war">
-      <element id="artifact" artifact-name="Dynamic-Noise-and-Pollution-Map:war exploded" />
-    </root>
-  </artifact>
-</component>

@@ -85,6 +85,7 @@ SENSOR READINGS - Defaults
 
 */
 
+
 #define DEFAULT_TIME_UPDATE  30     //Time between update and update
 #define DEFAULT_MIN_UPDATES  1      //Minimum number of updates before posting
 #define POST_MAX             20     //Max number of postings at a time

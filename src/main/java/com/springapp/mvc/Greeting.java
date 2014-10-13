@@ -1,9 +1,11 @@
 package com.springapp.mvc;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 /**
  * Created by Peter Yordanov on 13.10.2014 г..
  */
-
+@EnableAutoConfiguration
 public class Greeting {
 
     private final long id;

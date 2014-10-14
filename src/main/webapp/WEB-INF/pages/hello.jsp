@@ -36,6 +36,32 @@
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
     <script type="text/javascript">
+
+        var styles = [
+            {
+                stylers: [
+                    { hue: "#00ffe6" },
+                    { saturation: -20 }
+                ]
+            },{
+                featureType: "road",
+                elementType: "geometry",
+                stylers: [
+                    { lightness: 100 },
+                    { visibility: "simplified" }
+                ]
+            },{
+                featureType: "road",
+                elementType: "labels",
+                stylers: [
+                    { visibility: "off" }
+                ]
+            }
+        ];
+
+        var styledMap = new google.maps.StyledMapType(styles,
+                {name: "Styled Map"});
+
         var citymap = {};
         citymap['chicago'] = {
             center: new google.maps.LatLng(55.872912, -4.289657),
@@ -86,7 +112,7 @@
                 var populationOptions = {
                     strokeColor: '#FF0000',
                     strokeOpacity: 0.8,
-                    strokeWeight: 2,
+                    strokeWeight: 0,
                     fillColor: '#FF0000',
                     fillOpacity: 0.35,
                     map: map,
@@ -100,7 +126,8 @@
         }
         google.maps.event.addDomListener(window, 'load', init_map);
 
-
+        map.mapTypes.set('map_style', styledMap);
+        map.setMapTypeId('map_style');
 
     </script>
 

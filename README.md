@@ -25,3 +25,5 @@ A dynamically generated University of Glasgow noise and pollution campus map via
     - ```mvn validate``` validate project
     - ```mvn clean compile``` compile source code
     - ```mvn jetty:run``` run the mobile webapp on a localhost server via the jetty servlet
+  
+  _The app is running on port 8080 and can be accessed at: http://localhost:8080/_

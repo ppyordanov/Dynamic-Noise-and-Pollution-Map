@@ -5,7 +5,7 @@
 
     <link type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" rel="stylesheet"/>
     <link type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet"/>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-2.1.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 
 
@@ -63,6 +63,8 @@
 
             var myOptions = {
                 zoom: 16,
+                minZoom: 16,
+                maxZoom: 18,
                 center: new google.maps.LatLng(55.872912, -4.289657),
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 disableDefaultUI: true};
@@ -73,8 +75,8 @@
 
             var frameBorder = new google.maps.LatLngBounds(
 
-                    new google.maps.LatLng(55.877436, -4.294385),
-                    new google.maps.LatLng(55.867877, -4.282068)
+                    new google.maps.LatLng(55.870056, -4.297637),
+                    new google.maps.LatLng(55.875209, -4.278797)
 
             );
 
@@ -121,7 +123,11 @@
                 cityCircle = new google.maps.Circle(populationOptions);
             }
 
+
+
         }
+
+
         google.maps.event.addDomListener(window, 'load', init_map);
 
         map.mapTypes.set('map_style', styledMap);

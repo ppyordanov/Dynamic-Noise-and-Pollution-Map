@@ -4,36 +4,11 @@
 
 
     <link type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" rel="stylesheet"/>
-
+    <link type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet"/>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-2.1.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-    <style>
-        #gmap_canvas {
-            display:block;
-            position:absolute;
-            height:auto;
-            bottom:0;
-            top:0;
-            left:0;
-            right:0;
-        }
-
-        html, body {
-            width:100%;height:100%;margin:0;padding:0;
-        }
-
-        .fill {
-            top: 50px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            position: absolute;
-            width: auto;
-            height: auto;
-        }
 
 
-
-    </style>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
     <script type="text/javascript">
@@ -64,19 +39,19 @@
                 {name: "Styled Map"});
 
         var citymap = {};
-        citymap['chicago'] = {
+        citymap['ug1'] = {
             center: new google.maps.LatLng(55.872912, -4.289657),
             population: 2714856
         };
-        citymap['newyork'] = {
+        citymap['ug2'] = {
             center: new google.maps.LatLng(55.872915, -4.289657),
             population: 8405837
         };
-        citymap['losangeles'] = {
+        citymap['ug3'] = {
             center: new google.maps.LatLng(58.872912, -6.289657),
             population: 3857799
         };
-        citymap['vancouver'] = {
+        citymap['ug4'] = {
             center: new google.maps.LatLng(54.872912, -5.289657),
             population: 603502
         };
@@ -85,6 +60,7 @@
 
 
         function init_map() {
+
             var myOptions = {
                 zoom: 16,
                 center: new google.maps.LatLng(55.872912, -4.289657),
@@ -94,6 +70,27 @@
             map = new google.maps.Map(
                     document.getElementById("gmap_canvas"),
                     myOptions);
+
+            var frameBorder = new google.maps.LatLngBounds(
+
+                    new google.maps.LatLng(55.877436, -4.294385),
+                    new google.maps.LatLng(55.867877, -4.282068)
+
+            );
+
+            var lastCenter = map.getCenter();
+
+            google.maps.event.addListener(map, 'center_changed', function() {
+                if (frameBorder.contains(map.getCenter())) {
+                    // still within valid bounds, so save the last valid position
+                    lastCenter = map.getCenter();
+                    return;
+                }
+
+                // not valid anymore => return to last valid position
+                map.panTo(lastCenter);
+            });
+
 
             marker = new google.maps.Marker({
                 map: map, position: new google.maps.LatLng(55.872912, -4.289657)});

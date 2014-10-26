@@ -4,13 +4,15 @@
 
 
     <link type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" rel="stylesheet"/>
-    <link type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet"/>
+    <link type="text/css" href="${pageContext.request.contextPath}/resources/main.css" rel="stylesheet"/>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 
 
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script src="${pageContext.request.contextPath}/resources/map.js"></script>
 
+    <!--
     <script type="text/javascript">
 
         var styles = [
@@ -38,25 +40,21 @@
         var styledMap = new google.maps.StyledMapType(styles,
                 {name: "Styled Map"});
 
-        var citymap = {};
-        citymap['ug1'] = {
+        var campusMap = {};
+        campusMap['ug1'] = {
             center: new google.maps.LatLng(55.872912, -4.289657),
-            population: 2714856
+            pollution: 2714856
         };
-        citymap['ug2'] = {
+        campusMap['ug2'] = {
             center: new google.maps.LatLng(55.872915, -4.289657),
-            population: 8405837
+            pollution: 100000
         };
-        citymap['ug3'] = {
-            center: new google.maps.LatLng(58.872912, -6.289657),
-            population: 3857799
-        };
-        citymap['ug4'] = {
-            center: new google.maps.LatLng(54.872912, -5.289657),
-            population: 603502
+        campusMap['ug3'] = {
+            center: new google.maps.LatLng(55.872633, -4.285449),
+            pollution: 300000
         };
 
-        var cityCircle;
+        var dataCircle;
 
 
         function init_map() {
@@ -108,33 +106,32 @@
 
 
 
-            for (var city in citymap) {
-                var populationOptions = {
+            for (var reading in campusMap) {
+                var dataOptions = {
                     strokeColor: '#FF0000',
                     strokeOpacity: 0.8,
                     strokeWeight: 0,
                     fillColor: '#FF0000',
                     fillOpacity: 0.35,
                     map: map,
-                    center: citymap[city].center,
-                    radius: Math.sqrt(citymap[city].population) /100
+                    center: campusMap[reading].center,
+                    radius: Math.sqrt(campusMap[reading].pollution) /100
                 };
                 // Add the circle for this city to the map.
-                cityCircle = new google.maps.Circle(populationOptions);
+                dataCircle = new google.maps.Circle(dataOptions);
             }
 
-
+            map.mapTypes.set('map_style', styledMap);
+            map.setMapTypeId('map_style');
 
         }
 
-
         google.maps.event.addDomListener(window, 'load', init_map);
 
-        map.mapTypes.set('map_style', styledMap);
-        map.setMapTypeId('map_style');
 
     </script>
 
+-->
 
 </head>
 <body>

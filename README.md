@@ -9,7 +9,7 @@ Project Supervisors:
 
   Dr. Iadh Ounis - Iadh.Ounis@glasgow.ac.uk
   
-  Mr Richard Mccreadie - Richard.Mccreadie@glasgow.ac.uk
+  Mr. Richard Mccreadie - Richard.Mccreadie@glasgow.ac.uk
   
   
 A dynamically generated University of Glasgow noise and pollution campus map via the innovative Smart Citizen Kit developed in Barcelona, Spain by FabLab.
@@ -20,4 +20,10 @@ A dynamically generated University of Glasgow noise and pollution campus map via
  - install JDK 1.6+
  - install Apache Maven
  - download Spring MVC
- - set up a new project in a supported IDE
+ - import project in a supported IDE
+ - open a terminal window from the root directory (containing pom.xml)
+    - ```mvn validate``` validate project
+    - ```mvn clean compile``` compile source code
+    - ```mvn jetty:run``` run the mobile webapp on a localhost server via the jetty servlet
+  
+  _The app is running on port 8080 and can be accessed at: http://localhost:8080/_

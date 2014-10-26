@@ -19,8 +19,8 @@ A dynamically generated University of Glasgow noise and pollution campus map via
 
  - install JDK 1.6+
  - install Apache Maven
- - download Spring MVC
- - import project in a supported IDE
+ - clone this repository
+ - import project directory in a supported IDE
  - open a terminal window from the root directory (containing pom.xml)
     - ```mvn validate``` validate project
     - ```mvn clean compile``` compile source code

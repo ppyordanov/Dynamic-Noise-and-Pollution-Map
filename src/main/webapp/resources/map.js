@@ -50,15 +50,40 @@ campusMap['ug1'] = {
     noise: 3000000
 };
 campusMap['ug2'] = {
-    //center: new google.maps.LatLng(55.872915, -4.289657),
     pollution: 100000,
     noise: 4000000
 };
 campusMap['ug3'] = {
-    //center: new google.maps.LatLng(55.872633, -4.285449),
     pollution: 300000,
     noise: 6000000
+
 };
+campusMap['ug4'] = {
+    pollution: 300000,
+    noise: 6000000
+
+};
+campusMap['ug5'] = {
+    pollution: 300000,
+    noise: 6000000
+
+};
+campusMap['ug6'] = {
+    pollution: 300000,
+    noise: 6000000
+
+};
+campusMap['ug7'] = {
+    pollution: 300000,
+    noise: 6000000
+
+};
+campusMap['ug8'] = {
+    pollution: 300000,
+    noise: 6000000
+
+};
+
 
 var dataCircle;
 
@@ -124,9 +149,10 @@ function init_map() {
             fillColor: '#FF0000',
             fillOpacity: 0.35,
             map: map,
+            label: 'gogodi',
             center: position,
             //center: campusMap[reading].center,
-            radius: Math.sqrt(campusMap[reading].pollution) /100
+            radius: Math.sqrt(campusMap[reading].pollution) /40
         };
 
         var noiseOptions = {
@@ -136,8 +162,8 @@ function init_map() {
             fillColor: '#999999',
             fillOpacity: 0.35,
             map: map,
-            center: campusMap[reading].center,
-            radius: Math.sqrt(campusMap[reading].pollution) /100
+            center: randomPosGen(minLatBounds, maxLatBounds, minLonBounds,maxLonBounds),
+            radius: Math.sqrt(campusMap[reading].pollution) /40
         };
         // Add the circle for this city to the map.
         pollutionCircle = new google.maps.Circle(pollutionOptions);

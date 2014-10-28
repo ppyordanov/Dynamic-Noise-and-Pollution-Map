@@ -2,10 +2,10 @@
 
 -- validated by: http://developer.mimer.com/validator/parser92
 
---DROP TABLE DEVICE;
---DROP TABLE DATA_READING;
---DROP TABLE ROUTE;
---DROP TABLE SYS_USER;
+-- DROP TABLE DEVICE;
+-- DROP TABLE DATA_READING;
+-- DROP TABLE ROUTE;
+-- DROP TABLE SYS_USER;
 
 
 -- decimal has been used in order to store exact numeric data
@@ -19,6 +19,14 @@ CREATE TABLE DEVICE(
   mac_address CHAR(12) NOT NULL, -- values do not vary, fixed length
 
   PRIMARY KEY (deviceID)
+
+);
+
+CREATE TABLE ROUTE(
+
+  routeID INT NOT NULL,
+
+  PRIMARY KEY(routeID)
 
 );
 
@@ -48,13 +56,5 @@ CREATE TABLE DATA_READING(
 
 );
 
-CREATE TABLE ROUTE(
 
-  routeID INT NOT NULL,
-
-  PRIMARY KEY(routeID)
-
-);
-
-
---CREATE TABLE SYS_USER();
+-- CREATE TABLE SYS_USER();

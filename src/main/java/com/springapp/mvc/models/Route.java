@@ -1,10 +1,17 @@
 package com.springapp.mvc.models;
 
+import javax.persistence.*;
+
 /**
  * Created by Peter Yordanov on 14.10.2014 г..
  */
+@Entity
+@Table(name="ROUTE")
 public class Route {
 
+    @Id
+    @Column(name="routeID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     private Integer device_id;
 

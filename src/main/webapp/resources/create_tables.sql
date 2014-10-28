@@ -2,17 +2,17 @@
 
 -- validated by: http://developer.mimer.com/validator/parser92
 
---DROP TABLE DEVICE;
---DROP TABLE DATA_READING;
---DROP TABLE ROUTE;
---DROP TABLE SYS_USER;
+-- DROP TABLE DEVICE;
+-- DROP TABLE DATA_READING;
+-- DROP TABLE ROUTE;
+-- DROP TABLE SYS_USER;
 
 
 -- decimal has been used in order to store exact numeric data
 
 CREATE TABLE DEVICE(
 
-  deviceID INT NOT NULL,
+  deviceID INT NOT NULL AUTO_INCREMENT,
   title VARCHAR(100) NOT NULL, -- variance, better than CHAR
   description VARCHAR(250), -- great variance
   kit_version DECIMAL(2,1), -- 1 digit before the decimal, 1 after
@@ -22,9 +22,22 @@ CREATE TABLE DEVICE(
 
 );
 
+CREATE TABLE ROUTE(
+
+  routeID INT NOT NULL AUTO_INCREMENT,
+  deviceID INT,
+
+  PRIMARY KEY(routeID),
+
+  CONSTRAINT fk_route_device FOREIGN KEY (deviceID)
+    REFERENCES DEVICE (deviceID)
+    ON DELETE CASCADE
+
+);
+
 CREATE TABLE DATA_READING(
 
-  readingID INT NOT NULL,
+  readingID INT NOT NULL AUTO_INCREMENT,
   deviceID INT,
   routeID INT,
 
@@ -48,13 +61,5 @@ CREATE TABLE DATA_READING(
 
 );
 
-CREATE TABLE ROUTE(
 
-  routeID INT NOT NULL,
-
-  PRIMARY KEY(routeID)
-
-);
-
-
---CREATE TABLE SYS_USER();
+-- CREATE TABLE SYS_USER();

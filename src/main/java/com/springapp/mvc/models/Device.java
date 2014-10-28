@@ -1,10 +1,21 @@
 package com.springapp.mvc.models;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Created by Peter Yordanov on 19.10.2014 г..
  */
+@Entity
+@Table(name="DEVICE")
 public class Device {
 
+    @Id
+    @Column(name="deviceID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     private String title;
     private String description;
@@ -81,6 +92,7 @@ public class Device {
         this.description = description;
     }
 
+    @Override
     public String toString(){
         return null;
     }

@@ -11,6 +11,7 @@
         <spring.version>4.0.3.RELEASE</spring.version>
         <org.slf4j-version>1.7.5</org.slf4j-version>
         <hibernate.version>4.3.5.Final</hibernate.version>
+        <org.aspectj-version>1.7.4</org.aspectj-version>
     </properties>
 
     <dependencies>
@@ -76,6 +77,13 @@
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+        </dependency>
+
+        <!-- AspectJ -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${org.aspectj-version}</version>
         </dependency>
 
         <!-- Logging -->

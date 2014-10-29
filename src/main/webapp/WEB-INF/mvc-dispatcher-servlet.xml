@@ -51,17 +51,17 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
     
 
-    <!-- class beans
+    <!-- class beans -->
 
-    <bean id="DeviceDAOInterface" class="com.springapp.mvc.daos.DeviceDAO">
+    <bean id="deviceDAO" class="com.springapp.mvc.daos.DeviceDAOImpl">
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </bean>
 
-    <bean id="deviceService" class="com.springapp.mvc.services.DeviceService">
-        <property name="DeviceDAOInterface" ref="DeviceDAOInterface"></property>
+    <bean id="deviceService" class="com.springapp.mvc.services.DeviceServiceImpl">
+        <property name="deviceDAO" ref="deviceDAO"></property>
     </bean>
 
-    -->
+
 
 
 </beans>

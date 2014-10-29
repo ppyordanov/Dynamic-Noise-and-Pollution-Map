@@ -10,12 +10,12 @@ import java.util.List;
 
 
 
-public interface DeviceDaoInterface {
+public interface DeviceDAOInterface {
 
     public void addDevice(Device device);
     public void updateDevice(Device device);
     public List<Device> getAll();
-    public Device getDevice(int id);
-    public void deleteDevice(int id);
+    public Device getDevice(Integer id);
+    public void deleteDevice(Integer id);
 
 }

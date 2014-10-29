@@ -8,9 +8,43 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/")
 public class HomeController {
-	@RequestMapping(method = RequestMethod.GET)
-	public String printWelcome(ModelMap model) {
-		model.addAttribute("message", "Hello world!");
-		return "home";
-	}
+
+    /*
+    private DeviceService deviceService;
+
+    @Autowired(required=true)
+    @Qualifier(value="deviceService")
+    public void setDeviceService(DeviceService deviceService){
+        this.deviceService = deviceService;
+    }
+
+
+
+
+    @RequestMapping(value= "/person/add", method = RequestMethod.POST)
+    public String addPerson(){
+
+
+
+        Device device = new Device("title", "desc", "1.1", "mac");
+        if(device.getId() == null){
+            //new person, add it
+            this.deviceService.addDevice(device);
+        }else{
+            //existing person, call update
+            this.deviceService.updateDevice(device);
+        }
+
+        return "redirect:/persons";
+
+    }
+
+    */
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String printWelcome(ModelMap model) {
+        model.addAttribute("message", "Hello world!");
+        return "home";
+    }
+
 }

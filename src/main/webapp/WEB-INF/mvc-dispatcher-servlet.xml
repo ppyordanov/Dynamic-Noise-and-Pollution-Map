@@ -16,7 +16,7 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/ugmap"/>
         <property name="username" value="root"/>
@@ -25,26 +25,43 @@
     </bean>
 
     <!-- session factory -->
-    <bean id="mySessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="myDataSource"/>
-        <property name="packagesToScan">
-            <array>
-                <value>com.springapp.mvc</value>
-            </array>
+    <bean id="hibernate4AnnotatedSessionFactory"
+                class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="annotatedClasses">
+            <list>
+                <value>com.springapp.mvc.models.Device</value>
+            </list>
         </property>
         <property name="hibernateProperties">
-            <value>
-                hibernate.dialect=org.hibernate.dialect.MySQLDialect
-            </value>
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+                </prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
         </property>
     </bean>
 
     <!-- transaction manager -->
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="mySessionFactory"/>
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
     </bean>
 
     <!-- annotation-based transaction management -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+
+    <!-- class beans
+
+    <bean id="DeviceDAOInterface" class="com.springapp.mvc.daos.DeviceDAO">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+
+    <bean id="deviceService" class="com.springapp.mvc.services.DeviceService">
+        <property name="DeviceDAOInterface" ref="DeviceDAOInterface"></property>
+    </bean>
+
+    -->
+
 
 </beans>

@@ -129,6 +129,14 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Google's Genson Serializer -->
+
+        <dependency>
+            <groupId>com.owlike</groupId>
+            <artifactId>genson</artifactId>
+            <version>0.99</version>
+        </dependency>
+
         <!-- Others -->
         <dependency>
             <groupId>commons-dbcp</groupId>

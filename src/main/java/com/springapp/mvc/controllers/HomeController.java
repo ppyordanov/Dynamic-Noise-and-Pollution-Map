@@ -4,6 +4,8 @@ import com.springapp.mvc.models.DataReading;
 import com.springapp.mvc.models.Device;
 import com.springapp.mvc.services.DataReadingService;
 import com.springapp.mvc.services.DeviceService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -11,11 +13,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.sql.Timestamp;
+
 @Controller
 @RequestMapping("/")
 public class HomeController {
 
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
     private DeviceService deviceService;
     private DataReadingService dataReadingService;
 
@@ -27,7 +32,7 @@ public class HomeController {
 
     @Autowired(required=true)
     @Qualifier(value="dataReadingService")
-    public void setDeviceService(DataReadingService dataReadingService){
+    public void setDataReadingService(DataReadingService dataReadingService){
         this.dataReadingService = dataReadingService;
     }
 
@@ -48,8 +53,10 @@ public class HomeController {
             this.deviceService.updateDevice(device);
         }
 
-        DataReading dr = new DataReading();
-        if(device.getId() == null){
+        java.util.Date d= new java.util.Date();
+
+        DataReading dr = new DataReading(1, 1, new Timestamp(d.getTime()), 99.99, 99.99, 99.99, 99.99, 99.99, 99.99);
+        if(dr.getId() == null){
             //new person, add it
             this.dataReadingService.addDataReading(dr);
         }else{
@@ -58,10 +65,15 @@ public class HomeController {
         }
 
         //DB POPULATION
-
-        //FileReader reader = new FileReader("path/to/your/json");
-        //Map<String, DataReading> map = new Genson().deserialize(reader, DataReading.class);
-
+        /*
+        FileReader reader = null;
+        try {
+            reader = new FileReader("/resources/sample_data.json");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Map<String, Object> map = new Genson().deserialize(reader, Map.class);
+        */
         return "home";
     }
 

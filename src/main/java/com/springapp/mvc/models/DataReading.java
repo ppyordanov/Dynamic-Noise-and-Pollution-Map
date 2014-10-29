@@ -1,7 +1,7 @@
 package com.springapp.mvc.models;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 /**
  * Created by Peter Yordanov on 14.10.2014 г..
@@ -14,15 +14,24 @@ public class DataReading {
     @Column(name="readingID")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
+    @Column(name="deviceID")
     private Integer route_id;
+    @Column(name="routeID")
     private Integer device_id;
 
+    @Column(name="timestamp")
     private Timestamp timestamp;
+    @Column(name="latitude")
     private Double latitude;
+    @Column(name="longitude")
     private Double longitude;
+    @Column(name="noise")
     private Double noise;
+    @Column(name="co")
     private Double co;
+    @Column(name="no2")
     private Double no2;
+    @Column(name="battery")
     private Double battery;
 
     /*

@@ -12,9 +12,9 @@
 
 CREATE TABLE DEVICE(
 
-  deviceID INT NOT NULL AUTO_INCREMENT,
-  title VARCHAR(100) NOT NULL, -- variance, better than CHAR
-  description VARCHAR(250), -- great variance
+  deviceID INT AUTO_INCREMENT,
+  title VARCHAR(50) NOT NULL, -- variance, better than CHAR
+  description VARCHAR(150), -- great variance
   kit_version DECIMAL(2,1), -- 1 digit before the decimal, 1 after
   mac_address CHAR(12) NOT NULL, -- values do not vary, fixed length
 
@@ -25,7 +25,7 @@ CREATE TABLE DEVICE(
 CREATE TABLE ROUTE(
 
 
-  routeID INT NOT NULL AUTO_INCREMENT,
+  routeID INT AUTO_INCREMENT,
   deviceID INT,
 
   PRIMARY KEY(routeID),
@@ -39,14 +39,14 @@ CREATE TABLE ROUTE(
 
 CREATE TABLE DATA_READING(
 
-  readingID INT NOT NULL AUTO_INCREMENT,
+  readingID INT AUTO_INCREMENT,
   deviceID INT,
   routeID INT,
 
   timestamp TIMESTAMP NOT NULL,
   latitude DECIMAL(9,6) NOT NULL, -- best for storing coordinate bounds /3 numbers before decimal point, 6 after/
   longitude DECIMAL(9,6) NOT NULL,
-  noise DECIMAL(10,1), -- can be null if server requiests are not successful
+  noise DECIMAL(10,1), -- can be null if server requests are not successful
   co DECIMAL(10,1),
   no2 DECIMAL(10,1),
   battery DECIMAL(5,2), -- 0-100% 2 digits after decimal point captures sensor accuracy

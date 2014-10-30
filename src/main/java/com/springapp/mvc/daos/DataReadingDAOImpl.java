@@ -28,7 +28,6 @@ public class DataReadingDAOImpl implements DataReadingDAO {
     @Override
     public void addDataReading(DataReading dr){
         currentSession = this.sessionFactory.getCurrentSession();
-        LOGGER.info("dedo kiro");
         currentSession.persist(dr);
 
         LOGGER.info("DR added: /n" + dr);

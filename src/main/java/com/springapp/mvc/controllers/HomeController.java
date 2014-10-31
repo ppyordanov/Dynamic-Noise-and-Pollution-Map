@@ -1,6 +1,5 @@
 package com.springapp.mvc.controllers;
 
-import com.owlike.genson.Genson;
 import com.springapp.mvc.models.DataReading;
 import com.springapp.mvc.models.Device;
 import com.springapp.mvc.services.DataReadingService;
@@ -14,10 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.sql.Timestamp;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/")
@@ -70,16 +66,21 @@ public class HomeController {
 
         //DB POPULATION
 
+        /*
         FileReader reader = null;
         try {
-            reader = new FileReader("C:\\Users\\Peter Yordanov\\Desktop\\Ppyordanov's files\\Glasgow Uni Files 2014-15 lvl4\\Personal_Project_4\\Dynamic-Noise-and-Pollution-Map\\GEN\\SAMPLE_DATA\\sample_data.json");
+            reader = new FileReader("sample_data.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             LOGGER.info("NO JSON");
         }
         Map<String, Object> map = new Genson().deserialize(reader, Map.class);
 
+
+
         System.out.println("Readings: " + map.size() );
+
+        */
 
         return "home";
     }

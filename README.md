@@ -22,7 +22,14 @@ A dynamically generated University of Glasgow noise and pollution campus map via
  - clone this repository
  - import project directory in a supported IDE
  - DB setup (the project is currently running using a MySQL database)
+
+    - Apache web server (localhost)
+        - XAMPP Apache Distribution for management and control
+    - PHP MyAdmin software tool for SQL DB administration
+
+
  - open a terminal window from the root directory (containing pom.xml)
+
     - ```mvn validate``` validate project
     - ```mvn clean compile``` compile source code
     - ```mvn jetty:run``` run the mobile webapp on a localhost server via the jetty servlet

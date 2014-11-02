@@ -63,12 +63,14 @@ public class HomeController {
         int SIZE = 40;
 
         long startTime = System.currentTimeMillis();
-
+/*
         String insertSingleBenchmarkResult = insertSingleBenchmark();
         String insertRealDataBenchmarkResult = insertRealDataBenchmark(dataReadings, SIZE);
         String getSingleBenchmarkResult = getSingleBenchmark();
         String updateSingleBenchmarkResult = updateSingleBenchmark();
         String deleteSingleBenchmarkResult = deleteSingleBenchmark();
+
+        */
 
         String getAllBenchmarkResult = getAllBenchmark();
 
@@ -77,14 +79,14 @@ public class HomeController {
         String totalTime = dataPopulation.taskDuration(startTime, endTime);
 
         model.addAttribute("dataReadings", dataReadings);
-
+/*
         model.addAttribute("insertSingle", insertSingleBenchmarkResult);
         model.addAttribute("insertRealData", insertRealDataBenchmarkResult);
-        model.addAttribute("getAll", getAllBenchmarkResult);
+        model.addAttribute("updateSingle", updateSingleBenchmarkResult);
         model.addAttribute("getSingle", getSingleBenchmarkResult);
         model.addAttribute("deleteSingle", deleteSingleBenchmarkResult);
-
-        model.addAttribute("updateSingle", updateSingleBenchmarkResult);
+*/
+        model.addAttribute("getAll", getAllBenchmarkResult);
         model.addAttribute("realDataSize", SIZE);
         model.addAttribute("totalTime", totalTime);
 

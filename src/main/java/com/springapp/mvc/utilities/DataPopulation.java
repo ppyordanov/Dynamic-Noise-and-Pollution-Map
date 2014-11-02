@@ -16,7 +16,6 @@ import java.util.concurrent.TimeUnit;
 public class DataPopulation {
 
 
-
     //function to format execution time milliseconds => min, sec, millisec
     public String taskDuration(long startTime, long endTime) {
 

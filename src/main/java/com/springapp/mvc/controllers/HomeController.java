@@ -56,8 +56,6 @@ public class HomeController {
     public String dataPopulation(ModelMap model) {
 
 
-
-
         InputStream JSONresource = servletContext.getResourceAsStream("/resources/SAMPLE_DATA/sample_data.json");
         ArrayList<DataReading> dataReadings = dataPopulation.loadModels(JSONresource);
 
@@ -74,8 +72,7 @@ public class HomeController {
         return "data";
     }
 
-    private String insertRealDataBenchmark(ArrayList<DataReading> dataReadings)
-    {
+    private String insertRealDataBenchmark(ArrayList<DataReading> dataReadings) {
         long startTime = System.currentTimeMillis();
 
 
@@ -98,7 +95,7 @@ public class HomeController {
 
     }
 
-    private String singleInsertBenchmark(){
+    private String singleInsertBenchmark() {
 
         Device device = new Device("title", "desc", "1.1", "mac");
         java.util.Date d = new java.util.Date();

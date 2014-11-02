@@ -7,25 +7,22 @@
 <b>Test DB</b>
 
 <p>
-Records inserted in the database:  <c:out value='${readingsSize}' />
+    Records inserted in the database: <c:out value='${readingsSize}'/>
 </p>
 
 <p>
-DATA:
+    DATA:
 </p>
 
-    <c:forEach items="${dataReadings}" var="dataReading">
+<c:forEach items="${dataReadings}" var="dataReading">
 
-        <c:out value="${dataReading.timestamp}"/>
+    <c:out value="${dataReading.timestamp}"/>
 
-    </c:forEach>
-
-
-
+</c:forEach>
 
 
 <p>
-RESULT:<c:out value='${time}' />
+    RESULT:<c:out value='${time}'/>
 </p>
 
 

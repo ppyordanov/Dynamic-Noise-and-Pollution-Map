@@ -1,0 +1,25 @@
+Test MySQL DB
+MySQL
+
+DATA: skipped
+
+RESULT:
+
+Insert single record:
+
+Insert real data (SIM):
+Data size:
+12 * 5000
+
+Update single record:
+
+Get single record:
+
+Delete single record:
+
+Get all records:
+Execution time: 0 min, 4 sec, 31 millisec
+
+TOTAL:
+
+Execution time: 0 min, 4 sec, 31 millisec 

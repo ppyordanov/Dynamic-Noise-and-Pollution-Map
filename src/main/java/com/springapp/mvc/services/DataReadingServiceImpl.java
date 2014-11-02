@@ -35,12 +35,12 @@ public class DataReadingServiceImpl implements DataReadingService {
 
     @Override
     public List<DataReading> getAll() {
-        return this.dataReadingDAO.getAll()
+        return this.dataReadingDAO.getAll();
     }
 
     @Override
     public DataReading getDataReading(Integer id) {
-        return this.dataReadingDAO.getDataReading(id)
+        return this.dataReadingDAO.getDataReading(id);
     }
 
     @Override

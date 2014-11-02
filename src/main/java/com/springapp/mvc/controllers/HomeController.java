@@ -60,7 +60,7 @@ public class HomeController {
         InputStream JSONresource = servletContext.getResourceAsStream("/resources/SAMPLE_DATA/sample_data.json");
         ArrayList<DataReading> dataReadings = dataPopulation.loadModels(JSONresource);
 
-        int SIZE = 1;
+        int SIZE = 40;
 
         long startTime = System.currentTimeMillis();
 

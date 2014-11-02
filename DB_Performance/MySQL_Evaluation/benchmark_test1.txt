@@ -1,0 +1,32 @@
+
+Test DB
+
+Records inserted in the database:
+
+DATA: skipped
+
+RESULT:
+
+Insert single record:
+Single insert in tables DEVICE and DATA_READING: Execution time: 0 min, 0 sec, 260 millisec
+
+Insert real data (SIM):
+Execution time: 4 min, 43 sec, 240134 millisec Data size:
+12 * 5000
+
+Update single record:
+Execution time: 0 min, 0 sec, 70 millisec
+
+Get single record:
+Execution time: 0 min, 0 sec, 46 millisec
+
+Delete single record:
+Execution time: 0 min, 0 sec, 30 millisec
+
+Get all records:
+Execution time: 0 min, 5 sec, 72 millisec
+
+TOTAL:
+
+Execution time: 4 min, 48 sec, 240612 millisec
+

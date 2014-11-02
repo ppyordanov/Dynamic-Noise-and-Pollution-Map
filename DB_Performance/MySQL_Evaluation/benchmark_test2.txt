@@ -1,0 +1,32 @@
+
+Test MySQL DB
+
+
+
+DATA: skipped
+
+RESULT:
+
+Insert single record:
+Single insert in tables DEVICE and DATA_READING: Execution time: 0 min, 0 sec, 246 millisec
+
+Insert real data (SIM):
+Execution time: 4 min, 9 sec, 240310 millisec Data size:
+12 * 5000
+
+Update single record:
+Execution time: 0 min, 0 sec, 54 millisec
+
+Get single record:
+Execution time: 0 min, 0 sec, 25 millisec
+
+Delete single record:
+Execution time: 0 min, 0 sec, 17 millisec
+
+Get all records:
+Execution time: 0 min, 3 sec, 448 millisec
+
+TOTAL:
+
+Execution time: 4 min, 13 sec, 240101 millisec
+

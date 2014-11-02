@@ -6,7 +6,7 @@
 
 <h3>Test MySQL DB</h3>
 
-<img src="http://www.mysql.com/common/logos/logo-mysql-110x57.png" width="110" height="57" alt="MySQL" />
+<img src="http://www.mysql.com/common/logos/logo-mysql-110x57.png" width="110" height="57" alt="MySQL"/>
 
 
 <p>
@@ -45,8 +45,8 @@
 
 <p>
     <b>Update single record:<b>
-    <br>
-    <c:out value='${updateSingle}'/>
+        <br>
+        <c:out value='${updateSingle}'/>
 </p>
 
 <p>
@@ -68,9 +68,9 @@
 </p>
 
 <p>
-    <h5>TOTAL:</h5>
-    <br>
-    <c:out value='${totalTime}'/>
+<h5>TOTAL:</h5>
+<br>
+<c:out value='${totalTime}'/>
 </p>
 
 

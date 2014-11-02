@@ -1,7 +1,6 @@
 package com.springapp.mvc.daos;
 
 import com.springapp.mvc.models.DataReading;
-import com.springapp.mvc.models.Device;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;

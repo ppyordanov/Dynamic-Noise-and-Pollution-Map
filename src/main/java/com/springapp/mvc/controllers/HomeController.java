@@ -118,7 +118,7 @@ public class HomeController {
 
     }
 
-    private String updateSingleBenchmark(){
+    private String updateSingleBenchmark() {
 
         long startTime = System.currentTimeMillis();
         java.util.Date d = new java.util.Date();
@@ -133,7 +133,7 @@ public class HomeController {
         return executionTimeResult;
     }
 
-    public String getAllBenchmark(){
+    public String getAllBenchmark() {
         long startTime = System.currentTimeMillis();
 
         List<DataReading> dataReadings = this.dataReadingService.getAll();
@@ -145,7 +145,7 @@ public class HomeController {
         return executionTimeResult;
     }
 
-    public String getSingleBenchmark(){
+    public String getSingleBenchmark() {
         long startTime = System.currentTimeMillis();
 
         DataReading dataReading = this.dataReadingService.getDataReading(1);
@@ -157,7 +157,7 @@ public class HomeController {
         return executionTimeResult;
     }
 
-    public String deleteSingleBenchmark(){
+    public String deleteSingleBenchmark() {
         long startTime = System.currentTimeMillis();
 
         this.dataReadingService.deleteDataReading(1);

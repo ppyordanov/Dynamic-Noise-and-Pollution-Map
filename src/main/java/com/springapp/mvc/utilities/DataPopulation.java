@@ -2,9 +2,7 @@ package com.springapp.mvc.utilities;
 
 import com.owlike.genson.Genson;
 import com.springapp.mvc.models.DataReading;
-import com.springapp.mvc.services.DataReadingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.servlet.ServletContext;
 import java.io.InputStream;
@@ -24,14 +22,13 @@ public class DataPopulation {
     ServletContext servletContext;
 
 
-
     //function to format execution time milliseconds => min, sec, millisec
-    public String taskDuration(long startTime, long endTime){
+    public String taskDuration(long startTime, long endTime) {
 
         long insertionDuration = endTime - startTime;
 
 
-        long minutes =  TimeUnit.MILLISECONDS.toMinutes(insertionDuration);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(insertionDuration);
         long seconds = TimeUnit.MILLISECONDS.toSeconds(insertionDuration) - TimeUnit.MINUTES.toSeconds(minutes);
         long milliseconds = insertionDuration - TimeUnit.SECONDS.toMillis(seconds);
 
@@ -97,7 +94,7 @@ public class DataPopulation {
             no2 = Double.parseDouble(reading.get("no2").toString());
             battery = Double.parseDouble(reading.get("bat").toString());
 
-            position = randomPosGen(Constants.MIN_LAT_BOUNDS,Constants.MAX_LAT_BOUNDS, Constants.MIN_LON_BOUNDS, Constants.MAX_LON_BOUNDS);
+            position = randomPosGen(Constants.MIN_LAT_BOUNDS, Constants.MAX_LAT_BOUNDS, Constants.MIN_LON_BOUNDS, Constants.MAX_LON_BOUNDS);
 
             latitude = position.get("latitude");
             longitude = position.get("longitude");

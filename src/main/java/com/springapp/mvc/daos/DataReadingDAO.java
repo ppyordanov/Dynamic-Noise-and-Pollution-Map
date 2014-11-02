@@ -10,13 +10,16 @@ import java.util.List;
  */
 
 
-
 public interface DataReadingDAO {
 
     public void addDataReading(DataReading dr);
+
     public void updateDataReading(DataReading dr);
+
     public List<DataReading> getAll();
+
     public DataReading getDataReading(Integer id);
+
     public void deleteDataReading(Integer id);
 
 }

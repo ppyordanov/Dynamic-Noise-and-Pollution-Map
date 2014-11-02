@@ -7,31 +7,31 @@ import java.sql.Timestamp;
  * Created by Peter Yordanov on 14.10.2014 г..
  */
 @Entity
-@Table(name="DATA_READING")
+@Table(name = "DATA_READING")
 public class DataReading {
 
     @Id
-    @Column(name="readingID")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "readingID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name="deviceID")
+    @Column(name = "deviceID")
     private Integer route_id;
-    @Column(name="routeID")
+    @Column(name = "routeID")
     private Integer device_id;
 
-    @Column(name="timestamp")
+    @Column(name = "timestamp")
     private Timestamp timestamp;
-    @Column(name="latitude")
+    @Column(name = "latitude")
     private Double latitude;
-    @Column(name="longitude")
+    @Column(name = "longitude")
     private Double longitude;
-    @Column(name="noise")
+    @Column(name = "noise")
     private Double noise;
-    @Column(name="co")
+    @Column(name = "co")
     private Double co;
-    @Column(name="no2")
+    @Column(name = "no2")
     private Double no2;
-    @Column(name="battery")
+    @Column(name = "battery")
     private Double battery;
 
     /*
@@ -45,10 +45,10 @@ public class DataReading {
     */
 
     //default constructor
-    public DataReading(){
+    public DataReading() {
 
         super();
-        this.id  = null;
+        this.id = null;
         this.route_id = null;
         this.device_id = null;
         this.timestamp = null;
@@ -62,9 +62,9 @@ public class DataReading {
     }
 
     //parameterized constructor
-    public DataReading(Integer route_id, Integer device_id, Timestamp timestamp, Double latitude, Double longitude, Double noise, Double co, Double no2, Double battery){
+    public DataReading(Integer route_id, Integer device_id, Timestamp timestamp, Double latitude, Double longitude, Double noise, Double co, Double no2, Double battery) {
         this.id = null;
-        this.route_id  = route_id;
+        this.route_id = route_id;
         this.device_id = device_id;
         this.timestamp = timestamp;
         this.latitude = latitude;
@@ -76,7 +76,7 @@ public class DataReading {
     }
 
     //copy constructor
-    public DataReading(DataReading dr){
+    public DataReading(DataReading dr) {
 
         this.id = null;
         this.route_id = dr.getRoute_id();
@@ -170,7 +170,7 @@ public class DataReading {
         this.battery = battery;
     }
 
-    public String toString(){
+    public String toString() {
         return null;
     }
 

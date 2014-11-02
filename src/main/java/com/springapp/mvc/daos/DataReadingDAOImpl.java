@@ -21,12 +21,13 @@ public class DataReadingDAOImpl implements DataReadingDAO {
     private Session currentSession;
 
     private SessionFactory sessionFactory;
-    public void setSessionFactory(SessionFactory sessionFactory){
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public void addDataReading(DataReading dr){
+    public void addDataReading(DataReading dr) {
         currentSession = this.sessionFactory.getCurrentSession();
         currentSession.persist(dr);
 
@@ -34,7 +35,7 @@ public class DataReadingDAOImpl implements DataReadingDAO {
     }
 
     @Override
-    public void updateDataReading(DataReading dr){
+    public void updateDataReading(DataReading dr) {
         currentSession = this.sessionFactory.getCurrentSession();
         currentSession.update(dr);
 
@@ -43,11 +44,11 @@ public class DataReadingDAOImpl implements DataReadingDAO {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<DataReading> getAll(){
+    public List<DataReading> getAll() {
         currentSession = this.sessionFactory.getCurrentSession();
         List<DataReading> dataReadingList = currentSession.createQuery("from DATA_READING").list();
 
-        for(DataReading dr: dataReadingList){
+        for (DataReading dr : dataReadingList) {
             LOGGER.info("DR list: " + dr);
         }
 
@@ -55,7 +56,7 @@ public class DataReadingDAOImpl implements DataReadingDAO {
     }
 
     @Override
-    public DataReading getDataReading(Integer id){
+    public DataReading getDataReading(Integer id) {
         currentSession = this.sessionFactory.getCurrentSession();
         DataReading dr = (DataReading) currentSession.load(DataReading.class, id);
 
@@ -65,11 +66,11 @@ public class DataReadingDAOImpl implements DataReadingDAO {
     }
 
     @Override
-    public void deleteDataReading(Integer id){
+    public void deleteDataReading(Integer id) {
         currentSession = this.sessionFactory.getCurrentSession();
         DataReading dr = (DataReading) currentSession.load(Device.class, id);
 
-        if(!dr.equals(null)){
+        if (!dr.equals(null)) {
             currentSession.delete(dr);
         }
 

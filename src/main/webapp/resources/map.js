@@ -3,15 +3,15 @@ var maxLatBounds = 55.875209;
 var minLonBounds = -4.278797;
 var maxLonBounds = -4.297637;
 
-function randomPosGen(lowLatBounds, highLatBounds, lowLonBounds, highLonBounds){
+function randomPosGen(lowLatBounds, highLatBounds, lowLonBounds, highLonBounds) {
 
     var center;
 
     var multiplier = 10000000;
-    var lat = Math.random() * ((highLatBounds - lowLatBounds)*multiplier) + lowLatBounds*multiplier;
-    var lon = Math.random() * ((highLonBounds - lowLonBounds)*multiplier) + lowLonBounds*multiplier;
+    var lat = Math.random() * ((highLatBounds - lowLatBounds) * multiplier) + lowLatBounds * multiplier;
+    var lon = Math.random() * ((highLonBounds - lowLonBounds) * multiplier) + lowLonBounds * multiplier;
 
-    center = new google.maps.LatLng(lat/multiplier, lon/multiplier);
+    center = new google.maps.LatLng(lat / multiplier, lon / multiplier);
 
 
     return center;
@@ -24,14 +24,16 @@ var styles = [
             { hue: "#00ffe6" },
             { saturation: -20 }
         ]
-    },{
+    },
+    {
         featureType: "road",
         elementType: "geometry",
         stylers: [
             { lightness: 100 },
             { visibility: "simplified" }
         ]
-    },{
+    },
+    {
         featureType: "road",
         elementType: "labels",
         stylers: [
@@ -104,15 +106,13 @@ function init_map() {
         myOptions);
 
     var frameBorder = new google.maps.LatLngBounds(
-
         new google.maps.LatLng(55.870056, -4.297637),
         new google.maps.LatLng(55.875209, -4.278797)
-
     );
 
     var lastCenter = map.getCenter();
 
-    google.maps.event.addListener(map, 'center_changed', function() {
+    google.maps.event.addListener(map, 'center_changed', function () {
         if (frameBorder.contains(map.getCenter())) {
             // still within valid bounds, so save the last valid position
             lastCenter = map.getCenter();
@@ -137,10 +137,9 @@ function init_map() {
     infowindow.open(map, marker);
 
 
-
     for (var reading in campusMap) {
 
-        var position = randomPosGen(minLatBounds, maxLatBounds, minLonBounds,maxLonBounds);
+        var position = randomPosGen(minLatBounds, maxLatBounds, minLonBounds, maxLonBounds);
 
         var pollutionOptions = {
             //strokeColor: '#FF0000',
@@ -152,7 +151,7 @@ function init_map() {
             label: 'gogodi',
             center: position,
             //center: campusMap[reading].center,
-            radius: Math.sqrt(campusMap[reading].pollution) /40
+            radius: Math.sqrt(campusMap[reading].pollution) / 40
         };
 
         var noiseOptions = {
@@ -162,8 +161,8 @@ function init_map() {
             fillColor: '#999999',
             fillOpacity: 0.35,
             map: map,
-            center: randomPosGen(minLatBounds, maxLatBounds, minLonBounds,maxLonBounds),
-            radius: Math.sqrt(campusMap[reading].pollution) /40
+            center: randomPosGen(minLatBounds, maxLatBounds, minLonBounds, maxLonBounds),
+            radius: Math.sqrt(campusMap[reading].pollution) / 40
         };
         // Add the circle for this city to the map.
         pollutionCircle = new google.maps.Circle(pollutionOptions);

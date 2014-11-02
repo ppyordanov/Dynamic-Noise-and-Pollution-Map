@@ -17,37 +17,37 @@ public class DeviceServiceImpl implements DeviceService {
 
     private DeviceDAO deviceDAO;
 
-    public void setDeviceDAO(DeviceDAO deviceDAO){
+    public void setDeviceDAO(DeviceDAO deviceDAO) {
         this.deviceDAO = deviceDAO;
     }
 
     @Override
     @Transactional
-    public void addDevice(Device device){
+    public void addDevice(Device device) {
         this.deviceDAO.addDevice(device);
     }
 
     @Override
     @Transactional
-    public void updateDevice(Device device){
+    public void updateDevice(Device device) {
         this.deviceDAO.updateDevice(device);
     }
 
     @Override
     @Transactional
-    public List<Device> getAll(){
+    public List<Device> getAll() {
         return this.deviceDAO.getAll();
     }
 
     @Override
     @Transactional
-    public Device getDevice(Integer id){
+    public Device getDevice(Integer id) {
         return this.deviceDAO.getDevice(id);
     }
 
     @Override
     @Transactional
-    public void deleteDevice(Integer id){
+    public void deleteDevice(Integer id) {
         this.deviceDAO.deleteDevice(id);
     }
 

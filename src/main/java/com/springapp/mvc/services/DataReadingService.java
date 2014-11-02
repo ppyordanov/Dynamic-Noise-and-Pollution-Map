@@ -10,9 +10,13 @@ import java.util.List;
 public interface DataReadingService {
 
     public void addDataReading(DataReading dr);
+
     public void updateDataReading(DataReading dr);
+
     public List<DataReading> getAll();
+
     public DataReading getDataReading(Integer id);
+
     public void deleteDataReading(Integer id);
 
 }

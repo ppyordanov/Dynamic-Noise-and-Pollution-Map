@@ -55,13 +55,13 @@ public class HomeController {
         }
 
 
-        java.util.Date d= new java.util.Date();
+        java.util.Date d = new java.util.Date();
 
         DataReading dr = new DataReading(1, 1, new Timestamp(d.getTime()), 99.99, 99.99, 99.99, 99.99, 99.99, 99.99);
-        if(dr.getId() == null){
+        if (dr.getId() == null) {
             //new dr, add
             this.dataReadingService.addDataReading(dr);
-        }else{
+        } else {
             //existing dr, update
             this.dataReadingService.updateDataReading(dr);
         }
@@ -76,7 +76,7 @@ public class HomeController {
         for (int i = 0; i < 1; i++) {
             for (DataReading dataReading : dataReadings) {
 
-                if(dataReading.getId() != null){
+                if (dataReading.getId() != null) {
                     dataReading.setId(null);
                 }
                 this.dataReadingService.addDataReading(dataReading);

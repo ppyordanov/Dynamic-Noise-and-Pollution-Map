@@ -6,32 +6,32 @@ import javax.persistence.*;
  * Created by Peter Yordanov on 14.10.2014 г..
  */
 @Entity
-@Table(name="ROUTE")
+@Table(name = "ROUTE")
 public class Route {
 
     @Id
-    @Column(name="routeID")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "routeID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer device_id;
 
     //default constructor
-    public Route(){
+    public Route() {
 
         super();
-        this.id  = null;
+        this.id = null;
         this.device_id = null;
 
     }
 
     //parameterized constructor
-    public Route(Integer device_id){
+    public Route(Integer device_id) {
         this.id = null;
         this.device_id = device_id;
     }
 
     //copy constructor
-    public Route(Route r){
+    public Route(Route r) {
         this.id = null;
         this.device_id = r.getDevice_id();
     }
@@ -52,7 +52,7 @@ public class Route {
         this.device_id = device_id;
     }
 
-    public String toString(){
+    public String toString() {
         return null;
     }
 

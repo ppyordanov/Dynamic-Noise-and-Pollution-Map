@@ -1,21 +1,17 @@
 package com.springapp.mvc.models;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 /**
  * Created by Peter Yordanov on 19.10.2014 г..
  */
 @Entity
-@Table(name="DEVICE")
+@Table(name = "DEVICE")
 public class Device {
 
     @Id
-    @Column(name="deviceID")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "deviceID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
     private String description;
@@ -23,10 +19,10 @@ public class Device {
     private String mac_address;
 
     //default constructor
-    public Device(){
+    public Device() {
 
         super();
-        this.id  = null;
+        this.id = null;
         this.title = null;
         this.description = null;
         this.kit_version = null;
@@ -35,7 +31,7 @@ public class Device {
     }
 
     //parameterized constructor
-    public Device(String title, String description, String kit_version, String mac_address){
+    public Device(String title, String description, String kit_version, String mac_address) {
         this.id = null;
         this.title = title;
         this.description = description;
@@ -44,7 +40,7 @@ public class Device {
     }
 
     //copy constructor
-    public Device(Device d){
+    public Device(Device d) {
         this.id = null;
         this.title = d.getTitle();
         this.description = d.getDescription();
@@ -93,7 +89,7 @@ public class Device {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return null;
     }
 }

@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-
 import java.util.List;
 
 
@@ -21,12 +20,13 @@ public class DeviceDAOImpl implements DeviceDAO {
     private Session currentSession;
 
     private SessionFactory sessionFactory;
-    public void setSessionFactory(SessionFactory sessionFactory){
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public void addDevice(Device device){
+    public void addDevice(Device device) {
         currentSession = this.sessionFactory.getCurrentSession();
         currentSession.persist(device);
 
@@ -34,7 +34,7 @@ public class DeviceDAOImpl implements DeviceDAO {
     }
 
     @Override
-    public void updateDevice(Device device){
+    public void updateDevice(Device device) {
         currentSession = this.sessionFactory.getCurrentSession();
         currentSession.update(device);
 
@@ -43,11 +43,11 @@ public class DeviceDAOImpl implements DeviceDAO {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Device> getAll(){
+    public List<Device> getAll() {
         currentSession = this.sessionFactory.getCurrentSession();
         List<Device> deviceList = currentSession.createQuery("from DEVICE").list();
 
-        for(Device device: deviceList){
+        for (Device device : deviceList) {
             LOGGER.info("Device list: " + device);
         }
 
@@ -55,7 +55,7 @@ public class DeviceDAOImpl implements DeviceDAO {
     }
 
     @Override
-    public Device getDevice(Integer id){
+    public Device getDevice(Integer id) {
         currentSession = this.sessionFactory.getCurrentSession();
         Device device = (Device) currentSession.load(Device.class, id);
 
@@ -65,11 +65,11 @@ public class DeviceDAOImpl implements DeviceDAO {
     }
 
     @Override
-    public void deleteDevice(Integer id){
+    public void deleteDevice(Integer id) {
         currentSession = this.sessionFactory.getCurrentSession();
         Device device = (Device) currentSession.load(Device.class, id);
 
-        if(!device.equals(null)){
+        if (!device.equals(null)) {
             currentSession.delete(device);
         }
 

@@ -10,9 +10,13 @@ import java.util.List;
 public interface DeviceService {
 
     public void addDevice(Device device);
+
     public void updateDevice(Device device);
+
     public List<Device> getAll();
+
     public Device getDevice(Integer id);
+
     public void deleteDevice(Integer id);
 
 }

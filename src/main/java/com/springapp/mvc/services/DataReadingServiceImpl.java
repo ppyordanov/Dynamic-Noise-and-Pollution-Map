@@ -17,13 +17,13 @@ public class DataReadingServiceImpl implements DataReadingService {
 
     private DataReadingDAO dataReadingDAO;
 
-    public void setDataReadingDAO(DataReadingDAO dataReadingDAO){
+    public void setDataReadingDAO(DataReadingDAO dataReadingDAO) {
         this.dataReadingDAO = dataReadingDAO;
     }
 
     @Override
     @Transactional
-    public void addDataReading(DataReading dr){
+    public void addDataReading(DataReading dr) {
         this.dataReadingDAO.addDataReading(dr);
     }
 

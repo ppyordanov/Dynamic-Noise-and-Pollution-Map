@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletContext;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -25,6 +26,8 @@ public class HomeController {
     private
     @Autowired
     ServletContext servletContext;
+
+    private DataPopulation dataPopulation = new DataPopulation();
 
 
     @Autowired(required = true)
@@ -45,31 +48,34 @@ public class HomeController {
 
         model.addAttribute("message", "Hello world!");
 
-        Device device = new Device("title", "desc", "1.1", "mac");
-        if (device.getId() == null) {
-            //new device
-            this.deviceService.addDevice(device);
-        } else {
-            //existing device, update
-            this.deviceService.updateDevice(device);
-        }
+
+        return "home";
+    }
+
+    @RequestMapping(value = "/data")
+    public String dataPopulation(ModelMap model) {
 
 
-        java.util.Date d = new java.util.Date();
-
-        DataReading dr = new DataReading(1, 1, new Timestamp(d.getTime()), 99.99, 99.99, 99.99, 99.99, 99.99, 99.99);
-        if (dr.getId() == null) {
-            //new dr, add
-            this.dataReadingService.addDataReading(dr);
-        } else {
-            //existing dr, update
-            this.dataReadingService.updateDataReading(dr);
-        }
 
 
-        DataPopulation dataPopulation = new DataPopulation();
-        ArrayList<DataReading> dataReadings = dataPopulation.loadModels("/resources/SAMPLE_DATA/sample_data.json");
+        InputStream JSONresource = servletContext.getResourceAsStream("/resources/SAMPLE_DATA/sample_data.json");
+        ArrayList<DataReading> dataReadings = dataPopulation.loadModels(JSONresource);
 
+
+        String singleBenchmarkResult = singleInsertBenchmark();
+        String insertRealDataBenchmarkResult = insertRealDataBenchmark(dataReadings);
+
+
+        model.addAttribute("readingsSize", dataReadings.size());
+        model.addAttribute("dataReadings", dataReadings);
+        model.addAttribute("timeReal", insertRealDataBenchmarkResult);
+        model.addAttribute("timeSingle", singleBenchmarkResult);
+
+        return "data";
+    }
+
+    private String insertRealDataBenchmark(ArrayList<DataReading> dataReadings)
+    {
         long startTime = System.currentTimeMillis();
 
 
@@ -86,10 +92,31 @@ public class HomeController {
 
         long endTime = System.currentTimeMillis();
 
-        System.out.println(dataPopulation.taskDuration(startTime, endTime));
+        String executionTimeResult = dataPopulation.taskDuration(startTime, endTime);
+
+        return executionTimeResult;
+
+    }
+
+    private String singleInsertBenchmark(){
+
+        Device device = new Device("title", "desc", "1.1", "mac");
+        java.util.Date d = new java.util.Date();
+        DataReading dr = new DataReading(1, 1, new Timestamp(d.getTime()), 99.99, 99.99, 99.99, 99.99, 99.99, 99.99);
+
+        long startTime = System.currentTimeMillis();
+
+        this.deviceService.addDevice(device);
+        this.dataReadingService.addDataReading(dr);
+
+        long endTime = System.currentTimeMillis();
+
+        String executionTimeResult = dataPopulation.taskDuration(startTime, endTime);
 
 
-        return "home";
+        return "Single insert in tables DEVICE and DATA_READING: " + executionTimeResult;
+
+
     }
 
 }

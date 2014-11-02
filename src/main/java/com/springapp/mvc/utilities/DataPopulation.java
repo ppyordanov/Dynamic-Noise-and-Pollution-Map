@@ -2,9 +2,7 @@ package com.springapp.mvc.utilities;
 
 import com.owlike.genson.Genson;
 import com.springapp.mvc.models.DataReading;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.servlet.ServletContext;
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -17,9 +15,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class DataPopulation {
 
-    private
-    @Autowired
-    ServletContext servletContext;
 
 
     //function to format execution time milliseconds => min, sec, millisec
@@ -60,9 +55,8 @@ public class DataPopulation {
 
     }
 
-    public ArrayList<DataReading> loadModels(String resource) {
+    public ArrayList<DataReading> loadModels(InputStream JSONresource) {
 
-        InputStream reader = null;
         Object[] readings = null;
         Map<String, Object> map = null;
         Map<String, Object> reading = null;
@@ -76,8 +70,7 @@ public class DataPopulation {
         Double latitude = null, longitude = null, noise, co, no2, battery;
 
 
-        reader = servletContext.getResourceAsStream(resource);
-        map = new Genson().deserialize(reader, Map.class);
+        map = new Genson().deserialize(JSONresource, Map.class);
         readings = (Object[]) map.get("data");
 
         System.out.println("Readings loaded from file: " + readings.length);

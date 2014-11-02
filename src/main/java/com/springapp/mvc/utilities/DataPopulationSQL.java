@@ -1,19 +1,12 @@
-package com.springapp.mvc.controllers;
+package com.springapp.mvc.utilities;
 
 import com.owlike.genson.Genson;
 import com.springapp.mvc.models.DataReading;
-import com.springapp.mvc.models.Device;
 import com.springapp.mvc.services.DataReadingService;
-import com.springapp.mvc.services.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -21,11 +14,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-@Controller
-@RequestMapping("/")
-public class HomeController {
+/**
+ * Created by Peter Yordanov on 1.11.2014 г..
+ */
+public class DataPopulationSQL {
 
-    private DeviceService deviceService;
     private DataReadingService dataReadingService;
     private
     @Autowired
@@ -37,47 +30,13 @@ public class HomeController {
     private Double maxLonBounds = -4.297637;
 
     @Autowired(required = true)
-    @Qualifier(value = "deviceService")
-    public void setDeviceService(DeviceService deviceService) {
-        this.deviceService = deviceService;
-    }
-
-    @Autowired(required = true)
     @Qualifier(value = "dataReadingService")
     public void setDataReadingService(DataReadingService dataReadingService) {
         this.dataReadingService = dataReadingService;
     }
 
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String printWelcome(ModelMap model, HttpServletRequest request) {
-        model.addAttribute("message", "Hello world!");
-        String path = request.getContextPath();
-
-        Device device = new Device("title", "desc", "1.1", "mac");
-        if (device.getId() == null) {
-            //new device
-            this.deviceService.addDevice(device);
-        } else {
-            //existing device, update
-            this.deviceService.updateDevice(device);
-        }
-
-
-        java.util.Date d= new java.util.Date();
-
-        DataReading dr = new DataReading(1, 1, new Timestamp(d.getTime()), 99.99, 99.99, 99.99, 99.99, 99.99, 99.99);
-        if(dr.getId() == null){
-            //new dr, add
-            this.dataReadingService.addDataReading(dr);
-        }else{
-            //existing dr, update
-            this.dataReadingService.updateDataReading(dr);
-        }
-
-
-
-        //DB POPULATION
+    private void main(String[] args){
 
         ArrayList<DataReading> dataReadings = loadModels("/resources/SAMPLE_DATA/sample_data.json");
 
@@ -95,8 +54,16 @@ public class HomeController {
             }
         }
 
-
         long endTime = System.currentTimeMillis();
+
+        System.out.println(taskDuration(startTime, endTime));
+
+    }
+
+
+    //function to format execution time milliseconds => min, sec, millisec
+    private String taskDuration(long startTime, long endTime){
+
         long insertionDuration = endTime - startTime;
 
 
@@ -105,15 +72,14 @@ public class HomeController {
         long milliseconds = insertionDuration - TimeUnit.SECONDS.toMillis(seconds);
 
 
-        String result = String.format("%d min, %d sec, %d millisec",
+        String result = String.format("Execution time: %d min, %d sec, %d millisec",
                 minutes,
                 seconds,
                 milliseconds
         );
 
-        System.out.println(result);
+        return result;
 
-        return "home";
     }
 
     //v2 translated from map.js
@@ -172,10 +138,6 @@ public class HomeController {
             latitude = position.get("latitude");
             longitude = position.get("longitude");
 
-            //co = Double.valueOf(reading.get("co"));
-            //no2 = Double.valueOf(reading.get("no2"));
-            //battery = Double.valueOf(reading.get("bat"));
-
             dataReading = new DataReading(route_id, device_id, timestamp, latitude, longitude, noise, co, no2, battery);
 
 
@@ -187,6 +149,5 @@ public class HomeController {
         return dataReadings;
 
     }
-
 
 }

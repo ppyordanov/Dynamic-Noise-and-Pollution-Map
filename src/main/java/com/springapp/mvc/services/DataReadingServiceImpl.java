@@ -28,22 +28,26 @@ public class DataReadingServiceImpl implements DataReadingService {
     }
 
     @Override
+    @Transactional
     public void updateDataReading(DataReading dr) {
         this.dataReadingDAO.updateDataReading(dr);
     }
 
 
     @Override
+    @Transactional
     public List<DataReading> getAll() {
         return this.dataReadingDAO.getAll();
     }
 
     @Override
+    @Transactional
     public DataReading getDataReading(Integer id) {
         return this.dataReadingDAO.getDataReading(id);
     }
 
     @Override
+    @Transactional
     public void deleteDataReading(Integer id) {
         this.dataReadingDAO.deleteDataReading(id);
     }

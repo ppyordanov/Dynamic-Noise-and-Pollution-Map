@@ -46,7 +46,7 @@ public class DataReadingDAOImpl implements DataReadingDAO {
     @Override
     public List<DataReading> getAll() {
         currentSession = this.sessionFactory.getCurrentSession();
-        List<DataReading> dataReadingList = currentSession.createQuery("from DATA_READING").list();
+        List<DataReading> dataReadingList = currentSession.createQuery("from DataReading").list();
 
         for (DataReading dr : dataReadingList) {
             LOGGER.info("DR list: " + dr);
@@ -68,7 +68,7 @@ public class DataReadingDAOImpl implements DataReadingDAO {
     @Override
     public void deleteDataReading(Integer id) {
         currentSession = this.sessionFactory.getCurrentSession();
-        DataReading dr = (DataReading) currentSession.load(Device.class, id);
+        DataReading dr = (DataReading) currentSession.load(DataReading.class, id);
 
         if (!dr.equals(null)) {
             currentSession.delete(dr);

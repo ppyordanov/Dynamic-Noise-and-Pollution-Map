@@ -24,7 +24,7 @@ public class DataPopulation {
 
         long minutes = TimeUnit.MILLISECONDS.toMinutes(insertionDuration);
         long seconds = TimeUnit.MILLISECONDS.toSeconds(insertionDuration) - TimeUnit.MINUTES.toSeconds(minutes);
-        long milliseconds = insertionDuration - TimeUnit.SECONDS.toMillis(seconds);
+        long milliseconds = insertionDuration - (TimeUnit.SECONDS.toMillis(seconds) + TimeUnit.MINUTES.toMillis(minutes));
 
 
         String result = String.format("Execution time: %d min, %d sec, %d millisec",

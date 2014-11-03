@@ -47,7 +47,6 @@ public abstract class DataReadingDAOImpl implements DataReadingDAO {
         currentSession = this.sessionFactory.getCurrentSession();
 
 
-
         LOGGER.info("DR list: ");
 
 

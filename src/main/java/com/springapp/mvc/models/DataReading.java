@@ -9,7 +9,7 @@ import java.sql.Timestamp;
  * Created by Peter Yordanov on 14.10.2014 г..
  */
 
-@Document(collection="DataReadings")
+@Document(collection = "DataReadings")
 public class DataReading {
 
     @Id

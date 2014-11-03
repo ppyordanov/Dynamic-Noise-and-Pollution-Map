@@ -5,14 +5,11 @@ import javax.persistence.*;
 /**
  * Created by Peter Yordanov on 19.10.2014 г..
  */
-@Entity
-@Table(name = "DEVICE")
+
 public class Device {
 
     @Id
-    @Column(name = "deviceID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
     private String title;
     private String description;
     private String kit_version;
@@ -64,11 +61,11 @@ public class Device {
         this.kit_version = kit_version;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -90,6 +87,6 @@ public class Device {
 
     @Override
     public String toString() {
-        return null;
+        return this.title;
     }
 }

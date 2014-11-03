@@ -13,9 +13,9 @@ import java.sql.Timestamp;
 public class DataReading {
 
     @Id
-    private Integer id;
-    private Integer route_id;
-    private Integer device_id;
+    private String id;
+    private String route_id;
+    private String device_id;
 
     private Timestamp timestamp;
     private Double latitude;
@@ -53,7 +53,7 @@ public class DataReading {
     }
 
     //parameterized constructor
-    public DataReading(Integer route_id, Integer device_id, Timestamp timestamp, Double latitude, Double longitude, Double noise, Double co, Double no2, Double battery) {
+    public DataReading(String route_id, String device_id, Timestamp timestamp, Double latitude, Double longitude, Double noise, Double co, Double no2, Double battery) {
         this.id = null;
         this.route_id = route_id;
         this.device_id = device_id;
@@ -81,27 +81,27 @@ public class DataReading {
         this.battery = dr.getBattery();
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getRoute_id() {
+    public String getRoute_id() {
         return route_id;
     }
 
-    public void setRoute_id(Integer route_id) {
+    public void setRoute_id(String route_id) {
         this.route_id = route_id;
     }
 
-    public Integer getDevice_id() {
+    public String getDevice_id() {
         return device_id;
     }
 
-    public void setDevice_id(Integer device_id) {
+    public void setDevice_id(String device_id) {
         this.device_id = device_id;
     }
 

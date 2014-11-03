@@ -9,7 +9,7 @@
 
     <context:component-scan base-package="com.springapp.mvc"/>
     <context:component-scan base-package="com.springapp.mvc"/>
-    <mongo:repositories base-package="com.springapp.mvc.daos"/>
+    <mongo:repositories base-package="com.springapp.mvc.repositories"/>
 
 
     <mvc:resources mapping="/resources/**" location="/resources/"/>
@@ -29,58 +29,11 @@
     <!-- MongoTemplate for connecting and quering the documents in the database -->
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg name="mongo" ref="mongo"/>
-        <constructor-arg name="databaseName" value="test"/>
+        <constructor-arg name="databaseName" value="ugmap"/>
     </bean>
 
 
-    <!-- session factory -->
-    <bean id="hibernate4AnnotatedSessionFactory"
-          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="DataSource" ref="mongo"/>
-        <property name="annotatedClasses">
-            <list>
-                <value>com.springapp.mvc.models.Device</value>
-                <value>com.springapp.mvc.models.DataReading</value>
-            </list>
-        </property>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
-                </prop>
-                <prop key="hibernate.show_sql">true</prop>
-            </props>
-        </property>
-    </bean>
 
-    <!-- transaction manager -->
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
-    </bean>
-
-    <!-- annotation-based transaction management -->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-
-
-    <!-- class beans -->
-
-    <bean id="deviceDAO" class="com.springapp.mvc.daos.DeviceDAOImpl">
-        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
-    </bean>
-
-    <bean id="deviceService" class="com.springapp.mvc.services.DeviceServiceImpl">
-        <property name="deviceDAO" ref="deviceDAO"></property>
-    </bean>
-    <!--
-    <bean id="dataReadingDAO" class="com.springapp.mvc.daos.DataReadingDAOImpl">
-        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
-    </bean>
-
-
-    <bean id="dataReadingService" class="com.springapp.mvc.services.DataReadingServiceImpl">
-        <property name="dataReadingDAO" ref="dataReadingDAO"></property>
-    </bean>
-
-    -->
 
 
 </beans>

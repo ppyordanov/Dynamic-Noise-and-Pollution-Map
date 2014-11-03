@@ -64,7 +64,7 @@ public class DataPopulation {
 
         DataReading dataReading = null;
 
-        Integer route_id = null, device_id = null;
+        String route_id = null, device_id = null;
         Timestamp timestamp;
         Double latitude = null, longitude = null, noise, co, no2, battery;
 

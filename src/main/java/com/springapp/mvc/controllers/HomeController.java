@@ -2,11 +2,12 @@ package com.springapp.mvc.controllers;
 
 import com.springapp.mvc.models.DataReading;
 import com.springapp.mvc.models.Device;
-import com.springapp.mvc.services.DataReadingService;
-import com.springapp.mvc.services.DeviceService;
+import com.springapp.mvc.models.Route;
+import com.springapp.mvc.repositories.DataReadingRepository;
+import com.springapp.mvc.repositories.DeviceRepository;
+import com.springapp.mvc.repositories.RouteRepository;
 import com.springapp.mvc.utilities.DataPopulation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,16 +15,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletContext;
 import java.io.InputStream;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
 
-    private DeviceService deviceService;
-    private DataReadingService dataReadingService;
+    @Autowired(required = true)
+    private DataReadingRepository dataReadingRepository;
+    @Autowired(required = true)
+    private RouteRepository routeRepository;
+    @Autowired(required = true)
+    private DeviceRepository deviceRepository;
+    //private DataReadingRepository dataReadingService;
     private
     @Autowired
     ServletContext servletContext;
@@ -31,17 +35,7 @@ public class HomeController {
     private DataPopulation dataPopulation = new DataPopulation();
 
 
-    @Autowired(required = true)
-    @Qualifier(value = "deviceService")
-    public void setDeviceService(DeviceService deviceService) {
-        this.deviceService = deviceService;
-    }
 
-    @Autowired(required = true)
-    @Qualifier(value = "dataReadingService")
-    public void setDataReadingService(DataReadingService dataReadingService) {
-        this.dataReadingService = dataReadingService;
-    }
 
 
     @RequestMapping(method = RequestMethod.GET)
@@ -60,6 +54,22 @@ public class HomeController {
         InputStream JSONresource = servletContext.getResourceAsStream("/resources/SAMPLE_DATA/sample_data.json");
         ArrayList<DataReading> dataReadings = dataPopulation.loadModels(JSONresource);
 
+        routeRepository.deleteAll();
+
+
+        deviceRepository.save(new Device("horse", "horse", "horse", "horse"));
+        deviceRepository.save(new Device("nuggets" , "nuggets", "nuggets", "nuggets"));
+
+        System.out.println("data");
+        for(Route o: routeRepository.findAll()){
+            System.out.println(o);
+        }
+
+        for(Device o: deviceRepository.findAll()){
+            System.out.println(o);
+        }
+
+
         int SIZE = 40;
 
         long startTime = System.currentTimeMillis();
@@ -72,7 +82,7 @@ public class HomeController {
 
         */
 
-        String getAllBenchmarkResult = getAllBenchmark();
+        //String getAllBenchmarkResult = getAllBenchmark();
 
         long endTime = System.currentTimeMillis();
 
@@ -86,14 +96,14 @@ public class HomeController {
         model.addAttribute("getSingle", getSingleBenchmarkResult);
         model.addAttribute("deleteSingle", deleteSingleBenchmarkResult);
 */
-        model.addAttribute("getAll", getAllBenchmarkResult);
+        //model.addAttribute("getAll", getAllBenchmarkResult);
         model.addAttribute("realDataSize", SIZE);
         model.addAttribute("totalTime", totalTime);
 
 
         return "data";
     }
-
+/*
     // records is the insertion amount 1 corresponds to 5 000 insertions of data
     private String insertRealDataBenchmark(ArrayList<DataReading> dataReadings, int records) {
         long startTime = System.currentTimeMillis();
@@ -189,5 +199,5 @@ public class HomeController {
 
 
     }
-
+*/
 }

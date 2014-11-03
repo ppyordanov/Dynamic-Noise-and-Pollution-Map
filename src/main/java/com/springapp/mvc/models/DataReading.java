@@ -14,8 +14,8 @@ public class DataReading {
 
     @Id
     private String id;
-    private String route_id;
-    private String device_id;
+    private String routeId;
+    private String deviceId;
 
     private Timestamp timestamp;
     private Double latitude;
@@ -40,8 +40,8 @@ public class DataReading {
 
         super();
         this.id = null;
-        this.route_id = null;
-        this.device_id = null;
+        this.routeId = null;
+        this.deviceId = null;
         this.timestamp = null;
         this.latitude = null;
         this.longitude = null;
@@ -53,10 +53,10 @@ public class DataReading {
     }
 
     //parameterized constructor
-    public DataReading(String route_id, String device_id, Timestamp timestamp, Double latitude, Double longitude, Double noise, Double co, Double no2, Double battery) {
+    public DataReading(String routeId, String deviceId, Timestamp timestamp, Double latitude, Double longitude, Double noise, Double co, Double no2, Double battery) {
         this.id = null;
-        this.route_id = route_id;
-        this.device_id = device_id;
+        this.routeId = routeId;
+        this.deviceId = deviceId;
         this.timestamp = timestamp;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -70,8 +70,8 @@ public class DataReading {
     public DataReading(DataReading dr) {
 
         this.id = null;
-        this.route_id = dr.getRoute_id();
-        this.device_id = dr.getDevice_id();
+        this.routeId = dr.getRouteId();
+        this.deviceId = dr.getDeviceId();
         this.timestamp = dr.getTimestamp();
         this.latitude = dr.getLatitude();
         this.longitude = dr.getLongitude();
@@ -89,20 +89,20 @@ public class DataReading {
         this.id = id;
     }
 
-    public String getRoute_id() {
-        return route_id;
+    public String getRouteId() {
+        return routeId;
     }
 
-    public void setRoute_id(String route_id) {
-        this.route_id = route_id;
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
     }
 
-    public String getDevice_id() {
-        return device_id;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setDevice_id(String device_id) {
-        this.device_id = device_id;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     public Timestamp getTimestamp() {

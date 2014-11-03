@@ -12,8 +12,8 @@ public class Device {
     private String id;
     private String title;
     private String description;
-    private String kit_version;
-    private String mac_address;
+    private String kitVersion;
+    private String macAddress;
 
     //default constructor
     public Device() {
@@ -22,18 +22,18 @@ public class Device {
         this.id = null;
         this.title = null;
         this.description = null;
-        this.kit_version = null;
-        this.mac_address = null;
+        this.kitVersion = null;
+        this.macAddress = null;
 
     }
 
     //parameterized constructor
-    public Device(String title, String description, String kit_version, String mac_address) {
+    public Device(String title, String description, String kitVersion, String macAddress) {
         this.id = null;
         this.title = title;
         this.description = description;
-        this.kit_version = kit_version;
-        this.mac_address = mac_address;
+        this.kitVersion = kitVersion;
+        this.macAddress = macAddress;
     }
 
     //copy constructor
@@ -41,24 +41,24 @@ public class Device {
         this.id = null;
         this.title = d.getTitle();
         this.description = d.getDescription();
-        this.kit_version = d.getKit_version();
-        this.mac_address = d.getMac_address();
+        this.kitVersion = d.getKitVersion();
+        this.macAddress = d.getMacAddress();
     }
 
-    public String getMac_address() {
-        return mac_address;
+    public String getMacAddress() {
+        return macAddress;
     }
 
-    public void setMac_address(String mac_address) {
-        this.mac_address = mac_address;
+    public void setMacAddress(String macAddress) {
+        this.macAddress = macAddress;
     }
 
-    public String getKit_version() {
-        return kit_version;
+    public String getKitVersion() {
+        return kitVersion;
     }
 
-    public void setKit_version(String kit_version) {
-        this.kit_version = kit_version;
+    public void setKitVersion(String kitVersion) {
+        this.kitVersion = kitVersion;
     }
 
     public String getId() {

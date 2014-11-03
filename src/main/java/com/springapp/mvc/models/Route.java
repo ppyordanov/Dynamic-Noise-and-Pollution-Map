@@ -10,27 +10,27 @@ public class Route {
 
     @Id
     private String id;
-    private String device_id;
+    private String deviceId;
 
     //default constructor
     public Route() {
 
         super();
         this.id = null;
-        this.device_id = null;
+        this.deviceId = null;
 
     }
 
     //parameterized constructor
-    public Route(String device_id) {
+    public Route(String deviceId) {
         this.id = null;
-        this.device_id = device_id;
+        this.deviceId = deviceId;
     }
 
     //copy constructor
     public Route(Route r) {
         this.id = null;
-        this.device_id = r.getDevice_id();
+        this.deviceId = r.getDeviceId();
     }
 
     public String getId() {
@@ -41,16 +41,16 @@ public class Route {
         this.id = id;
     }
 
-    public String getDevice_id() {
-        return device_id;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setDevice_id(String device_id) {
-        this.device_id = device_id;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     public String toString() {
-        return this.device_id.toString();
+        return this.deviceId.toString();
     }
 
 }

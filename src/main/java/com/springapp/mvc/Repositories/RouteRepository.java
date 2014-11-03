@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * Created by Peter Yordanov on 29.10.2014 г..
  */
 
-@Document(collection = "Routes")
+@Document(collection = "Route")
 public interface RouteRepository extends MongoRepository<Route, String> {
 
     //public Route findByDevice_Id(int id);

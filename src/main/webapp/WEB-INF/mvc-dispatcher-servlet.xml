@@ -70,14 +70,17 @@
     <bean id="deviceService" class="com.springapp.mvc.services.DeviceServiceImpl">
         <property name="deviceDAO" ref="deviceDAO"></property>
     </bean>
-
+    <!--
     <bean id="dataReadingDAO" class="com.springapp.mvc.daos.DataReadingDAOImpl">
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
     </bean>
 
+
     <bean id="dataReadingService" class="com.springapp.mvc.services.DataReadingServiceImpl">
         <property name="dataReadingDAO" ref="dataReadingDAO"></property>
     </bean>
+
+    -->
 
 
 </beans>

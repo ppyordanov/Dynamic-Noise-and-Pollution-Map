@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Peter Yordanov on 29.10.2014 г..
  */
 @Repository
-public class DataReadingDAOImpl implements DataReadingDAO {
+public abstract class DataReadingDAOImpl implements DataReadingDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DeviceDAOImpl.class);
     private Session currentSession;
@@ -28,7 +28,7 @@ public class DataReadingDAOImpl implements DataReadingDAO {
     @Override
     public void addDataReading(DataReading dr) {
         currentSession = this.sessionFactory.getCurrentSession();
-        currentSession.persist(dr);
+
 
         LOGGER.info("DR added: /n" + dr);
     }
@@ -36,7 +36,7 @@ public class DataReadingDAOImpl implements DataReadingDAO {
     @Override
     public void updateDataReading(DataReading dr) {
         currentSession = this.sessionFactory.getCurrentSession();
-        currentSession.update(dr);
+
 
         LOGGER.info("DR updated: /n" + dr);
     }
@@ -45,13 +45,13 @@ public class DataReadingDAOImpl implements DataReadingDAO {
     @Override
     public List<DataReading> getAll() {
         currentSession = this.sessionFactory.getCurrentSession();
-        List<DataReading> dataReadingList = currentSession.createQuery("from DataReading").list();
 
-        for (DataReading dr : dataReadingList) {
-            LOGGER.info("DR list: " + dr);
-        }
 
-        return dataReadingList;
+
+        LOGGER.info("DR list: ");
+
+
+        return null;
     }
 
     @Override

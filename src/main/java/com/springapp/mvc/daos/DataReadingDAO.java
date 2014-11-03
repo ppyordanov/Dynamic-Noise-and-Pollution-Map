@@ -1,6 +1,7 @@
 package com.springapp.mvc.daos;
 
 import com.springapp.mvc.models.DataReading;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 
 
-public interface DataReadingDAO {
+public interface DataReadingDAO extends MongoRepository<DataReading, String> {
 
     public void addDataReading(DataReading dr);
 

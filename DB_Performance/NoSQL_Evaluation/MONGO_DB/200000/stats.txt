@@ -1,0 +1,19 @@
+> db.DataReadings.stats()
+{
+        "ns" : "ugmap.DataReadings",
+        "count" : 199999,
+        "size" : 47999760,
+        "avgObjSize" : 240,
+        "storageSize" : 58441728,
+        "numExtents" : 9,
+        "nindexes" : 1,
+        "lastExtentSize" : 20643840,
+        "paddingFactor" : 1,
+        "systemFlags" : 1,
+        "userFlags" : 1,
+        "totalIndexSize" : 6508096,
+        "indexSizes" : {
+                "_id_" : 6508096
+        },
+        "ok" : 1
+}

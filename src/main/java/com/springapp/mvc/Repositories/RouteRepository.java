@@ -12,6 +12,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 @Document(collection = "Route")
 public interface RouteRepository extends MongoRepository<Route, String> {
 
-    //public Route findByDevice_Id(int id);
+    //public Route findByDeviceId(int id);
 
 }

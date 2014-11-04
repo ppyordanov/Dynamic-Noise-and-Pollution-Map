@@ -11,4 +11,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 @Document(collection = "DataReading")
 public interface DataReadingRepository extends MongoRepository<DataReading, String> {
+
+    public DataReading findByRouteId(String route_id);
+    public DataReading findByDeviceId(String device_id);
+    public DataReading findByBattery(Double battery);
+
+
+
 }

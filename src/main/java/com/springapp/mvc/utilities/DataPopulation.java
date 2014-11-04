@@ -79,7 +79,7 @@ public class DataPopulation {
 
             reading = (Map<String, Object>) o;
 
-            timestamp = Timestamp.valueOf((String) reading.get("timestamp"));
+            timestamp = null;
 
             noise = Double.parseDouble(reading.get("noise").toString());
             co = Double.parseDouble(reading.get("co").toString());

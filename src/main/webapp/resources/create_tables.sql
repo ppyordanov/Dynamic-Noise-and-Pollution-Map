@@ -15,8 +15,8 @@ CREATE TABLE DEVICE(
   deviceID INT AUTO_INCREMENT,
   title VARCHAR(50) NOT NULL, -- variance, better than CHAR
   description VARCHAR(150), -- great variance
-  kit_version DECIMAL(2,1), -- 1 digit before the decimal, 1 after
-  mac_address CHAR(12) NOT NULL, -- values do not vary, fixed length
+  kitVersion DECIMAL(2,1), -- 1 digit before the decimal, 1 after
+  macAddress CHAR(12) NOT NULL, -- values do not vary, fixed length
 
   PRIMARY KEY (deviceID)
 

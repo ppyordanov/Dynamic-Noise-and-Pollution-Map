@@ -5,55 +5,52 @@ import javax.persistence.*;
 /**
  * Created by Peter Yordanov on 14.10.2014 г..
  */
-@Entity
-@Table(name = "ROUTE")
+
 public class Route {
 
     @Id
-    @Column(name = "routeID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private Integer device_id;
+    private String id;
+    private String deviceId;
 
     //default constructor
     public Route() {
 
         super();
         this.id = null;
-        this.device_id = null;
+        this.deviceId = null;
 
     }
 
     //parameterized constructor
-    public Route(Integer device_id) {
+    public Route(String deviceId) {
         this.id = null;
-        this.device_id = device_id;
+        this.deviceId = deviceId;
     }
 
     //copy constructor
     public Route(Route r) {
         this.id = null;
-        this.device_id = r.getDevice_id();
+        this.deviceId = r.getDeviceId();
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getDevice_id() {
-        return device_id;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setDevice_id(Integer device_id) {
-        this.device_id = device_id;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     public String toString() {
-        return null;
+        return this.deviceId.toString();
     }
 
 }

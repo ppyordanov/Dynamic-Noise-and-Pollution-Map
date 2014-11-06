@@ -64,7 +64,7 @@ public class DataPopulation {
 
         DataReading dataReading = null;
 
-        Integer route_id = null, device_id = null;
+        String route_id = null, device_id = null;
         Timestamp timestamp;
         Double latitude = null, longitude = null, noise, co, no2, battery;
 
@@ -79,7 +79,7 @@ public class DataPopulation {
 
             reading = (Map<String, Object>) o;
 
-            timestamp = Timestamp.valueOf((String) reading.get("timestamp"));
+            timestamp = null;
 
             noise = Double.parseDouble(reading.get("noise").toString());
             co = Double.parseDouble(reading.get("co").toString());

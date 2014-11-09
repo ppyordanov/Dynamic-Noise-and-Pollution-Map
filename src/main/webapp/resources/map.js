@@ -126,6 +126,16 @@ campusMap['ug8'] = {
 
 
 
+function progressEvaluate(value, benchmark){
+
+
+    var progress = (value/benchmark)*100;
+    var progressContent ='<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: '+ progress + '%"><span class="sr-only">45% Complete</span></div></div>'
+    return progressContent;
+}
+
+
+
 function init_map() {
 
     var myOptions = {
@@ -181,9 +191,10 @@ function init_map() {
 
 
     //alert(dataReadings[0].co);
-    var radiusNoise
-    var radiusPollution
+    var radiusNoise;
+    var radiusPollution;
     var latitude, longitude, position;
+
 
 /*
     for (var i=0;i<dataReadings.length/50;i++) {
@@ -226,11 +237,21 @@ function init_map() {
     var popup;
     var marker;
 
-    for (var i=0;i<dataReadings.length/10;i++) {
+    var maxNoise = 500;
+    var maxCO = 500;
+    var maxNO2 = 500;
+    var maxBattery = 100;
 
+
+
+    for (var i=0;i<dataReadings.length/50;i++) {
+
+        id = dataReadings[i].id;
         noise = parseFloat(dataReadings[i].noise);
         co =parseFloat(dataReadings[i].co);
         no2 =parseFloat(dataReadings[i].no2);
+        //alert(dataReadings[i].timestamp);
+        battery = parseFloat(dataReadings[i].battery);
         latitude = parseFloat(dataReadings[i].latitude);
         longitude = parseFloat(dataReadings[i].longitude);
 
@@ -239,21 +260,27 @@ function init_map() {
 
         var image = '/resources/sck_logo4.png';
 
-        marker = new google.maps.Marker({
+
+        var marker = new google.maps.Marker({
             position: position,
             map: map,
             animation: google.maps.Animation.DROP,
             icon: image
         });
 
-        var content = "Noise: " + noise.toString() + "<br> CO: " + co.toString() + "<br> NO2: " + no2.toString();
-        var popup = '<div class="mapPopUp">' + content + '</div>';
+        var content = "Noise: " + noise.toString() + progressEvaluate(noise,maxNoise) + "CO: " + co.toString() + progressEvaluate(co,maxCO) + "NO2: " + no2.toString() + progressEvaluate(no2, maxNO2) + "Battery: " + battery.toString() + progressEvaluate(battery,maxBattery);
+        var styledContent = '<div class="mapPopUp">' + content + '</div>';
+        var popup = new google.maps.InfoWindow({});
         popup=new google.maps.InfoWindow({
-            content: popup
+            content: "Loading.."
+
         });
+
+
 
         google.maps.event.addListener(marker, 'mouseover', function(e) {
             console.log(e);
+            popup.setContent(styledContent);
             popup.open(map, this);
         });
 

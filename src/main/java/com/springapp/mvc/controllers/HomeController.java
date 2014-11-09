@@ -59,6 +59,9 @@ public class HomeController {
 
         model.addAttribute(MESSAGE, "Hello world!");
 
+        List<DataReading> dataReadings = dataReadingRepository.findAll();
+        model.addAttribute("dataReadingsModels", dataReadingRepository.findAll());
+
 
         return HOME;
     }
@@ -107,7 +110,6 @@ public class HomeController {
         model.addAttribute(GET_ALL, getAllBenchmarkResult);
         model.addAttribute(REAL_DATA_SIZE, SIZE);
         model.addAttribute(TOTAL_TIME, totalTime);
-
 
         return "data";
     }

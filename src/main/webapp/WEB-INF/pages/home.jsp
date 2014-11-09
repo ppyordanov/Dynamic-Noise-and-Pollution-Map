@@ -1,16 +1,51 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
 
-    <link type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" rel="stylesheet"/>
+    <link type="text/css" href="${pageContext.request.contextPath}/resources/bs/css/bootstrap.css" rel="stylesheet"/>
     <link type="text/css" href="${pageContext.request.contextPath}/resources/main.css" rel="stylesheet"/>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bs/js/jquery-1.11.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bs/js/bootstrap.min.js"></script>
 
 
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script src="${pageContext.request.contextPath}/resources/map.js"></script>
+
+    <script type="text/javascript" >
+    var dataReadings = [];
+
+    <c:forEach items="${dataReadingsModels}" var="element">
+
+        var dataReading = {};
+
+
+        dataReading["id"] = "${element.id}";
+        dataReading["routeId"] = "${element.routeId}";
+        dataReading["deviceId"] = "${element.deviceId}";
+        dataReading["timestamp"] = "${element.timestamp}";
+        dataReading["latitude"] = "${element.latitude}";
+        dataReading["longitude"] = "${element.longitude}";
+        dataReading["noise"] = "${element.noise}";
+        dataReading["co"] = "${element.co}";
+        dataReading["no2"] = "${element.no2}";
+        dataReading["battery"] = "${element.battery}";
+
+
+        dataReadings.push(dataReading);
+    </c:forEach>
+
+
+    //lert(dataReadings.length);
+
+
+
+
+    </script>
+
+
+
 
 </head>
 <body>

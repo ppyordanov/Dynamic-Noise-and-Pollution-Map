@@ -22,7 +22,7 @@ var styles = [
     {
         stylers: [
             { hue: "#00ffe6" },
-            { saturation: -20 }
+            { saturation: -100 }
         ]
     },
     {
@@ -46,6 +46,8 @@ var styledMap = new google.maps.StyledMapType(styles,
     {name: "Styled Map"});
 
 var campusMap = {};
+var dataCircle = {};
+
 campusMap['ug1'] = {
     //center: new google.maps.LatLng(55.872912, -4.289657),
     pollution: 2714856,
@@ -87,8 +89,6 @@ campusMap['ug8'] = {
 };
 
 
-var dataCircle;
-
 
 function init_map() {
 
@@ -123,6 +123,7 @@ function init_map() {
         map.panTo(lastCenter);
     });
 
+    /*
 
     marker = new google.maps.Marker({
         map: map, position: new google.maps.LatLng(55.872912, -4.289657)});
@@ -131,15 +132,31 @@ function init_map() {
         content: "<b>Macintosh house</b><br/>description" });
 
 
+
+
     google.maps.event.addListener(marker, "click", function () {
         infowindow.open(map, marker);
     });
     infowindow.open(map, marker);
 
 
-    for (var reading in campusMap) {
+    */
 
-        var position = randomPosGen(minLatBounds, maxLatBounds, minLonBounds, maxLonBounds);
+
+
+    //alert(dataReadings[0].co);
+    var radiusNoise
+    var radiusPollution
+    var latitude, longitude, position;
+
+/*
+    for (var i=0;i<dataReadings.length/50;i++) {
+
+        radiusNoise = parseFloat(dataReadings[i].noise)/5;
+        radiusPollution =parseFloat(dataReadings[i].co)/5;
+        latitude = parseFloat(dataReadings[i].latitude);
+        longitude = parseFloat(dataReadings[i].longitude);
+        position = new google.maps.LatLng(latitude, longitude);
 
         var pollutionOptions = {
             //strokeColor: '#FF0000',
@@ -151,22 +168,63 @@ function init_map() {
             label: 'gogodi',
             center: position,
             //center: campusMap[reading].center,
-            radius: Math.sqrt(campusMap[reading].pollution) / 40
+            radius: radiusPollution
         };
 
         var noiseOptions = {
             //strokeColor: '#FF0000',
             //strokeOpacity: 0.8,
             strokeWeight: 0,
-            fillColor: '#999999',
+            fillColor: '#00FF00',
             fillOpacity: 0.35,
             map: map,
-            center: randomPosGen(minLatBounds, maxLatBounds, minLonBounds, maxLonBounds),
-            radius: Math.sqrt(campusMap[reading].pollution) / 40
+            center: position,
+            radius: radiusNoise
         };
-        // Add the circle for this city to the map.
+
         pollutionCircle = new google.maps.Circle(pollutionOptions);
         noiseCircle = new google.maps.Circle(noiseOptions);
+    }
+
+*/
+    var popup;
+    var marker;
+
+    for (var i=0;i<dataReadings.length/50;i++) {
+
+        noise = parseFloat(dataReadings[i].noise);
+        co =parseFloat(dataReadings[i].co);
+        no2 =parseFloat(dataReadings[i].no2);
+        latitude = parseFloat(dataReadings[i].latitude);
+        longitude = parseFloat(dataReadings[i].longitude);
+        //position =randomPosGen(minLatBounds, maxLatBounds, minLonBounds, maxLonBounds);
+        position = new google.maps.LatLng(latitude, longitude);
+
+        var image = '/resources/sck_logo4.png';
+
+        marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            animation: google.maps.Animation.DROP,
+            icon: image
+        });
+
+        popup=new google.maps.InfoWindow({
+            content: "Hello"
+        });
+
+        google.maps.event.addListener(marker, 'mouseover', function(e) {
+            console.log(e);
+            popup.open(map, this);
+        });
+        google.maps.event.addListener(marker, 'mouseout', function(e) {
+            console.log(e);
+            popup.close()
+        });
+/*
+        pollutionCircle = new google.maps.Circle(pollutionOptions);
+        noiseCircle = new google.maps.Circle(noiseOptions);
+        */
     }
 
     map.mapTypes.set('map_style', styledMap);

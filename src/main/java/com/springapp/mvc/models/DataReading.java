@@ -1,37 +1,28 @@
 package com.springapp.mvc.models;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.sql.Timestamp;
 
 /**
  * Created by Peter Yordanov on 14.10.2014 г..
  */
-@Entity
-@Table(name = "DATA_READING")
+
+@Document(collection = "DataReadings")
 public class DataReading {
 
     @Id
-    @Column(name = "readingID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Column(name = "deviceID")
-    private Integer route_id;
-    @Column(name = "routeID")
-    private Integer device_id;
+    private String id;
+    private String routeId;
+    private String deviceId;
 
-    @Column(name = "timestamp")
     private Timestamp timestamp;
-    @Column(name = "latitude")
     private Double latitude;
-    @Column(name = "longitude")
     private Double longitude;
-    @Column(name = "noise")
     private Double noise;
-    @Column(name = "co")
     private Double co;
-    @Column(name = "no2")
     private Double no2;
-    @Column(name = "battery")
     private Double battery;
 
     /*
@@ -49,8 +40,8 @@ public class DataReading {
 
         super();
         this.id = null;
-        this.route_id = null;
-        this.device_id = null;
+        this.routeId = null;
+        this.deviceId = null;
         this.timestamp = null;
         this.latitude = null;
         this.longitude = null;
@@ -62,10 +53,10 @@ public class DataReading {
     }
 
     //parameterized constructor
-    public DataReading(Integer route_id, Integer device_id, Timestamp timestamp, Double latitude, Double longitude, Double noise, Double co, Double no2, Double battery) {
+    public DataReading(String routeId, String deviceId, Timestamp timestamp, Double latitude, Double longitude, Double noise, Double co, Double no2, Double battery) {
         this.id = null;
-        this.route_id = route_id;
-        this.device_id = device_id;
+        this.routeId = routeId;
+        this.deviceId = deviceId;
         this.timestamp = timestamp;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -79,8 +70,8 @@ public class DataReading {
     public DataReading(DataReading dr) {
 
         this.id = null;
-        this.route_id = dr.getRoute_id();
-        this.device_id = dr.getDevice_id();
+        this.routeId = dr.getRouteId();
+        this.deviceId = dr.getDeviceId();
         this.timestamp = dr.getTimestamp();
         this.latitude = dr.getLatitude();
         this.longitude = dr.getLongitude();
@@ -90,28 +81,28 @@ public class DataReading {
         this.battery = dr.getBattery();
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getRoute_id() {
-        return route_id;
+    public String getRouteId() {
+        return routeId;
     }
 
-    public void setRoute_id(Integer route_id) {
-        this.route_id = route_id;
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
     }
 
-    public Integer getDevice_id() {
-        return device_id;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setDevice_id(Integer device_id) {
-        this.device_id = device_id;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     public Timestamp getTimestamp() {

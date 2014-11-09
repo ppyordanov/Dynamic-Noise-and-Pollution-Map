@@ -4,9 +4,9 @@
 
 <body>
 
-<h3>Test MySQL DB</h3>
+<h3>Test MONGO_DB</h3>
 
-<img src="http://www.mysql.com/common/logos/logo-mysql-110x57.png" width="110" height="57" alt="MySQL"/>
+<img src="http://info.mongodb.com/rs/mongodb/images/Powered_by_MongoDB_2.png" alt="MongoDB"/>
 
 
 <p>

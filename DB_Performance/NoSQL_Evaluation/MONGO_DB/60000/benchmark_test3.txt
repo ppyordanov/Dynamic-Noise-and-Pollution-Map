@@ -1,0 +1,31 @@
+
+Test MONGO_DB
+MongoDB
+
+DATA: skipped
+
+RESULT:
+
+Insert single record:
+Single insert in collections: Execution time: 0 min, 0 sec, 9 millisec
+
+Insert real data (SIM):
+Execution time: 0 min, 10 sec, 420 millisec Data size:
+12 * 5000
+
+Update single record:
+Execution time: 0 min, 0 sec, 5 millisec
+
+Get single record:
+Execution time: 0 min, 0 sec, 25 millisec
+
+Delete single record:
+Execution time: 0 min, 0 sec, 7 millisec
+
+Get all records:
+Execution time: 0 min, 0 sec, 504 millisec
+
+TOTAL:
+
+Execution time: 0 min, 10 sec, 971 millisec
+

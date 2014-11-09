@@ -110,8 +110,8 @@ function init_map() {
         myOptions);
 
     var frameBorder = new google.maps.LatLngBounds(
-        new google.maps.LatLng(maxLatBounds, minLonBounds),
-        new google.maps.LatLng(minLatBounds, maxLonBounds)
+        new google.maps.LatLng(minLatBounds, maxLonBounds),
+        new google.maps.LatLng(maxLatBounds, minLonBounds)
     );
 
     var lastCenter = map.getCenter();

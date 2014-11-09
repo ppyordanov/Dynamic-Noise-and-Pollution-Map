@@ -19,7 +19,7 @@ public class DataPopulation {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataPopulation.class);
 
-    //v2 translated from map.js
+    //v2 translated from t.js
     public Map<String, Double> randomPosGen(Double minLatBounds, Double maxLatBounds, Double minLonBounds, Double maxLonBounds) {
 
         Map<String, Double> position = new HashMap<String, Double>();

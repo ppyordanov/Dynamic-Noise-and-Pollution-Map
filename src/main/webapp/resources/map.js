@@ -3,6 +3,17 @@ var maxLatBounds = 55.875209;
 var minLonBounds = -4.278797;
 var maxLonBounds = -4.297637;
 
+var radiusNoise;
+var radiusPollution;
+var latitude, longitude, position;
+
+var marker;
+
+var maxNoise = 100;
+var maxCO = 500;
+var maxNO2 = 20;
+var maxBattery = 100;
+var map;
 function randomPosGen(lowLatBounds, highLatBounds, lowLonBounds, highLonBounds) {
 
     var center;
@@ -18,6 +29,13 @@ function randomPosGen(lowLatBounds, highLatBounds, lowLonBounds, highLonBounds) 
 
 }
 
+function progressEvaluate(value, benchmark) {
+
+
+    var progress = (value / benchmark) * 100;
+    var progressContent = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: ' + progress + '%"><span class="sr-only">45% Complete</span></div></div>'
+    return progressContent;
+}
 
 var style1 = [
     {
@@ -83,58 +101,52 @@ var styles = [style1, style2];
 var styledMap = new google.maps.StyledMapType(styles[0],
     {name: "Styled Map"});
 
-var campusMap = {};
-var dataCircle = {};
 
-campusMap['ug1'] = {
-    //center: new google.maps.LatLng(55.872912, -4.289657),
-    pollution: 2714856,
-    noise: 3000000
-};
-campusMap['ug2'] = {
-    pollution: 100000,
-    noise: 4000000
-};
-campusMap['ug3'] = {
-    pollution: 300000,
-    noise: 6000000
+var popup = new google.maps.InfoWindow({});
 
-};
-campusMap['ug4'] = {
-    pollution: 300000,
-    noise: 6000000
-
-};
-campusMap['ug5'] = {
-    pollution: 300000,
-    noise: 6000000
-
-};
-campusMap['ug6'] = {
-    pollution: 300000,
-    noise: 6000000
-
-};
-campusMap['ug7'] = {
-    pollution: 300000,
-    noise: 6000000
-
-};
-campusMap['ug8'] = {
-    pollution: 300000,
-    noise: 6000000
-
-};
+function addPopUp(marker, content){
 
 
-function progressEvaluate(value, benchmark) {
+    google.maps.event.addListener(marker, 'mouseover', function (e) {
+        console.log(e);
+        popup.setContent(content);
+        popup.open(map, marker);
+    });
 
 
-    var progress = (value / benchmark) * 100;
-    var progressContent = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: ' + progress + '%"><span class="sr-only">45% Complete</span></div></div>'
-    return progressContent;
+
 }
 
+function generateMarker(dataReading){
+
+    id = dataReading.id;
+    noise = parseFloat(dataReading.noise);
+    co = parseFloat(dataReading.co);
+    no2 = parseFloat(dataReading.no2);
+    //alert(dataReadings[i].timestamp);
+    battery = parseFloat(dataReading.battery);
+    latitude = parseFloat(dataReading.latitude);
+    longitude = parseFloat(dataReading.longitude);
+
+    //position =randomPosGen(minLatBounds, maxLatBounds, minLonBounds, maxLonBounds);
+    position = new google.maps.LatLng(latitude, longitude);
+
+    var image = '/resources/sck_logo4.png';
+
+
+    var marker = new google.maps.Marker({
+        position: position,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        icon: image
+    });
+
+    var content = "Noise: " + noise.toString() + progressEvaluate(noise, maxNoise) + "CO: " + co.toString() + progressEvaluate(co, maxCO) + "NO2: " + no2.toString() + progressEvaluate(no2, maxNO2) + "Battery: " + battery.toString() + progressEvaluate(battery, maxBattery);
+    var styledContent = '<div class="mapPopUp">' + content + '</div>';
+
+    addPopUp(marker, styledContent);
+
+}
 
 function init_map() {
 
@@ -169,122 +181,11 @@ function init_map() {
         map.panTo(lastCenter);
     });
 
-    /*
 
-     marker = new google.maps.Marker({
-     map: map, position: new google.maps.LatLng(55.872912, -4.289657)});
+    for (var i = 0; i < dataReadings.length /50; i++) {
 
-     infowindow = new google.maps.InfoWindow({
-     content: "<b>Macintosh house</b><br/>description" });
+        generateMarker(dataReadings[i]);
 
-
-
-
-     google.maps.event.addListener(marker, "click", function () {
-     infowindow.open(map, marker);
-     });
-     infowindow.open(map, marker);
-
-
-     */
-
-
-    //alert(dataReadings[0].co);
-    var radiusNoise;
-    var radiusPollution;
-    var latitude, longitude, position;
-
-
-    /*
-     for (var i=0;i<dataReadings.length/50;i++) {
-
-     radiusNoise = parseFloat(dataReadings[i].noise)/5;
-     radiusPollution =parseFloat(dataReadings[i].co)/5;
-     latitude = parseFloat(dataReadings[i].latitude);
-     longitude = parseFloat(dataReadings[i].longitude);
-     position = new google.maps.LatLng(latitude, longitude);
-
-     var pollutionOptions = {
-     //strokeColor: '#FF0000',
-     //strokeOpacity: 0.8,
-     strokeWeight: 0,
-     fillColor: '#FF0000',
-     fillOpacity: 0.35,
-     map: map,
-     label: 'gogodi',
-     center: position,
-     //center: campusMap[reading].center,
-     radius: radiusPollution
-     };
-
-     var noiseOptions = {
-     //strokeColor: '#FF0000',
-     //strokeOpacity: 0.8,
-     strokeWeight: 0,
-     fillColor: '#00FF00',
-     fillOpacity: 0.35,
-     map: map,
-     center: position,
-     radius: radiusNoise
-     };
-
-     pollutionCircle = new google.maps.Circle(pollutionOptions);
-     noiseCircle = new google.maps.Circle(noiseOptions);
-     }
-
-     */
-    var popup;
-    var marker;
-
-    var maxNoise = 500;
-    var maxCO = 500;
-    var maxNO2 = 500;
-    var maxBattery = 100;
-
-
-    for (var i = 0; i < dataReadings.length / 50; i++) {
-
-        id = dataReadings[i].id;
-        noise = parseFloat(dataReadings[i].noise);
-        co = parseFloat(dataReadings[i].co);
-        no2 = parseFloat(dataReadings[i].no2);
-        //alert(dataReadings[i].timestamp);
-        battery = parseFloat(dataReadings[i].battery);
-        latitude = parseFloat(dataReadings[i].latitude);
-        longitude = parseFloat(dataReadings[i].longitude);
-
-        //position =randomPosGen(minLatBounds, maxLatBounds, minLonBounds, maxLonBounds);
-        position = new google.maps.LatLng(latitude, longitude);
-
-        var image = '/resources/sck_logo4.png';
-
-
-        var marker = new google.maps.Marker({
-            position: position,
-            map: map,
-            animation: google.maps.Animation.DROP,
-            icon: image
-        });
-
-        var content = "Noise: " + noise.toString() + progressEvaluate(noise, maxNoise) + "CO: " + co.toString() + progressEvaluate(co, maxCO) + "NO2: " + no2.toString() + progressEvaluate(no2, maxNO2) + "Battery: " + battery.toString() + progressEvaluate(battery, maxBattery);
-        var styledContent = '<div class="mapPopUp">' + content + '</div>';
-        var popup = new google.maps.InfoWindow({});
-        popup = new google.maps.InfoWindow({
-            content: "Loading.."
-
-        });
-
-
-        google.maps.event.addListener(marker, 'mouseover', function (e) {
-            console.log(e);
-            popup.setContent(styledContent);
-            popup.open(map, this);
-        });
-
-        /*
-         pollutionCircle = new google.maps.Circle(pollutionOptions);
-         noiseCircle = new google.maps.Circle(noiseOptions);
-         */
     }
 
     map.mapTypes.set('map_style', styledMap);

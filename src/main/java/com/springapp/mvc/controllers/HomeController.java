@@ -22,7 +22,6 @@ import java.util.List;
 public class HomeController {
 
 
-
     @Autowired(required = true)
     private DataReadingRepository dataReadingRepository;
     @Autowired
@@ -80,7 +79,6 @@ public class HomeController {
         routeRepository.deleteAll();
         deviceRepository.deleteAll();
         dataReadingRepository.deleteAll();
-
 
 
         int SIZE = 1;

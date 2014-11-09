@@ -50,14 +50,16 @@ var style2 = [
             { saturation: -20 },
             { gamma: 1.50 }
         ]
-    },{
+    },
+    {
         featureType: "road",
         elementType: "geometry",
         stylers: [
             { lightness: 100 },
             { visibility: "simplified" }
         ]
-    },{
+    },
+    {
         featureType: "road",
         elementType: "labels.text.stroke",
         stylers: [
@@ -125,15 +127,13 @@ campusMap['ug8'] = {
 };
 
 
+function progressEvaluate(value, benchmark) {
 
-function progressEvaluate(value, benchmark){
 
-
-    var progress = (value/benchmark)*100;
-    var progressContent ='<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: '+ progress + '%"><span class="sr-only">45% Complete</span></div></div>'
+    var progress = (value / benchmark) * 100;
+    var progressContent = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: ' + progress + '%"><span class="sr-only">45% Complete</span></div></div>'
     return progressContent;
 }
-
 
 
 function init_map() {
@@ -171,23 +171,22 @@ function init_map() {
 
     /*
 
-    marker = new google.maps.Marker({
-        map: map, position: new google.maps.LatLng(55.872912, -4.289657)});
+     marker = new google.maps.Marker({
+     map: map, position: new google.maps.LatLng(55.872912, -4.289657)});
 
-    infowindow = new google.maps.InfoWindow({
-        content: "<b>Macintosh house</b><br/>description" });
-
-
+     infowindow = new google.maps.InfoWindow({
+     content: "<b>Macintosh house</b><br/>description" });
 
 
-    google.maps.event.addListener(marker, "click", function () {
-        infowindow.open(map, marker);
-    });
-    infowindow.open(map, marker);
 
 
-    */
+     google.maps.event.addListener(marker, "click", function () {
+     infowindow.open(map, marker);
+     });
+     infowindow.open(map, marker);
 
+
+     */
 
 
     //alert(dataReadings[0].co);
@@ -196,44 +195,44 @@ function init_map() {
     var latitude, longitude, position;
 
 
-/*
-    for (var i=0;i<dataReadings.length/50;i++) {
+    /*
+     for (var i=0;i<dataReadings.length/50;i++) {
 
-        radiusNoise = parseFloat(dataReadings[i].noise)/5;
-        radiusPollution =parseFloat(dataReadings[i].co)/5;
-        latitude = parseFloat(dataReadings[i].latitude);
-        longitude = parseFloat(dataReadings[i].longitude);
-        position = new google.maps.LatLng(latitude, longitude);
+     radiusNoise = parseFloat(dataReadings[i].noise)/5;
+     radiusPollution =parseFloat(dataReadings[i].co)/5;
+     latitude = parseFloat(dataReadings[i].latitude);
+     longitude = parseFloat(dataReadings[i].longitude);
+     position = new google.maps.LatLng(latitude, longitude);
 
-        var pollutionOptions = {
-            //strokeColor: '#FF0000',
-            //strokeOpacity: 0.8,
-            strokeWeight: 0,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35,
-            map: map,
-            label: 'gogodi',
-            center: position,
-            //center: campusMap[reading].center,
-            radius: radiusPollution
-        };
+     var pollutionOptions = {
+     //strokeColor: '#FF0000',
+     //strokeOpacity: 0.8,
+     strokeWeight: 0,
+     fillColor: '#FF0000',
+     fillOpacity: 0.35,
+     map: map,
+     label: 'gogodi',
+     center: position,
+     //center: campusMap[reading].center,
+     radius: radiusPollution
+     };
 
-        var noiseOptions = {
-            //strokeColor: '#FF0000',
-            //strokeOpacity: 0.8,
-            strokeWeight: 0,
-            fillColor: '#00FF00',
-            fillOpacity: 0.35,
-            map: map,
-            center: position,
-            radius: radiusNoise
-        };
+     var noiseOptions = {
+     //strokeColor: '#FF0000',
+     //strokeOpacity: 0.8,
+     strokeWeight: 0,
+     fillColor: '#00FF00',
+     fillOpacity: 0.35,
+     map: map,
+     center: position,
+     radius: radiusNoise
+     };
 
-        pollutionCircle = new google.maps.Circle(pollutionOptions);
-        noiseCircle = new google.maps.Circle(noiseOptions);
-    }
+     pollutionCircle = new google.maps.Circle(pollutionOptions);
+     noiseCircle = new google.maps.Circle(noiseOptions);
+     }
 
-*/
+     */
     var popup;
     var marker;
 
@@ -243,13 +242,12 @@ function init_map() {
     var maxBattery = 100;
 
 
-
-    for (var i=0;i<dataReadings.length/50;i++) {
+    for (var i = 0; i < dataReadings.length / 50; i++) {
 
         id = dataReadings[i].id;
         noise = parseFloat(dataReadings[i].noise);
-        co =parseFloat(dataReadings[i].co);
-        no2 =parseFloat(dataReadings[i].no2);
+        co = parseFloat(dataReadings[i].co);
+        no2 = parseFloat(dataReadings[i].no2);
         //alert(dataReadings[i].timestamp);
         battery = parseFloat(dataReadings[i].battery);
         latitude = parseFloat(dataReadings[i].latitude);
@@ -268,26 +266,25 @@ function init_map() {
             icon: image
         });
 
-        var content = "Noise: " + noise.toString() + progressEvaluate(noise,maxNoise) + "CO: " + co.toString() + progressEvaluate(co,maxCO) + "NO2: " + no2.toString() + progressEvaluate(no2, maxNO2) + "Battery: " + battery.toString() + progressEvaluate(battery,maxBattery);
+        var content = "Noise: " + noise.toString() + progressEvaluate(noise, maxNoise) + "CO: " + co.toString() + progressEvaluate(co, maxCO) + "NO2: " + no2.toString() + progressEvaluate(no2, maxNO2) + "Battery: " + battery.toString() + progressEvaluate(battery, maxBattery);
         var styledContent = '<div class="mapPopUp">' + content + '</div>';
         var popup = new google.maps.InfoWindow({});
-        popup=new google.maps.InfoWindow({
+        popup = new google.maps.InfoWindow({
             content: "Loading.."
 
         });
 
 
-
-        google.maps.event.addListener(marker, 'mouseover', function(e) {
+        google.maps.event.addListener(marker, 'mouseover', function (e) {
             console.log(e);
             popup.setContent(styledContent);
             popup.open(map, this);
         });
 
-/*
-        pollutionCircle = new google.maps.Circle(pollutionOptions);
-        noiseCircle = new google.maps.Circle(noiseOptions);
-        */
+        /*
+         pollutionCircle = new google.maps.Circle(pollutionOptions);
+         noiseCircle = new google.maps.Circle(noiseOptions);
+         */
     }
 
     map.mapTypes.set('map_style', styledMap);

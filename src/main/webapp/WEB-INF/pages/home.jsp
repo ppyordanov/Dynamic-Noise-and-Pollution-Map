@@ -13,10 +13,10 @@
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script src="${pageContext.request.contextPath}/resources/map.js"></script>
 
-    <script type="text/javascript" >
-    var dataReadings = [];
+    <script type="text/javascript">
+        var dataReadings = [];
 
-    <c:forEach items="${dataReadingsModels}" var="element">
+        <c:forEach items="${dataReadingsModels}" var="element">
 
         var dataReading = {};
 
@@ -34,17 +34,13 @@
 
 
         dataReadings.push(dataReading);
-    </c:forEach>
+        </c:forEach>
 
 
-    //lert(dataReadings.length);
-
-
+        //lert(dataReadings.length);
 
 
     </script>
-
-
 
 
 </head>

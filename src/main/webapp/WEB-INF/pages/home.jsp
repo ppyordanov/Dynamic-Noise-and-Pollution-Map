@@ -11,14 +11,16 @@
 
 
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    <script src="${pageContext.request.contextPath}/resources/map.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/map_styles.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/map_test.js"></script>
 
     <script type="text/javascript">
         var dataReadings = [];
+        var dataReading;
 
         <c:forEach items="${dataReadingsModels}" var="element">
 
-        var dataReading = {};
+        dataReading = {};
 
 
         dataReading["id"] = "${element.id}";
@@ -35,9 +37,6 @@
 
         dataReadings.push(dataReading);
         </c:forEach>
-
-
-        //lert(dataReadings.length);
 
 
     </script>

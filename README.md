@@ -21,11 +21,12 @@ A dynamically generated University of Glasgow noise and pollution campus map via
  - install Apache Maven
  - clone this repository
  - import project directory in a supported IDE
- - DB setup (the project is currently running using a MySQL database)
+ - DB setup (the project is currently running using a NoSQL database) - MongoDB
 
-    - Apache web server (localhost)
-        - XAMPP Apache Distribution for management and control
-    - PHP MyAdmin software tool for SQL DB administration
+    - install MongoDB
+    - start ```>mongo``` and ```>mongod``` instances from command line
+        - create database ```use ugmap```
+    - check validity ```db```
 
 
  - open a terminal window from the root directory (containing pom.xml)

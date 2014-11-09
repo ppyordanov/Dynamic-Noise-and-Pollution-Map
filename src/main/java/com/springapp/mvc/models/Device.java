@@ -1,11 +1,14 @@
 package com.springapp.mvc.models;
 
-import javax.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Id;
 
 /**
  * Created by Peter Yordanov on 19.10.2014 г..
  */
 
+@Document(collection = "Devices")
 public class Device {
 
     @Id

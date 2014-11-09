@@ -2,45 +2,27 @@ package com.springapp.mvc.utilities;
 
 import com.owlike.genson.Genson;
 import com.springapp.mvc.models.DataReading;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Peter Yordanov on 1.11.2014 г..
  */
 public class DataPopulation {
 
-
-    //function to format execution time milliseconds => min, sec, millisec
-    public String taskDuration(long startTime, long endTime) {
-
-        long insertionDuration = endTime - startTime;
-
-
-        long minutes = TimeUnit.MILLISECONDS.toMinutes(insertionDuration);
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(insertionDuration) - TimeUnit.MINUTES.toSeconds(minutes);
-        long milliseconds = insertionDuration - (TimeUnit.SECONDS.toMillis(seconds) + TimeUnit.MINUTES.toMillis(minutes));
-
-
-        String result = String.format("Execution time: %d min, %d sec, %d millisec",
-                minutes,
-                seconds,
-                milliseconds
-        );
-
-        return result;
-
-    }
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataPopulation.class);
 
     //v2 translated from map.js
-    public HashMap<String, Double> randomPosGen(Double minLatBounds, Double maxLatBounds, Double minLonBounds, Double maxLonBounds) {
+    public Map<String, Double> randomPosGen(Double minLatBounds, Double maxLatBounds, Double minLonBounds, Double maxLonBounds) {
 
-        HashMap<String, Double> position = new HashMap<String, Double>();
+        Map<String, Double> position = new HashMap<String, Double>();
 
         Integer multiplier = 1000000;
         Double lat = Math.random() * ((maxLatBounds - minLatBounds) * multiplier) + minLatBounds * multiplier;
@@ -54,13 +36,13 @@ public class DataPopulation {
 
     }
 
-    public ArrayList<DataReading> loadModels(InputStream JSONresource) {
+    public List<DataReading> loadModels(InputStream JSONresource) {
 
         Object[] readings = null;
         Map<String, Object> map = null;
         Map<String, Object> reading = null;
         Map<String, Double> position = null;
-        ArrayList<DataReading> dataReadings = new ArrayList<DataReading>();
+        List<DataReading> dataReadings = new ArrayList<DataReading>();
 
         DataReading dataReading = null;
 
@@ -72,7 +54,8 @@ public class DataPopulation {
         map = new Genson().deserialize(JSONresource, Map.class);
         readings = (Object[]) map.get("data");
 
-        System.out.println("Readings loaded from file: " + readings.length);
+
+        LOGGER.info("Readings loaded from file: " + readings.length);
 
 
         for (Object o : readings) {
@@ -98,9 +81,10 @@ public class DataPopulation {
 
 
         }
-        System.out.println(dataReadings.size());
+
         return dataReadings;
 
     }
+
 
 }

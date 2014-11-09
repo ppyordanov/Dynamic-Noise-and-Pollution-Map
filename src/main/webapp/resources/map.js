@@ -18,7 +18,8 @@ function randomPosGen(lowLatBounds, highLatBounds, lowLonBounds, highLonBounds) 
 
 }
 
-var styles = [
+
+var style1 = [
     {
         stylers: [
             { hue: "#00ffe6" },
@@ -42,7 +43,42 @@ var styles = [
     }
 ];
 
-var styledMap = new google.maps.StyledMapType(styles,
+var style2 = [
+    {
+        stylers: [
+            { hue: "#ff9f67" },
+            { saturation: -20 },
+            { gamma: 1.50 }
+        ]
+    },{
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [
+            { lightness: 100 },
+            { visibility: "simplified" }
+        ]
+    },{
+        featureType: "road",
+        elementType: "labels.text.stroke",
+        stylers: [
+            { visibility: "off" }
+        ]
+    },
+
+    {
+        featureType: "water",
+        elementType: "geometry.fill",
+        stylers: [
+            { visibility: "on" },
+            { color: "#ffa066" },
+            { lightness: 80 }
+        ]
+    }
+];
+
+var styles = [style1, style2];
+
+var styledMap = new google.maps.StyledMapType(styles[0],
     {name: "Styled Map"});
 
 var campusMap = {};
@@ -190,13 +226,14 @@ function init_map() {
     var popup;
     var marker;
 
-    for (var i=0;i<dataReadings.length/50;i++) {
+    for (var i=0;i<dataReadings.length/10;i++) {
 
         noise = parseFloat(dataReadings[i].noise);
         co =parseFloat(dataReadings[i].co);
         no2 =parseFloat(dataReadings[i].no2);
         latitude = parseFloat(dataReadings[i].latitude);
         longitude = parseFloat(dataReadings[i].longitude);
+
         //position =randomPosGen(minLatBounds, maxLatBounds, minLonBounds, maxLonBounds);
         position = new google.maps.LatLng(latitude, longitude);
 
@@ -209,18 +246,17 @@ function init_map() {
             icon: image
         });
 
+        var content = "Noise: " + noise.toString() + "<br> CO: " + co.toString() + "<br> NO2: " + no2.toString();
+        var popup = '<div class="mapPopUp">' + content + '</div>';
         popup=new google.maps.InfoWindow({
-            content: "Hello"
+            content: popup
         });
 
         google.maps.event.addListener(marker, 'mouseover', function(e) {
             console.log(e);
             popup.open(map, this);
         });
-        google.maps.event.addListener(marker, 'mouseout', function(e) {
-            console.log(e);
-            popup.close()
-        });
+
 /*
         pollutionCircle = new google.maps.Circle(pollutionOptions);
         noiseCircle = new google.maps.Circle(noiseOptions);

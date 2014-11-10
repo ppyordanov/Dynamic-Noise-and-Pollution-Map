@@ -4,7 +4,7 @@ var minLonBounds = -4.278797;
 var maxLonBounds = -4.297637;
 var centerLat = 55.872912;
 var centerLon = -4.289657;
-var center = new google.maps.LatLng(centerLat,centerLon);
+var center = new google.maps.LatLng(centerLat, centerLon);
 
 var maxNoise = 100;
 var maxCO = 500;
@@ -54,7 +54,7 @@ function progressEvaluate(value, benchmark) {
 }
 
 
-function addPopUp(marker, content){
+function addPopUp(marker, content) {
 
 
     google.maps.event.addListener(marker, 'mouseover', function (e) {
@@ -64,10 +64,9 @@ function addPopUp(marker, content){
     });
 
 
-
 }
 
-function generateMarker(dataReading){
+function generateMarker(dataReading) {
 
     id = dataReading.id;
     noise = parseFloat(dataReading.noise);
@@ -128,7 +127,7 @@ function init_map() {
     });
 
 
-    for (var i = 0; i < dataReadings.length/50; i++) {
+    for (var i = 0; i < dataReadings.length / 50; i++) {
 
         generateMarker(dataReadings[i]);
 

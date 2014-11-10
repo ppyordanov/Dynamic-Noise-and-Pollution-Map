@@ -22,12 +22,10 @@ var styledMap = new google.maps.StyledMapType(styles[0],
     {name: "Styled Map"});
 
 
-
-
 function progressEvaluate(value, benchmark) {
 
 
-    var progress = (value / benchmark) ;
+    var progress = (value / benchmark);
     return progress;
 }
 
@@ -70,44 +68,41 @@ function init_map() {
     var latitude, longitude, position;
 
 
+    for (var i = 0; i < dataReadings.length / 50; i++) {
 
-     for (var i=0;i<dataReadings.length/50;i++) {
+        radiusNoise = parseFloat(dataReadings[i].noise) / 5;
+        radiusPollution = (parseFloat(dataReadings[i].co) + parseFloat(dataReadings[i].no2)) / 10;
+        latitude = parseFloat(dataReadings[i].latitude);
+        longitude = parseFloat(dataReadings[i].longitude);
+        position = new google.maps.LatLng(latitude, longitude);
 
-     radiusNoise = parseFloat(dataReadings[i].noise)/5;
-     radiusPollution =(parseFloat(dataReadings[i].co) + parseFloat(dataReadings[i].no2))/10;
-     latitude = parseFloat(dataReadings[i].latitude);
-     longitude = parseFloat(dataReadings[i].longitude);
-     position = new google.maps.LatLng(latitude, longitude);
+        var pollutionOptions = {
+            //strokeColor: '#FF0000',
+            //strokeOpacity: 0.8,
+            strokeWeight: 0,
+            fillColor: '#FF0000',
+            fillOpacity: progressEvaluate(dataReadings[i].co, 500),
+            map: map,
+            label: 'gogodi',
+            center: position,
+            //center: campusMap[reading].center,
+            radius: radiusPollution
+        };
 
-     var pollutionOptions = {
-     //strokeColor: '#FF0000',
-     //strokeOpacity: 0.8,
-     strokeWeight: 0,
-     fillColor: '#FF0000',
-     fillOpacity: progressEvaluate(dataReadings[i].co, 500),
-     map: map,
-     label: 'gogodi',
-     center: position,
-     //center: campusMap[reading].center,
-     radius: radiusPollution
-     };
-
-     var noiseOptions = {
-     //strokeColor: '#FF0000',
-     //strokeOpacity: 0.8,
-     strokeWeight: 0,
-     fillColor: '#00FF00',
-     fillOpacity: progressEvaluate(dataReadings[i].noise, 100),
-     map: map,
-     center: position,
-     radius: radiusNoise
-     };
-
+        var noiseOptions = {
+            //strokeColor: '#FF0000',
+            //strokeOpacity: 0.8,
+            strokeWeight: 0,
+            fillColor: '#00FF00',
+            fillOpacity: progressEvaluate(dataReadings[i].noise, 100),
+            map: map,
+            center: position,
+            radius: radiusNoise
+        };
 
 
-
-         pollutionCircle = new google.maps.Circle(pollutionOptions);
-         noiseCircle = new google.maps.Circle(noiseOptions);
+        pollutionCircle = new google.maps.Circle(pollutionOptions);
+        noiseCircle = new google.maps.Circle(noiseOptions);
 
     }
 

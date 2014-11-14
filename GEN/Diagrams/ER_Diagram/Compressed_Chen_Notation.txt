@@ -2,5 +2,5 @@ Compressed Chen's Notation
 
 [ User ] 1 ----- < has > ----- N [ Device ]
 [ Device ] 1 ----- < provides > ----- N [ Data Reading ]
-[ Data Reading ] M ----- < forms > ----- N [ Route ]
+[ Route ] 1 ----- < forms > ----- N [ Data Reading ]
 [ Device ] 1 ----- < has > ----- N [ Route ]

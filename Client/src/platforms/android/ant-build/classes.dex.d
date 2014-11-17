@@ -1,0 +1,9 @@
+C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\ant-build\classes.dex : \
+C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\ant-build\classes\com\phonegap\helloworld\BuildConfig.class \
+C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\ant-build\classes\com\phonegap\helloworld\HelloWorld.class \
+C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\ant-build\classes\com\phonegap\helloworld\R$attr.class \
+C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\ant-build\classes\com\phonegap\helloworld\R$drawable.class \
+C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\ant-build\classes\com\phonegap\helloworld\R$string.class \
+C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\ant-build\classes\com\phonegap\helloworld\R$xml.class \
+C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\ant-build\classes\com\phonegap\helloworld\R.class \
+C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\ant-build\dexedLibs\classes-7c5fac4e9f020b418206b0cf6314d094.jar \

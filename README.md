@@ -39,10 +39,10 @@ Server:
   
   _The app is running on port 8080 and can be accessed at: http://localhost:8080/_
 
-  Client:
+Client:
 
-   - install PhoneGap
-   - install Android SDK (including Android ADB)
-   - plug in Android device (minimum 2.1)
-   - ```phonegap build android ``` compile application from source
-   - ```phonegap run android ``` run client application on host device
+ - install PhoneGap
+ - install Android SDK (including Android ADB)
+ - plug in Android device (minimum 2.1)
+ - ```phonegap build android ``` compile application from source
+ - ```phonegap run android ``` run client application on host device

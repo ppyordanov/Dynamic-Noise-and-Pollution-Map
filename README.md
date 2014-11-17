@@ -17,6 +17,8 @@ A dynamically generated University of Glasgow noise and pollution campus map via
 
 /CONFIGURATION INSTRUCTIONS/
 
+Server:
+
  - install JDK 1.6+
  - install Apache Maven
  - clone this repository
@@ -36,3 +38,11 @@ A dynamically generated University of Glasgow noise and pollution campus map via
     - ```mvn jetty:run``` run the mobile webapp on a localhost server via the jetty servlet
   
   _The app is running on port 8080 and can be accessed at: http://localhost:8080/_
+
+  Client:
+
+   - install PhoneGap
+   - install Android SDK (including Android ADB)
+   - plug in Android device (minimum 2.1)
+   - ```phonegap build android ``` compile application from source
+   - ```phonegap run android ``` run client application on host device

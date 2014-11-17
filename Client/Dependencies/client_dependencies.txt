@@ -1,7 +1,8 @@
 requirements:
 
-- microsoft visual studio (2012 or later recommended)
-- phonegap v3.6.3-0.22.1
+- Microsoft Visual Studio (2012 or later recommended)
+- PhoneGap v3.6.3-0.22.1
 - nodeJS v0.10.33
 - standalone Android SDK
-- Apache Ant v1.9.4
+    - AVD (Android Virtual Device)
+    - ADB (Android Debug Bridge)

@@ -23,9 +23,12 @@
     <div data-role="content">
     Main content goes here
     <br>
+    <div id="route_data">
     <label>ROUTE ID:</label>
     <br>
     <input type="text" name="route_id" id="route_id" placeholder="route"/>
+    </div>
+    <div id="status"></div>
     <br>
     <div id="connection">Connected</div>
     <br>
@@ -33,7 +36,6 @@
     <button data-role="button" id="stop">STOP TRACKING</button>
     <button data-role="button" id="clear">CLEAR DATA</button>
     <br>
-    <div id="status"></div>
     <br>
     <a href="#history" data-transition="none">HISTORY</a>
     </div>
@@ -47,6 +49,23 @@
     <div id="route_number"></div>
     <br>
     <div id="list"></div>
+        <br>
+        <br>
+
+    </div>
+</div>
+
+<div data-role="page" id="route">
+
+    <div data-role="content">
+        Show route data:
+        <div id="route_map">
+
+            <div id="map_canvas"></div>
+
+        </div>
+
+
     </div>
 </div>
 

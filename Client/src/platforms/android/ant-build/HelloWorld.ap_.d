@@ -29,6 +29,7 @@ C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Persona
 C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\assets\www\icon.png \
 C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\assets\www\img \
 C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\assets\www\index.html \
+C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\assets\www\index2.html \
 C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\assets\www\js \
 C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\assets\www\res \
 C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\assets\www\spec \
@@ -36,6 +37,8 @@ C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Persona
 C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\assets\www\css\index.css \
 C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\assets\www\img\logo.png \
 C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\assets\www\js\index.js \
+C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\assets\www\js\json2.js \
+C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\assets\www\js\track.js \
 C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\assets\www\res\icon \
 C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\assets\www\res\screen \
 C:\Users\Peter Yordanov\Desktop\Ppyordanov's files\GU_Files_2014_15_lvl4\Personal_Project_4\Dynamic-Noise-and-Pollution-Map\Client\src\platforms\android\assets\www\res\icon\android \

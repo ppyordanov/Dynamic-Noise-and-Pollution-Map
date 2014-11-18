@@ -1,0 +1,20 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="782" measuredH="481" mockupW="450" mockupH="400">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="332" y="81" w="-1" h="-1" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Dynamic%20Campus%20Map%0Ahttp%3A//ugmap.com</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="507" y="253" w="-1" h="-1" measuredW="105" measuredH="21" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Glasgow%20mapmap</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Image" x="335" y="154" w="443" h="300" measuredW="343" measuredH="328" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/map.jpg</src>
+        <text/>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

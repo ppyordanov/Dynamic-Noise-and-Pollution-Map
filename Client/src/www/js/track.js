@@ -70,7 +70,7 @@ $('#history').live('pageshow', function () {
         route = window.localStorage.key(i);
         $("#list").append("<li><a href='#info' data-ajax='false'>" + route + "</a></li>");
     }
-    $("list").listview('refresh');
+    $("#list").listview('refresh');
 
 });
 

@@ -12,7 +12,6 @@ document.addEventListener("deviceready", function(){
 
 });
 
-
 $("#start").live('click',function(){
 
     location_id = navigator.geolocation.watchPosition(
@@ -25,7 +24,7 @@ $("#start").live('click',function(){
             console.log(error_message);
         },
         //update every 30 seconds
-        { enableHighAccuracy:true,frequency:30000}
+        { enableHighAccuracy:true,frequency:1000}
     );
 
     route_id = $("#route_id").val();
@@ -33,18 +32,19 @@ $("#start").live('click',function(){
     if(route_id ==''){
         time_now = new Date().toLocaleString();
         route_id = "Route " + time_now;
+        $("#route_id").val(route_id);
     }
 
 
-    $("#clear").hide();
+    //$("#clear").hide();
     $("#status").html("tracking in progress");
-    $("#stop").show();
+    //$("#stop").show();
 
 });
 
 $("#stop").live('click', function(){
 
-    navigator.geolocation.clearWatch(route_id);
+    navigator.geolocation.clearWatch(location_id);
     window.localStorage.setItem(route_id, JSON.stringify(route_data));
     //RESET
     route_id=null;
@@ -56,9 +56,16 @@ $("#stop").live('click', function(){
 });
 
 
+
 $("#clear").live('click', function(){
 
     window.localStorage.clear();
+
+});
+
+$('#home').live('pageshow', function () {
+
+    $("#status").val("");
 
 });
 
@@ -75,18 +82,17 @@ $('#history').live('pageshow', function () {
         route = window.localStorage.key(i);
         $("#list").append("<li><a href='#route' data-ajax='false'>" + route + "</a></li>");
     }
-    $("#list").listview('refresh');
+    //$("#list").listview('refresh');
 
 });
 
-$("#list li a").live('click', function(){
+$("#history a").live('click', function(){
 
     $("#route").attr("route_id", $(this).text());
 
 });
 
 $('#route').live('pageshow', function(){
-
 
     var current_route_id = $(this).attr("route_id");
     var current_route_data = window.localStorage.getItem(current_route_id);
@@ -100,15 +106,15 @@ $('#route').live('pageshow', function(){
     var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
     var route_coordinates = [];
 
-    for(i=0; i<data.length; i++){
+    for(i=0; i<current_route_data.length; i++){
         route_coordinates.push(new google.maps.LatLng(current_route_data[i].coords.latitude, current_route_data[i].coords.longitude));
     }
 
     var route_display = new google.maps.Polyline({
-        path: trackCoords,
-        strokeColor: "#999999",
+        path: route_coordinates,
+        strokeColor: "#000000",
         strokeOpacity: 1.0,
-        strokeWeight: 3
+        strokeWeight: 1
     });
 
     route_display.setMap(map);

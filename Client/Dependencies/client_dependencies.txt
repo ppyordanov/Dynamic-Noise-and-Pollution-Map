@@ -7,3 +7,4 @@ requirements:
     - AVD (Android Virtual Device)
     - ADB (Android Debug Bridge)
 - Apache Ant v1.9.4
+- jQuery Mobile

@@ -79,11 +79,16 @@ function generateMarker(dataReading) {
     position = new google.maps.LatLng(latitude, longitude);
 
 
+    var pinIcon = new google.maps.MarkerImage(
+        image,
+        new google.maps.Size(30,30)
+    );
+
     marker = new google.maps.Marker({
         position: position,
         map: map,
         //animation: google.maps.Animation.DROP,
-        icon: image
+        icon: pinIcon
     });
 
     content = "Noise: " + noise + progressEvaluate(noise, maxNoise) + "CO: " + co + progressEvaluate(co, maxCO) + "NO2: " + no2 + progressEvaluate(no2, maxNO2) + "Battery: " + battery + progressEvaluate(battery, maxBattery);

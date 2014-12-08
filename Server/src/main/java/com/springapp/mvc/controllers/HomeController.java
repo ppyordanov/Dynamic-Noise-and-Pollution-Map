@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletContext;
 import java.io.InputStream;
@@ -60,10 +62,18 @@ public class HomeController {
         model.addAttribute(MESSAGE, "Hello world!");
 
         List<DataReading> dataReadings = dataReadingRepository.findAll();
-        model.addAttribute("dataReadingsModels", dataReadingRepository.findAll());
+        model.addAttribute("dataReadingsModels", dataReadings);
 
 
         return HOME;
+    }
+
+    @RequestMapping(value = "/addRoute" , method = RequestMethod.GET)
+    public @ResponseBody
+    String save(@RequestBody String jsonString) {
+        //Route route = routeRepository.save(jsonString);
+        dataReadingRepository.deleteAll();
+        return jsonString;
     }
 
     @RequestMapping(value = MAPPING_DATA)

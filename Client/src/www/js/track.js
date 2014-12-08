@@ -167,7 +167,24 @@ $("#start").live('click',function(){
 $("#stop").live('click', function(){
 
     navigator.geolocation.clearWatch(location_id);
-    window.localStorage.setItem(route_id, JSON.stringify(route_data));
+    JSONroute = JSON.stringify(route_data);
+    window.localStorage.setItem(route_id,JSONroute);
+
+    $.ajax({
+        url:"http://127.0.0.1:8080/addRoute",
+        type:"GET",
+        crossDomain: true,
+        dataType: "jsonp",
+        data: JSONroute,
+        async: false,
+        cache: false,
+        processData:false,
+        success: function(response)
+    {
+        console.log(response);
+        return response;
+    }});
+
     //RESET
     route_id=null;
     route_data=[];

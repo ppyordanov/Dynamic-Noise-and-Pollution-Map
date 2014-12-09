@@ -18,7 +18,7 @@
         var dataReadings = [];
         var dataReading;
 
-        
+
         <c:forEach items="${dataReadingsModels}" var="element">
 
         dataReading = {};

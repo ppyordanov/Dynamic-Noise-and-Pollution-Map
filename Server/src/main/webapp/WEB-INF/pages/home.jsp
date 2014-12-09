@@ -40,7 +40,7 @@
 
         var routeId = dataReading["routeId"];
 
-        if(!(routeId in dataReadings)){
+        if (!(routeId in dataReadings)) {
             dataReadings[routeId] = [];
         }
         dataReadings[routeId].push(dataReading);

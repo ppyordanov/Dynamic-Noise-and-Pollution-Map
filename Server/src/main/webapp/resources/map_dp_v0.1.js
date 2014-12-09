@@ -81,7 +81,7 @@ function generateMarker(dataReading) {
 
     var pinIcon = new google.maps.MarkerImage(
         image,
-        new google.maps.Size(30,30)
+        new google.maps.Size(30, 30)
     );
 
     marker = new google.maps.Marker({

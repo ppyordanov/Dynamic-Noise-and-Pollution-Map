@@ -79,7 +79,9 @@ public class HomeController {
 
 
     @RequestMapping(value = "/del")
-    public @ResponseBody String truncate() {
+    public
+    @ResponseBody
+    String truncate() {
 
         dataReadingRepository.deleteAll();
         routeRepository.deleteAll();
@@ -88,9 +90,9 @@ public class HomeController {
 
 
     @RequestMapping(value = "/addRoute", method = RequestMethod.POST)
-    public @ResponseBody
-    String addRoute( @RequestParam("json") String json)
-    {
+    public
+    @ResponseBody
+    String addRoute(@RequestParam("json") String json) {
         //save new route
         Route newRoute = new Route();
         routeRepository.save(newRoute);
@@ -103,7 +105,7 @@ public class HomeController {
         //DataReading dr = new Gson().fromJson(json,DataReading.class);
         LOGGER.info("Route saved: " + newRoute);
         LOGGER.info("ds" + data.size());
-        for(DataReading dr: data) {
+        for (DataReading dr : data) {
 
             dr.setRouteId(newRoute.getId());
             /*

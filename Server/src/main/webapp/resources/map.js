@@ -1,9 +1,9 @@
 /*
-var minLatBounds = 55.870056;
-var maxLatBounds = 55.875209;
-var minLonBounds = -4.278797;
-var maxLonBounds = -4.297637;
-*/
+ var minLatBounds = 55.870056;
+ var maxLatBounds = 55.875209;
+ var minLonBounds = -4.278797;
+ var maxLonBounds = -4.297637;
+ */
 var minLatBounds = 55.0;
 var maxLatBounds = 56.875209;
 var minLonBounds = -3.278797;
@@ -88,7 +88,7 @@ function generateMarker(dataReading) {
 
     var pinIcon = new google.maps.MarkerImage(
         image,
-        new google.maps.Size(30,30)
+        new google.maps.Size(30, 30)
     );
 
     marker = new google.maps.Marker({
@@ -105,7 +105,7 @@ function generateMarker(dataReading) {
 
 }
 
-function generateRoute(newRoute){
+function generateRoute(newRoute) {
 
     var route = new google.maps.Polyline({
         path: newRoute,
@@ -150,13 +150,13 @@ function init_map() {
         map.panTo(lastCenter);
     });
 
-    for(var i = 0; i < routes.length; i++){
+    for (var i = 0; i < routes.length; i++) {
         var routeDR = dataReadings[routes[i].id];
         var newRoute = [];
         for (var j = 0; j < routeDR.length; j++) {
 
             generateMarker(routeDR[j]);
-            var pos = new google.maps.LatLng(routeDR[j].latitude,routeDR[j].longitude);
+            var pos = new google.maps.LatLng(routeDR[j].latitude, routeDR[j].longitude);
             newRoute.push(pos);
 
         }

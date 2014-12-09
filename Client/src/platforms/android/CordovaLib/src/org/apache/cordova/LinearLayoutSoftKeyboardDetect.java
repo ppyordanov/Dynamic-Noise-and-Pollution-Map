@@ -18,11 +18,11 @@
 */
 package org.apache.cordova;
 
+import android.content.Context;
+import android.widget.LinearLayout;
 import org.apache.cordova.LOG;
 
-import android.content.Context;
 //import android.view.View.MeasureSpec;
-import android.widget.LinearLayout;
 
 /**
  * This class is used to detect when the soft keyboard is shown and hidden in the web view.
@@ -77,8 +77,7 @@ public class LinearLayoutSoftKeyboardDetect extends LinearLayout {
             LOG.d(TAG, "Ignore this event");
         }
         // Account for orientation change and ignore this event/Fire orientation change
-        else if (screenHeight == width)
-        {
+        else if (screenHeight == width) {
             int tmp_var = screenHeight;
             screenHeight = screenWidth;
             screenWidth = tmp_var;

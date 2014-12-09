@@ -18,9 +18,6 @@
 */
 package org.apache.cordova;
 
-import org.apache.cordova.CordovaInterface;
-import org.apache.cordova.LOG;
-
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -30,18 +27,14 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.webkit.ConsoleMessage;
-import android.webkit.JsPromptResult;
-import android.webkit.JsResult;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-import android.webkit.WebStorage;
-import android.webkit.WebView;
+import android.webkit.*;
 import android.webkit.GeolocationPermissions.Callback;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.LOG;
 
 /**
  * This class is the WebChromeClient that implements callbacks for our web view.
@@ -64,10 +57,10 @@ public class CordovaChromeClient extends WebChromeClient {
 
     // the video progress view
     private View mVideoProgressView;
-    
+
     // File Chooser
     public ValueCallback<Uri> mUploadMessage;
-    
+
     @Deprecated
     public CordovaChromeClient(CordovaInterface cordova) {
         this.cordova = cordova;
@@ -114,12 +107,10 @@ public class CordovaChromeClient extends WebChromeClient {
         dlg.setOnKeyListener(new DialogInterface.OnKeyListener() {
             //DO NOTHING
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK)
-                {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
                     result.confirm();
                     return false;
-                }
-                else
+                } else
                     return true;
             }
         });
@@ -163,12 +154,10 @@ public class CordovaChromeClient extends WebChromeClient {
         dlg.setOnKeyListener(new DialogInterface.OnKeyListener() {
             //DO NOTHING
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK)
-                {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
                     result.cancel();
                     return false;
-                }
-                else
+                } else
                     return true;
             }
         });
@@ -180,7 +169,7 @@ public class CordovaChromeClient extends WebChromeClient {
      * Tell the client to display a prompt dialog to the user.
      * If the client returns true, WebView will assume that the client will
      * handle the prompt dialog and call the appropriate JsPromptResult method.
-     *
+     * <p/>
      * Since we are hacking prompts for our own purposes, we should not be using them for
      * this purpose, perhaps we should hack console.log to do this instead!
      *
@@ -226,8 +215,7 @@ public class CordovaChromeClient extends WebChromeClient {
      */
     @Override
     public void onExceededDatabaseQuota(String url, String databaseIdentifier, long currentQuota, long estimatedSize,
-            long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater)
-    {
+                                        long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater) {
         LOG.d(TAG, "onExceededDatabaseQuota estimatedSize: %d  currentQuota: %d  totalUsedQuota: %d", estimatedSize, currentQuota, totalUsedQuota);
         quotaUpdater.updateQuota(MAX_QUOTA);
     }
@@ -236,11 +224,9 @@ public class CordovaChromeClient extends WebChromeClient {
     // Expect this to not compile in a future Android release!
     @SuppressWarnings("deprecation")
     @Override
-    public void onConsoleMessage(String message, int lineNumber, String sourceID)
-    {
+    public void onConsoleMessage(String message, int lineNumber, String sourceID) {
         //This is only for Android 2.1
-        if(android.os.Build.VERSION.SDK_INT == android.os.Build.VERSION_CODES.ECLAIR_MR1)
-        {
+        if (android.os.Build.VERSION.SDK_INT == android.os.Build.VERSION_CODES.ECLAIR_MR1) {
             LOG.d(TAG, "%s: Line %d : %s", sourceID, lineNumber, message);
             super.onConsoleMessage(message, lineNumber, sourceID);
         }
@@ -248,11 +234,10 @@ public class CordovaChromeClient extends WebChromeClient {
 
     @TargetApi(8)
     @Override
-    public boolean onConsoleMessage(ConsoleMessage consoleMessage)
-    {
+    public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
         if (consoleMessage.message() != null)
-            LOG.d(TAG, "%s: Line %d : %s" , consoleMessage.sourceId() , consoleMessage.lineNumber(), consoleMessage.message());
-         return super.onConsoleMessage(consoleMessage);
+            LOG.d(TAG, "%s: Line %d : %s", consoleMessage.sourceId(), consoleMessage.lineNumber(), consoleMessage.message());
+        return super.onConsoleMessage(consoleMessage);
     }
 
     @Override
@@ -266,7 +251,7 @@ public class CordovaChromeClient extends WebChromeClient {
         super.onGeolocationPermissionsShowPrompt(origin, callback);
         callback.invoke(origin, true, false);
     }
-    
+
     // API level 7 is required for this, see if we could lower this using something else
     @Override
     public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
@@ -277,7 +262,7 @@ public class CordovaChromeClient extends WebChromeClient {
     public void onHideCustomView() {
         this.appView.hideCustomView();
     }
-    
+
     @Override
     /**
      * Ask the host application for a custom progress view to show while
@@ -286,9 +271,9 @@ public class CordovaChromeClient extends WebChromeClient {
      */
     public View getVideoLoadingProgressView() {
 
-        if (mVideoProgressView == null) {            
+        if (mVideoProgressView == null) {
             // Create a new Loading view programmatically.
-            
+
             // create the linear layout
             LinearLayout layout = new LinearLayout(this.appView.getContext());
             layout.setOrientation(LinearLayout.VERTICAL);
@@ -299,24 +284,23 @@ public class CordovaChromeClient extends WebChromeClient {
             ProgressBar bar = new ProgressBar(this.appView.getContext());
             LinearLayout.LayoutParams barLayoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             barLayoutParams.gravity = Gravity.CENTER;
-            bar.setLayoutParams(barLayoutParams);   
+            bar.setLayoutParams(barLayoutParams);
             layout.addView(bar);
-            
+
             mVideoProgressView = layout;
         }
-    return mVideoProgressView; 
+        return mVideoProgressView;
     }
-    
+
     public void openFileChooser(ValueCallback<Uri> uploadMsg) {
         this.openFileChooser(uploadMsg, "*/*");
     }
 
-    public void openFileChooser( ValueCallback<Uri> uploadMsg, String acceptType ) {
+    public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
         this.openFileChooser(uploadMsg, acceptType, null);
     }
-    
-    public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture)
-    {
+
+    public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
         mUploadMessage = uploadMsg;
         Intent i = new Intent(Intent.ACTION_GET_CONTENT);
         i.addCategory(Intent.CATEGORY_OPENABLE);
@@ -324,7 +308,7 @@ public class CordovaChromeClient extends WebChromeClient {
         this.cordova.getActivity().startActivityForResult(Intent.createChooser(i, "File Browser"),
                 FILECHOOSER_RESULTCODE);
     }
-    
+
     public ValueCallback<Uri> getValueCallback() {
         return this.mUploadMessage;
     }

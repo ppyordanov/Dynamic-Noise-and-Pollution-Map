@@ -18,16 +18,15 @@
 */
 package org.apache.cordova;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.LinkedList;
-
-import org.apache.cordova.CordovaInterface;
-import org.apache.cordova.PluginResult;
-
 import android.os.Message;
 import android.util.Log;
 import android.webkit.WebView;
+import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.PluginResult;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.LinkedList;
 
 /**
  * Holds the list of messages to be sent to the WebView.
@@ -47,13 +46,13 @@ public class NativeToJsMessageQueue {
     // This currently only chops up on message boundaries. It may be useful
     // to allow it to break up messages.
     private static int MAX_PAYLOAD_SIZE = 50 * 1024 * 10240;
-    
+
     /**
      * When true, the active listener is not fired upon enqueue. When set to false,
-     * the active listener will be fired if the queue is non-empty. 
+     * the active listener will be fired if the queue is non-empty.
      */
     private boolean paused;
-    
+
     /**
      * The list of JavaScript statements to be sent to JavaScript.
      */
@@ -62,8 +61,8 @@ public class NativeToJsMessageQueue {
     /**
      * The array of listeners that can be used to send messages to JS.
      */
-    private final BridgeMode[] registeredListeners;    
-    
+    private final BridgeMode[] registeredListeners;
+
     /**
      * When null, the bridge is disabled. This occurs during page transitions.
      * When disabled, all callbacks are dropped since they are assumed to be
@@ -111,7 +110,7 @@ public class NativeToJsMessageQueue {
             }
         }
     }
-    
+
     /**
      * Clears all messages and resets to the default bridge mode.
      */
@@ -125,16 +124,16 @@ public class NativeToJsMessageQueue {
     private int calculatePackedMessageLength(JsMessage message) {
         int messageLen = message.calculateEncodedLength();
         String messageLenStr = String.valueOf(messageLen);
-        return messageLenStr.length() + messageLen + 1;        
+        return messageLenStr.length() + messageLen + 1;
     }
-    
+
     private void packMessage(JsMessage message, StringBuilder sb) {
         int len = message.calculateEncodedLength();
         sb.append(len)
-          .append(' ');
+                .append(' ');
         message.encodeAsMessage(sb);
     }
-    
+
     /**
      * Combines and returns queued messages combined into a single string.
      * Combines as many messages as possible, while staying under MAX_PAYLOAD_SIZE.
@@ -165,7 +164,7 @@ public class NativeToJsMessageQueue {
                 JsMessage message = queue.removeFirst();
                 packMessage(message, sb);
             }
-            
+
             if (!queue.isEmpty()) {
                 // Attach a char to indicate that there are more messages pending.
                 sb.append('*');
@@ -174,7 +173,7 @@ public class NativeToJsMessageQueue {
             return ret;
         }
     }
-    
+
     /**
      * Same as popAndEncode(), except encodes in a form that can be executed as JS.
      */
@@ -217,7 +216,7 @@ public class NativeToJsMessageQueue {
             String ret = sb.toString();
             return ret;
         }
-    }   
+    }
 
     /**
      * Add a JavaScript statement to the list.
@@ -276,23 +275,32 @@ public class NativeToJsMessageQueue {
                 if (!queue.isEmpty() && activeBridgeMode != null) {
                     activeBridgeMode.onNativeToJsMessageAvailable();
                 }
-            }   
+            }
         }
     }
 
     private abstract class BridgeMode {
         abstract void onNativeToJsMessageAvailable();
-        void notifyOfFlush(boolean fromOnlineEvent) {}
-        void reset() {}
-    }
 
-    /** Uses JS polls for messages on a timer.. */
-    private class PollingBridgeMode extends BridgeMode {
-        @Override void onNativeToJsMessageAvailable() {
+        void notifyOfFlush(boolean fromOnlineEvent) {
+        }
+
+        void reset() {
         }
     }
 
-    /** Uses webView.loadUrl("javascript:") to execute messages. */
+    /**
+     * Uses JS polls for messages on a timer..
+     */
+    private class PollingBridgeMode extends BridgeMode {
+        @Override
+        void onNativeToJsMessageAvailable() {
+        }
+    }
+
+    /**
+     * Uses webView.loadUrl("javascript:") to execute messages.
+     */
     private class LoadUrlBridgeMode extends BridgeMode {
         final Runnable runnable = new Runnable() {
             public void run() {
@@ -302,13 +310,16 @@ public class NativeToJsMessageQueue {
                 }
             }
         };
-        
-        @Override void onNativeToJsMessageAvailable() {
+
+        @Override
+        void onNativeToJsMessageAvailable() {
             cordova.getActivity().runOnUiThread(runnable);
         }
     }
 
-    /** Uses online/offline events to tell the JS when to poll for messages. */
+    /**
+     * Uses online/offline events to tell the JS when to poll for messages.
+     */
     private class OnlineEventsBridgeMode extends BridgeMode {
         private boolean online;
         private boolean ignoreNextFlush;
@@ -329,81 +340,90 @@ public class NativeToJsMessageQueue {
                 webView.setNetworkAvailable(true);
             }
         };
-        @Override void reset() {
+
+        @Override
+        void reset() {
             cordova.getActivity().runOnUiThread(resetNetworkRunnable);
         }
-        @Override void onNativeToJsMessageAvailable() {
+
+        @Override
+        void onNativeToJsMessageAvailable() {
             cordova.getActivity().runOnUiThread(toggleNetworkRunnable);
         }
+
         // Track when online/offline events are fired so that we don't fire excess events.
-        @Override void notifyOfFlush(boolean fromOnlineEvent) {
+        @Override
+        void notifyOfFlush(boolean fromOnlineEvent) {
             if (fromOnlineEvent && !ignoreNextFlush) {
                 online = !online;
             }
         }
     }
-    
+
     /**
      * Uses Java reflection to access an API that lets us eval JS.
-     * Requires Android 3.2.4 or above. 
+     * Requires Android 3.2.4 or above.
      */
     private class PrivateApiBridgeMode extends BridgeMode {
-    	// Message added in commit:
-    	// http://omapzoom.org/?p=platform/frameworks/base.git;a=commitdiff;h=9497c5f8c4bc7c47789e5ccde01179abc31ffeb2
-    	// Which first appeared in 3.2.4ish.
-    	private static final int EXECUTE_JS = 194;
-    	
-    	Method sendMessageMethod;
-    	Object webViewCore;
-    	boolean initFailed;
+        // Message added in commit:
+        // http://omapzoom.org/?p=platform/frameworks/base.git;a=commitdiff;h=9497c5f8c4bc7c47789e5ccde01179abc31ffeb2
+        // Which first appeared in 3.2.4ish.
+        private static final int EXECUTE_JS = 194;
 
-    	@SuppressWarnings("rawtypes")
-    	private void initReflection() {
-        	Object webViewObject = webView;
-    		Class webViewClass = WebView.class;
-        	try {
-    			Field f = webViewClass.getDeclaredField("mProvider");
-    			f.setAccessible(true);
-    			webViewObject = f.get(webView);
-    			webViewClass = webViewObject.getClass();
-        	} catch (Throwable e) {
-        		// mProvider is only required on newer Android releases.
-    		}
-        	
-        	try {
-    			Field f = webViewClass.getDeclaredField("mWebViewCore");
+        Method sendMessageMethod;
+        Object webViewCore;
+        boolean initFailed;
+
+        @SuppressWarnings("rawtypes")
+        private void initReflection() {
+            Object webViewObject = webView;
+            Class webViewClass = WebView.class;
+            try {
+                Field f = webViewClass.getDeclaredField("mProvider");
                 f.setAccessible(true);
-    			webViewCore = f.get(webViewObject);
-    			
-    			if (webViewCore != null) {
-    				sendMessageMethod = webViewCore.getClass().getDeclaredMethod("sendMessage", Message.class);
-	    			sendMessageMethod.setAccessible(true);	    			
-    			}
-    		} catch (Throwable e) {
-    			initFailed = true;
-				Log.e(LOG_TAG, "PrivateApiBridgeMode failed to find the expected APIs.", e);
-    		}
-    	}
-    	
-        @Override void onNativeToJsMessageAvailable() {
-        	if (sendMessageMethod == null && !initFailed) {
-        		initReflection();
-        	}
-        	// webViewCore is lazily initialized, and so may not be available right away.
-        	if (sendMessageMethod != null) {
-	        	String js = popAndEncodeAsJs();
-	        	Message execJsMessage = Message.obtain(null, EXECUTE_JS, js);
-				try {
-				    sendMessageMethod.invoke(webViewCore, execJsMessage);
-				} catch (Throwable e) {
-					Log.e(LOG_TAG, "Reflection message bridge failed.", e);
-				}
-        	}
+                webViewObject = f.get(webView);
+                webViewClass = webViewObject.getClass();
+            } catch (Throwable e) {
+                // mProvider is only required on newer Android releases.
+            }
+
+            try {
+                Field f = webViewClass.getDeclaredField("mWebViewCore");
+                f.setAccessible(true);
+                webViewCore = f.get(webViewObject);
+
+                if (webViewCore != null) {
+                    sendMessageMethod = webViewCore.getClass().getDeclaredMethod("sendMessage", Message.class);
+                    sendMessageMethod.setAccessible(true);
+                }
+            } catch (Throwable e) {
+                initFailed = true;
+                Log.e(LOG_TAG, "PrivateApiBridgeMode failed to find the expected APIs.", e);
+            }
         }
-    }    
+
+        @Override
+        void onNativeToJsMessageAvailable() {
+            if (sendMessageMethod == null && !initFailed) {
+                initReflection();
+            }
+            // webViewCore is lazily initialized, and so may not be available right away.
+            if (sendMessageMethod != null) {
+                String js = popAndEncodeAsJs();
+                Message execJsMessage = Message.obtain(null, EXECUTE_JS, js);
+                try {
+                    sendMessageMethod.invoke(webViewCore, execJsMessage);
+                } catch (Throwable e) {
+                    Log.e(LOG_TAG, "Reflection message bridge failed.", e);
+                }
+            }
+        }
+    }
+
     private static class JsMessage {
         final String jsPayloadOrCallbackId;
         final PluginResult pluginResult;
+
         JsMessage(String js) {
             if (js == null) {
                 throw new NullPointerException();
@@ -411,6 +431,7 @@ public class NativeToJsMessageQueue {
             jsPayloadOrCallbackId = js;
             pluginResult = null;
         }
+
         JsMessage(PluginResult pluginResult, String callbackId) {
             if (callbackId == null || pluginResult == null) {
                 throw new NullPointerException();
@@ -418,7 +439,7 @@ public class NativeToJsMessageQueue {
             jsPayloadOrCallbackId = callbackId;
             this.pluginResult = pluginResult;
         }
-        
+
         int calculateEncodedLength() {
             if (pluginResult == null) {
                 return jsPayloadOrCallbackId.length() + 1;
@@ -448,11 +469,11 @@ public class NativeToJsMessageQueue {
             }
             return ret;
         }
-        
+
         void encodeAsMessage(StringBuilder sb) {
             if (pluginResult == null) {
                 sb.append('J')
-                  .append(jsPayloadOrCallbackId);
+                        .append(jsPayloadOrCallbackId);
                 return;
             }
             int status = pluginResult.getStatus();
@@ -461,11 +482,11 @@ public class NativeToJsMessageQueue {
             boolean keepCallback = pluginResult.getKeepCallback();
 
             sb.append((noResult || resultOk) ? 'S' : 'F')
-              .append(keepCallback ? '1' : '0')
-              .append(status)
-              .append(' ')
-              .append(jsPayloadOrCallbackId)
-              .append(' ');
+                    .append(keepCallback ? '1' : '0')
+                    .append(status)
+                    .append(' ')
+                    .append(jsPayloadOrCallbackId)
+                    .append(' ');
             switch (pluginResult.getMessageType()) {
                 case PluginResult.MESSAGE_TYPE_BOOLEAN:
                     sb.append(pluginResult.getMessage().charAt(0)); // t or f.
@@ -475,7 +496,7 @@ public class NativeToJsMessageQueue {
                     break;
                 case PluginResult.MESSAGE_TYPE_NUMBER: // n
                     sb.append('n')
-                      .append(pluginResult.getMessage());
+                            .append(pluginResult.getMessage());
                     break;
                 case PluginResult.MESSAGE_TYPE_STRING: // s
                     sb.append('s');
@@ -484,7 +505,7 @@ public class NativeToJsMessageQueue {
                 case PluginResult.MESSAGE_TYPE_BINARYSTRING: // S
                     sb.append('S');
                     sb.append(pluginResult.getMessage());
-                    break;                    
+                    break;
                 case PluginResult.MESSAGE_TYPE_ARRAYBUFFER: // A
                     sb.append('A');
                     sb.append(pluginResult.getMessage());
@@ -494,7 +515,7 @@ public class NativeToJsMessageQueue {
                     sb.append(pluginResult.getMessage()); // [ or {
             }
         }
-        
+
         void encodeAsJsMessage(StringBuilder sb) {
             if (pluginResult == null) {
                 sb.append(jsPayloadOrCallbackId);
@@ -502,29 +523,29 @@ public class NativeToJsMessageQueue {
                 int status = pluginResult.getStatus();
                 boolean success = (status == PluginResult.Status.OK.ordinal()) || (status == PluginResult.Status.NO_RESULT.ordinal());
                 sb.append("cordova.callbackFromNative('")
-                  .append(jsPayloadOrCallbackId)
-                  .append("',")
-                  .append(success)
-                  .append(",")
-                  .append(status)
-                  .append(",[");
+                        .append(jsPayloadOrCallbackId)
+                        .append("',")
+                        .append(success)
+                        .append(",")
+                        .append(status)
+                        .append(",[");
                 switch (pluginResult.getMessageType()) {
                     case PluginResult.MESSAGE_TYPE_BINARYSTRING:
                         sb.append("atob('")
-                          .append(pluginResult.getMessage())
-                          .append("')");
+                                .append(pluginResult.getMessage())
+                                .append("')");
                         break;
                     case PluginResult.MESSAGE_TYPE_ARRAYBUFFER:
                         sb.append("cordova.require('cordova/base64').toArrayBuffer('")
-                          .append(pluginResult.getMessage())
-                          .append("')");
+                                .append(pluginResult.getMessage())
+                                .append("')");
                         break;
                     default:
-                    sb.append(pluginResult.getMessage());
+                        sb.append(pluginResult.getMessage());
                 }
                 sb.append("],")
-                  .append(pluginResult.getKeepCallback())
-                  .append(");");
+                        .append(pluginResult.getKeepCallback())
+                        .append(");");
             }
         }
     }

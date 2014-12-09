@@ -174,7 +174,7 @@ public class DataReading {
         string.append("latitude: " + latitude + newLine);
         string.append("longitude: " + longitude + newLine);
         string.append("noise: " + noise + newLine);
-        string.append("co: " + co  + newLine);
+        string.append("co: " + co + newLine);
         string.append("no2: " + no2 + newLine);
         string.append("battery: " + battery + newLine);
 

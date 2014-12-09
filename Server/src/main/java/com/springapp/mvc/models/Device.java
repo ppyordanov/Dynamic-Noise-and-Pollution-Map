@@ -90,6 +90,18 @@ public class Device {
 
     @Override
     public String toString() {
-        return this.title;
+
+        StringBuilder string = new StringBuilder();
+        String newLine = System.getProperty("line.separator");
+
+        string.append(this.getClass().getName() + " Object {" + newLine);
+        string.append("id: " + id + newLine);
+        string.append("title: " + title + newLine);
+        string.append("description: " + description + newLine);
+        string.append("kitVersion: " + kitVersion + newLine);
+        string.append("macAddress: " + macAddress + newLine);
+
+        return string.toString();
+
     }
 }

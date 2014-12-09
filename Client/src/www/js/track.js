@@ -7,15 +7,7 @@ var popup = new google.maps.InfoWindow({});
 var map;
 var probe = 0;
 
-var sample_data = {
-    no: "",
-    co2: "",
-    noise: "",
-    battery: "",
-    latitude: "",
-    longitude: "",
-    routeId: ""
-};
+var sample_data;
 
 document.addEventListener("deviceready", function(){
 
@@ -32,6 +24,15 @@ var DATA_SOURCE = 'http://api.smartcitizen.me/v0.0.1/084122509ae13c389bf75291586
 //getSCKData();
 function getSCKData(location, routeId)
 {
+    sample_data = {
+        no2: "",
+        co: "",
+        noise: "",
+        battery: "",
+        latitude: "",
+        longitude: "",
+        routeId: ""
+    };
 
 
     var json_obj = getSCKReading(DATA_SOURCE);
@@ -204,12 +205,16 @@ $("#stop").live('click', function(){
 */
 
 
-    var dataReading ={json:JSON.stringify(context_data)};
+    var dataReadings ={json:JSON.stringify(context_data)};
+
+    console.log(dataReadings);
+    alert(context_data[0].latitude + " " + context_data[1].latitude);
+
     $.ajax({
         type: 'POST',
         //url: "http://127.0.0.1:8080/addRoute",
         url:"http://178.62.100.239:8080/addRoute",
-        data: dataReading,
+        data: dataReadings,
         dataType: "json",
         success: function(response)
         {

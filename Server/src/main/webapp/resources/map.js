@@ -1,7 +1,14 @@
+/*
 var minLatBounds = 55.870056;
 var maxLatBounds = 55.875209;
 var minLonBounds = -4.278797;
 var maxLonBounds = -4.297637;
+*/
+var minLatBounds = 55.0;
+var maxLatBounds = 56.875209;
+var minLonBounds = -3.278797;
+var maxLonBounds = -5.297637;
+
 var centerLat = 55.872912;
 var centerLon = -4.289657;
 var center = new google.maps.LatLng(centerLat, centerLon);
@@ -114,8 +121,8 @@ function init_map() {
 
     var myOptions = {
         zoom: 16,
-        minZoom: 16,
-        maxZoom: 18,
+        //minZoom: 16,
+        //maxZoom: 18,
         center: center,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         disableDefaultUI: false

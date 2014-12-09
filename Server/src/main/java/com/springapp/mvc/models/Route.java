@@ -53,7 +53,16 @@ public class Route {
     }
 
     public String toString() {
-        return this.deviceId.toString();
+
+
+        StringBuilder string = new StringBuilder();
+        String newLine = System.getProperty("line.separator");
+
+        string.append(this.getClass().getName() + " Object {" + newLine);
+        string.append("id: " + id + newLine);
+        string.append("deviceId: " + deviceId + newLine);
+        return string.toString();
+
     }
 
 }

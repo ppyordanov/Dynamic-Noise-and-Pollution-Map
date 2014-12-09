@@ -69,13 +69,13 @@ function addPopUp(marker, content) {
 function generateMarker(dataReading) {
 
     id = dataReading.id;
-    noise = dataReading.noise;
-    co = dataReading.co;
-    no2 = dataReading.no2;
+    noise = parseFloat(dataReading.noise);
+    co = parseFloat(dataReading.co);
+    no2 = parseFloat(dataReading.no2);
     //alert(dataReadings[i].timestamp);
-    battery = dataReading.battery;
-    latitude = dataReading.latitude;
-    longitude = dataReading.longitude;
+    battery = parseFloat(dataReading.battery);
+    latitude = parseFloat(dataReading.latitude);
+    longitude = parseFloat(dataReading.longitude);
     position = new google.maps.LatLng(latitude, longitude);
 
 
@@ -95,18 +95,6 @@ function generateMarker(dataReading) {
     styledContent = '<div class="mapPopUp">' + content + '</div>';
 
     addPopUp(marker, styledContent);
-
-}
-
-function generateRoute(newRoute){
-
-    var route = new google.maps.Polyline({
-        path: newRoute,
-        strokeColor: "#2196f3",
-        strokeOpacity: 0.5,
-        strokeWeight: 10
-    });
-    route.setMap(map);
 
 }
 
@@ -143,18 +131,10 @@ function init_map() {
         map.panTo(lastCenter);
     });
 
-    for(var i = 0; i < routes.length; i++){
-        var routeDR = dataReadings[routes[i].id];
-        var newRoute = [];
-        for (var j = 0; j < routeDR.length; j++) {
 
-            generateMarker(routeDR[j]);
-            var pos = new google.maps.LatLng(routeDR[j].latitude,routeDR[j].longitude);
-            newRoute.push(pos);
+    for (var i = 0; i < dataReadings.length / 50; i++) {
 
-        }
-
-        generateRoute(newRoute);
+        generateMarker(dataReadings[i]);
 
     }
 

@@ -10,7 +10,11 @@ var probe = 0;
 var sample_data = {
     no: "",
     co2: "",
-    noise: ""
+    noise: "",
+    battery: "",
+    latitude: "",
+    longitude: "",
+    routeId: ""
 };
 
 document.addEventListener("deviceready", function(){
@@ -26,7 +30,7 @@ document.addEventListener("deviceready", function(){
 var DATA_SOURCE = 'http://api.smartcitizen.me/v0.0.1/084122509ae13c389bf752915861249cff652249/lastpost.json';
 
 //getSCKData();
-function getSCKData()
+function getSCKData(location, routeId)
 {
 
 
@@ -35,13 +39,21 @@ function getSCKData()
     var no2 = json_obj.devices[0].posts.no2;
     var co = json_obj.devices[0].posts.co;
     var noise = json_obj.devices[0].posts.noise;
+    var battery = json_obj.devices[0].posts.bat;
+
+    var latitude = location.coords.latitude;
+    var longitude = location.coords.longitude;
 
     sample_data.no2 = no2;
     sample_data.co = co;
     sample_data.noise = noise;
+    sample_data.battery = battery;
+    sample_data.latitude = latitude;
+    sample_data.longitude = longitude;
+    sample_data.routeId = routeId;
     context_data.push(sample_data);
 
-    $("#probe").html("<br>Probe " + probe + "<br>noise " + noise + "<br>co " + co + "<br> no2 "+ no2);
+    $("#probe").html("<br>Probe " + probe + "<br>noise " + noise + "<br>co " + co + "<br> no2 "+ no2 + "<br> battery "+ battery + "<br> latitude "+ latitude + "<br> longitude "+ longitude);
     probe++;
 
 
@@ -134,11 +146,14 @@ $("#start").live('click',function(){
         WINDOW=3000;
     }
 
+    var date = new Date();
+    var time_ms = date.getTime();
+
     location_id = navigator.geolocation.watchPosition(
         //SUCCESS
         function(current_location){
             route_data.push(current_location);
-            getSCKData();
+            getSCKData(current_location, time_ms);
 
         },
         //FAIL
@@ -167,15 +182,17 @@ $("#start").live('click',function(){
 $("#stop").live('click', function(){
 
     navigator.geolocation.clearWatch(location_id);
-    JSONroute = JSON.stringify(route_data);
-    window.localStorage.setItem(route_id,JSONroute);
-
+    JSONroute = JSON.stringify(context_data);
+    window.localStorage.setItem(route_id,JSON.stringify(route_data));
+/*
     $.ajax({
         url:"http://127.0.0.1:8080/addRoute",
+        //url:"http://178.62.100.239:8080/addRoute",
         type:"GET",
-        crossDomain: true,
+        //crossDomain: true,
         dataType: "jsonp",
-        data: JSONroute,
+        //contentType: "application/javascript",
+        data: "{'go'}",
         async: false,
         cache: false,
         processData:false,
@@ -184,13 +201,28 @@ $("#stop").live('click', function(){
         console.log(response);
         return response;
     }});
+*/
+
+
+    var dataReading ={json:JSON.stringify(context_data)};
+    $.ajax({
+        type: 'POST',
+        //url: "http://127.0.0.1:8080/addRoute",
+        url:"http://178.62.100.239:8080/addRoute",
+        data: dataReading,
+        dataType: "json",
+        success: function(response)
+        {
+            console.log(response);
+        }
+    });
 
     //RESET
     route_id=null;
     route_data=[];
 
     $("#route_id").val("");
-    $("#status").html("completed tracking");
+    $("#status").html("completed tracking and transmitted data to server");
 
 });
 

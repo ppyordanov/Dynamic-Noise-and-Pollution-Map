@@ -162,7 +162,24 @@ public class DataReading {
     }
 
     public String toString() {
-        return null;
+
+        StringBuilder string = new StringBuilder();
+        String newLine = System.getProperty("line.separator");
+
+        string.append(this.getClass().getName() + " Object {" + newLine);
+        string.append("id: " + id + newLine);
+        string.append("routeId: " + routeId + newLine);
+        string.append("deviceId: " + deviceId + newLine);
+        string.append("timestamp: " + timestamp + newLine);
+        string.append("latitude: " + latitude + newLine);
+        string.append("longitude: " + longitude + newLine);
+        string.append("noise: " + noise + newLine);
+        string.append("co: " + co  + newLine);
+        string.append("no2: " + no2 + newLine);
+        string.append("battery: " + battery + newLine);
+
+        return string.toString();
+
     }
 
 }

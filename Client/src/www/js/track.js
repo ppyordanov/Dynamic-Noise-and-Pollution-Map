@@ -2,7 +2,8 @@ var location_id = null;
 var route_data = [];
 var context_data = [];
 var route_id = '';
-var WINDOW = 3000;
+var DEFAULT_WINDOW = 30000;
+var WINDOW = DEFAULT_WINDOW;
 var popup = new google.maps.InfoWindow({});
 var map;
 var probe = 0;
@@ -139,18 +140,12 @@ function addPopUp(marker, content) {
 */
 
 
-$("#start").live('click',function(){
-
-    WINDOW = parseInt($("#window").val());
-
-    if(WINDOW==''){
-        WINDOW=3000;
-    }
+function localize(){
 
     var date = new Date();
     var time_ms = date.getTime();
 
-    location_id = navigator.geolocation.watchPosition(
+    location_id = navigator.geolocation.getCurrentPosition(
         //SUCCESS
         function(current_location){
             route_data.push(current_location);
@@ -161,9 +156,26 @@ $("#start").live('click',function(){
         function(error_message){
             console.log(error_message);
         },
-        //update every 30 seconds
-        { enableHighAccuracy:true,frequency:WINDOW}
+        { enableHighAccuracy:true,timeout:10000}
     );
+
+}
+
+$("#start").live('click',function(){
+
+    //checking time window value
+    //window at least a second
+    var winVal = $("#window").val();
+    if(winVal!='' && isNaN(winVal)==false && winVal >= 1000){
+        WINDOW = parseInt(winVal);
+    }
+
+    alert(WINDOW);
+
+    //update location every x seconds, 30 by default
+    localize();
+    setInterval(localize, WINDOW);
+
 
     route_id = $("#route_id").val();
     var time_now;
@@ -182,7 +194,7 @@ $("#start").live('click',function(){
 
 $("#stop").live('click', function(){
 
-    navigator.geolocation.clearWatch(location_id);
+    //navigator.geolocation.clearWatch(location_id);
     JSONroute = JSON.stringify(context_data);
     window.localStorage.setItem(route_id,JSON.stringify(route_data));
 /*
@@ -204,27 +216,34 @@ $("#stop").live('click', function(){
     }});
 */
 
+    //if there is data to be transmitted, send to server
+    if(context_data.length !=0){
 
-    var dataReadings ={json:JSON.stringify(context_data)};
+        var dataReadings ={json:JSON.stringify(context_data)};
 
-    console.log(dataReadings);
-    alert(context_data[0].latitude + " " + context_data[1].latitude);
+        console.log(dataReadings);
 
-    $.ajax({
-        type: 'POST',
-        //url: "http://127.0.0.1:8080/addRoute",
-        url:"http://178.62.100.239:8080/addRoute",
-        data: dataReadings,
-        dataType: "json",
-        success: function(response)
-        {
-            console.log(response);
-        }
-    });
+        //alert for debugging
+        //alert(context_data[0].latitude + " " + context_data[1].latitude);
+
+        $.ajax({
+            type: 'POST',
+            //url: "http://127.0.0.1:8080/addRoute",
+            url:"http://178.62.100.239:8080/addRoute",
+            data: dataReadings,
+            dataType: "json",
+            success: function(response)
+            {
+                console.log(response);
+            }
+        });
+
+    }
 
     //RESET
     route_id=null;
     route_data=[];
+    context_data=[];
 
     $("#route_id").val("");
     $("#status").html("completed tracking and transmitted data to server");

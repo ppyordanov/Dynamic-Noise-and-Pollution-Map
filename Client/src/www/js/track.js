@@ -312,12 +312,14 @@ $('#route').live('pageshow', function(){
         position = new google.maps.LatLng(current_route_data[i].coords.latitude, current_route_data[i].coords.longitude);
         route_coordinates.push(position);
 
+        /*
         marker = new google.maps.Marker({
             position: position,
             optimized: false,
             clickable: true,
             map: map
         });
+        */
 /*
         google.maps.event.addListener(marker, 'çlick', function (e) {
 

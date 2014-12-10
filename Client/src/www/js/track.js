@@ -8,6 +8,8 @@ var popup = new google.maps.InfoWindow({});
 var map;
 var probe = 0;
 
+var trackIntervalId;
+
 var sample_data;
 
 document.addEventListener("deviceready", function(){
@@ -170,11 +172,11 @@ $("#start").live('click',function(){
         WINDOW = parseInt(winVal);
     }
 
-    alert(WINDOW);
+    //alert(WINDOW);
 
     //update location every x seconds, 30 by default
     localize();
-    setInterval(localize, WINDOW);
+    trackIntervalId = setInterval(localize, WINDOW);
 
 
     route_id = $("#route_id").val();
@@ -193,6 +195,9 @@ $("#start").live('click',function(){
 });
 
 $("#stop").live('click', function(){
+
+    //stop getting current location
+    clearInterval(trackIntervalId);
 
     //navigator.geolocation.clearWatch(location_id);
     JSONroute = JSON.stringify(context_data);

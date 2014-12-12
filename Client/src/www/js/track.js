@@ -234,7 +234,7 @@ $("#stop").live('click', function(){
         $.ajax({
             type: 'POST',
             //url: "http://127.0.0.1:8080/addRoute",
-            url:"http://178.62.100.239:8080/addRoute",
+            url:"http://178.62.100.239/addRoute",
             data: dataReadings,
             dataType: "json",
             success: function(response)

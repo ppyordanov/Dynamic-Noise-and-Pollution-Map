@@ -2,6 +2,7 @@ var location_id = null;
 var route_data = [];
 var context_data = [];
 var route_id = '';
+var MIN_INTERVAL = 500;
 var DEFAULT_WINDOW = 30000;
 var WINDOW = DEFAULT_WINDOW;
 var popup = new google.maps.InfoWindow({});
@@ -141,24 +142,31 @@ function addPopUp(marker, content) {
 }
 */
 
-
-function localize(){
+function generateData(current_location){
 
     var date = new Date();
     var time_ms = date.getTime();
 
-    location_id = navigator.geolocation.getCurrentPosition(
+    route_data.push(current_location);
+    getSCKData(current_location, time_ms);
+
+}
+
+function localize(){
+
+    location_id = navigator.geolocation.watchPosition(
         //SUCCESS
         function(current_location){
-            route_data.push(current_location);
-            getSCKData(current_location, time_ms);
+
+            //trackIntervalId = setInterval(generateData(current_location), WINDOW);
+            generateData(current_location);
 
         },
         //FAIL
         function(error_message){
             console.log(error_message);
         },
-        { enableHighAccuracy:true,timeout:10000}
+        { enableHighAccuracy:true,timeout:WINDOW}
     );
 
 }
@@ -166,9 +174,9 @@ function localize(){
 $("#start").live('click',function(){
 
     //checking time window value
-    //window at least a second
+    //window at least 30 seconds
     var winVal = $("#window").val();
-    if(winVal!='' && isNaN(winVal)==false && winVal >= 1000){
+    if(winVal!='' && isNaN(winVal)==false && winVal >= 30000){
         WINDOW = parseInt(winVal);
     }
 
@@ -176,11 +184,13 @@ $("#start").live('click',function(){
 
     //update location every x seconds, 30 by default
     localize();
-    trackIntervalId = setInterval(localize, WINDOW);
 
 
     route_id = $("#route_id").val();
+    $("#window").val(WINDOW);
+
     var time_now;
+
     if(route_id ==''){
         time_now = new Date().toLocaleString();
         route_id = "Route " + time_now;
@@ -197,10 +207,10 @@ $("#start").live('click',function(){
 $("#stop").live('click', function(){
 
     //stop getting current location
-    clearInterval(trackIntervalId);
+    //clearInterval(trackIntervalId);
 
-    //navigator.geolocation.clearWatch(location_id);
-    JSONroute = JSON.stringify(context_data);
+    navigator.geolocation.clearWatch(location_id);
+    //JSONroute = JSON.stringify(context_data);
     window.localStorage.setItem(route_id,JSON.stringify(route_data));
 /*
     $.ajax({
@@ -224,9 +234,19 @@ $("#stop").live('click', function(){
     //if there is data to be transmitted, send to server
     if(context_data.length !=0){
 
-        var dataReadings ={json:JSON.stringify(context_data)};
+        var nSample = Math.floor(WINDOW/MIN_INTERVAL);
+        alert(nSample);
+        var filteredContextData = [];
+        for(var i=0;i<context_data.length;i+=nSample){
+            filteredContextData.push(context_data[i]);
+        }
 
+        var dataReadings2 ={json:JSON.stringify(context_data)};
+        var dataReadings ={json:JSON.stringify(filteredContextData)};
+
+        console.log(dataReadings2);
         console.log(dataReadings);
+
 
         //alert for debugging
         //alert(context_data[0].latitude + " " + context_data[1].latitude);

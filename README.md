@@ -46,3 +46,10 @@ Client:
  - plug in Android device (minimum 2.1)
  - ```phonegap build android ``` compile application from source
  - ```phonegap run android ``` run client application on host device
+
+Online Resources:
+
+ - Update: the web server should be available on the its newly registered domain name:
+
+* **http://ugmap.me/**
+* **http://www.ugmap.me/**

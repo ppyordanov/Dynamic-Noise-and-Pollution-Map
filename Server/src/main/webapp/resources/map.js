@@ -31,7 +31,7 @@ var longitude;
 var position;
 
 var map;
-var image = '/resources/sck_logo4.png';
+var image = '/resources/sck_logo5.png';
 var marker;
 var content;
 var styledContent;

@@ -3,15 +3,15 @@ var route_data = [];
 var context_data = [];
 var route_id = '';
 var MIN_INTERVAL = 500;
-var DEFAULT_WINDOW = 30000;
+var DEFAULT_WINDOW = 30*1000;
 var WINDOW = DEFAULT_WINDOW;
 var popup = new google.maps.InfoWindow({});
 var map;
 var probe = 0;
 
 var trackIntervalId;
-
 var sample_data;
+var DATA_SOURCE = 'http://api.smartcitizen.me/v0.0.1/084122509ae13c389bf752915861249cff652249/lastpost.json';
 
 document.addEventListener("deviceready", function(){
 
@@ -22,8 +22,6 @@ document.addEventListener("deviceready", function(){
     }
 
 });
-
-var DATA_SOURCE = 'http://api.smartcitizen.me/v0.0.1/084122509ae13c389bf752915861249cff652249/lastpost.json';
 
 //getSCKData();
 function getSCKData(location, routeId)
@@ -154,20 +152,63 @@ function generateData(current_location){
 
 function localize(){
 
+    var options = {
+        enableHighAccuracy: true,
+        timeout:5000,
+        maximumAge: 0
+    };
+
+    var GEO_LOCATION = {};
+
+    /*
+
+     navigator.geolocation.getCurrentPosition(
+
+     //SUCCESS
+     function(start_location){
+
+     generateData(start_location);
+     console.log("tracking from: " + start_location);
+
+     },
+     //FAIL
+     function(error_message){
+     console.log(error_message);
+     }, options
+
+     );
+
+
+     */
+
+    var start_location_loaded = false
+
     location_id = navigator.geolocation.watchPosition(
         //SUCCESS
         function(current_location){
 
             //trackIntervalId = setInterval(generateData(current_location), WINDOW);
-            generateData(current_location);
+            GEO_LOCATION.location = current_location;
+
+            if(start_location_loaded==false){
+                generateData(GEO_LOCATION.location);
+                start_location_loaded = true;
+            }
 
         },
         //FAIL
         function(error_message){
             console.log(error_message);
         },
-        { enableHighAccuracy:true,timeout:WINDOW}
+        options
+
     );
+
+    trackIntervalId = setInterval(function(){
+
+        generateData(GEO_LOCATION.location);
+
+    }, WINDOW);
 
 }
 
@@ -207,7 +248,7 @@ $("#start").live('click',function(){
 $("#stop").live('click', function(){
 
     //stop getting current location
-    //clearInterval(trackIntervalId);
+    clearInterval(trackIntervalId);
 
     navigator.geolocation.clearWatch(location_id);
     //JSONroute = JSON.stringify(context_data);
@@ -234,8 +275,9 @@ $("#stop").live('click', function(){
     //if there is data to be transmitted, send to server
     if(context_data.length !=0){
 
+        /*
         var nSample = Math.floor(WINDOW/MIN_INTERVAL);
-        alert(nSample);
+        //alert(nSample);
         var filteredContextData = [];
         for(var i=0;i<context_data.length;i+=nSample){
             filteredContextData.push(context_data[i]);
@@ -246,6 +288,10 @@ $("#stop").live('click', function(){
 
         console.log(dataReadings2);
         console.log(dataReadings);
+        */
+
+        var dataReadings ={json:JSON.stringify(context_data)};
+        console.log(dataReadings);
 
 
         //alert for debugging
@@ -254,7 +300,8 @@ $("#stop").live('click', function(){
         $.ajax({
             type: 'POST',
             //url: "http://127.0.0.1:8080/addRoute",
-            url:"http://178.62.100.239/addRoute",
+            //url:"http://178.62.100.239/addRoute",
+            url:"http://ugmap.me/addRoute",
             data: dataReadings,
             dataType: "json",
             success: function(response)

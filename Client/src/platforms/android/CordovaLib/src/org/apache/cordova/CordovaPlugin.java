@@ -64,7 +64,7 @@ public class CordovaPlugin {
      */
     protected void pluginInitialize() {
     }
-    
+
     /**
      * Executes the request.
      *
@@ -188,7 +188,7 @@ public class CordovaPlugin {
     public Uri remapUri(Uri uri) {
         return null;
     }
-    
+
     /**
      * Called when the WebView does a top-level navigation or refreshes.
      *

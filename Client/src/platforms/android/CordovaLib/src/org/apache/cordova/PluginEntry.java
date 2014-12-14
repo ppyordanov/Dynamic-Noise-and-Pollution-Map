@@ -65,7 +65,7 @@ public class PluginEntry {
     public PluginEntry(String service, String pluginClass, boolean onload) {
         this(service, pluginClass, onload, null, null);
     }
-    
+
     @Deprecated // urlFilters are going away
     public PluginEntry(String service, String pluginClass, boolean onload, List<String> urlFilters) {
         this.service = service;

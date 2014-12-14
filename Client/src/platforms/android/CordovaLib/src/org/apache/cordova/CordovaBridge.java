@@ -40,7 +40,7 @@ public class CordovaBridge {
         this.pluginManager = pluginManager;
         this.jsMessageQueue = jsMessageQueue;
     }
-    
+
     public String jsExec(int bridgeSecret, String service, String action, String callbackId, String arguments) throws JSONException, IllegalAccessException {
         if (!verifySecret("exec()", bridgeSecret)) {
             return null;
@@ -113,7 +113,7 @@ public class CordovaBridge {
 
     public void reset(String loadedUrl) {
         jsMessageQueue.reset();
-        clearBridgeSecret();        
+        clearBridgeSecret();
         this.loadedUrl = loadedUrl;
     }
 
@@ -176,7 +176,7 @@ public class CordovaBridge {
         }
         return null;
     }
-    
+
     public NativeToJsMessageQueue getMessageQueue() {
         return jsMessageQueue;
     }

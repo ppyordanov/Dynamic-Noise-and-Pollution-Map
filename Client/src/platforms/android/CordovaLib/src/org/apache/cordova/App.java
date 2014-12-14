@@ -249,7 +249,7 @@ public class App extends CordovaPlugin {
     public void exitApp() {
         this.webView.postMessage("exit", null);
     }
-    
+
 
     /**
      * Listen for telephony events: RINGING, OFFHOOK and IDLE

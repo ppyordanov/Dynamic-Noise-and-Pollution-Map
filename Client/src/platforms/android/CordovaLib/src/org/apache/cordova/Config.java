@@ -46,7 +46,7 @@ public class Config {
             parser = new ConfigXmlParser();
         }
     }
-    
+
     /**
      * Add entry to approved list of URLs (whitelist)
      *
@@ -111,7 +111,7 @@ public class Config {
     public static List<PluginEntry> getPluginEntries() {
         return parser.getPluginEntries();
     }
-    
+
     public static CordovaPreferences getPreferences() {
         return parser.getPreferences();
     }

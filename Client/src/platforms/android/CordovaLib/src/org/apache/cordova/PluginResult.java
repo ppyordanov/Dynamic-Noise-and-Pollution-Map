@@ -79,7 +79,7 @@ public class PluginResult {
         this.messageType = binaryString ? MESSAGE_TYPE_BINARYSTRING : MESSAGE_TYPE_ARRAYBUFFER;
         this.encodedMessage = Base64.encodeToString(data, Base64.NO_WRAP);
     }
-    
+
     public void setKeepCallback(boolean b) {
         this.keepCallback = b;
     }

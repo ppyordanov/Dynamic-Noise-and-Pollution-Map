@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletContext;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -77,7 +78,6 @@ public class HomeController {
     }
 
 
-    /*
     @RequestMapping(value = "/del")
     public
     @ResponseBody
@@ -87,7 +87,7 @@ public class HomeController {
         routeRepository.deleteAll();
         return "done";
     }
-    */
+
 
     @RequestMapping(value = "/addRoute", method = RequestMethod.POST)
     public
@@ -137,7 +137,6 @@ public class HomeController {
 
     */
 
-    /*
     @RequestMapping(value = MAPPING_DATA)
     public String dataPopulation(ModelMap model) {
 
@@ -185,5 +184,5 @@ public class HomeController {
         return "data";
     }
 
-    */
+
 }

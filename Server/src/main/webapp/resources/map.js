@@ -41,6 +41,7 @@ var styledMap = new google.maps.StyledMapType(styles[0], {name: "Styled Map"});
 var progress;
 var progressContent;
 
+
 function randomPosGen(lowLatBounds, highLatBounds, lowLonBounds, highLonBounds) {
 
     var center;
@@ -72,6 +73,14 @@ function addPopUp(marker, content) {
     });
 
 
+}
+
+function convertToRGB(n){
+    var B = 0;
+    var R = (255 * n) / 100;
+    var G = (255 * (100 - n)) / 100;
+    var RGB = "rgb(" + R +"," + G + "," + B +")";
+    return RGB;
 }
 
 function generateMarker(dataReading) {
@@ -122,8 +131,8 @@ function init_map() {
 
     var myOptions = {
         zoom: 16,
-        //minZoom: 16,
-        //maxZoom: 18,
+        minZoom: 16,
+        maxZoom: 18,
         center: center,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         disableDefaultUI: false

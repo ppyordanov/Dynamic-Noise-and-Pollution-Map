@@ -39,14 +39,26 @@ var popup = new google.maps.InfoWindow({});
 var progress;
 var progressContent;
 
-$(document).ready(function() {
+$(document).ready(function () {
 
-    $('#style0').click(function(){map.setMapTypeId('CLASSIC');});
-    $('#style1').click(function(){map.setMapTypeId('GRAYSCALE_DEFAULT');});
-    $('#style2').click(function(){map.setMapTypeId('BLUE_HUE');});
-    $('#style3').click(function(){map.setMapTypeId('DARK_BLUE');});
-    $('#style4').click(function(){map.setMapTypeId('CLEAN_CLASSIC');});
-    $('#style5').click(function(){map.setMapTypeId('ROADS');});
+    $('#style0').click(function () {
+        map.setMapTypeId('CLASSIC');
+    });
+    $('#style1').click(function () {
+        map.setMapTypeId('GRAYSCALE_DEFAULT');
+    });
+    $('#style2').click(function () {
+        map.setMapTypeId('BLUE_HUE');
+    });
+    $('#style3').click(function () {
+        map.setMapTypeId('DARK_BLUE');
+    });
+    $('#style4').click(function () {
+        map.setMapTypeId('CLEAN_CLASSIC');
+    });
+    $('#style5').click(function () {
+        map.setMapTypeId('ROADS');
+    });
 
 });
 
@@ -83,15 +95,15 @@ function addPopUp(marker, content) {
 
 }
 
-function convertToRGB(n){
+function convertToRGB(n) {
     var B = 0;
     var R = Math.floor((255 * n) / 100);
     var G = Math.floor((255 * (100 - n)) / 100);
-    var RGB = "rgb(" + R +"," + G + "," + B +")";
+    var RGB = "rgb(" + R + "," + G + "," + B + ")";
     return RGB;
 }
 
-function convertToHSV(n){
+function convertToHSV(n) {
     return null;
 }
 
@@ -140,7 +152,7 @@ function generateRoute(newRoute) {
 
 }
 
-function populateMap(){
+function populateMap() {
     for (var i = 0; i < routes.length; i++) {
         var routeDR = dataReadings[routes[i].id];
         var newRoute = [];
@@ -157,7 +169,7 @@ function populateMap(){
     }
 }
 
-function setStyles(){
+function setStyles() {
 
     map.mapTypes.set('CLASSIC', styledMap0);
     map.mapTypes.set('GRAYSCALE_DEFAULT', styledMap1);

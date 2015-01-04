@@ -36,11 +36,19 @@ var content;
 var styledContent;
 var popup = new google.maps.InfoWindow({});
 
-var styledMap = new google.maps.StyledMapType(styles[0], {name: "Styled Map"});
-
 var progress;
 var progressContent;
 
+$(document).ready(function() {
+
+    $('#style0').click(function(){map.setMapTypeId('CLASSIC');});
+    $('#style1').click(function(){map.setMapTypeId('GRAYSCALE_DEFAULT');});
+    $('#style2').click(function(){map.setMapTypeId('BLUE_HUE');});
+    $('#style3').click(function(){map.setMapTypeId('DARK_BLUE');});
+    $('#style4').click(function(){map.setMapTypeId('CLEAN_CLASSIC');});
+    $('#style5').click(function(){map.setMapTypeId('ROADS');});
+
+});
 
 function randomPosGen(lowLatBounds, highLatBounds, lowLonBounds, highLonBounds) {
 
@@ -77,11 +85,16 @@ function addPopUp(marker, content) {
 
 function convertToRGB(n){
     var B = 0;
-    var R = (255 * n) / 100;
-    var G = (255 * (100 - n)) / 100;
+    var R = Math.floor((255 * n) / 100);
+    var G = Math.floor((255 * (100 - n)) / 100);
     var RGB = "rgb(" + R +"," + G + "," + B +")";
     return RGB;
 }
+
+function convertToHSV(n){
+    return null;
+}
+
 
 function generateMarker(dataReading) {
 
@@ -127,6 +140,36 @@ function generateRoute(newRoute) {
 
 }
 
+function populateMap(){
+    for (var i = 0; i < routes.length; i++) {
+        var routeDR = dataReadings[routes[i].id];
+        var newRoute = [];
+        for (var j = 0; j < routeDR.length; j++) {
+
+            generateMarker(routeDR[j]);
+            var pos = new google.maps.LatLng(routeDR[j].latitude, routeDR[j].longitude);
+            newRoute.push(pos);
+
+        }
+
+        generateRoute(newRoute);
+
+    }
+}
+
+function setStyles(){
+
+    map.mapTypes.set('CLASSIC', styledMap0);
+    map.mapTypes.set('GRAYSCALE_DEFAULT', styledMap1);
+    map.mapTypes.set('BLUE_HUE', styledMap2);
+    map.mapTypes.set('DARK_BLUE', styledMap3);
+    map.mapTypes.set('CLEAN_CLASSIC', styledMap4);
+    map.mapTypes.set('ROADS', styledMap5);
+
+    map.setMapTypeId('GRAYSCALE_DEFAULT');
+
+}
+
 function init_map() {
 
     var myOptions = {
@@ -152,7 +195,7 @@ function init_map() {
     google.maps.event.addListener(map, 'center_changed', function () {
         if (frameBorder.contains(map.getCenter())) {
 
-            // save last position within specivied bounds
+            // save last position within specified bounds
             lastCenter = map.getCenter();
             return;
         }
@@ -160,23 +203,8 @@ function init_map() {
         map.panTo(lastCenter);
     });
 
-    for (var i = 0; i < routes.length; i++) {
-        var routeDR = dataReadings[routes[i].id];
-        var newRoute = [];
-        for (var j = 0; j < routeDR.length; j++) {
-
-            generateMarker(routeDR[j]);
-            var pos = new google.maps.LatLng(routeDR[j].latitude, routeDR[j].longitude);
-            newRoute.push(pos);
-
-        }
-
-        generateRoute(newRoute);
-
-    }
-
-    map.mapTypes.set('map_style', styledMap);
-    map.setMapTypeId('map_style');
+    populateMap();
+    setStyles();
 
 }
 

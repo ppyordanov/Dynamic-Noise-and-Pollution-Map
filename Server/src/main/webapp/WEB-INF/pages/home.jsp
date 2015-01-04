@@ -58,7 +58,6 @@
         console.log(dataReadings);
         //alert(routes.length);
 
-
     </script>
 
 
@@ -83,12 +82,23 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link</a></li>
                 <li><a href="#">Link</a></li>
 
-                <!--
+
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Styles <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a id="style0" href="#">Classic</a></li>
+                        <li><a id="style1" href="#">Grayscale</a></li>
+                        <li><a id="style2" href="#">Blue hue</a></li>
+                        <li><a id="style3" href="#">Dark blue</a></li>
+                        <li><a id="style4" href="#">Clean classic</a></li>
+                        <li><a id="style5" href="#">Roads</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filters <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
@@ -99,7 +109,7 @@
                         <li><a href="#">One more separated link</a></li>
                     </ul>
                 </li>
-                -->
+
 
             </ul>
 

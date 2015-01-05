@@ -177,7 +177,6 @@ function setStyles() {
     map.mapTypes.set('DARK_BLUE', styledMap3);
     map.mapTypes.set('CLEAN_CLASSIC', styledMap4);
     map.mapTypes.set('ROADS', styledMap5);
-
     map.setMapTypeId('GRAYSCALE_DEFAULT');
 
 }

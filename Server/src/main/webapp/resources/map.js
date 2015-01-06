@@ -189,7 +189,21 @@ function init_map() {
         maxZoom: 18,
         center: center,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        disableDefaultUI: false
+        disableDefaultUI: false,
+        mapTypeControl: false,
+        panControl: true,
+        panControlOptions: {
+            position: google.maps.ControlPosition.TOP_LEFT
+        },
+        zoomControl: true,
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.LARGE,
+            position: google.maps.ControlPosition.TOP_LEFT
+        },
+
+        scaleControl: true,
+        streetViewControl: true
+
     };
 
     map = new google.maps.Map(

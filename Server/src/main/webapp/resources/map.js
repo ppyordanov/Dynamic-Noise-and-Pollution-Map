@@ -123,7 +123,7 @@ function drawGrid(){
     var northWestStart = new google.maps.LatLng(maxLatBounds, minLonBounds);
     var heightTilesN = 100;
     var widthTilesN = 100;
-    var tileSizeMeters = 50;
+    var tileSizeMeters = 100;
 
     var northAngleDegrees = 0;
     var southAngleDegrees = 180;
@@ -149,13 +149,13 @@ function drawGrid(){
                 break;
             }
             var tile = new google.maps.Rectangle();
-            var FILL = cols[Math.floor(Math.random()*cols.length)];
-            //var FILL = "gray";
-            var fillO = 0.35;
-            var strokeO = 0;
+            //var FILL = cols[Math.floor(Math.random()*cols.length)];
+            var FILL = "gray";
+            var fillO = 0.5;
+            var strokeO = 1;
             if(FILL=="gray"){
                 fillO = 0;
-                strokeO =0;
+                //strokeO =0;
             }
 
             var tileOptions = {
@@ -168,7 +168,7 @@ function drawGrid(){
                 bounds: new google.maps.LatLngBounds(newSouth, newEast)
             };
             tile.setOptions(tileOptions);
-            tile.set("fillColor", "gray");
+            //tile.set("fillColor", "gray");
             GRID.push(tile);
             bindWindow(tile,GRID.length-1);
 
@@ -263,7 +263,7 @@ function populateMap() {
         for (var j = 0; j < routeDR.length; j++) {
 
             var dr = routeDR[j];
-            //generateMarker(dr);
+            generateMarker(dr);
             var pos = new google.maps.LatLng(routeDR[j].latitude, routeDR[j].longitude);
             newRoute.push(pos);
 
@@ -271,7 +271,7 @@ function populateMap() {
 
         }
 
-        //generateRoute(newRoute);
+        generateRoute(newRoute);
 
     }
 }
@@ -280,7 +280,8 @@ function aggregateGrid(location, dataReading){
 
     var gridIndex = getGridLocation(location);
     if(GRID[gridIndex]){
-        GRID[gridIndex].set("fillColor",  convertToRGB(dataReading.noise));
+        GRID[gridIndex].set("fillColor",  convertToRGB(dataReading.noise-20));
+        GRID[gridIndex].set("fillOpacity", 0.5);
     }
 
 

@@ -77,7 +77,6 @@ public class HomeController {
     }
 
 
-
     @RequestMapping(value = "/del")
     public
     @ResponseBody

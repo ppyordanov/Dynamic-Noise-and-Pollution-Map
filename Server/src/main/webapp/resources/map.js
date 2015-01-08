@@ -14,7 +14,7 @@ var centerLat = 55.872912;
 var centerLon = -4.289657;
 var center = new google.maps.LatLng(centerLat, centerLon);
 
-var GRID= [];
+var GRID = [];
 var infowindow = new google.maps.InfoWindow();
 
 var maxNoise = 100;
@@ -106,19 +106,19 @@ function convertToRGB(n) {
     return RGB;
 }
 
-function convertToHSV(n){
-    var S = Math.abs(n - 50)/50;
+function convertToHSV(n) {
+    var S = Math.abs(n - 50) / 50;
     var H = Math.floor((100 - n) * 120 / 100);
 }
 
 var cols = ["gray"];
-for(var i=1;i<=100;i++){
+for (var i = 1; i <= 100; i++) {
     cols[i] = convertToRGB(i);
 }
 //var cols=["red","green","yellow","orange","gray"]
 console.log(cols);
 
-function drawGrid(){
+function drawGrid() {
 
     var northWestStart = new google.maps.LatLng(maxLatBounds, minLonBounds);
     var heightTilesN = 100;
@@ -130,21 +130,21 @@ function drawGrid(){
     var eastAngleDegrees = 90;
     var westAngleDegrees = -90;
 
-    var east = google.maps.geometry.spherical.computeOffset(northWestStart,tileSizeMeters,eastAngleDegrees);
-    var south = google.maps.geometry.spherical.computeOffset(northWestStart,tileSizeMeters,southAngleDegrees);
+    var east = google.maps.geometry.spherical.computeOffset(northWestStart, tileSizeMeters, eastAngleDegrees);
+    var south = google.maps.geometry.spherical.computeOffset(northWestStart, tileSizeMeters, southAngleDegrees);
 
-    for(var heightTiles= 0; heightTiles<heightTilesN;heightTiles++){
+    for (var heightTiles = 0; heightTiles < heightTilesN; heightTiles++) {
 
-        newEast = google.maps.geometry.spherical.computeOffset(east,heightTiles*tileSizeMeters,southAngleDegrees);
-        newSouth = google.maps.geometry.spherical.computeOffset(south,heightTiles*tileSizeMeters,southAngleDegrees);
+        newEast = google.maps.geometry.spherical.computeOffset(east, heightTiles * tileSizeMeters, southAngleDegrees);
+        newSouth = google.maps.geometry.spherical.computeOffset(south, heightTiles * tileSizeMeters, southAngleDegrees);
 
-        if(newSouth.lat()<minLatBounds){
+        if (newSouth.lat() < minLatBounds) {
             break;
         }
 
-        for(var widthTiles =0;widthTiles<widthTilesN;widthTiles++){
+        for (var widthTiles = 0; widthTiles < widthTilesN; widthTiles++) {
 
-            if(newSouth.lng()>maxLonBounds){
+            if (newSouth.lng() > maxLonBounds) {
                 //alert(newSouth.lat() + " " + newSouth.lng());
                 break;
             }
@@ -153,7 +153,7 @@ function drawGrid(){
             var FILL = "gray";
             var fillO = 0.5;
             var strokeO = 1;
-            if(FILL=="gray"){
+            if (FILL == "gray") {
                 fillO = 0;
                 //strokeO =0;
             }
@@ -170,41 +170,41 @@ function drawGrid(){
             tile.setOptions(tileOptions);
             //tile.set("fillColor", "gray");
             GRID.push(tile);
-            bindWindow(tile,GRID.length-1);
+            bindWindow(tile, GRID.length - 1);
 
-            var newEast = google.maps.geometry.spherical.computeOffset(newEast,tileSizeMeters,eastAngleDegrees);
-            var newSouth = google.maps.geometry.spherical.computeOffset(newSouth,tileSizeMeters,eastAngleDegrees);
+            var newEast = google.maps.geometry.spherical.computeOffset(newEast, tileSizeMeters, eastAngleDegrees);
+            var newSouth = google.maps.geometry.spherical.computeOffset(newSouth, tileSizeMeters, eastAngleDegrees);
         }
 
     }
 }
 
-function bindWindow(rectangle,num){
-    google.maps.event.addListener(rectangle, 'click', function(event) {
-        var location =new google.maps.LatLng(55.876096, -4.285301);
-        infowindow.setContent("Tile:  "+num + " DATA:" + GRID[num].bounds.getNorthEast().lat() + " GRID " + getGridLocation(location));
+function bindWindow(rectangle, num) {
+    google.maps.event.addListener(rectangle, 'click', function (event) {
+        var location = new google.maps.LatLng(55.876096, -4.285301);
+        infowindow.setContent("Tile:  " + num + " DATA:" + GRID[num].bounds.getNorthEast().lat() + " GRID " + getGridLocation(location));
         infowindow.setPosition(event.latLng);
 
         /*
-        var marker = new google.maps.Marker({
-            position: GRID[num].bounds.getNorthEast(),
-            map: map
-        });
-        marker = new google.maps.Marker({
-            position: GRID[num].bounds.getSouthWest(),
-            map: map
-        });
-        */
+         var marker = new google.maps.Marker({
+         position: GRID[num].bounds.getNorthEast(),
+         map: map
+         });
+         marker = new google.maps.Marker({
+         position: GRID[num].bounds.getSouthWest(),
+         map: map
+         });
+         */
         infowindow.open(map);
     });
 }
 
-function getGridLocation(location){
+function getGridLocation(location) {
 
     //var location = new google.maps.LatLng(latitude,longitude);
     var gridLocation = null;
-    for(var i=0;i<GRID.length;i++){
-        if(GRID[i].bounds.contains(location)){
+    for (var i = 0; i < GRID.length; i++) {
+        if (GRID[i].bounds.contains(location)) {
             gridLocation = i;
         }
     }
@@ -276,11 +276,11 @@ function populateMap() {
     }
 }
 
-function aggregateGrid(location, dataReading){
+function aggregateGrid(location, dataReading) {
 
     var gridIndex = getGridLocation(location);
-    if(GRID[gridIndex]){
-        GRID[gridIndex].set("fillColor",  convertToRGB(dataReading.noise-20));
+    if (GRID[gridIndex]) {
+        GRID[gridIndex].set("fillColor", convertToRGB(dataReading.noise - 20));
         GRID[gridIndex].set("fillOpacity", 0.5);
     }
 

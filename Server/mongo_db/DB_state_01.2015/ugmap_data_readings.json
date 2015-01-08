@@ -1,4 +1,6 @@
-{ "_id" : { "$oid" : "548a6a8ce4b07808853bd0a5" }, "_class" : "com.springapp.mvc.models.DataReading", "routeId" : "548a6a8ce4b07808853bd0a4", "latitude" : 55.8843437, "longitude" : -4.280242, "noise" : 50, "co" : 164.95, "no2" : 31.95, "battery" : 74.8 }
+{ "_id": {
+    "$oid": "548a6a8ce4b07808853bd0a5"
+}, "_class": "com.springapp.mvc.models.DataReading", "routeId": "548a6a8ce4b07808853bd0a4", "latitude": 55.8843437, "longitude": -4.280242, "noise": 50, "co": 164.95, "no2": 31.95, "battery": 74.8 }
 { "_id" : { "$oid" : "548a6aeae4b07808853bd0a7" }, "_class" : "com.springapp.mvc.models.DataReading", "routeId" : "548a6aeae4b07808853bd0a6", "latitude" : 55.8843437, "longitude" : -4.2802505, "noise" : 50, "co" : 164.95, "no2" : 31.95, "battery" : 74.8 }
 { "_id" : { "$oid" : "548a6aeae4b07808853bd0a8" }, "_class" : "com.springapp.mvc.models.DataReading", "routeId" : "548a6aeae4b07808853bd0a6", "latitude" : 55.8843285, "longitude" : -4.2802799, "noise" : 50, "co" : 164.95, "no2" : 31.95, "battery" : 74.8 }
 { "_id" : { "$oid" : "548a6aeae4b07808853bd0a9" }, "_class" : "com.springapp.mvc.models.DataReading", "routeId" : "548a6aeae4b07808853bd0a6", "latitude" : 55.884322, "longitude" : -4.2802859, "noise" : 50, "co" : 164.95, "no2" : 31.95, "battery" : 74.8 }

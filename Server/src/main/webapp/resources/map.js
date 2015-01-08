@@ -115,7 +115,7 @@ var cols = ["gray"];
 for(var i=1;i<=100;i++){
     cols[i] = convertToRGB(i);
 }
-var cols=["red","green","yellow","orange","gray"]
+//var cols=["red","green","yellow","orange","gray"]
 console.log(cols);
 
 function drawGrid(){
@@ -123,7 +123,7 @@ function drawGrid(){
     var northWestStart = new google.maps.LatLng(maxLatBounds, minLonBounds);
     var heightTilesN = 100;
     var widthTilesN = 100;
-    var tileSizeMeters = 50;
+    var tileSizeMeters = 25;
 
     var northAngleDegrees = 0;
     var southAngleDegrees = 180;
@@ -133,10 +133,10 @@ function drawGrid(){
     var east = google.maps.geometry.spherical.computeOffset(northWestStart,tileSizeMeters,eastAngleDegrees);
     var south = google.maps.geometry.spherical.computeOffset(northWestStart,tileSizeMeters,southAngleDegrees);
 
-    for(var heightTiles= 1; heightTiles<=heightTilesN;heightTiles++){
+    for(var heightTiles= 0; heightTiles<heightTilesN;heightTiles++){
 
-        newEast = google.maps.geometry.spherical.computeOffset(east,(heightTiles-1)*tileSizeMeters,southAngleDegrees);
-        newSouth = google.maps.geometry.spherical.computeOffset(south,(heightTiles-1)*tileSizeMeters,southAngleDegrees);
+        newEast = google.maps.geometry.spherical.computeOffset(east,heightTiles*tileSizeMeters,southAngleDegrees);
+        newSouth = google.maps.geometry.spherical.computeOffset(south,heightTiles*tileSizeMeters,southAngleDegrees);
 
         if(newSouth.lat()<minLatBounds){
             break;
@@ -149,18 +149,28 @@ function drawGrid(){
                 break;
             }
             var tile = new google.maps.Rectangle();
+            var FILL = cols[Math.floor(Math.random()*cols.length)];
+            //var FILL = "gray";
+            var fillO = 0.35;
+            var strokeO = 0;
+            if(FILL=="gray"){
+                fillO = 0;
+                strokeO =0;
+            }
+
             var tileOptions = {
                 strokeColor: "#FF0000",
-                strokeOpacity: 0.8,
+                strokeOpacity: strokeO,
                 strokeWeight: 0.35,
-                fillColor: cols[Math.floor(Math.random()*cols.length)],
-                fillOpacity: 0.35,
+                fillColor: FILL,
+                fillOpacity: fillO,
                 map: map,
                 bounds: new google.maps.LatLngBounds(newSouth, newEast)
             };
             tile.setOptions(tileOptions);
+            tile.set("fillColor", "gray");
             GRID.push(tile);
-            bindWindow(tile,GRID.length);
+            bindWindow(tile,GRID.length-1);
 
             var newEast = google.maps.geometry.spherical.computeOffset(newEast,tileSizeMeters,eastAngleDegrees);
             var newSouth = google.maps.geometry.spherical.computeOffset(newSouth,tileSizeMeters,eastAngleDegrees);
@@ -171,9 +181,12 @@ function drawGrid(){
 
 function bindWindow(rectangle,num){
     google.maps.event.addListener(rectangle, 'click', function(event) {
-        infowindow.setContent("you clicked on rectangle "+num + " DATA:" + GRID[num].bounds.getNorthEast().lat() + " GRID " + getGridLocation(55.876096, -4.285301));
+        infowindow.setContent("Tile clicked:  "+num + " DATA:" + GRID[num].bounds.getNorthEast().lat() + " GRID " + getGridLocation(55.876096, -4.285301) +
+        " " + getGridLocation(55.871597, -4.284403));
         infowindow.setPosition(event.latLng);
-        marker = new google.maps.Marker({
+
+        /*
+        var marker = new google.maps.Marker({
             position: GRID[num].bounds.getNorthEast(),
             map: map
         });
@@ -181,6 +194,7 @@ function bindWindow(rectangle,num){
             position: GRID[num].bounds.getSouthWest(),
             map: map
         });
+        */
         infowindow.open(map);
     });
 }
@@ -248,15 +262,26 @@ function populateMap() {
         var newRoute = [];
         for (var j = 0; j < routeDR.length; j++) {
 
-            generateMarker(routeDR[j]);
+            var dr = routeDR[j];
+            generateMarker(dr);
             var pos = new google.maps.LatLng(routeDR[j].latitude, routeDR[j].longitude);
             newRoute.push(pos);
+
+            aggregateGrid(pos, dr);
 
         }
 
         generateRoute(newRoute);
 
     }
+}
+
+function aggregateGrid(location, dataReading){
+
+    var gridIndex = getGridLocation(location);
+    GRID[gridIndex].set("fillColor",  cols[convertToRGB(dataReading.noise)]);
+
+
 }
 
 function setStyles() {

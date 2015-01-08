@@ -1,7 +1,7 @@
 var minLatBounds = 55.870056;
-var maxLatBounds = 55.875209;
-var minLonBounds = -4.278797;
-var maxLonBounds = -4.297637;
+var maxLatBounds = 55.876209;
+var minLonBounds = -4.297637;
+var maxLonBounds = -4.282997;
 
 /* testing purposes
  var minLatBounds = 55.0;
@@ -13,6 +13,9 @@ var maxLonBounds = -4.297637;
 var centerLat = 55.872912;
 var centerLon = -4.289657;
 var center = new google.maps.LatLng(centerLat, centerLon);
+
+var GRID= [];
+var infowindow = new google.maps.InfoWindow();
 
 var maxNoise = 100;
 var maxCO = 500;
@@ -103,10 +106,97 @@ function convertToRGB(n) {
     return RGB;
 }
 
-function convertToHSV(n) {
-    return null;
+function convertToHSV(n){
+    var S = Math.abs(n - 50)/50;
+    var H = Math.floor((100 - n) * 120 / 100);
 }
 
+var cols = ["gray"];
+for(var i=1;i<=100;i++){
+    cols[i] = convertToRGB(i);
+}
+var cols=["red","green","yellow","orange","gray"]
+console.log(cols);
+
+function drawGrid(){
+
+    var northWestStart = new google.maps.LatLng(maxLatBounds, minLonBounds);
+    var heightTilesN = 100;
+    var widthTilesN = 100;
+    var tileSizeMeters = 50;
+
+    var northAngleDegrees = 0;
+    var southAngleDegrees = 180;
+    var eastAngleDegrees = 90;
+    var westAngleDegrees = -90;
+
+    var east = google.maps.geometry.spherical.computeOffset(northWestStart,tileSizeMeters,eastAngleDegrees);
+    var south = google.maps.geometry.spherical.computeOffset(northWestStart,tileSizeMeters,southAngleDegrees);
+
+    for(var heightTiles= 1; heightTiles<=heightTilesN;heightTiles++){
+
+        newEast = google.maps.geometry.spherical.computeOffset(east,(heightTiles-1)*tileSizeMeters,southAngleDegrees);
+        newSouth = google.maps.geometry.spherical.computeOffset(south,(heightTiles-1)*tileSizeMeters,southAngleDegrees);
+
+        if(newSouth.lat()<minLatBounds){
+            break;
+        }
+
+        for(var widthTiles =0;widthTiles<widthTilesN;widthTiles++){
+
+            if(newSouth.lng()>maxLonBounds){
+                //alert(newSouth.lat() + " " + newSouth.lng());
+                break;
+            }
+            var tile = new google.maps.Rectangle();
+            var tileOptions = {
+                strokeColor: "#FF0000",
+                strokeOpacity: 0.8,
+                strokeWeight: 0.35,
+                fillColor: cols[Math.floor(Math.random()*cols.length)],
+                fillOpacity: 0.35,
+                map: map,
+                bounds: new google.maps.LatLngBounds(newSouth, newEast)
+            };
+            tile.setOptions(tileOptions);
+            GRID.push(tile);
+            bindWindow(tile,GRID.length);
+
+            var newEast = google.maps.geometry.spherical.computeOffset(newEast,tileSizeMeters,eastAngleDegrees);
+            var newSouth = google.maps.geometry.spherical.computeOffset(newSouth,tileSizeMeters,eastAngleDegrees);
+        }
+
+    }
+}
+
+function bindWindow(rectangle,num){
+    google.maps.event.addListener(rectangle, 'click', function(event) {
+        infowindow.setContent("you clicked on rectangle "+num + " DATA:" + GRID[num].bounds.getNorthEast().lat() + " GRID " + getGridLocation(55.876096, -4.285301));
+        infowindow.setPosition(event.latLng);
+        marker = new google.maps.Marker({
+            position: GRID[num].bounds.getNorthEast(),
+            map: map
+        });
+        marker = new google.maps.Marker({
+            position: GRID[num].bounds.getSouthWest(),
+            map: map
+        });
+        infowindow.open(map);
+    });
+}
+
+function getGridLocation(latitude, longitude){
+
+    var location = new google.maps.LatLng(latitude,longitude);
+    var gridLocation = null;
+    for(var i=0;i<GRID.length;i++){
+        if(GRID[i].bounds.contains(location)){
+            gridLocation = i;
+        }
+    }
+
+    return gridLocation;
+}
 
 function generateMarker(dataReading) {
 
@@ -211,8 +301,8 @@ function init_map() {
         myOptions);
 
     var frameBorder = new google.maps.LatLngBounds(
-        new google.maps.LatLng(minLatBounds, maxLonBounds),
-        new google.maps.LatLng(maxLatBounds, minLonBounds)
+        new google.maps.LatLng(minLatBounds, minLonBounds),
+        new google.maps.LatLng(maxLatBounds, maxLonBounds)
     );
 
     var lastCenter = map.getCenter();
@@ -230,6 +320,7 @@ function init_map() {
 
     populateMap();
     setStyles();
+    drawGrid();
 
 }
 

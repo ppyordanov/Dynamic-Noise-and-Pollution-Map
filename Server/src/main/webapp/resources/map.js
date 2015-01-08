@@ -33,7 +33,7 @@ var longitude;
 var position;
 
 var map;
-var image = '/resources/sck_logo5.png';
+var image = '/resources/sck_logo4.png';
 var marker;
 var content;
 var styledContent;
@@ -123,7 +123,7 @@ function drawGrid(){
     var northWestStart = new google.maps.LatLng(maxLatBounds, minLonBounds);
     var heightTilesN = 100;
     var widthTilesN = 100;
-    var tileSizeMeters = 25;
+    var tileSizeMeters = 50;
 
     var northAngleDegrees = 0;
     var southAngleDegrees = 180;
@@ -181,8 +181,8 @@ function drawGrid(){
 
 function bindWindow(rectangle,num){
     google.maps.event.addListener(rectangle, 'click', function(event) {
-        infowindow.setContent("Tile clicked:  "+num + " DATA:" + GRID[num].bounds.getNorthEast().lat() + " GRID " + getGridLocation(55.876096, -4.285301) +
-        " " + getGridLocation(55.871597, -4.284403));
+        var location =new google.maps.LatLng(55.876096, -4.285301);
+        infowindow.setContent("Tile:  "+num + " DATA:" + GRID[num].bounds.getNorthEast().lat() + " GRID " + getGridLocation(location));
         infowindow.setPosition(event.latLng);
 
         /*
@@ -199,9 +199,9 @@ function bindWindow(rectangle,num){
     });
 }
 
-function getGridLocation(latitude, longitude){
+function getGridLocation(location){
 
-    var location = new google.maps.LatLng(latitude,longitude);
+    //var location = new google.maps.LatLng(latitude,longitude);
     var gridLocation = null;
     for(var i=0;i<GRID.length;i++){
         if(GRID[i].bounds.contains(location)){
@@ -263,7 +263,7 @@ function populateMap() {
         for (var j = 0; j < routeDR.length; j++) {
 
             var dr = routeDR[j];
-            generateMarker(dr);
+            //generateMarker(dr);
             var pos = new google.maps.LatLng(routeDR[j].latitude, routeDR[j].longitude);
             newRoute.push(pos);
 
@@ -271,7 +271,7 @@ function populateMap() {
 
         }
 
-        generateRoute(newRoute);
+        //generateRoute(newRoute);
 
     }
 }
@@ -279,7 +279,9 @@ function populateMap() {
 function aggregateGrid(location, dataReading){
 
     var gridIndex = getGridLocation(location);
-    GRID[gridIndex].set("fillColor",  cols[convertToRGB(dataReading.noise)]);
+    if(GRID[gridIndex]){
+        GRID[gridIndex].set("fillColor",  convertToRGB(dataReading.noise));
+    }
 
 
 }
@@ -343,9 +345,9 @@ function init_map() {
         map.panTo(lastCenter);
     });
 
-    populateMap();
     setStyles();
     drawGrid();
+    populateMap();
 
 }
 

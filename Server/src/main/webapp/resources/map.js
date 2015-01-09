@@ -123,7 +123,7 @@ function drawGrid() {
     var northWestStart = new google.maps.LatLng(maxLatBounds, minLonBounds);
     var heightTilesN = 100;
     var widthTilesN = 100;
-    var tileSizeMeters = 100;
+    var tileSizeMeters = 50;
 
     var northAngleDegrees = 0;
     var southAngleDegrees = 180;

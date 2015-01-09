@@ -17,10 +17,19 @@ var center = new google.maps.LatLng(centerLat, centerLon);
 var GRID = [];
 var infowindow = new google.maps.InfoWindow();
 
-var maxNoise = 100;
-var maxCO = 500;
-var maxNO2 = 20;
-var maxBattery = 100;
+var maxNoise = null;
+var minNoise = null;
+var rangeNoise = null;
+
+var maxCO = null;
+var minCO = null;
+var rangeCO = null;
+
+var maxNO2 = null;
+var minNO2 = null;
+var rangeNO2 = null;
+
+var rangeBattery = 100;
 
 var id;
 var noise;
@@ -78,9 +87,9 @@ function randomPosGen(lowLatBounds, highLatBounds, lowLonBounds, highLonBounds) 
 
 }
 
-function progressEvaluate(value, benchmark) {
+function progressEvaluate(value, range) {
 
-    progress = (value / benchmark) * 100;
+    progress = (value / range) * 100;
     progressContent = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: ' + progress + '%"><span class="sr-only">45% Complete</span></div></div>';
     return progressContent;
 }
@@ -169,7 +178,10 @@ function drawGrid() {
             };
             tile.setOptions(tileOptions);
             //tile.set("fillColor", "gray");
-            GRID.push(tile);
+
+            var tileDATA = {"tile": tile, "noiseAVG": null, "coAVG": null, "no2AVG": null};
+
+            GRID.push(tileDATA);
             bindWindow(tile, GRID.length - 1);
 
             var newEast = google.maps.geometry.spherical.computeOffset(newEast, tileSizeMeters, eastAngleDegrees);
@@ -182,16 +194,16 @@ function drawGrid() {
 function bindWindow(rectangle, num) {
     google.maps.event.addListener(rectangle, 'click', function (event) {
         var location = new google.maps.LatLng(55.876096, -4.285301);
-        infowindow.setContent("Tile:  " + num + " DATA:" + GRID[num].bounds.getNorthEast().lat() + " GRID " + getGridLocation(location));
+        infowindow.setContent("Tile:  " + num + " DATA:" + GRID[num]["tile"].bounds.getNorthEast().lat() + " GRID " + getGridLocation(location));
         infowindow.setPosition(event.latLng);
 
         /*
          var marker = new google.maps.Marker({
-         position: GRID[num].bounds.getNorthEast(),
+         position: GRID[num]["tile"].bounds.getNorthEast(),
          map: map
          });
          marker = new google.maps.Marker({
-         position: GRID[num].bounds.getSouthWest(),
+         position: GRID[num]["tile"].bounds.getSouthWest(),
          map: map
          });
          */
@@ -204,7 +216,7 @@ function getGridLocation(location) {
     //var location = new google.maps.LatLng(latitude,longitude);
     var gridLocation = null;
     for (var i = 0; i < GRID.length; i++) {
-        if (GRID[i].bounds.contains(location)) {
+        if (GRID[i]["tile"].bounds.contains(location)) {
             gridLocation = i;
         }
     }
@@ -237,7 +249,7 @@ function generateMarker(dataReading) {
         icon: pinIcon
     });
 
-    content = "Noise: " + noise + progressEvaluate(noise, maxNoise) + "CO: " + co + progressEvaluate(co, maxCO) + "NO2: " + no2 + progressEvaluate(no2, maxNO2) + "Battery: " + battery + progressEvaluate(battery, maxBattery);
+    content = "Noise: " + noise + progressEvaluate(noise, rangeNoise) + "CO: " + co + progressEvaluate(co, rangeCO) + "NO2: " + no2 + progressEvaluate(no2, rangeNO2) + "Battery: " + battery + progressEvaluate(battery, rangeBattery);
     styledContent = '<div class="mapPopUp">' + content + '</div>';
 
     addPopUp(marker, styledContent);
@@ -263,6 +275,8 @@ function populateMap() {
         for (var j = 0; j < routeDR.length; j++) {
 
             var dr = routeDR[j];
+
+            //updateValueRange(dr);
             generateMarker(dr);
             var pos = new google.maps.LatLng(routeDR[j].latitude, routeDR[j].longitude);
             newRoute.push(pos);
@@ -276,12 +290,75 @@ function populateMap() {
     }
 }
 
+function identifyValueRange(){
+
+    var localMinNoise = Number.MAX_SAFE_INTEGER;
+    var localMaxNoise = 0;
+
+    var localMinCO = Number.MAX_SAFE_INTEGER;
+    var localMaxCO = 0;
+
+    var localMinNO2 = Number.MAX_SAFE_INTEGER;
+    var localMaxNO2 = 0;
+
+    for (var i = 0; i < routes.length; i++) {
+        var routeDR = dataReadings[routes[i].id];
+        for (var j = 0; j < routeDR.length; j++) {
+
+            var dr = routeDR[j];
+
+            if(dr.noise<localMinNoise){
+                localMinNoise = dr.noise;
+            }
+            else if(dr.noise>localMaxNoise){
+                localMaxNoise = dr.noise;
+            }
+
+            if(dr.co<localMinCO){
+                localMinCO = dr.co;
+            }
+            else if(dr.co>localMaxCO){
+                localMaxCO = dr.co;
+            }
+
+            if(dr.no2<localMinNO2){
+                localMinNO2 = dr.no2;
+            }
+            else if(dr.no2>localMaxNO2){
+                localMaxNO2 = dr.no2;
+            }
+        }
+    }
+
+    maxNoise = localMaxNoise;
+    minNoise = localMinNoise;
+    rangeNoise = maxNoise - minNoise;
+
+    maxCO = localMaxCO;
+    minCO = localMinCO;
+    rangeCO = maxCO - minCO;
+
+    maxNO2 = localMaxNO2;
+    minNO2 = localMinNO2;
+    rangeNO2 = maxNO2 - minNO2;
+    alert(maxNO2 + " " + minNO2);
+}
+
+function updateValueRange(dr){
+
+    var localMinN = 0;
+    var localMaxN = 0;
+
+
+
+}
+
 function aggregateGrid(location, dataReading) {
 
     var gridIndex = getGridLocation(location);
     if (GRID[gridIndex]) {
-        GRID[gridIndex].set("fillColor", convertToRGB(dataReading.noise - 20));
-        GRID[gridIndex].set("fillOpacity", 0.5);
+        GRID[gridIndex]["tile"].set("fillColor", convertToRGB(dataReading.noise - 20));
+        GRID[gridIndex]["tile"].set("fillOpacity", 0.5);
     }
 
 
@@ -347,6 +424,7 @@ function init_map() {
     });
 
     setStyles();
+    identifyValueRange();
     drawGrid();
     populateMap();
 

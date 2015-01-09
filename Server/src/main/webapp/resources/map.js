@@ -29,7 +29,8 @@ var maxNO2 = null;
 var minNO2 = null;
 var rangeNO2 = null;
 
-var rangeBattery = 100;
+var minBattery= 0;
+var maxBattery = 100;
 
 var id;
 var noise;
@@ -87,13 +88,19 @@ function randomPosGen(lowLatBounds, highLatBounds, lowLonBounds, highLonBounds) 
 
 }
 
-function progressEvaluate(value, range) {
+function progressEvaluate(value,min, max) {
 
-    progress = (value / range) * 100;
+    progress = rangePercentage(value,min, max);
+    //alert(value + " " + range + " " + progress);
     progressContent = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: ' + progress + '%"><span class="sr-only">45% Complete</span></div></div>';
     return progressContent;
 }
 
+function rangePercentage(value,min, max){
+
+    return (value - min) / (max - min) * 100;
+
+}
 
 function addPopUp(marker, content) {
 
@@ -130,8 +137,8 @@ console.log(cols);
 function drawGrid() {
 
     var northWestStart = new google.maps.LatLng(maxLatBounds, minLonBounds);
-    var heightTilesN = 100;
-    var widthTilesN = 100;
+    var heightTilesN = 1000;
+    var widthTilesN = 1000;
     var tileSizeMeters = 50;
 
     var northAngleDegrees = 0;
@@ -179,7 +186,7 @@ function drawGrid() {
             tile.setOptions(tileOptions);
             //tile.set("fillColor", "gray");
 
-            var tileDATA = {"tile": tile, "noiseAVG": null, "coAVG": null, "no2AVG": null};
+            var tileDATA = {"tile": tile, "noiseAVG": {"sum": 0, "count": 0}, "coAVG": {"sum": 0, "count": 0}, "no2AVG": {"sum": 0, "count": 0}};
 
             GRID.push(tileDATA);
             bindWindow(tile, GRID.length - 1);
@@ -249,7 +256,7 @@ function generateMarker(dataReading) {
         icon: pinIcon
     });
 
-    content = "Noise: " + noise + progressEvaluate(noise, rangeNoise) + "CO: " + co + progressEvaluate(co, rangeCO) + "NO2: " + no2 + progressEvaluate(no2, rangeNO2) + "Battery: " + battery + progressEvaluate(battery, rangeBattery);
+    content = "Noise: " + noise + progressEvaluate(noise, minNoise, maxNoise) + "CO: " + co + progressEvaluate(co, minCO, maxCO) + "NO2: " + no2 + progressEvaluate(no2, minNO2, maxNO2) + "Battery: " + battery + progressEvaluate(battery, minBattery, maxBattery);
     styledContent = '<div class="mapPopUp">' + content + '</div>';
 
     addPopUp(marker, styledContent);
@@ -280,7 +287,6 @@ function populateMap() {
             generateMarker(dr);
             var pos = new google.maps.LatLng(routeDR[j].latitude, routeDR[j].longitude);
             newRoute.push(pos);
-
             aggregateGrid(pos, dr);
 
         }
@@ -292,14 +298,9 @@ function populateMap() {
 
 function identifyValueRange(){
 
-    var localMinNoise = Number.MAX_SAFE_INTEGER;
-    var localMaxNoise = 0;
-
-    var localMinCO = Number.MAX_SAFE_INTEGER;
-    var localMaxCO = 0;
-
-    var localMinNO2 = Number.MAX_SAFE_INTEGER;
-    var localMaxNO2 = 0;
+    var noiseARR = [];
+    var coARR = [];
+    var no2ARR = [];
 
     for (var i = 0; i < routes.length; i++) {
         var routeDR = dataReadings[routes[i].id];
@@ -307,41 +308,27 @@ function identifyValueRange(){
 
             var dr = routeDR[j];
 
-            if(dr.noise<localMinNoise){
-                localMinNoise = dr.noise;
-            }
-            else if(dr.noise>localMaxNoise){
-                localMaxNoise = dr.noise;
-            }
+            noiseARR.push(dr.noise);
+            coARR.push(dr.co);
+            no2ARR.push(dr.no2);
 
-            if(dr.co<localMinCO){
-                localMinCO = dr.co;
-            }
-            else if(dr.co>localMaxCO){
-                localMaxCO = dr.co;
-            }
-
-            if(dr.no2<localMinNO2){
-                localMinNO2 = dr.no2;
-            }
-            else if(dr.no2>localMaxNO2){
-                localMaxNO2 = dr.no2;
-            }
         }
     }
 
-    maxNoise = localMaxNoise;
-    minNoise = localMinNoise;
+    maxNoise = Math.max.apply(null, noiseARR);
+    minNoise = Math.min.apply(null, noiseARR);
     rangeNoise = maxNoise - minNoise;
 
-    maxCO = localMaxCO;
-    minCO = localMinCO;
+    maxCO = Math.max.apply(null, coARR);
+    minCO = Math.min.apply(null, coARR);
     rangeCO = maxCO - minCO;
 
-    maxNO2 = localMaxNO2;
-    minNO2 = localMinNO2;
+    maxNO2 = Math.max.apply(null, no2ARR);
+    minNO2 = Math.min.apply(null, no2ARR);
     rangeNO2 = maxNO2 - minNO2;
-    alert(maxNO2 + " " + minNO2);
+
+    //DEBUG
+    //alert(maxNO2 + " NO2 " + minNO2 + " " + maxCO + " CO " + minCO + " " + maxNoise + " Noise " + minNoise);
 }
 
 function updateValueRange(dr){
@@ -349,15 +336,14 @@ function updateValueRange(dr){
     var localMinN = 0;
     var localMaxN = 0;
 
-
-
 }
 
 function aggregateGrid(location, dataReading) {
 
     var gridIndex = getGridLocation(location);
+    var percentage = rangePercentage(dataReading.noise, minNoise, maxNoise);
     if (GRID[gridIndex]) {
-        GRID[gridIndex]["tile"].set("fillColor", convertToRGB(dataReading.noise - 20));
+        GRID[gridIndex]["tile"].set("fillColor", convertToRGB(percentage));
         GRID[gridIndex]["tile"].set("fillOpacity", 0.5);
     }
 

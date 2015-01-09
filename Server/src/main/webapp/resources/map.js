@@ -29,7 +29,7 @@ var maxNO2 = null;
 var minNO2 = null;
 var rangeNO2 = null;
 
-var minBattery= 0;
+var minBattery = 0;
 var maxBattery = 100;
 
 var id;
@@ -88,15 +88,15 @@ function randomPosGen(lowLatBounds, highLatBounds, lowLonBounds, highLonBounds) 
 
 }
 
-function progressEvaluate(value,min, max) {
+function progressEvaluate(value, min, max) {
 
-    progress = rangePercentage(value,min, max);
+    progress = rangePercentage(value, min, max);
     //alert(value + " " + range + " " + progress);
     progressContent = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: ' + progress + '%"><span class="sr-only">45% Complete</span></div></div>';
     return progressContent;
 }
 
-function rangePercentage(value,min, max){
+function rangePercentage(value, min, max) {
 
     return (value - min) / (max - min) * 100;
 
@@ -296,7 +296,7 @@ function populateMap() {
     }
 }
 
-function identifyValueRange(){
+function identifyValueRange() {
 
     var noiseARR = [];
     var coARR = [];
@@ -331,7 +331,7 @@ function identifyValueRange(){
     //alert(maxNO2 + " NO2 " + minNO2 + " " + maxCO + " CO " + minCO + " " + maxNoise + " Noise " + minNoise);
 }
 
-function updateValueRange(dr){
+function updateValueRange(dr) {
 
     var localMinN = 0;
     var localMaxN = 0;

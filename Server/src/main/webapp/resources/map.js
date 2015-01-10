@@ -1,3 +1,6 @@
+//MEASURE CLIENT-SIDE LOADING PERFORMANCE
+var loadingStart = Date.now();
+
 var minLatBounds = 55.870056;
 var maxLatBounds = 55.876209;
 var minLonBounds = -4.297637;
@@ -54,6 +57,8 @@ var progressContent;
 
 $(document).ready(function () {
 
+    logPageLoadingTime();
+
     $('#style0').click(function () {
         map.setMapTypeId('CLASSIC');
     });
@@ -74,6 +79,12 @@ $(document).ready(function () {
     });
 
 });
+
+function logPageLoadingTime(){
+    var loadingComplete = Date.now();
+    var userLoadTime = loadingComplete - performance.timing.navigationStart;
+    console.log("Page Loading Time: " + userLoadTime + " ms");
+}
 
 function randomPosGen(lowLatBounds, highLatBounds, lowLonBounds, highLonBounds) {
 
@@ -256,7 +267,7 @@ function generateMarker(dataReading) {
     marker = new google.maps.Marker({
         position: position,
         map: map,
-        animation: google.maps.Animation.DROP,
+        //animation: google.maps.Animation.DROP,
         icon: pinIcon
     });
 

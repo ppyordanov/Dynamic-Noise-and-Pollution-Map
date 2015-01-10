@@ -102,6 +102,10 @@ function rangePercentage(value, min, max) {
 
 }
 
+function calculateAverage(sum, count){
+    return sum/count;
+};
+
 function addPopUp(marker, content) {
 
 
@@ -252,7 +256,7 @@ function generateMarker(dataReading) {
     marker = new google.maps.Marker({
         position: position,
         map: map,
-        //animation: google.maps.Animation.DROP,
+        animation: google.maps.Animation.DROP,
         icon: pinIcon
     });
 
@@ -341,14 +345,42 @@ function updateValueRange(dr) {
 function aggregateGrid(location, dataReading) {
 
     var gridIndex = getGridLocation(location);
-    var percentage = rangePercentage(dataReading.noise, minNoise, maxNoise);
+
+    //if such grid tile exists, update information and aggregate data
     if (GRID[gridIndex]) {
-        GRID[gridIndex]["tile"].set("fillColor", convertToRGB(percentage));
+
+        GRID[gridIndex]["noiseAVG"]["sum"]+=parseFloat(dataReading.noise);
+        GRID[gridIndex]["noiseAVG"]["count"]++;
+        var noiseSum = GRID[gridIndex]["noiseAVG"]["sum"];
+        var noiseCount = GRID[gridIndex]["noiseAVG"]["count"];
+        var noiseAverage = calculateAverage(noiseSum,noiseCount);
+        var noisePercentage = rangePercentage(noiseAverage, minNoise, maxNoise);
+
+        GRID[gridIndex]["coAVG"]["sum"]+=parseFloat(dataReading.co);
+        GRID[gridIndex]["coAVG"]["count"]++;
+        var coSum = GRID[gridIndex]["coAVG"]["sum"];
+        var coCount = GRID[gridIndex]["coAVG"]["count"];
+        var coAverage = coSum/coCount;
+        var coPercentage = rangePercentage(coAverage, minCO, maxCO);
+
+        GRID[gridIndex]["no2AVG"]["sum"]+=parseFloat(dataReading.no2);
+        GRID[gridIndex]["no2AVG"]["count"]++;
+        var no2Sum = GRID[gridIndex]["no2AVG"]["sum"];
+        var no2Count = GRID[gridIndex]["no2AVG"]["count"];
+        var no2Average = no2Sum/no2Count;
+        var no2Percentage = rangePercentage(no2Average, minNO2, maxNO2);
+
+        //TESTING
+        //alert("Noise AVG grid tile: " + noiseAverage + " MIN: " + minNoise + " MAX: " + maxNoise + " noise avg sum " + noiseSum + " noise count" + noiseCount);
+        //alert(coPercentage);
+        //alert(coPercentage);
+        GRID[gridIndex]["tile"].set("fillColor", convertToRGB(no2Percentage));
         GRID[gridIndex]["tile"].set("fillOpacity", 0.5);
     }
 
 
 }
+
 
 function setStyles() {
 

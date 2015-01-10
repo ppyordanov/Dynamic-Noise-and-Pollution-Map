@@ -35,6 +35,8 @@ var rangeNO2 = null;
 var minBattery = 0;
 var maxBattery = 100;
 
+var locationARR = [];
+
 var id;
 var noise;
 var co;
@@ -77,6 +79,9 @@ $(document).ready(function () {
     $('#style5').click(function () {
         map.setMapTypeId('ROADS');
     });
+    $('#style6').click(function () {
+        map.setMapTypeId('SATELLITE');
+    });
 
 });
 
@@ -84,6 +89,7 @@ function logPageLoadingTime(){
     var loadingComplete = Date.now();
     var userLoadTime = loadingComplete - performance.timing.navigationStart;
     console.log("Page Loading Time: " + userLoadTime + " ms");
+    console.log(locationARR);
 }
 
 function randomPosGen(lowLatBounds, highLatBounds, lowLonBounds, highLonBounds) {
@@ -129,6 +135,16 @@ function addPopUp(marker, content) {
 
 }
 
+function displayHeatMap(){
+    var points = new google.maps.MVCArray(locationARR);
+    //alert(points.length);
+    var heatmap = new google.maps.visualization.HeatmapLayer({
+        data: points
+    });
+
+    heatmap.setMap(map);
+}
+
 function convertToRGB(n) {
     var B = 0;
     var R = Math.floor((255 * n) / 100);
@@ -149,7 +165,7 @@ for (var i = 1; i <= 100; i++) {
 //var cols=["red","green","yellow","orange","gray"]
 console.log(cols);
 
-function drawGrid() {
+function displayGrid() {
 
     var northWestStart = new google.maps.LatLng(maxLatBounds, minLonBounds);
     var heightTilesN = 1000;
@@ -284,8 +300,20 @@ function generateRoute(newRoute) {
         path: newRoute,
         strokeColor: "#2196f3",
         strokeOpacity: 0.5,
-        strokeWeight: 10
+        strokeWeight: 10,
+        fillOpacity:0.0
     });
+
+    /*
+    google.maps.event.addListener(route, 'mouseover', function() {
+        this.set("strokeWeight",15);
+    });
+    google.maps.event.addListener(route, 'mouseout', function() {
+        this.set("strokeWeight",10);
+    });
+    */
+
+
     route.setMap(map);
 
 }
@@ -299,14 +327,15 @@ function populateMap() {
             var dr = routeDR[j];
 
             //updateValueRange(dr);
-            generateMarker(dr);
+            //generateMarker(dr);
             var pos = new google.maps.LatLng(routeDR[j].latitude, routeDR[j].longitude);
             newRoute.push(pos);
+            locationARR.push(pos);
             aggregateGrid(pos, dr);
 
         }
 
-        generateRoute(newRoute);
+        //generateRoute(newRoute);
 
     }
 }
@@ -409,7 +438,7 @@ function init_map() {
 
     var myOptions = {
         zoom: 16,
-        minZoom: 16,
+        minZoom: 14,
         maxZoom: 18,
         center: center,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -454,9 +483,9 @@ function init_map() {
 
     setStyles();
     identifyValueRange();
-    drawGrid();
+    //displayGrid();
     populateMap();
-
+    displayHeatMap();
 }
 
 google.maps.event.addDomListener(window, 'load', init_map);

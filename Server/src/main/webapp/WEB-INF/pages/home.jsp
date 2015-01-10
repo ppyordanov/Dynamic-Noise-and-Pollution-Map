@@ -12,6 +12,7 @@
 
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?v=3.8&libraries=geometry&sensor=false"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
     <script src="${pageContext.request.contextPath}/resources/map_styles.js"></script>
     <script src="${pageContext.request.contextPath}/resources/map.js"></script>
 
@@ -94,6 +95,7 @@
                         <li><a id="style3" href="#">Dark blue</a></li>
                         <li><a id="style4" href="#">Clean classic</a></li>
                         <li><a id="style5" href="#">Roads</a></li>
+                        <li><a id="style6" href="#">Satellite</a></li>
                     </ul>
                 </li>
 

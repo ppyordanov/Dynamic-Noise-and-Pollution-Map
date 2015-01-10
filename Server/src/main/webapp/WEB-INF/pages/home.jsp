@@ -101,6 +101,12 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuration <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
+                        <li class="divider">map mode</li>
+                        <li><a href="#">grid</a></li>
+                        <li><a href="#">data points</a></li>
+                        <li><a href="#">heat map (concentration)</a></li>
+                        <li><a href="#">default(no overlay)</a></li>
+                        <li class="divider">grid options</li>
                         <li><a href="#">tile size</a></li>
                         <li><a href="#">tile options</a></li>
                         <li class="divider"></li>
@@ -126,6 +132,9 @@
                     </ul>
                 </li>
 
+                <!-- PROTOTYPE -->
+                <li><a href="#">Routes</a></li>
+                <li><a href="#">Locations</a></li>
                 <li><a href="#">Client</a></li>
                 <li><a href="#">About</a></li>
 
@@ -139,7 +148,10 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             -->
+
+            <!-- PROTOTYPE -->
             <ul class="nav navbar-nav navbar-right">
+                <!-- <button type="button" class="btn btn-default navbar-btn">Dashboard</button> -->
                 <button type="button" class="btn btn-default navbar-btn">Sign in</button>
                 <button type="button" class="btn btn-default navbar-btn">Register</button>
             </ul>

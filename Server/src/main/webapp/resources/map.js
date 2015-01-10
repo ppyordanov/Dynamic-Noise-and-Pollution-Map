@@ -299,7 +299,7 @@ function populateMap() {
             var dr = routeDR[j];
 
             //updateValueRange(dr);
-            //generateMarker(dr);
+            generateMarker(dr);
             var pos = new google.maps.LatLng(routeDR[j].latitude, routeDR[j].longitude);
             newRoute.push(pos);
             aggregateGrid(pos, dr);

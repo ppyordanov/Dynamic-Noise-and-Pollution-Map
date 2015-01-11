@@ -54,9 +54,6 @@ var content;
 var styledContent;
 var popup = new google.maps.InfoWindow({});
 
-var progress;
-var progressContent;
-
 $(document).ready(function () {
 
     logPageLoadingTime();
@@ -80,7 +77,7 @@ $(document).ready(function () {
         map.setMapTypeId('ROADS');
     });
     $('#style6').click(function () {
-        map.setMapTypeId('SATELLITE');
+        map.setMapTypeId(styledMap6);
     });
 
 });
@@ -107,9 +104,17 @@ function randomPosGen(lowLatBounds, highLatBounds, lowLonBounds, highLonBounds) 
 
 function progressEvaluate(value, min, max) {
 
-    progress = rangePercentage(value, min, max);
+    var progress = rangePercentage(value, min, max);
+    var value = progress;
+    /*
+    if(min==0 && max==100){
+        value = 100-progress;
+    }
+    var barRGB = convertToRGB(value);
+    */
     //alert(value + " " + range + " " + progress);
-    progressContent = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: ' + progress + '%"><span class="sr-only">45% Complete</span></div></div>';
+    //var progressContent = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="background-color:' + barRGB + '; width: ' + progress + '%"><span class="sr-only"></span></div></div>';
+    var progressContent = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: ' + progress + '%"><span class="sr-only"></span></div></div>';
     return progressContent;
 }
 
@@ -327,7 +332,7 @@ function populateMap() {
             var dr = routeDR[j];
 
             //updateValueRange(dr);
-            //generateMarker(dr);
+            generateMarker(dr);
             var pos = new google.maps.LatLng(routeDR[j].latitude, routeDR[j].longitude);
             newRoute.push(pos);
             locationARR.push(pos);
@@ -335,7 +340,7 @@ function populateMap() {
 
         }
 
-        //generateRoute(newRoute);
+        generateRoute(newRoute);
 
     }
 }
@@ -430,6 +435,7 @@ function setStyles() {
     map.mapTypes.set('DARK_BLUE', styledMap3);
     map.mapTypes.set('CLEAN_CLASSIC', styledMap4);
     map.mapTypes.set('ROADS', styledMap5);
+    //map.mapTypes.set('SATELLITE', styledMap6);
     map.setMapTypeId('GRAYSCALE_DEFAULT');
 
 }
@@ -438,7 +444,7 @@ function init_map() {
 
     var myOptions = {
         zoom: 16,
-        minZoom: 14,
+        minZoom: 15,
         maxZoom: 18,
         center: center,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -485,7 +491,7 @@ function init_map() {
     identifyValueRange();
     //displayGrid();
     populateMap();
-    displayHeatMap();
+    //displayHeatMap();
 }
 
 google.maps.event.addDomListener(window, 'load', init_map);

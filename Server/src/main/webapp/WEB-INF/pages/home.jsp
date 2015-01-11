@@ -10,9 +10,7 @@
     <script src="${pageContext.request.contextPath}/resources/bs/js/bootstrap.min.js"></script>
 
 
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?v=3.8&libraries=geometry&sensor=false"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.8&libraries=geometry,visualization&sensor=false"></script>
     <script src="${pageContext.request.contextPath}/resources/map_styles.js"></script>
     <script src="${pageContext.request.contextPath}/resources/map.js"></script>
 

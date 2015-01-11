@@ -82,7 +82,7 @@ $(document).ready(function () {
 
 });
 
-function logPageLoadingTime(){
+function logPageLoadingTime() {
     var loadingComplete = Date.now();
     var userLoadTime = loadingComplete - performance.timing.navigationStart;
     console.log("Page Loading Time: " + userLoadTime + " ms");
@@ -107,11 +107,11 @@ function progressEvaluate(value, min, max) {
     var progress = rangePercentage(value, min, max);
     var value = progress;
     /*
-    if(min==0 && max==100){
-        value = 100-progress;
-    }
-    var barRGB = convertToRGB(value);
-    */
+     if(min==0 && max==100){
+     value = 100-progress;
+     }
+     var barRGB = convertToRGB(value);
+     */
     //alert(value + " " + range + " " + progress);
     //var progressContent = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="background-color:' + barRGB + '; width: ' + progress + '%"><span class="sr-only"></span></div></div>';
     var progressContent = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: ' + progress + '%"><span class="sr-only"></span></div></div>';
@@ -124,8 +124,8 @@ function rangePercentage(value, min, max) {
 
 }
 
-function calculateAverage(sum, count){
-    return sum/count;
+function calculateAverage(sum, count) {
+    return sum / count;
 };
 
 function addPopUp(marker, content) {
@@ -140,7 +140,7 @@ function addPopUp(marker, content) {
 
 }
 
-function displayHeatMap(){
+function displayHeatMap() {
     var points = new google.maps.MVCArray(locationARR);
     //alert(points.length);
     var heatmap = new google.maps.visualization.HeatmapLayer({
@@ -306,17 +306,17 @@ function generateRoute(newRoute) {
         strokeColor: "#2196f3",
         strokeOpacity: 0.5,
         strokeWeight: 10,
-        fillOpacity:0.0
+        fillOpacity: 0.0
     });
 
     /*
-    google.maps.event.addListener(route, 'mouseover', function() {
-        this.set("strokeWeight",15);
-    });
-    google.maps.event.addListener(route, 'mouseout', function() {
-        this.set("strokeWeight",10);
-    });
-    */
+     google.maps.event.addListener(route, 'mouseover', function() {
+     this.set("strokeWeight",15);
+     });
+     google.maps.event.addListener(route, 'mouseout', function() {
+     this.set("strokeWeight",10);
+     });
+     */
 
 
     route.setMap(map);
@@ -394,25 +394,25 @@ function aggregateGrid(location, dataReading) {
     //if such grid tile exists, update information and aggregate data
     if (GRID[gridIndex]) {
 
-        GRID[gridIndex]["noiseAVG"]["sum"]+=parseFloat(dataReading.noise);
+        GRID[gridIndex]["noiseAVG"]["sum"] += parseFloat(dataReading.noise);
         GRID[gridIndex]["noiseAVG"]["count"]++;
         var noiseSum = GRID[gridIndex]["noiseAVG"]["sum"];
         var noiseCount = GRID[gridIndex]["noiseAVG"]["count"];
-        var noiseAverage = calculateAverage(noiseSum,noiseCount);
+        var noiseAverage = calculateAverage(noiseSum, noiseCount);
         var noisePercentage = rangePercentage(noiseAverage, minNoise, maxNoise);
 
-        GRID[gridIndex]["coAVG"]["sum"]+=parseFloat(dataReading.co);
+        GRID[gridIndex]["coAVG"]["sum"] += parseFloat(dataReading.co);
         GRID[gridIndex]["coAVG"]["count"]++;
         var coSum = GRID[gridIndex]["coAVG"]["sum"];
         var coCount = GRID[gridIndex]["coAVG"]["count"];
-        var coAverage = coSum/coCount;
+        var coAverage = coSum / coCount;
         var coPercentage = rangePercentage(coAverage, minCO, maxCO);
 
-        GRID[gridIndex]["no2AVG"]["sum"]+=parseFloat(dataReading.no2);
+        GRID[gridIndex]["no2AVG"]["sum"] += parseFloat(dataReading.no2);
         GRID[gridIndex]["no2AVG"]["count"]++;
         var no2Sum = GRID[gridIndex]["no2AVG"]["sum"];
         var no2Count = GRID[gridIndex]["no2AVG"]["count"];
-        var no2Average = no2Sum/no2Count;
+        var no2Average = no2Sum / no2Count;
         var no2Percentage = rangePercentage(no2Average, minNO2, maxNO2);
 
         //TESTING

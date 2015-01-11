@@ -202,7 +202,7 @@ var style5 = [
 ];
 
 //SATELLITE
-var style6 =google.maps.MapTypeId.SATELLITE;
+var style6 = google.maps.MapTypeId.SATELLITE;
 
 var styledMap0 = new google.maps.StyledMapType(style0, {name: "Styled Map 1"});
 var styledMap1 = new google.maps.StyledMapType(style1, {name: "Styled Map 2"});
@@ -212,4 +212,4 @@ var styledMap4 = new google.maps.StyledMapType(style4, {name: "Styled Map 5"});
 var styledMap5 = new google.maps.StyledMapType(style5, {name: "Styled Map 6"});
 var styledMap6 = google.maps.MapTypeId.SATELLITE;
 
-var styles = [styledMap0, styledMap1, styledMap2, styledMap3, styledMap4, styledMap5,styledMap6];
+var styles = [styledMap0, styledMap1, styledMap2, styledMap3, styledMap4, styledMap5, styledMap6];

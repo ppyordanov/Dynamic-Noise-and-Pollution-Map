@@ -76,7 +76,7 @@ public class HomeController {
         return HOME;
     }
 
-
+    /*
     @RequestMapping(value = "/del")
     public
     @ResponseBody
@@ -86,6 +86,7 @@ public class HomeController {
         routeRepository.deleteAll();
         return "done";
     }
+    */
 
 
     @RequestMapping(value = "/addRoute", method = RequestMethod.POST)

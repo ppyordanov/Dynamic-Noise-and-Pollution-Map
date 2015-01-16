@@ -135,6 +135,7 @@
 
                 <!-- PROTOTYPE -->
                 <li><a href="#">Routes</a></li>
+                <li><a href="#">Devices</a></li>
                 <li><a href="#">Locations</a></li>
                 <li><a href="#">Client</a></li>
                 <li><a href="#">About</a></li>

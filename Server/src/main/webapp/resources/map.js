@@ -16,6 +16,7 @@ var maxLonBounds = -4.282997;
 var centerLat = 55.872912;
 var centerLon = -4.289657;
 var center = new google.maps.LatLng(centerLat, centerLon);
+var origin = new google.maps.LatLng(maxLatBounds, minLonBounds);
 
 var GRID = [];
 var infowindow = new google.maps.InfoWindow();
@@ -172,7 +173,7 @@ console.log(cols);
 
 function displayGrid() {
 
-    var northWestStart = new google.maps.LatLng(maxLatBounds, minLonBounds);
+    var northWestStart = origin;
     var heightTilesN = 1000;
     var widthTilesN = 1000;
     var tileSizeMeters = 50;
@@ -258,6 +259,10 @@ function getGridLocation(location) {
 
     //var location = new google.maps.LatLng(latitude,longitude);
     var gridLocation = null;
+    var check = 0;
+    //var dist = google.maps.geometry.spherical.computeDistanceBetween(origin,location);
+
+
     for (var i = 0; i < GRID.length; i++) {
         if (GRID[i]["tile"].bounds.contains(location)) {
             gridLocation = i;

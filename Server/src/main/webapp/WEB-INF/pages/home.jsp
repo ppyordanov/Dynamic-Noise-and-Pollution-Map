@@ -7,7 +7,7 @@
     <link type="text/css" href="${pageContext.request.contextPath}/resources/bs/css/bootstrap.css" rel="stylesheet"/>
     <link type="text/css" href="${pageContext.request.contextPath}/resources/main.css" rel="stylesheet"/>
     <script src="${pageContext.request.contextPath}/resources/bs/js/jquery-1.11.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/bs/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bs/js/bootstrap.js"></script>
 
 
     <script type="text/javascript"
@@ -66,22 +66,24 @@
 <body>
 
 
-<nav class="navbar navbar-inverse" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
+
+            <a class="navbar-brand" href="#">UG Map</a>
+
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
+                    data-target="#nav-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">UG Map</a>
+
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="nav-collapse">
             <ul class="nav navbar-nav">
 
 
@@ -163,10 +165,11 @@
     <!-- /.container-fluid -->
 </nav>
 
+
+
 <div class="container fill">
     <div id="gmap_canvas"></div>
 </div>
 
-</div>
 </body>
 </html>

@@ -30,3 +30,7 @@ html, body {
     overflow: hidden;
     white-space: nowrap;
 }
+
+.navbar-default {
+    margin-bottom:0;
+}

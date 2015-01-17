@@ -81,6 +81,11 @@ $(document).ready(function () {
         map.setMapTypeId(styledMap6);
     });
 
+    //hide collapsed menu on click
+    $('.nav a').on('click', function(){
+        $(".navbar-toggle").click();
+    });
+
 });
 
 function logPageLoadingTime() {

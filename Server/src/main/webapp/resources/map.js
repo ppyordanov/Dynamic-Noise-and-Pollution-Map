@@ -62,49 +62,60 @@ $(document).ready(function () {
     logPageLoadingTime();
 
     //hide collapsed menu on click
-    $('.nav a').on('click', function(){
+    $('.nav a').on('click', function () {
         $(".navbar-toggle").click();
     });
 
     /*
-    $('#style0').click(function () {
-        map.setMapTypeId('CLASSIC');
-    });
-    $('#style1').click(function () {
-        map.setMapTypeId('GRAYSCALE_DEFAULT');
-    });
-    $('#style2').click(function () {
-        map.setMapTypeId('BLUE_HUE');
-    });
-    $('#style3').click(function () {
-        map.setMapTypeId('DARK_BLUE');
-    });
-    $('#style4').click(function () {
-        map.setMapTypeId('CLEAN_CLASSIC');
-    });
-    $('#style5').click(function () {
-        map.setMapTypeId('ROADS');
-    });
-    $('#style6').click(function () {
-        map.setMapTypeId(styledMap6);
-    });
+     $('#style0').click(function () {
+     map.setMapTypeId('CLASSIC');
+     });
+     $('#style1').click(function () {
+     map.setMapTypeId('GRAYSCALE_DEFAULT');
+     });
+     $('#style2').click(function () {
+     map.setMapTypeId('BLUE_HUE');
+     });
+     $('#style3').click(function () {
+     map.setMapTypeId('DARK_BLUE');
+     });
+     $('#style4').click(function () {
+     map.setMapTypeId('CLEAN_CLASSIC');
+     });
+     $('#style5').click(function () {
+     map.setMapTypeId('ROADS');
+     });
+     $('#style6').click(function () {
+     map.setMapTypeId(styledMap6);
+     });
 
-    */
+     */
+
+    $("#noise").slider({
+        orientation: "horizontal",
+        range: true,
+        values: [ 17, 67 ],
+        slide: function (event, ui) {
+            $("#amount").val("$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ]);
+        }
+    });
+    $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+        " - $" + $("#slider-range").slider("values", 1));
 
 
     $('#style_apply').click(function () {
         var selected = $("input:radio[name='style']:checked").val();
-        if(selected== 'SATELLITE'){
+        if (selected == 'SATELLITE') {
             map.setMapTypeId(styledMap6);
         }
-        else{
+        else {
             map.setMapTypeId(selected);
         }
 
         /*
-        $(".alert").removeClass("in").show();
-        $(".alert").delay(200).addClass("in").fadeOut(1500);
-        */
+         $(".alert").removeClass("in").show();
+         $(".alert").delay(200).addClass("in").fadeOut(1500);
+         */
     });
 
     $('#mode_apply').click(function () {
@@ -116,9 +127,9 @@ $(document).ready(function () {
 });
 
 
-function retrieveModes(){
+function retrieveModes() {
     var selectedModes = [];
-    $('#modes_options :checkbox').each(function() {
+    $('#modes_options :checkbox').each(function () {
         var value = (this.checked ? true : false);
         //alert(value);
         selectedModes.push(value);
@@ -126,7 +137,7 @@ function retrieveModes(){
     return selectedModes;
 }
 
-function renderMap(modes){
+function renderMap(modes) {
 
     toggleMarkers(modes[0]);
     toggleRoutes(modes[1]);
@@ -134,7 +145,6 @@ function renderMap(modes){
     toggleGrid(modes[3]);
 
 }
-
 
 
 function logPageLoadingTime() {
@@ -273,7 +283,7 @@ function displayGrid() {
                 fillOpacity: fillO,
                 map: map,
                 bounds: new google.maps.LatLngBounds(newSouth, newEast),
-                visible:false
+                visible: false
             };
             tile.setOptions(tileOptions);
             //tile.set("fillColor", "gray");
@@ -317,13 +327,13 @@ function getGridLocation(location) {
     var check = 0;
 
     /*
-    var sw = new google.maps.LatLng(origin.lat(), location.lng());
-    var ne = new google.maps.LatLng(location.lat(), origin.lng());
+     var sw = new google.maps.LatLng(origin.lat(), location.lng());
+     var ne = new google.maps.LatLng(location.lat(), origin.lng());
 
-    var dist = google.maps.geometry.spherical.computeDistanceBetween(origin,ne);
-    var dist2 = google.maps.geometry.spherical.computeDistanceBetween(location, sw);
-    alert((dist+dist2)/100);
-    */
+     var dist = google.maps.geometry.spherical.computeDistanceBetween(origin,ne);
+     var dist2 = google.maps.geometry.spherical.computeDistanceBetween(location, sw);
+     alert((dist+dist2)/100);
+     */
 
     for (var i = 0; i < GRID.length; i++) {
         if (GRID[i]["tile"].bounds.contains(location)) {
@@ -357,7 +367,7 @@ function generateMarker(dataReading) {
         map: map,
         //animation: google.maps.Animation.DROP,
         icon: pinIcon,
-        visible:false
+        visible: false
     });
 
     content = "Noise: " + noise + progressEvaluate(noise, minNoise, maxNoise) + "CO: " + co + progressEvaluate(co, minCO, maxCO) + "NO2: " + no2 + progressEvaluate(no2, minNO2, maxNO2) + "Battery: " + battery + progressEvaluate(battery, minBattery, maxBattery);
@@ -377,7 +387,7 @@ function generateRoute(newRoute) {
         strokeOpacity: 0.5,
         strokeWeight: 10,
         fillOpacity: 0.0,
-        visible:false
+        visible: false
     });
 
     /*
@@ -499,31 +509,32 @@ function aggregateGrid(location, dataReading) {
 
 }
 
-function toggleGrid(value){
-    for(var i=0;i<GRID.length;i++){
-        GRID[i]["tile"].set("visible", value);
-    }
+//forEach better in terms of performance changed from a conventional for loop
+function toggleGrid(value) {
+    GRID.forEach(function (entry) {
+        entry["tile"].set("visible", value);
+    });
 }
 
-function toggleHeatMap(value){
-    if(value){
+function toggleHeatMap(value) {
+    if (value) {
         HEAT_MAP.setMap(map);
     }
-    else{
+    else {
         HEAT_MAP.setMap(null);
     }
 }
 
-function toggleMarkers(value){
-    for(var i=0;i<POINT_DATA.length;i++){
-        POINT_DATA[i].set("visible", value);
-    }
+function toggleMarkers(value) {
+    POINT_DATA.forEach(function (entry) {
+        entry.set("visible", value);
+    });
 }
 
-function toggleRoutes(value){
-    for(var i=0;i<ROUTE_DATA.length;i++){
-        ROUTE_DATA[i].set("visible", value);
-    }
+function toggleRoutes(value) {
+    ROUTE_DATA.forEach(function (entry) {
+        entry.set("visible", value);
+    });
 }
 
 

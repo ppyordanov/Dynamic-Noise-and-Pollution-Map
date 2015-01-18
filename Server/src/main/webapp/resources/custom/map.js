@@ -96,8 +96,6 @@ $(document).ready(function () {
      */
 
 
-
-
     $('#style_apply').click(function () {
         var selected = $("input:radio[name='style']:checked").val();
         if (selected == 'SATELLITE') {
@@ -207,7 +205,7 @@ function generateHeatMap() {
     HEAT_MAP = new google.maps.visualization.HeatmapLayer({
         data: points,
         radius: 50,
-        map:null
+        map: null
     });
 
     //HEAT_MAP.setMap(map);
@@ -391,21 +389,21 @@ function generateRoute(newRoute, noiseSUM, coSUM, no2SUM) {
     });
 
     var dataPoints = newRoute.length;
-    var routeDATA = {"route": route, "noiseAVG": noiseSUM/dataPoints, "coAVG": coSUM/dataPoints, "no2AVG": no2SUM/dataPoints};
+    var routeDATA = {"route": route, "noiseAVG": noiseSUM / dataPoints, "coAVG": coSUM / dataPoints, "no2AVG": no2SUM / dataPoints};
 
     /*
-    google.maps.event.addListener(route, 'click', function (event) {
-        infowindow.setContent("Route: " + newRoute.length + " data points");
-        infowindow.setPosition(event.latLng);
-        infowindow.open(map);
-    });
-    google.maps.event.addListener(route, 'mouseover', function (event) {
-        this.set("strokeWeight", 15);
-    });
-    google.maps.event.addListener(route, 'mouseout', function () {
-        this.set("strokeWeight", 10);
-    });
-    */
+     google.maps.event.addListener(route, 'click', function (event) {
+     infowindow.setContent("Route: " + newRoute.length + " data points");
+     infowindow.setPosition(event.latLng);
+     infowindow.open(map);
+     });
+     google.maps.event.addListener(route, 'mouseover', function (event) {
+     this.set("strokeWeight", 15);
+     });
+     google.maps.event.addListener(route, 'mouseout', function () {
+     this.set("strokeWeight", 10);
+     });
+     */
 
     ROUTE_DATA.push(routeDATA);
 
@@ -424,16 +422,16 @@ function populateMap() {
 
             var dr = routeDR[j];
 
-            noiseSUM+= parseFloat(dr.noise);
+            noiseSUM += parseFloat(dr.noise);
             coSUM += parseFloat(dr.co);
             no2SUM += parseFloat(dr.no2);
 
 
             //updateValueRange(dr);
 
-            var visible=false;
+            var visible = false;
             generateMarker(dr, visible, map);
-            generatePointVis(dr,visible, map, i);
+            generatePointVis(dr, visible, map, i);
             var pos = new google.maps.LatLng(dr.latitude, dr.longitude);
             newRoute.push(pos);
             locationARR.push(pos);
@@ -632,118 +630,117 @@ function init_map() {
     generateHeatMap();
 
 
-
     //CONTROLS
 
-    $( "#noise" ).slider({
+    $("#noise").slider({
         orientation: "horizontal",
         range: true,
-        min:Math.floor(minNoise),
-        max:Math.floor(maxNoise),
-        slide: function( event, ui ) {
-            $( "#noise_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        min: Math.floor(minNoise),
+        max: Math.floor(maxNoise),
+        slide: function (event, ui) {
+            $("#noise_level").val(ui.values[ 0 ] + " - " + ui.values[ 1 ]);
         },
 
-        change: function(event, ui) {
+        change: function (event, ui) {
             minRangeNoise = ui.values[0];
             maxRangeNoise = ui.values[1];
             //generateGrid();
             renderData();
         },
 
-        stop: function(event, ui) {
+        stop: function (event, ui) {
             minRangeNoise = ui.values[0];
             maxRangeNoise = ui.values[1];
         }
     });
 
     /*
-    $( "#co" ).slider({
-        orientation: "horizontal",
-        range: true,
-        min:Math.floor(minCO),
-        max:Math.floor(maxCO),
-        slide: function( event, ui ) {
-            $( "#co_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-        }
-    });
+     $( "#co" ).slider({
+     orientation: "horizontal",
+     range: true,
+     min:Math.floor(minCO),
+     max:Math.floor(maxCO),
+     slide: function( event, ui ) {
+     $( "#co_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+     }
+     });
 
-    $( "#no2" ).slider({
-        orientation: "horizontal",
-        range: true,
-        min:Math.floor(minNO2),
-        max:Math.floor(maxNO2),
-        slide: function( event, ui ) {
-            $( "#no2_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-        }
-    });
+     $( "#no2" ).slider({
+     orientation: "horizontal",
+     range: true,
+     min:Math.floor(minNO2),
+     max:Math.floor(maxNO2),
+     slide: function( event, ui ) {
+     $( "#no2_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+     }
+     });
 
-    */
+     */
     $('#value_apply').click(function () {
 
         /*
-        //generateGrid();
-        toggleMarkers(false);
-        POINT_DATA=[];
-        ROUTE_DATA=[];
-        POINT_VISUALIZATION = [];
-        locationARR=[];
+         //generateGrid();
+         toggleMarkers(false);
+         POINT_DATA=[];
+         ROUTE_DATA=[];
+         POINT_VISUALIZATION = [];
+         locationARR=[];
 
-        populateMap();
-        generateHeatMap();
+         populateMap();
+         generateHeatMap();
 
-        */
+         */
     });
 }
 
-function renderData(){
+function renderData() {
 
-    locationARR=[];
+    locationARR = [];
 
-    for(var index=POINT_DATA.length-1;index>=0;index--){
+    for (var index = POINT_DATA.length - 1; index >= 0; index--) {
 
         var pDataEntry = POINT_DATA[index];
         var pVisEntry = POINT_VISUALIZATION[index];
 
-        if(pDataEntry["noise"]>=minRangeNoise && pDataEntry["noise"]<=maxRangeNoise){
+        if (pDataEntry["noise"] >= minRangeNoise && pDataEntry["noise"] <= maxRangeNoise) {
             pDataEntry["marker"].set("map", map);
             pVisEntry["circle"].set("map", map);
             locationARR.push(pDataEntry["marker"].getPosition());
         }
-        else{
+        else {
             pDataEntry["marker"].set("map", null);
             pVisEntry["circle"].set("map", null);
         }
     }
 
     /*
-    POINT_DATA.forEach(function (entry) {
-        if(entry["noise"]>=minRangeNoise && entry["noise"]<=maxRangeNoise){
-            entry["marker"].set("map", map);
-            locationARR.push(entry["marker"].position);
-        }
-        else{
-            entry["marker"].set("map", null);
-        }
+     POINT_DATA.forEach(function (entry) {
+     if(entry["noise"]>=minRangeNoise && entry["noise"]<=maxRangeNoise){
+     entry["marker"].set("map", map);
+     locationARR.push(entry["marker"].position);
+     }
+     else{
+     entry["marker"].set("map", null);
+     }
 
-    });
+     });
 
-    POINT_VISUALIZATION.forEach(function (entry) {
-        if(entry["noise"]>=minRangeNoise && entry["noise"]<=maxRangeNoise){
-            entry["circle"].set("map", map);
-        }
-        else{
-            entry["circle"].set("map", null);
-        }
-    });
+     POINT_VISUALIZATION.forEach(function (entry) {
+     if(entry["noise"]>=minRangeNoise && entry["noise"]<=maxRangeNoise){
+     entry["circle"].set("map", map);
+     }
+     else{
+     entry["circle"].set("map", null);
+     }
+     });
 
-    */
+     */
 
     ROUTE_DATA.forEach(function (entry) {
-        if(entry["noiseAVG"]>=minRangeNoise && entry["noiseAVG"]<=maxRangeNoise){
+        if (entry["noiseAVG"] >= minRangeNoise && entry["noiseAVG"] <= maxRangeNoise) {
             entry["route"].set("map", map);
         }
-        else{
+        else {
             entry["route"].set("map", null);
         }
     });
@@ -753,7 +750,7 @@ function renderData(){
 
 }
 
-function generatePointVis(dataReading,visible, map, num) {
+function generatePointVis(dataReading, visible, map, num) {
 
     /*
      var labelText = '<div>Noise: ' + dataReading.noise + '</div>';

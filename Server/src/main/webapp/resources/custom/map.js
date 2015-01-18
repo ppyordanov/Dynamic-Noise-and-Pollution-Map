@@ -21,6 +21,7 @@ var origin = new google.maps.LatLng(maxLatBounds, minLonBounds);
 var GRID = [];
 var HEAT_MAP;
 var POINT_DATA = [];
+var POINT_VISUALIZATION = [];
 var ROUTE_DATA = [];
 var locationARR = [];
 var infowindow = new google.maps.InfoWindow();
@@ -143,6 +144,7 @@ function renderMap(modes) {
     toggleRoutes(modes[1]);
     toggleHeatMap(modes[2]);
     toggleGrid(modes[3]);
+    togglePointVis(modes[4]);
 
 }
 
@@ -205,7 +207,7 @@ function addPopUp(marker, content) {
 
 }
 
-function displayHeatMap() {
+function generateHeatMap() {
     var points = new google.maps.MVCArray(locationARR);
     //alert(points.length);
     HEAT_MAP = new google.maps.visualization.HeatmapLayer({
@@ -235,7 +237,7 @@ for (var i = 1; i <= 100; i++) {
 //var cols=["red","green","yellow","orange","gray"]
 console.log(cols);
 
-function displayGrid() {
+function generateGrid() {
 
     var northWestStart = origin;
     var heightTilesN = 1000;
@@ -416,6 +418,7 @@ function populateMap() {
 
             //updateValueRange(dr);
             generateMarker(dr);
+            generatePointVis(dr, i);
             var pos = new google.maps.LatLng(routeDR[j].latitude, routeDR[j].longitude);
             newRoute.push(pos);
             locationARR.push(pos);
@@ -537,6 +540,12 @@ function toggleRoutes(value) {
     });
 }
 
+function togglePointVis(value) {
+    POINT_VISUALIZATION.forEach(function (entry) {
+        entry["circle"].set("visible", value);
+    });
+}
+
 
 function setStyles() {
 
@@ -600,9 +609,38 @@ function init_map() {
 
     setStyles();
     identifyValueRange();
-    displayGrid();
+    generateGrid();
+    //generatePointVis();
     populateMap();
-    displayHeatMap();
+    generateHeatMap();
+}
+
+function generatePointVis(dataReading, num){
+
+    element= {"circle": null,"noise":null,"co":null,"no2":null};
+
+    var noisePercentage = rangePercentage(dataReading.noise, minNoise,maxNoise);
+    var pollutionOptions = {
+        //strokeColor: '#FF0000',
+        //strokeOpacity: 0.8,
+        strokeWeight: 0,
+        fillColor: '#FF0000',
+        fillOpacity: noisePercentage/100,
+        center: position,
+        map:map,
+        visible:true,
+        radius: noisePercentage
+    };
+
+    var circle = new google.maps.Circle(pollutionOptions);
+
+    element["circle"] = circle;
+    element["noise"] = dataReading.noise;
+    element["co"] = dataReading.co;
+    element["no2"] = dataReading.no2;
+
+    //bindWindow(circle, num);
+    POINT_VISUALIZATION.push(element);
 }
 
 google.maps.event.addDomListener(window, 'load', init_map);

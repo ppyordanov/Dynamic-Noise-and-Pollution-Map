@@ -32,6 +32,10 @@ html, body {
     white-space: nowrap;
 }
 
+.slider{
+    width:200px;
+}
+
 .navbar-default {
     margin-bottom:0;
 }

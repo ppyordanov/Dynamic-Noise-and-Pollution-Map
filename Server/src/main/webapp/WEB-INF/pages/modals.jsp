@@ -97,6 +97,11 @@
                         <input type="checkbox" name="mode" value="GRID"> Grid
                     </label>
                     description
+                    <br>
+                    <label>
+                        <input type="checkbox" name="mode" value="POINT_VIS"> Point Visualization
+                    </label>
+                    description
                 </div>
                 </p>
 
@@ -129,21 +134,21 @@
                 <div id="values_options">
                     <label>
                         Noise
-                        <div id="noise" style="width:200px"></div>
+                        <div id="noise" class="slider"></div>
                     </label>
                     <br>
                     healthy values
                     <br>
                     <label>
                         Noise
-                        <div id="co" style="width:200px"></div>
+                        <div id="co" class="slider"></div>
                     </label>
                     <br>
                     healthy values
                     <br>
                     <label>
                         Noise
-                        <div id="no2" style="width:200px"></div>
+                        <div id="no2" class="slider"></div>
                     </label>
                     <br>
                     healthy values

@@ -33,11 +33,13 @@ var maxRangeNoise = Number.MAX_SAFE_INTEGER;
 
 var maxCO = null;
 var minCO = null;
-var rangeCO = null;
+var minRangeCO = 0;
+var maxRangeCO = Number.MAX_SAFE_INTEGER;
 
 var maxNO2 = null;
 var minNO2 = null;
-var rangeNO2 = null;
+var minRangeNO2 = 0;
+var maxRangeNO2 = Number.MAX_SAFE_INTEGER;
 
 var minBattery = 0;
 var maxBattery = 100;
@@ -53,7 +55,7 @@ var longitude;
 var position;
 
 var map;
-var image = '/resources/sck_logo4.png';
+var image = '/resources/images/sck_logo4.png';
 var marker;
 var content;
 var styledContent;
@@ -204,7 +206,8 @@ function generateHeatMap() {
     //alert(points.length);
     HEAT_MAP = new google.maps.visualization.HeatmapLayer({
         data: points,
-        radius: 50
+        radius: 50,
+        map:null
     });
 
     //HEAT_MAP.setMap(map);
@@ -339,7 +342,7 @@ function getGridLocation(location) {
     return gridLocation;
 }
 
-function generateMarker(dataReading) {
+function generateMarker(dataReading, visible, map) {
 
     id = dataReading.id;
     noise = dataReading.noise;
@@ -362,7 +365,7 @@ function generateMarker(dataReading) {
         map: map,
         animation: google.maps.Animation.DROP,
         icon: pinIcon,
-        visible: true
+        visible: visible
     });
 
     content = "Noise: " + noise + progressEvaluate(noise, minNoise, maxNoise) + "CO: " + co + progressEvaluate(co, minCO, maxCO) + "NO2: " + no2 + progressEvaluate(no2, minNO2, maxNO2) + "Battery: " + battery + progressEvaluate(battery, minBattery, maxBattery);
@@ -370,11 +373,12 @@ function generateMarker(dataReading) {
 
     addPopUp(marker, styledContent);
 
-    POINT_DATA.push(marker);
+    var entry = {"marker": marker, "noise": noise, "no2": no2, "co": co};
+    POINT_DATA.push(entry);
 
 }
 
-function generateRoute(newRoute) {
+function generateRoute(newRoute, noiseSUM, coSUM, no2SUM) {
 
     var route = new google.maps.Polyline({
         path: newRoute,
@@ -382,8 +386,12 @@ function generateRoute(newRoute) {
         strokeOpacity: 0.5,
         strokeWeight: 10,
         fillOpacity: 0.0,
+        map: map,
         visible: false
     });
+
+    var dataPoints = newRoute.length;
+    var routeDATA = {"route": route, "noiseAVG": noiseSUM/dataPoints, "coAVG": coSUM/dataPoints, "no2AVG": no2SUM/dataPoints};
 
     /*
     google.maps.event.addListener(route, 'click', function (event) {
@@ -399,10 +407,7 @@ function generateRoute(newRoute) {
     });
     */
 
-
-    route.setMap(map);
-
-    ROUTE_DATA.push(route);
+    ROUTE_DATA.push(routeDATA);
 
 }
 
@@ -410,25 +415,34 @@ function populateMap() {
     for (var i = 0; i < routes.length; i++) {
         var routeDR = dataReadings[routes[i].id];
         var newRoute = [];
+
+        var noiseSUM = null;
+        var coSUM = null;
+        var no2SUM = null;
+
         for (var j = 0; j < routeDR.length; j++) {
 
             var dr = routeDR[j];
 
+            noiseSUM+= parseFloat(dr.noise);
+            coSUM += parseFloat(dr.co);
+            no2SUM += parseFloat(dr.no2);
+
+
             //updateValueRange(dr);
-            if(dr.noise>minRangeNoise && dr.noise<maxRangeNoise){
 
-                generateMarker(dr);
-                generatePointVis(dr, i);
-                var pos = new google.maps.LatLng(dr.latitude, dr.longitude);
-                newRoute.push(pos);
-                locationARR.push(pos);
-                aggregateGrid(pos, dr);
-
-            }
+            var visible=false;
+            generateMarker(dr, visible, map);
+            generatePointVis(dr,visible, map, i);
+            var pos = new google.maps.LatLng(dr.latitude, dr.longitude);
+            newRoute.push(pos);
+            locationARR.push(pos);
+            aggregateGrid(pos, dr);
 
         }
 
-        generateRoute(newRoute);
+
+        generateRoute(newRoute, noiseSUM, coSUM, no2SUM);
 
     }
 }
@@ -522,6 +536,7 @@ function toggleGrid(value) {
 }
 
 function toggleHeatMap(value) {
+    //HEAT_MAP.setMap(HEAT_MAP.getMap() ? null : map);
     if (value) {
         HEAT_MAP.setMap(map);
     }
@@ -532,13 +547,13 @@ function toggleHeatMap(value) {
 
 function toggleMarkers(value) {
     POINT_DATA.forEach(function (entry) {
-        entry.set("visible", value);
+        entry["marker"].set("visible", value);
     });
 }
 
 function toggleRoutes(value) {
     ROUTE_DATA.forEach(function (entry) {
-        entry.set("visible", value);
+        entry["route"].set("visible", value);
     });
 }
 
@@ -619,7 +634,6 @@ function init_map() {
 
 
     //CONTROLS
-    var minNV,maxNV;
 
     $( "#noise" ).slider({
         orientation: "horizontal",
@@ -634,12 +648,7 @@ function init_map() {
             minRangeNoise = ui.values[0];
             maxRangeNoise = ui.values[1];
             //generateGrid();
-            toggleMarkers(false);
-            POINT_DATA=[];
-            ROUTE_DATA=[];
-
-            populateMap();
-            generateHeatMap();
+            renderData();
         },
 
         stop: function(event, ui) {
@@ -648,6 +657,7 @@ function init_map() {
         }
     });
 
+    /*
     $( "#co" ).slider({
         orientation: "horizontal",
         range: true,
@@ -668,20 +678,82 @@ function init_map() {
         }
     });
 
+    */
     $('#value_apply').click(function () {
 
+        /*
         //generateGrid();
         toggleMarkers(false);
         POINT_DATA=[];
         ROUTE_DATA=[];
+        POINT_VISUALIZATION = [];
+        locationARR=[];
 
         populateMap();
         generateHeatMap();
 
+        */
     });
 }
 
-function generatePointVis(dataReading, num) {
+function renderData(){
+
+    locationARR=[];
+
+    for(var index=POINT_DATA.length-1;index>=0;index--){
+
+        var pDataEntry = POINT_DATA[index];
+        var pVisEntry = POINT_VISUALIZATION[index];
+
+        if(pDataEntry["noise"]>=minRangeNoise && pDataEntry["noise"]<=maxRangeNoise){
+            pDataEntry["marker"].set("map", map);
+            pVisEntry["circle"].set("map", map);
+            locationARR.push(pDataEntry["marker"].getPosition());
+        }
+        else{
+            pDataEntry["marker"].set("map", null);
+            pVisEntry["circle"].set("map", null);
+        }
+    }
+
+    /*
+    POINT_DATA.forEach(function (entry) {
+        if(entry["noise"]>=minRangeNoise && entry["noise"]<=maxRangeNoise){
+            entry["marker"].set("map", map);
+            locationARR.push(entry["marker"].position);
+        }
+        else{
+            entry["marker"].set("map", null);
+        }
+
+    });
+
+    POINT_VISUALIZATION.forEach(function (entry) {
+        if(entry["noise"]>=minRangeNoise && entry["noise"]<=maxRangeNoise){
+            entry["circle"].set("map", map);
+        }
+        else{
+            entry["circle"].set("map", null);
+        }
+    });
+
+    */
+
+    ROUTE_DATA.forEach(function (entry) {
+        if(entry["noiseAVG"]>=minRangeNoise && entry["noiseAVG"]<=maxRangeNoise){
+            entry["route"].set("map", map);
+        }
+        else{
+            entry["route"].set("map", null);
+        }
+    });
+
+    alert(locationARR.length);
+    HEAT_MAP.setData(locationARR);
+
+}
+
+function generatePointVis(dataReading,visible, map, num) {
 
     /*
      var labelText = '<div>Noise: ' + dataReading.noise + '</div>';
@@ -699,8 +771,6 @@ function generatePointVis(dataReading, num) {
      label.setMap(map);
      */
 
-    element = {"circle": null, "noise": null, "co": null, "no2": null};
-
     var noisePercentage = rangePercentage(dataReading.noise, minNoise, maxNoise);
     var pollutionOptions = {
         //strokeColor: '#FF0000',
@@ -710,16 +780,12 @@ function generatePointVis(dataReading, num) {
         fillOpacity: noisePercentage / 100,
         center: position,
         map: map,
-        visible: false,
+        visible: visible,
         radius: noisePercentage
     };
 
     var circle = new google.maps.Circle(pollutionOptions);
-
-    element["circle"] = circle;
-    element["noise"] = dataReading.noise;
-    element["co"] = dataReading.co;
-    element["no2"] = dataReading.no2;
+    var element = {"circle": circle, "noise": dataReading.noise, "co": dataReading.co, "no2": dataReading.no2};
 
     //bindWindow(circle, num);
     POINT_VISUALIZATION.push(element);

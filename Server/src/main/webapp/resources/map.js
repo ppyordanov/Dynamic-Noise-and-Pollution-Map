@@ -19,6 +19,10 @@ var center = new google.maps.LatLng(centerLat, centerLon);
 var origin = new google.maps.LatLng(maxLatBounds, minLonBounds);
 
 var GRID = [];
+var HEAT_MAP;
+var POINT_DATA = [];
+var ROUTE_DATA = [];
+var locationARR = [];
 var infowindow = new google.maps.InfoWindow();
 
 var maxNoise = null;
@@ -35,8 +39,6 @@ var rangeNO2 = null;
 
 var minBattery = 0;
 var maxBattery = 100;
-
-var locationARR = [];
 
 var id;
 var noise;
@@ -59,6 +61,12 @@ $(document).ready(function () {
 
     logPageLoadingTime();
 
+    //hide collapsed menu on click
+    $('.nav a').on('click', function(){
+        $(".navbar-toggle").click();
+    });
+
+    /*
     $('#style0').click(function () {
         map.setMapTypeId('CLASSIC');
     });
@@ -81,12 +89,53 @@ $(document).ready(function () {
         map.setMapTypeId(styledMap6);
     });
 
-    //hide collapsed menu on click
-    $('.nav a').on('click', function(){
-        $(".navbar-toggle").click();
+    */
+
+
+    $('#style_apply').click(function () {
+        var selected = $("input:radio[name='style']:checked").val();
+        if(selected== 'SATELLITE'){
+            map.setMapTypeId(styledMap6);
+        }
+        else{
+            map.setMapTypeId(selected);
+        }
+
+        /*
+        $(".alert").removeClass("in").show();
+        $(".alert").delay(200).addClass("in").fadeOut(1500);
+        */
     });
 
+    $('#mode_apply').click(function () {
+        var selected = retrieveModes();
+        renderMap(selected);
+    });
+
+
 });
+
+
+function retrieveModes(){
+    var selectedModes = [];
+    $('#modes_options :checkbox').each(function() {
+        var value = (this.checked ? true : false);
+        //alert(value);
+        selectedModes.push(value);
+    });
+    return selectedModes;
+}
+
+function renderMap(modes){
+
+    toggleMarkers(modes[0]);
+    toggleRoutes(modes[1]);
+    toggleHeatMap(modes[2]);
+    toggleGrid(modes[3]);
+
+}
+
+
 
 function logPageLoadingTime() {
     var loadingComplete = Date.now();
@@ -149,11 +198,11 @@ function addPopUp(marker, content) {
 function displayHeatMap() {
     var points = new google.maps.MVCArray(locationARR);
     //alert(points.length);
-    var heatmap = new google.maps.visualization.HeatmapLayer({
+    HEAT_MAP = new google.maps.visualization.HeatmapLayer({
         data: points
     });
 
-    heatmap.setMap(map);
+    //HEAT_MAP.setMap(map);
 }
 
 function convertToRGB(n) {
@@ -223,7 +272,8 @@ function displayGrid() {
                 fillColor: FILL,
                 fillOpacity: fillO,
                 map: map,
-                bounds: new google.maps.LatLngBounds(newSouth, newEast)
+                bounds: new google.maps.LatLngBounds(newSouth, newEast),
+                visible:false
             };
             tile.setOptions(tileOptions);
             //tile.set("fillColor", "gray");
@@ -265,8 +315,15 @@ function getGridLocation(location) {
     //var location = new google.maps.LatLng(latitude,longitude);
     var gridLocation = null;
     var check = 0;
-    //var dist = google.maps.geometry.spherical.computeDistanceBetween(origin,location);
 
+    /*
+    var sw = new google.maps.LatLng(origin.lat(), location.lng());
+    var ne = new google.maps.LatLng(location.lat(), origin.lng());
+
+    var dist = google.maps.geometry.spherical.computeDistanceBetween(origin,ne);
+    var dist2 = google.maps.geometry.spherical.computeDistanceBetween(location, sw);
+    alert((dist+dist2)/100);
+    */
 
     for (var i = 0; i < GRID.length; i++) {
         if (GRID[i]["tile"].bounds.contains(location)) {
@@ -299,13 +356,16 @@ function generateMarker(dataReading) {
         position: position,
         map: map,
         //animation: google.maps.Animation.DROP,
-        icon: pinIcon
+        icon: pinIcon,
+        visible:false
     });
 
     content = "Noise: " + noise + progressEvaluate(noise, minNoise, maxNoise) + "CO: " + co + progressEvaluate(co, minCO, maxCO) + "NO2: " + no2 + progressEvaluate(no2, minNO2, maxNO2) + "Battery: " + battery + progressEvaluate(battery, minBattery, maxBattery);
     styledContent = '<div class="mapPopUp">' + content + '</div>';
 
     addPopUp(marker, styledContent);
+
+    POINT_DATA.push(marker);
 
 }
 
@@ -316,7 +376,8 @@ function generateRoute(newRoute) {
         strokeColor: "#2196f3",
         strokeOpacity: 0.5,
         strokeWeight: 10,
-        fillOpacity: 0.0
+        fillOpacity: 0.0,
+        visible:false
     });
 
     /*
@@ -330,6 +391,8 @@ function generateRoute(newRoute) {
 
 
     route.setMap(map);
+
+    ROUTE_DATA.push(route);
 
 }
 
@@ -436,6 +499,33 @@ function aggregateGrid(location, dataReading) {
 
 }
 
+function toggleGrid(value){
+    for(var i=0;i<GRID.length;i++){
+        GRID[i]["tile"].set("visible", value);
+    }
+}
+
+function toggleHeatMap(value){
+    if(value){
+        HEAT_MAP.setMap(map);
+    }
+    else{
+        HEAT_MAP.setMap(null);
+    }
+}
+
+function toggleMarkers(value){
+    for(var i=0;i<POINT_DATA.length;i++){
+        POINT_DATA[i].set("visible", value);
+    }
+}
+
+function toggleRoutes(value){
+    for(var i=0;i<ROUTE_DATA.length;i++){
+        ROUTE_DATA[i].set("visible", value);
+    }
+}
+
 
 function setStyles() {
 
@@ -499,9 +589,9 @@ function init_map() {
 
     setStyles();
     identifyValueRange();
-    //displayGrid();
+    displayGrid();
     populateMap();
-    //displayHeatMap();
+    displayHeatMap();
 }
 
 google.maps.event.addDomListener(window, 'load', init_map);

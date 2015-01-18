@@ -63,6 +63,7 @@
 
 
 </head>
+
 <body>
 
 
@@ -87,77 +88,9 @@
             <ul class="nav navbar-nav">
 
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Styles <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a id="style0" href="#">Classic</a></li>
-                        <li><a id="style1" href="#">Grayscale</a></li>
-                        <li><a id="style2" href="#">Blue hue</a></li>
-                        <li><a id="style3" href="#">Dark blue</a></li>
-                        <li><a id="style4" href="#">Clean classic</a></li>
-                        <li><a id="style5" href="#">Roads</a></li>
-                        <li><a id="style6" href="#">Satellite</a></li>
-                    </ul>
-                </li>
+                <li><a href="#" data-toggle="modal" data-target="#styles">Styles</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#modes">Modes</a></li>
 
-                <!-- PROTOTYPE -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuration <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li class="divider">map mode</li>
-                        <li><a href="#">grid</a></li>
-                        <li><a href="#">data points</a></li>
-                        <li><a href="#">heat map (concentration)</a></li>
-                        <li><a href="#">default(no overlay)</a></li>
-                        <li class="divider">grid options</li>
-                        <li><a href="#">tile size</a></li>
-                        <li><a href="#">tile options</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">routes display</a></li>
-                        <li><a href="#">routes options</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">markers display</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">grid frame display</a></li>
-                        <li><a href="#">grid frame options</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">no data color/opacity</a></li>
-                    </ul>
-                </li>
-
-                <!-- PROTOTYPE -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filters <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">CO</a></li>
-                        <li><a href="#">NO2</a></li>
-                        <li><a href="#">Noise</a></li>
-                    </ul>
-                </li>
-
-                <!-- PROTOTYPE -->
-                <li><a href="#">Routes</a></li>
-                <li><a href="#">Devices</a></li>
-                <li><a href="#">Locations</a></li>
-                <li><a href="#">Client</a></li>
-                <li><a href="#">About</a></li>
-
-            </ul>
-
-            <!--
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-            -->
-
-            <!-- PROTOTYPE -->
-            <ul class="nav navbar-nav navbar-right">
-                <!-- <button type="button" class="btn btn-default navbar-btn">Dashboard</button> -->
-                <button type="button" class="btn btn-default navbar-btn">Sign in</button>
-                <button type="button" class="btn btn-default navbar-btn">Register</button>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -165,10 +98,118 @@
     <!-- /.container-fluid -->
 </nav>
 
+<!-- Style Modal -->
+<div class="modal fade" id="styles" tabindex="-1" role="dialog" aria-labelledby="styles" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Styles</h4>
+            </div>
+            <div class="modal-body">
+
+                <p>
+                    Please choose the map style you would like renderred:
+                </p>
+
+
+                <label>
+                    <input type="radio" name="style" value="CLASSIC"> Classic
+                </label>
+                description
+                <br>
+                <label>
+                    <input type="radio" name="style" value="SATELLITE"> Satellite
+                </label>
+                description
+                <br>
+                <label>
+                    <input type="radio" name="style" value="GRAYSCALE_DEFAULT"> Grayscale
+                </label>
+                description
+                <br>
+                <label>
+                    <input type="radio" name="style" value="BLUE_HUE"> Blue Hue
+                </label>
+                description
+                <br>
+                <label>
+                    <input type="radio" name="style" value="DARK_BLUE"> Dark Blue
+                </label>
+                description
+                <br>
+                <label>
+                    <input type="radio" name="style" value="CLEAN_CLASSIC"> Clean Classic
+                </label>
+                description
+                <br>
+                <label>
+                    <input type="radio" name="style" value="ROADS"> Roads
+                </label>
+                description
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="style_apply" data-dismiss="modal">Apply</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mode Modal -->
+<div class="modal fade" id="modes" tabindex="-1" role="dialog" aria-labelledby="modes" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Styles</h4>
+            </div>
+            <div class="modal-body">
+
+                <p>
+                    Please choose the map mode you would like renderred:
+                </p>
+
+                <p>
+
+                <div id="modes_options">
+                    <label>
+                        <input type="checkbox" name="mode" value="MARKERS"> Markers(No Overlay)
+                    </label>
+                    description
+                    <br>
+                    <label>
+                        <input type="checkbox" name="mode" value="ROUTES"> Routes
+                    </label>
+                    description
+                    <br>
+                    <label>
+                        <input type="checkbox" name="mode" value="HEAT_MAP"> Heat Map (Sample Concentration)
+                    </label>
+                    description
+                    <br>
+                    <label>
+                        <input type="checkbox" name="mode" value="GRID"> Grid
+                    </label>
+                    description
+                </div>
+                </p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="mode_apply" data-dismiss="modal">Apply</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <div class="container fill">
+
     <div id="gmap_canvas"></div>
+
 </div>
 
 </body>

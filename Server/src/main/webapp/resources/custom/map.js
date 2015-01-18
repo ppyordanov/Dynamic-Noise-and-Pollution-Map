@@ -28,7 +28,8 @@ var infowindow = new google.maps.InfoWindow();
 
 var maxNoise = null;
 var minNoise = null;
-var rangeNoise = null;
+var minRangeNoise = 0;
+var maxRangeNoise = Number.MAX_SAFE_INTEGER;
 
 var maxCO = null;
 var minCO = null;
@@ -92,16 +93,7 @@ $(document).ready(function () {
 
      */
 
-    $("#noise").slider({
-        orientation: "horizontal",
-        range: true,
-        values: [ 17, 67 ],
-        slide: function (event, ui) {
-            $("#amount").val("$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ]);
-        }
-    });
-    $("#amount").val("$" + $("#slider-range").slider("values", 0) +
-        " - $" + $("#slider-range").slider("values", 1));
+
 
 
     $('#style_apply').click(function () {
@@ -211,7 +203,8 @@ function generateHeatMap() {
     var points = new google.maps.MVCArray(locationARR);
     //alert(points.length);
     HEAT_MAP = new google.maps.visualization.HeatmapLayer({
-        data: points
+        data: points,
+        radius: 50
     });
 
     //HEAT_MAP.setMap(map);
@@ -367,9 +360,9 @@ function generateMarker(dataReading) {
     marker = new google.maps.Marker({
         position: position,
         map: map,
-        //animation: google.maps.Animation.DROP,
+        animation: google.maps.Animation.DROP,
         icon: pinIcon,
-        visible: false
+        visible: true
     });
 
     content = "Noise: " + noise + progressEvaluate(noise, minNoise, maxNoise) + "CO: " + co + progressEvaluate(co, minCO, maxCO) + "NO2: " + no2 + progressEvaluate(no2, minNO2, maxNO2) + "Battery: " + battery + progressEvaluate(battery, minBattery, maxBattery);
@@ -393,13 +386,18 @@ function generateRoute(newRoute) {
     });
 
     /*
-     google.maps.event.addListener(route, 'mouseover', function() {
-     this.set("strokeWeight",15);
-     });
-     google.maps.event.addListener(route, 'mouseout', function() {
-     this.set("strokeWeight",10);
-     });
-     */
+    google.maps.event.addListener(route, 'click', function (event) {
+        infowindow.setContent("Route: " + newRoute.length + " data points");
+        infowindow.setPosition(event.latLng);
+        infowindow.open(map);
+    });
+    google.maps.event.addListener(route, 'mouseover', function (event) {
+        this.set("strokeWeight", 15);
+    });
+    google.maps.event.addListener(route, 'mouseout', function () {
+        this.set("strokeWeight", 10);
+    });
+    */
 
 
     route.setMap(map);
@@ -417,12 +415,16 @@ function populateMap() {
             var dr = routeDR[j];
 
             //updateValueRange(dr);
-            generateMarker(dr);
-            generatePointVis(dr, i);
-            var pos = new google.maps.LatLng(routeDR[j].latitude, routeDR[j].longitude);
-            newRoute.push(pos);
-            locationARR.push(pos);
-            aggregateGrid(pos, dr);
+            if(dr.noise>minRangeNoise && dr.noise<maxRangeNoise){
+
+                generateMarker(dr);
+                generatePointVis(dr, i);
+                var pos = new google.maps.LatLng(dr.latitude, dr.longitude);
+                newRoute.push(pos);
+                locationARR.push(pos);
+                aggregateGrid(pos, dr);
+
+            }
 
         }
 
@@ -613,22 +615,102 @@ function init_map() {
     //generatePointVis();
     populateMap();
     generateHeatMap();
+
+
+
+    //CONTROLS
+    var minNV,maxNV;
+
+    $( "#noise" ).slider({
+        orientation: "horizontal",
+        range: true,
+        min:Math.floor(minNoise),
+        max:Math.floor(maxNoise),
+        slide: function( event, ui ) {
+            $( "#noise_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        },
+
+        change: function(event, ui) {
+            minRangeNoise = ui.values[0];
+            maxRangeNoise = ui.values[1];
+            //generateGrid();
+            toggleMarkers(false);
+            POINT_DATA=[];
+            ROUTE_DATA=[];
+
+            populateMap();
+            generateHeatMap();
+        },
+
+        stop: function(event, ui) {
+            minRangeNoise = ui.values[0];
+            maxRangeNoise = ui.values[1];
+        }
+    });
+
+    $( "#co" ).slider({
+        orientation: "horizontal",
+        range: true,
+        min:Math.floor(minCO),
+        max:Math.floor(maxCO),
+        slide: function( event, ui ) {
+            $( "#co_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        }
+    });
+
+    $( "#no2" ).slider({
+        orientation: "horizontal",
+        range: true,
+        min:Math.floor(minNO2),
+        max:Math.floor(maxNO2),
+        slide: function( event, ui ) {
+            $( "#no2_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        }
+    });
+
+    $('#value_apply').click(function () {
+
+        //generateGrid();
+        toggleMarkers(false);
+        POINT_DATA=[];
+        ROUTE_DATA=[];
+
+        populateMap();
+        generateHeatMap();
+
+    });
 }
 
-function generatePointVis(dataReading, num){
+function generatePointVis(dataReading, num) {
 
-    element= {"circle": null,"noise":null,"co":null,"no2":null};
+    /*
+     var labelText = '<div>Noise: ' + dataReading.noise + '</div>';
+     var myOptions = {
+     content: labelText,
+     boxStyle: {
+     background: '#000',
+     textAlign: "center",
+     fontSize: "8pt"
+     },
+     position:position,
+     closeBoxURL: ""
+     };
+     var label = new InfoBox(myOptions);
+     label.setMap(map);
+     */
 
-    var noisePercentage = rangePercentage(dataReading.noise, minNoise,maxNoise);
+    element = {"circle": null, "noise": null, "co": null, "no2": null};
+
+    var noisePercentage = rangePercentage(dataReading.noise, minNoise, maxNoise);
     var pollutionOptions = {
         //strokeColor: '#FF0000',
         //strokeOpacity: 0.8,
         strokeWeight: 0,
         fillColor: '#FF0000',
-        fillOpacity: noisePercentage/100,
+        fillOpacity: noisePercentage / 100,
         center: position,
-        map:map,
-        visible:true,
+        map: map,
+        visible: false,
         radius: noisePercentage
     };
 

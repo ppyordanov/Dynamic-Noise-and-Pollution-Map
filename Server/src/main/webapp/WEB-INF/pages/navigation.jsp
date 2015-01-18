@@ -23,7 +23,7 @@
 
                 <li><a href="#" data-toggle="modal" data-target="#styles">Styles</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#modes">Modes</a></li>
-                <li><a href="#" data-toggle="modal" data-target="#values">Modes</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#values">Filters</a></li>
 
             </ul>
         </div>

@@ -17,6 +17,8 @@
     <script src="${pageContext.request.contextPath}/resources/custom/map_styles.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/map.js"></script>
 
+    <!-- <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script> -->
+
 
 </head>
 

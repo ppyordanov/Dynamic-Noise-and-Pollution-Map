@@ -67,7 +67,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Styles</h4>
+                <h4 class="modal-title">Modes</h4>
             </div>
             <div class="modal-body">
 
@@ -102,6 +102,9 @@
                         <input type="checkbox" name="mode" value="POINT_VIS"> Point Visualization
                     </label>
                     description
+
+                labels idea
+
                 </div>
                 </p>
 
@@ -115,46 +118,49 @@
 
 
 <!-- Slider Modal -->
-<div class="modal fade" id="values" tabindex="-1" role="dialog" aria-labelledby="modes" aria-hidden="true">
+<div class="modal fade" id="values" tabindex="-1" role="dialog" aria-labelledby="filters" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Styles</h4>
+                <h4 class="modal-title">Filters</h4>
             </div>
             <div class="modal-body">
 
                 <p>
-                    Please choose the map mode you would like renderred:
+                    Please configure the map using the sliders below:
                 </p>
 
-                <p>
 
                 <div id="values_options">
                     <label>
                         Noise
                         <div id="noise" class="slider"></div>
+                        <input type="text" id="noise_level" readonly>
                     </label>
                     <br>
+                <!--
                     healthy values
                     <br>
                     <label>
-                        Noise
+                        CO
                         <div id="co" class="slider"></div>
+                        <input type="text" id="co_level" readonly>
                     </label>
                     <br>
                     healthy values
                     <br>
                     <label>
-                        Noise
+                        NO2
                         <div id="no2" class="slider"></div>
+                        <input type="text" id="no2_level" readonly>
                     </label>
                     <br>
                     healthy values
                     <br>
+                    -->
                 </div>
-                </p>
 
             </div>
             <div class="modal-footer">

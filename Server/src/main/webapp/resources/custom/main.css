@@ -32,10 +32,18 @@ html, body {
     white-space: nowrap;
 }
 
-.slider{
-    width:200px;
-}
-
 .navbar-default {
     margin-bottom:0;
+}
+
+.ui-slider{
+    height:8px;
+    width:250px;
+}
+.ui-slider-handle{
+    top:-5px !important;
+    font-size: 10px;
+    width: 30px !important;
+    height:20px !important;
+    text-align:center
 }

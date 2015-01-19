@@ -363,7 +363,7 @@ function generateMarker(dataReading, visible, map) {
         map: map,
         animation: google.maps.Animation.DROP,
         icon: pinIcon,
-        visible: visible
+        visible: true
     });
 
     content = "Noise: " + noise + progressEvaluate(noise, minNoise, maxNoise) + "CO: " + co + progressEvaluate(co, minCO, maxCO) + "NO2: " + no2 + progressEvaluate(no2, minNO2, maxNO2) + "Battery: " + battery + progressEvaluate(battery, minBattery, maxBattery);
@@ -385,7 +385,7 @@ function generateRoute(newRoute, noiseSUM, coSUM, no2SUM) {
         strokeWeight: 10,
         fillOpacity: 0.0,
         map: map,
-        visible: false
+        visible: true
     });
 
     var dataPoints = newRoute.length;
@@ -638,31 +638,47 @@ function init_map() {
         min: Math.floor(minNoise),
         max: Math.floor(maxNoise),
         slide: function (event, ui) {
-            $("#noise_level").val(ui.values[ 0 ] + " - " + ui.values[ 1 ]);
+            var v1 = ui.values[ 0 ];
+            var v2 = ui.values[ 1 ];
+            $("#noise").find(".ui-slider-handle").eq(0).text(v1);
+            $("#noise").find(".ui-slider-handle").eq(1).text(v2);
+
+            //$("#noise_level").val(v1 + " - " + v2);
         },
 
+        /*
         change: function (event, ui) {
             minRangeNoise = ui.values[0];
             maxRangeNoise = ui.values[1];
             //generateGrid();
-            renderData();
         },
+        */
 
         stop: function (event, ui) {
             minRangeNoise = ui.values[0];
             maxRangeNoise = ui.values[1];
+            renderData();
         }
     });
 
-    /*
+
      $( "#co" ).slider({
      orientation: "horizontal",
      range: true,
      min:Math.floor(minCO),
      max:Math.floor(maxCO),
      slide: function( event, ui ) {
-     $( "#co_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-     }
+         //$( "#co_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+         var v1 = ui.values[ 0 ];
+         var v2 = ui.values[ 1 ];
+         $("#co").find(".ui-slider-handle").eq(0).text(v1);
+         $("#co").find(".ui-slider-handle").eq(1).text(v2);
+     },
+         stop: function (event, ui) {
+             minRangeCO = ui.values[0];
+             maxRangeCO = ui.values[1];
+             renderData();
+         }
      });
 
      $( "#no2" ).slider({
@@ -671,11 +687,20 @@ function init_map() {
      min:Math.floor(minNO2),
      max:Math.floor(maxNO2),
      slide: function( event, ui ) {
-     $( "#no2_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-     }
+         var v1 = ui.values[ 0 ];
+         var v2 = ui.values[ 1 ];
+        //$( "#no2_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+         $("#no2").find(".ui-slider-handle").eq(0).text(v1);
+         $("#no2").find(".ui-slider-handle").eq(1).text(v2);
+     },
+         stop: function (event, ui) {
+             minRangeNO2 = ui.values[0];
+             maxRangeNO2 = ui.values[1];
+             renderData();
+         }
      });
 
-     */
+
     $('#value_apply').click(function () {
 
         /*
@@ -702,7 +727,9 @@ function renderData() {
         var pDataEntry = POINT_DATA[index];
         var pVisEntry = POINT_VISUALIZATION[index];
 
-        if (pDataEntry["noise"] >= minRangeNoise && pDataEntry["noise"] <= maxRangeNoise) {
+        if ((pDataEntry["noise"] >= minRangeNoise && pDataEntry["noise"] <= maxRangeNoise) &&
+            (pDataEntry["co"] >= minRangeCO && pDataEntry["co"] <= maxRangeCO) &&
+            (pDataEntry["no2"] >= minRangeNO2 && pDataEntry["no2"] <= maxRangeNO2)) {
             pDataEntry["marker"].set("map", map);
             pVisEntry["circle"].set("map", map);
             locationARR.push(pDataEntry["marker"].getPosition());
@@ -737,7 +764,9 @@ function renderData() {
      */
 
     ROUTE_DATA.forEach(function (entry) {
-        if (entry["noiseAVG"] >= minRangeNoise && entry["noiseAVG"] <= maxRangeNoise) {
+        if ((entry["noiseAVG"] >= minRangeNoise && entry["noiseAVG"] <= maxRangeNoise) &&
+            (entry["coAVG"] >= minRangeCO && entry["coAVG"] <= maxRangeCO) &&
+            (entry["no2AVG"] >= minRangeNO2 && entry["no2AVG"] <= maxRangeNO2)) {
             entry["route"].set("map", map);
         }
         else {
@@ -745,7 +774,7 @@ function renderData() {
         }
     });
 
-    alert(locationARR.length);
+    //alert(locationARR.length);
     HEAT_MAP.setData(locationARR);
 
 }

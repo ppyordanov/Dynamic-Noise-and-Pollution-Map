@@ -647,12 +647,12 @@ function init_map() {
         },
 
         /*
-        change: function (event, ui) {
-            minRangeNoise = ui.values[0];
-            maxRangeNoise = ui.values[1];
-            //generateGrid();
-        },
-        */
+         change: function (event, ui) {
+         minRangeNoise = ui.values[0];
+         maxRangeNoise = ui.values[1];
+         //generateGrid();
+         },
+         */
 
         stop: function (event, ui) {
             minRangeNoise = ui.values[0];
@@ -662,43 +662,43 @@ function init_map() {
     });
 
 
-     $( "#co" ).slider({
-     orientation: "horizontal",
-     range: true,
-     min:Math.floor(minCO),
-     max:Math.floor(maxCO),
-     slide: function( event, ui ) {
-         //$( "#co_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-         var v1 = ui.values[ 0 ];
-         var v2 = ui.values[ 1 ];
-         $("#co").find(".ui-slider-handle").eq(0).text(v1);
-         $("#co").find(".ui-slider-handle").eq(1).text(v2);
-     },
-         stop: function (event, ui) {
-             minRangeCO = ui.values[0];
-             maxRangeCO = ui.values[1];
-             renderData();
-         }
-     });
+    $("#co").slider({
+        orientation: "horizontal",
+        range: true,
+        min: Math.floor(minCO),
+        max: Math.floor(maxCO),
+        slide: function (event, ui) {
+            //$( "#co_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+            var v1 = ui.values[ 0 ];
+            var v2 = ui.values[ 1 ];
+            $("#co").find(".ui-slider-handle").eq(0).text(v1);
+            $("#co").find(".ui-slider-handle").eq(1).text(v2);
+        },
+        stop: function (event, ui) {
+            minRangeCO = ui.values[0];
+            maxRangeCO = ui.values[1];
+            renderData();
+        }
+    });
 
-     $( "#no2" ).slider({
-     orientation: "horizontal",
-     range: true,
-     min:Math.floor(minNO2),
-     max:Math.floor(maxNO2),
-     slide: function( event, ui ) {
-         var v1 = ui.values[ 0 ];
-         var v2 = ui.values[ 1 ];
-        //$( "#no2_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-         $("#no2").find(".ui-slider-handle").eq(0).text(v1);
-         $("#no2").find(".ui-slider-handle").eq(1).text(v2);
-     },
-         stop: function (event, ui) {
-             minRangeNO2 = ui.values[0];
-             maxRangeNO2 = ui.values[1];
-             renderData();
-         }
-     });
+    $("#no2").slider({
+        orientation: "horizontal",
+        range: true,
+        min: Math.floor(minNO2),
+        max: Math.floor(maxNO2),
+        slide: function (event, ui) {
+            var v1 = ui.values[ 0 ];
+            var v2 = ui.values[ 1 ];
+            //$( "#no2_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+            $("#no2").find(".ui-slider-handle").eq(0).text(v1);
+            $("#no2").find(".ui-slider-handle").eq(1).text(v2);
+        },
+        stop: function (event, ui) {
+            minRangeNO2 = ui.values[0];
+            maxRangeNO2 = ui.values[1];
+            renderData();
+        }
+    });
 
 
     $('#value_apply').click(function () {

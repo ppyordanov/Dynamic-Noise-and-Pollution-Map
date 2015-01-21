@@ -211,6 +211,7 @@ function generateHeatMap() {
     //HEAT_MAP.setMap(map);
 }
 
+
 function convertToRGB(n) {
     var B = 0;
     var R = Math.floor((255 * n) / 100);
@@ -218,6 +219,7 @@ function convertToRGB(n) {
     var RGB = "rgb(" + R + "," + G + "," + B + ")";
     return RGB;
 }
+
 
 function convertToHSV(n) {
     var S = Math.abs(n - 50) / 50;

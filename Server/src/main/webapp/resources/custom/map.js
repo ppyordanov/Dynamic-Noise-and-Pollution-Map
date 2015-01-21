@@ -44,6 +44,8 @@ var maxRangeNO2 = Number.MAX_SAFE_INTEGER;
 var minBattery = 0;
 var maxBattery = 100;
 
+var baseStep = 0.001;
+
 var id;
 var noise;
 var co;
@@ -173,7 +175,7 @@ function progressEvaluate(value, min, max) {
      */
     //alert(value + " " + range + " " + progress);
     //var progressContent = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="background-color:' + barRGB + '; width: ' + progress + '%"><span class="sr-only"></span></div></div>';
-    var progressContent = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: ' + progress + '%"><span class="sr-only"></span></div></div>';
+    var progressContent = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" style="width: ' + progress + '%"><span class="sr-only"></span></div></div>';
     return progressContent;
 }
 
@@ -212,12 +214,25 @@ function generateHeatMap() {
 }
 
 
+//RED-GREEN gradient - red, green, blue
 function convertToRGB(n) {
     var B = 0;
     var R = Math.floor((255 * n) / 100);
     var G = Math.floor((255 * (100 - n)) / 100);
     var RGB = "rgb(" + R + "," + G + "," + B + ")";
     return RGB;
+}
+
+//RED-YELLOW-GREEN better gradient - hue,satuartion, lightness
+function convertToHSL(n){
+    var H = (1-n/100)*120 //scale between 0 and 120 degrees
+    var HSL = "hsl(" + H + ",100%,50%)";
+    return HSL;
+}
+
+function convertToPPM(value){
+    var basePPMtokOhm = 75;
+    return value/basePPMtokOhm;
 }
 
 
@@ -228,7 +243,7 @@ function convertToHSV(n) {
 
 var cols = ["gray"];
 for (var i = 1; i <= 100; i++) {
-    cols[i] = convertToRGB(i);
+    cols[i] = convertToHSL(i);
 }
 //var cols=["red","green","yellow","orange","gray"]
 console.log(cols);
@@ -267,14 +282,15 @@ function generateGrid() {
             //var FILL = cols[Math.floor(Math.random()*cols.length)];
             var FILL = "gray";
             var fillO = 0.5;
-            var strokeO = 1;
+            var strokeO = 0;
             if (FILL == "gray") {
                 fillO = 0;
                 //strokeO =0;
             }
 
             var tileOptions = {
-                strokeColor: "#FF0000",
+                //strokeColor: "#FF0000",
+                strokeColor: "#000000",
                 strokeOpacity: strokeO,
                 strokeWeight: 0.35,
                 fillColor: FILL,
@@ -368,7 +384,7 @@ function generateMarker(dataReading, visible, map) {
         visible: true
     });
 
-    content = "Noise: " + noise + progressEvaluate(noise, minNoise, maxNoise) + "CO: " + co + progressEvaluate(co, minCO, maxCO) + "NO2: " + no2 + progressEvaluate(no2, minNO2, maxNO2) + "Battery: " + battery + progressEvaluate(battery, minBattery, maxBattery);
+    content = "Noise: " + noise + " dB" + progressEvaluate(noise, minNoise, maxNoise) + "CO: " + co.toPrecision(3) + " ppm" + progressEvaluate(co, minCO, maxCO) + "NO2: " + no2.toPrecision(3) + " ppm" + progressEvaluate(no2, minNO2, maxNO2) + "Battery: " + battery + " %" + progressEvaluate(battery, minBattery, maxBattery);
     styledContent = '<div class="mapPopUp">' + content + '</div>';
 
     addPopUp(marker, styledContent);
@@ -424,9 +440,9 @@ function populateMap() {
 
             var dr = routeDR[j];
 
-            noiseSUM += parseFloat(dr.noise);
-            coSUM += parseFloat(dr.co);
-            no2SUM += parseFloat(dr.no2);
+            noiseSUM += dr.noise;
+            coSUM += dr.co;
+            no2SUM += dr.no2;
 
 
             //updateValueRange(dr);
@@ -496,21 +512,21 @@ function aggregateGrid(location, dataReading) {
     //if such grid tile exists, update information and aggregate data
     if (GRID[gridIndex]) {
 
-        GRID[gridIndex]["noiseAVG"]["sum"] += parseFloat(dataReading.noise);
+        GRID[gridIndex]["noiseAVG"]["sum"] += dataReading.noise;
         GRID[gridIndex]["noiseAVG"]["count"]++;
         var noiseSum = GRID[gridIndex]["noiseAVG"]["sum"];
         var noiseCount = GRID[gridIndex]["noiseAVG"]["count"];
         var noiseAverage = calculateAverage(noiseSum, noiseCount);
         var noisePercentage = rangePercentage(noiseAverage, minNoise, maxNoise);
 
-        GRID[gridIndex]["coAVG"]["sum"] += parseFloat(dataReading.co);
+        GRID[gridIndex]["coAVG"]["sum"] += dataReading.co;
         GRID[gridIndex]["coAVG"]["count"]++;
         var coSum = GRID[gridIndex]["coAVG"]["sum"];
         var coCount = GRID[gridIndex]["coAVG"]["count"];
         var coAverage = coSum / coCount;
         var coPercentage = rangePercentage(coAverage, minCO, maxCO);
 
-        GRID[gridIndex]["no2AVG"]["sum"] += parseFloat(dataReading.no2);
+        GRID[gridIndex]["no2AVG"]["sum"] += dataReading.no2;
         GRID[gridIndex]["no2AVG"]["count"]++;
         var no2Sum = GRID[gridIndex]["no2AVG"]["sum"];
         var no2Count = GRID[gridIndex]["no2AVG"]["count"];
@@ -521,7 +537,7 @@ function aggregateGrid(location, dataReading) {
         //alert("Noise AVG grid tile: " + noiseAverage + " MIN: " + minNoise + " MAX: " + maxNoise + " noise avg sum " + noiseSum + " noise count" + noiseCount);
         //alert(coPercentage);
         //alert(coPercentage);
-        GRID[gridIndex]["tile"].set("fillColor", convertToRGB(no2Percentage));
+        GRID[gridIndex]["tile"].set("fillColor", convertToHSL(coPercentage));
         GRID[gridIndex]["tile"].set("fillOpacity", 0.5);
     }
 
@@ -638,7 +654,8 @@ function init_map() {
         orientation: "horizontal",
         range: true,
         min: Math.floor(minNoise),
-        max: Math.floor(maxNoise),
+        max: Math.ceil(maxNoise),
+        step: baseStep,
         slide: function (event, ui) {
             var v1 = ui.values[ 0 ];
             var v2 = ui.values[ 1 ];
@@ -660,6 +677,7 @@ function init_map() {
             minRangeNoise = ui.values[0];
             maxRangeNoise = ui.values[1];
             renderData();
+            alert(locationARR.length);
         }
     });
 
@@ -668,7 +686,8 @@ function init_map() {
         orientation: "horizontal",
         range: true,
         min: Math.floor(minCO),
-        max: Math.floor(maxCO),
+        max: Math.ceil(maxCO),
+        step: baseStep,
         slide: function (event, ui) {
             //$( "#co_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
             var v1 = ui.values[ 0 ];
@@ -680,6 +699,7 @@ function init_map() {
             minRangeCO = ui.values[0];
             maxRangeCO = ui.values[1];
             renderData();
+            alert(locationARR.length);
         }
     });
 
@@ -687,7 +707,8 @@ function init_map() {
         orientation: "horizontal",
         range: true,
         min: Math.floor(minNO2),
-        max: Math.floor(maxNO2),
+        max: Math.ceil(maxNO2),
+        step: baseStep,
         slide: function (event, ui) {
             var v1 = ui.values[ 0 ];
             var v2 = ui.values[ 1 ];
@@ -699,6 +720,7 @@ function init_map() {
             minRangeNO2 = ui.values[0];
             maxRangeNO2 = ui.values[1];
             renderData();
+            alert(locationARR.length);
         }
     });
 

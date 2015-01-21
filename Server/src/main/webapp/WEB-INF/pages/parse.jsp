@@ -21,10 +21,16 @@
     dataReading["timestamp"] = "${element.timestamp}";
     dataReading["latitude"] = "${element.latitude}";
     dataReading["longitude"] = "${element.longitude}";
-    dataReading["noise"] = "${element.noise}";
-    dataReading["co"] = "${element.co}";
-    dataReading["no2"] = "${element.no2}";
-    dataReading["battery"] = "${element.battery}";
+
+    //conversion
+    var basePPMtokOhm = 75;
+    var rawCO = ${element.co};
+    var rawNO2 = ${element.no2};
+
+    dataReading["noise"] = ${element.noise};
+    dataReading["co"] = (rawCO/basePPMtokOhm);
+    dataReading["no2"] = (rawNO2/basePPMtokOhm);
+    dataReading["battery"] = ${element.battery};
 
     var routeId = dataReading["routeId"];
 

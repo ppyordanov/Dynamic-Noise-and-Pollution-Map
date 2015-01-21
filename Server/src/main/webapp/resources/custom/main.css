@@ -37,14 +37,14 @@ html, body {
 }
 
 .ui-slider {
-    height: 8px;
-    width: 250px;
+    height: 10px;
+    width: 350px;
 }
 
 .ui-slider-handle {
     top: -5px !important;
     font-size: 10px;
-    width: 30px !important;
+    width: 40px !important;
     height: 20px !important;
     text-align: center
 }

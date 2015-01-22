@@ -19,7 +19,7 @@
     <script src="${pageContext.request.contextPath}/resources/custom/map_styles.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/map.js"></script>
 
-    <!-- <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
 
 
 </head>
@@ -32,6 +32,11 @@
 <c:set var="styles" value="styles.jsp"/>
 <c:set var="modes" value="modes.jsp"/>
 <c:set var="filters" value="filters.jsp"/>
+<c:set var="routes" value="routes.jsp"/>
+<c:set var="locations" value="locations.jsp"/>
+<c:set var="devices" value="devices.jsp"/>
+<c:set var="client" value="client.jsp"/>
+<c:set var="about" value="about.jsp"/>
 
 <jsp:include page="${parser}"></jsp:include>
 <jsp:include page="${navigation}"></jsp:include>
@@ -39,6 +44,11 @@
 <jsp:include page="${styles}"></jsp:include>
 <jsp:include page="${modes}"></jsp:include>
 <jsp:include page="${filters}"></jsp:include>
+<jsp:include page="${routes}"></jsp:include>
+<jsp:include page="${locations}"></jsp:include>
+<jsp:include page="${devices}"></jsp:include>
+<jsp:include page="${client}"></jsp:include>
+<jsp:include page="${about}"></jsp:include>
 
 </body>
 </html>

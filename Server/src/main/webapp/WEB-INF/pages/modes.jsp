@@ -15,38 +15,191 @@
                     Please choose the map mode you would like renderred:
                 </p>
 
-                <p>
 
                 <div id="modes_options">
-                    <label>
-                        <input type="checkbox" name="mode" value="MARKERS"> Markers(No Overlay)
-                    </label>
-                    description
-                    <br>
-                    <label>
-                        <input type="checkbox" name="mode" value="ROUTES"> Routes
-                    </label>
-                    description
-                    <br>
-                    <label>
-                        <input type="checkbox" name="mode" value="HEAT_MAP"> Heat Map (Sample Concentration)
-                    </label>
-                    description
-                    <br>
-                    <label>
-                        <input type="checkbox" name="mode" value="GRID"> Grid
-                    </label>
-                    description
-                    <br>
-                    <label>
-                        <input type="checkbox" name="mode" value="POINT_VIS"> Point Visualization
-                    </label>
-                    description
 
-                    labels idea
+                    <!-- ACCORDION -->
+                    <div class="panel-group" id="accordionM" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOneM">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordionM" href="#collapseOneM"
+                                       aria-expanded="true" aria-controls="collapseOneM">
+                                        Markers
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOneM" class="panel-collapse collapse in" role="tabpanel"
+                                 aria-labelledby="headingOneM">
+                                <div class="panel-body">
+
+                                    <label>
+                                        <input type="checkbox" name="mode" value="MARKERS" checked> Show/Hide
+                                    </label>
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwoM">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionM"
+                                       href="#collapseTwoM" aria-expanded="false" aria-controls="collapseTwoM">
+                                        Routes
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwoM" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingTwoM">
+                                <div class="panel-body">
+
+                                    <label>
+                                        <input type="checkbox" name="mode" value="ROUTES" checked> Show/Hide
+                                    </label>
+                                    description
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThreeM">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionM"
+                                       href="#collapseThreeM" aria-expanded="false" aria-controls="collapseThreeM">
+                                        Heat Map
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThreeM" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingThreeM">
+                                <div class="panel-body">
+
+                                    <label>
+                                        <input type="checkbox" name="mode" value="HEAT_MAP"> Show/Hide
+                                    </label>
+                                    description
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingFourM">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionM"
+                                       href="#collapseFourM" aria-expanded="false" aria-controls="collapseFourM">
+                                        Grid
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFourM" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingFourM">
+                                <div class="panel-body">
+
+                                    <label>
+                                        <input type="checkbox" name="mode" id="grid" value="GRID"> Show/Hide
+                                    </label>
+
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s<p>
+
+                                    <div class="container-fluid">
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4">Variables</div>
+                                            <div class="col-xs-4 col-md-4">Grid</div>
+                                            <div class="col-xs-4 col-md-4">Gradient</div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4">
+
+                                                <label>
+                                                    <input type="radio" name="gridValue" value="noiseAVG" disabled="true" checked> Noise
+                                                </label>
+
+                                            </div>
+                                            <div class="col-xs-4 col-md-4">
+
+                                                <label>
+                                                    <input type="checkbox" name="outline" disabled="true"> Outline
+                                                </label>(Show/Hide)
+
+                                            </div>
+                                            <div class="col-xs-4 col-md-4">
+
+                                                <label>
+                                                    <input type="radio" name="gradient" value="hsl" disabled="true" checked> HSL
+                                                </label>(cleaner)
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4">
+
+
+                                                <label>
+                                                    <input type="radio" name="gridValue" value="coAVG" disabled="true"> CO
+                                                </label>
+
+
+                                            </div>
+                                            <div class="col-xs-4 col-md-4">.col-xs-6 .col-md-4</div>
+                                            <div class="col-xs-4 col-md-4">
+
+                                                <label>
+                                                    <input type="radio" name="gradient" value="rgb" disabled="true"> RGB
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4">
+
+                                                <label>
+                                                    <input type="radio" name="gridValue" value="no2AVG" disabled="true"> NO2
+                                                </label>
+
+                                            </div>
+                                            <div class="col-xs-4 col-md-4">.col-xs-6 .col-md-4</div>
+                                            <div class="col-xs-4 col-md-4">.col-xs-6 .col-md-4</div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingFiveM">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionM"
+                                       href="#collapseFiveM" aria-expanded="false" aria-controls="collapseFiveM">
+                                        Point Visualization
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFiveM" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingFiveM">
+                                <div class="panel-body">
+
+                                    <label>
+                                        <input type="checkbox" name="mode" value="POINT_VIS"> Show/Hide
+                                    </label>
+                                    description
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
 
                 </div>
-                </p>
+
 
             </div>
             <div class="modal-footer">
@@ -56,54 +209,9 @@
     </div>
 </div>
 
-
-<--! ACCORDION -->
+<!-- ACCORDION -->
 
 <!--
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-<div class="panel panel-default">
-<div class="panel-heading" role="tab" id="headingOne">
-<h4 class="panel-title">
-<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-Collapsible Group Item #1
-</a>
-</h4>
-</div>
-<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-<div class="panel-body">
-Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-</div>
-</div>
-</div>
-<div class="panel panel-default">
-<div class="panel-heading" role="tab" id="headingTwo">
-<h4 class="panel-title">
-<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-Collapsible Group Item #2
-</a>
-</h4>
-</div>
-<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-<div class="panel-body">
-Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-</div>
-</div>
-</div>
-<div class="panel panel-default">
-<div class="panel-heading" role="tab" id="headingThree">
-<h4 class="panel-title">
-<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-Collapsible Group Item #3
-</a>
-</h4>
-</div>
-<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-<div class="panel-body">
-Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-</div>
-</div>
-</div>
-</div>
 
 
 -->

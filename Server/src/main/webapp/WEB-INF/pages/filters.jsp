@@ -17,38 +17,86 @@
 
 
                 <div id="values_options">
-                    <span>
-                        Noise
-                        <div id="noise" class="slider"></div>
-                    </span>
-
-                    <span>
-                        CO
-                        <div id="co" class="slider"></div>
-                    </span>
-
-                    <span>
-                        NO2
-                        <div id="no2" class="slider"></div>
-                    </span>
 
 
-                    <!--<input type="text" id="no2_level" readonly>
-                </span>
+                    <!-- ACCORDION -->
+                    <div class="panel-group" id="accordionF" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOneF">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordionF" href="#collapseOneF"
+                                       aria-expanded="true" aria-controls="collapseOneF">
+                                        Noise
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOneF" class="panel-collapse collapse in" role="tabpanel"
+                                 aria-labelledby="headingOneF">
+                                <div class="panel-body">
 
+                                     <span>
+                                     Noise (dB)
+                                    <div id="noise" class="slider"></div>
+                                    </span>
 
-                <!--
-                                    <br>
-                healthy values
-                <br>
-                -->
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwoF">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionF"
+                                       href="#collapseTwoF" aria-expanded="false" aria-controls="collapseTwoF">
+                                        Carbon Monoxide (CO)
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwoF" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingTwoF">
+                                <div class="panel-body">
+
+                                    <span>
+                                        CO (ppm)
+                                        <div id="co" class="slider"></div>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThreeF">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionF"
+                                       href="#collapseThreeF" aria-expanded="false" aria-controls="collapseThreeF">
+                                        Nitrogen Dioxide (NO2)
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThreeF" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingThreeF">
+                                <div class="panel-body">
+
+                                    <span>
+                                        NO2 (ppm)
+                                        <div id="no2" class="slider"></div>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
 
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="value_apply" data-dismiss="modal">Apply</button>
-                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="value_apply" data-dismiss="modal">Apply</button>
             </div>
         </div>
     </div>
+</div>
 </div>

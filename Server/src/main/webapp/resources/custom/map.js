@@ -45,6 +45,9 @@ var minBattery = 0;
 var maxBattery = 100;
 
 var baseStep = 0.001;
+var maxTilesX = 1000;
+var maxTilesY = 1000;
+var tileSize = 50;
 
 var id;
 var noise;
@@ -97,6 +100,16 @@ $(document).ready(function () {
 
      */
 
+    $('#grid').on('click', function() {
+        var selected = $(this).val();
+
+        if(selected) {
+            $("input[name*='gridValue']").prop('disabled', !$(this).is(':checked'));
+            $("input[name*='outline']").prop('disabled', !$(this).is(':checked'));
+            $("input[name*='gradient']").prop('disabled', !$(this).is(':checked'));
+        }
+    });
+
 
     $('#style_apply').click(function () {
         var selected = $("input:radio[name='style']:checked").val();
@@ -124,7 +137,7 @@ $(document).ready(function () {
 
 function retrieveModes() {
     var selectedModes = [];
-    $('#modes_options :checkbox').each(function () {
+    $("input[name*='mode']").each(function () {
         var value = (this.checked ? true : false);
         //alert(value);
         selectedModes.push(value);
@@ -248,12 +261,12 @@ for (var i = 1; i <= 100; i++) {
 //var cols=["red","green","yellow","orange","gray"]
 console.log(cols);
 
-function generateGrid() {
+function generateGrid(tileSize) {
 
     var northWestStart = origin;
-    var heightTilesN = 1000;
-    var widthTilesN = 1000;
-    var tileSizeMeters = 50;
+    var heightTilesN = maxTilesY;
+    var widthTilesN = maxTilesX;
+    var tileSizeMeters = tileSize;
 
     var northAngleDegrees = 0;
     var southAngleDegrees = 180;
@@ -537,15 +550,69 @@ function aggregateGrid(location, dataReading) {
         //alert("Noise AVG grid tile: " + noiseAverage + " MIN: " + minNoise + " MAX: " + maxNoise + " noise avg sum " + noiseSum + " noise count" + noiseCount);
         //alert(coPercentage);
         //alert(coPercentage);
-        GRID[gridIndex]["tile"].set("fillColor", convertToHSL(coPercentage));
+        GRID[gridIndex]["tile"].set("fillColor", convertToHSL(noisePercentage));
         GRID[gridIndex]["tile"].set("fillOpacity", 0.5);
     }
 
 
 }
 
+function convertToColor(n,type){
+    var color = null;
+    if(type=='hsl'){
+        color=convertToHSL(n);
+    }
+    else{
+        color=convertToRGB(n);
+    }
+    return color;
+}
+
 //forEach better in terms of performance changed from a conventional for loop
 function toggleGrid(value) {
+
+    if(value){
+
+            var gridValue = $("input[name=gridValue]:checked").val();
+            var tileSize;
+
+            var outline = $('input[name=outline]:checked').val();
+            var colorGradient = $('input[name=gradient]:checked').val();
+            var outlineVis = 0;
+            if(outline){
+                outlineVis = 1;
+            }
+
+            var max,min;
+            if(gridValue=='noiseAVG'){
+                min = minNoise;
+                max = maxNoise;
+            }
+            else if(gridValue=='coAVG'){
+                min = minCO;
+                max = maxCO;
+            }
+            else{
+                min=minNO2;
+                max = maxNO2;
+            }
+
+            //GRID = [];
+            //generateGrid(20);
+            //populateMap();
+
+            GRID.forEach(function (entry) {
+                var sum = entry[gridValue]["sum"];
+                var count = entry[gridValue]["count"];
+                var average = calculateAverage(sum, count);
+                var percentage = rangePercentage(average, min, max);
+                entry["tile"].set("fillColor", convertToColor(percentage,colorGradient));
+                entry["tile"].set("strokeOpacity", outlineVis);
+            });
+
+
+    }
+
     GRID.forEach(function (entry) {
         entry["tile"].set("visible", value);
     });
@@ -642,7 +709,7 @@ function init_map() {
 
     setStyles();
     identifyValueRange();
-    generateGrid();
+    generateGrid(tileSize);
     //generatePointVis();
     populateMap();
     generateHeatMap();
@@ -805,7 +872,7 @@ function renderData() {
 
 function generatePointVis(dataReading, visible, map, num) {
 
-    /*
+     /*
      var labelText = '<div>Noise: ' + dataReading.noise + '</div>';
      var myOptions = {
      content: labelText,
@@ -831,7 +898,7 @@ function generatePointVis(dataReading, visible, map, num) {
         center: position,
         map: map,
         visible: visible,
-        radius: noisePercentage
+        radius: noisePercentage/10
     };
 
     var circle = new google.maps.Circle(pollutionOptions);

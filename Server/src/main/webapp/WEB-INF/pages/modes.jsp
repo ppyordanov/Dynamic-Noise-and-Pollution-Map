@@ -146,11 +146,27 @@
 
 
                                             </div>
-                                            <div class="col-xs-4 col-md-4">.col-xs-6 .col-md-4</div>
+                                            <div class="col-xs-4 col-md-4">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"> Tile size:</span>
+                                                    <input type="text" class="form-control" placeholder="meters" id="tileSize">
+                                                </div>
+
+                                            </div>
                                             <div class="col-xs-4 col-md-4">
 
                                                 <label>
                                                     <input type="radio" name="gradient" value="rgb" disabled="true"> RGB
+                                                </label>
+
+                                                <br>
+
+                                                <label>
+                                                    <input type="radio" name="scale" value="relative" checked> Relative
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="scale" value="absolute"> Absolute
                                                 </label>
 
                                             </div>
@@ -163,8 +179,22 @@
                                                 </label>
 
                                             </div>
-                                            <div class="col-xs-4 col-md-4">.col-xs-6 .col-md-4</div>
-                                            <div class="col-xs-4 col-md-4">.col-xs-6 .col-md-4</div>
+                                            <div class="col-xs-4 col-md-4">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"> out op:</span>
+                                                    <input type="text" class="form-control" placeholder="meters" id="outlineOpacity">
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xs-4 col-md-4">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"> Tile  op:</span>
+                                                    <input type="text" class="form-control" placeholder="meters" id="tileOpacity">
+                                                </div>
+
+                                            </div>
                                         </div>
 
                                     </div>

@@ -38,13 +38,14 @@ html, body {
 
 .ui-slider {
     height: 10px;
-    width: 350px;
+    width: 90%;
 }
 
 .ui-slider-handle {
     top: -5px !important;
+    margin-right:10px;
     font-size: 10px;
-    width: 40px !important;
+    width: 45px !important;
     height: 20px !important;
     text-align: center
 }

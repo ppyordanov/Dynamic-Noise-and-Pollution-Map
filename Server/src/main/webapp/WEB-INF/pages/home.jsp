@@ -6,7 +6,7 @@
 
     <link type="text/css" href="${pageContext.request.contextPath}/resources/external/bs/css/bootstrap.css"
           rel="stylesheet"/>
-    <link type="text/css" href="${pageContext.request.contextPath}/resources/custom/main.css" rel="stylesheet"/>
+    <link type="text/css" href="${pageContext.request.contextPath}/resources/custom/css/main.css" rel="stylesheet"/>
     <link type="text/css" href="${pageContext.request.contextPath}/resources/external/jquery/jquery-ui.css"
           rel="stylesheet"/>
 
@@ -16,8 +16,15 @@
 
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?v=3.8&libraries=geometry,visualization&sensor=false"></script>
-    <script src="${pageContext.request.contextPath}/resources/custom/map_styles.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/custom/map.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/custom/utility/constants.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/custom/ui/map_styles.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/custom/utility/utility.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/custom/map/map.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/custom/map/markers_routes.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/custom/map/grid_map.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/custom/map/heat_map.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/custom/map/point_vis.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/custom/ui/user_interface.js"></script>
 
     <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
 

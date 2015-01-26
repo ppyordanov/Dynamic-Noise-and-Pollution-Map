@@ -80,13 +80,15 @@ function generatePopUpContent(noise, co, no2, battery, typeData, routeData){
     content += "CO" + valueType + ": " + co.toPrecision(3) + " ppm" + progressEvaluate(co, minCO, maxCO);
     content += "NO2" + valueType + ": " + no2.toPrecision(3) + " ppm" + progressEvaluate(no2, minNO2, maxNO2) ;
 
-    content += "Battery: " + battery + " %" + progressEvaluate(battery, minBattery, maxBattery);
+    if(valueType==""){
+        content += "Battery: " + battery + " %" + progressEvaluate(battery, minBattery, maxBattery);
+    }
     var styledContent = '<div class="mapPopUp">' + content + '</div>';
 
     return styledContent;
 }
 
-function generateRoute(newRoute, noiseSUM, coSUM, no2SUM, distance) {
+function generateRoute(newRoute, noiseAVG, coAVG, no2AVG, distance) {
 
     var route = new google.maps.Polyline({
         path: newRoute,
@@ -99,11 +101,7 @@ function generateRoute(newRoute, noiseSUM, coSUM, no2SUM, distance) {
     });
 
     var dataPoints = newRoute.length;
-    var noiseAVG = noiseSUM / dataPoints;
-    var coAVG = coSUM / dataPoints;
-    var no2AVG = no2SUM / dataPoints;
     var routeDATA = {"route": route, "noiseAVG": noiseAVG, "coAVG": coAVG, "no2AVG": no2AVG};
-
     var styledContent = generatePopUpContent(noiseAVG, coAVG, no2AVG, 100, dataPoints, distance, null);
 
     google.maps.event.addListener(route, 'mouseover', function (event) {
@@ -122,8 +120,7 @@ function generateRoute(newRoute, noiseSUM, coSUM, no2SUM, distance) {
     });
 
 
-    ROUTE_DATA.push(routeDATA);
-
+    return routeDATA;
 }
 
 function progressEvaluate(value, min, max) {
@@ -180,8 +177,8 @@ function populateMap() {
         }
 
         //alert(distance);
-        generateRoute(newRoute, noiseSUM, coSUM, no2SUM, distance);
-
+        var routeDATA = generateRoute(newRoute, noiseSUM/newRoute.length, coSUM/newRoute.length, no2SUM/newRoute.length, distance);
+        ROUTE_DATA.push(routeDATA);
     }
 }
 

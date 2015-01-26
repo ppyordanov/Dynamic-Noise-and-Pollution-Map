@@ -65,6 +65,15 @@
                                     <label>
                                         <input type="checkbox" name="infoDisplayRoute"> Disable Information
                                     </label>
+
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-addon" id="thickness">Thickness:</span>
+                                        <input type="text" class="form-control" placeholder="px" aria-describedby="sizing-addon3">
+                                    </div>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-addon" id="opacity">Opacity:</span>
+                                        <input type="text" class="form-control" placeholder="%" aria-describedby="sizing-addon3">
+                                    </div>
                                     description
 
                                 </div>

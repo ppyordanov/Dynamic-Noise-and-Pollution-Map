@@ -51,14 +51,18 @@ html, body {
 
 .ui-slider {
     height: 10px;
-    width: 90%;
+    width: 93%;
 }
 
 .ui-slider-handle {
     top: -5px !important;
-    margin-right:10px;
+    margin-left:-100px;
     font-size: 10px;
     width: 45px !important;
     height: 20px !important;
     text-align: center
+}
+
+.ui-autocomplete {
+    z-index: 1051 !important;
 }

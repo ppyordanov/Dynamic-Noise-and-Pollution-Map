@@ -13,15 +13,52 @@
             <div class="modal-body">
 
                 <p>
-                    Please select a starting point and a destination:
+                    Please select a travel mode, a starting point and a destination:
                 </p>
 
 
+                <div class="form-group">
+                    <label for="mode">Travel Mode:</label>
+                    <select class="form-control" id="mode">
+                        <option value="WALKING">Walking</option>
+                        <option value="BICYCLING">Bicycling</option>
+                        <option value="DRIVING">Driving</option>
+                        <option value="TRANSIT">Transit</option>
+                    </select>
+                </div>
+
+                <b>Starting Point</b>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">Place:&emsp;&emsp;</span>
+                    <input type="text" name="place" id="sourcePlace" class="form-control" placeholder="building" aria-describedby="sizing-addon3">
+                </div>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon" id="sourceLat">Latitude:&emsp;</span>
+                    <input type="text" class="form-control" placeholder="lat" aria-describedby="sizing-addon3">
+                </div>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon" id="sourceLng">Longitude:</span>
+                    <input type="text" class="form-control" placeholder="lng" aria-describedby="sizing-addon3">
+                </div>
+
+                <b>Destination</b>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">Place:&emsp;&emsp;</span>
+                    <input type="text" name="place" id="destinationPlace" class="form-control" placeholder="building" aria-describedby="sizing-addon3">
+                </div>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon" id="destinationLat">Latitude:&emsp;</span>
+                    <input type="text" class="form-control" placeholder="lat" aria-describedby="sizing-addon3">
+                </div>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon" id="destinationLng">Longitude:</span>
+                    <input type="text" class="form-control" placeholder="lng" aria-describedby="sizing-addon3">
+                </div>
 
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-primary" id="route_apply" data-dismiss="modal">Apply</button>
             </div>
         </div>
     </div>

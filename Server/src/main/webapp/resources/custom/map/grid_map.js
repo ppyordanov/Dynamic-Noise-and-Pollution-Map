@@ -176,7 +176,7 @@ function toggleGrid(value) {
         var scale = $('input[name=scale]:checked').val();
         var normal = (scale=="absolute");
         var outlineVis = 0;
-        var fillVis = 0.5;
+        var fillVis = 0.35;
         disableGridInfoWindow = $('input[name=infoDisplayGrid]:checked').val();
 
         if(tileOpacity!= null && (tileOpacity>0 && tileOpacity<=1)){

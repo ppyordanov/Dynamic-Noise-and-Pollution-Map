@@ -6,6 +6,8 @@
 
 $(document).ready(function () {
 
+    //$("#loader_container").hide();
+
     logPageLoadingTime();
 
     //hide collapsed menu on click

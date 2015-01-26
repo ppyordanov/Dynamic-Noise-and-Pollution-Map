@@ -36,6 +36,10 @@
                                     <label>
                                         <input type="checkbox" name="mode" value="MARKERS" checked> Show/Hide
                                     </label>
+
+                                    <label>
+                                        <input type="checkbox" name="infoDisplayMarker"> Disable Information
+                                    </label>
                                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
                                 </div>
@@ -57,6 +61,9 @@
 
                                     <label>
                                         <input type="checkbox" name="mode" value="ROUTES" checked> Show/Hide
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="infoDisplayRoute"> Disable Information
                                     </label>
                                     description
 
@@ -80,6 +87,14 @@
                                     <label>
                                         <input type="checkbox" name="mode" value="HEAT_MAP"> Show/Hide
                                     </label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"> Radius: </span>
+                                        <input type="text" class="form-control" placeholder="px" id="radiusHeat">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"> Opacity size: </span>
+                                        <input type="text" class="form-control" placeholder="%" id="opacityHeat">
+                                    </div>
                                     description
 
                                 </div>
@@ -126,6 +141,10 @@
                                                 <label>
                                                     <input type="checkbox" name="outline" disabled="true"> Outline
                                                 </label>(Show/Hide)
+
+                                                <label>
+                                                    <input type="checkbox" name="infoDisplayGrid"> Disable Information
+                                                </label>
 
                                             </div>
                                             <div class="col-xs-4 col-md-4">
@@ -219,6 +238,24 @@
                                     <label>
                                         <input type="checkbox" name="mode" value="POINT_VIS"> Show/Hide
                                     </label>
+
+                                    <label>
+                                        <input type="checkbox" name="labels"> Show/Hide Labels
+                                    </label>
+
+
+                                    <label>
+                                        <input type="radio" name="pointsValue" value="noise"  checked> Noise
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="pointsValue" value="co" > CO
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="pointsValue" value="no2" > NO2
+                                    </label>
+
                                     description
 
                                 </div>

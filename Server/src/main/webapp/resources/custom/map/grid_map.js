@@ -72,10 +72,15 @@ function generateGrid(tileSize) {
 }
 
 
-function bindWindow(rectangle, num) {
+function bindWindow(rectangle, indexNumber) {
     google.maps.event.addListener(rectangle, 'click', function (event) {
-        var location = new google.maps.LatLng(55.876096, -4.285301);
-        infowindow.setContent("Tile:  " + num + " DATA:" + GRID[num]["tile"].bounds.getNorthEast().lat() + " GRID " + getGridLocation(location));
+
+        if(disableGridInfoWindow){
+            return;
+        }
+        var i = indexNumber;
+        var content= generatePopUpContent(calculateAverage(GRID[i]["noiseAVG"]["sum"], GRID[i]["noiseAVG"]["count"]),calculateAverage(GRID[i]["coAVG"]["sum"], GRID[i]["coAVG"]["count"]),calculateAverage(GRID[i]["no2AVG"]["sum"], GRID[i]["no2AVG"]["count"]), 0, (-1-i));
+        infowindow.setContent(content);
         infowindow.setPosition(event.latLng);
 
         /*
@@ -172,6 +177,8 @@ function toggleGrid(value) {
         var normal = (scale=="absolute");
         var outlineVis = 0;
         var fillVis = 0.5;
+        disableGridInfoWindow = $('input[name=infoDisplayGrid]:checked').val();
+
         if(tileOpacity!= null && (tileOpacity>0 && tileOpacity<=1)){
             fillVis = tileOpacity;
         }

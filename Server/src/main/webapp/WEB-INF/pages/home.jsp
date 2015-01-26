@@ -15,7 +15,7 @@
     <script src="${pageContext.request.contextPath}/resources/external/jquery/jquery-ui.js"></script>
 
     <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?v=3.8&libraries=geometry,visualization&sensor=false"></script>
+            src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,visualization&sensor=false"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/utility/constants.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/ui/map_styles.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/utility/utility.js"></script>
@@ -24,6 +24,8 @@
     <script src="${pageContext.request.contextPath}/resources/custom/map/grid_map.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/map/heat_map.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/map/point_vis.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/custom/map/controls.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/custom/map/reoute_generation.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/ui/user_interface.js"></script>
 
     <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
@@ -32,6 +34,10 @@
 </head>
 
 <body>
+
+<div id="loader_container">
+<img id="loader" alt="" src="${pageContext.request.contextPath}/resources/images/loader.gif"/>
+</div>
 
 <c:set var="parser" value="parse.jsp"/>
 <c:set var="navigation" value="navigation.jsp"/>
@@ -43,6 +49,7 @@
 <c:set var="locations" value="locations.jsp"/>
 <c:set var="devices" value="devices.jsp"/>
 <c:set var="client" value="client.jsp"/>
+<c:set var="sck" value="sck.jsp"/>
 <c:set var="about" value="about.jsp"/>
 
 <jsp:include page="${parser}"></jsp:include>
@@ -55,6 +62,7 @@
 <jsp:include page="${locations}"></jsp:include>
 <jsp:include page="${devices}"></jsp:include>
 <jsp:include page="${client}"></jsp:include>
+<jsp:include page="${sck}"></jsp:include>
 <jsp:include page="${about}"></jsp:include>
 
 </body>

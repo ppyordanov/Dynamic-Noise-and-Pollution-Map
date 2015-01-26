@@ -80,3 +80,8 @@ var styledContent;
 var popup = new google.maps.InfoWindow({});
 
 
+var disableRouteInfoWindow = false;
+var disableMarkerInfoWindow = false;
+var disableGridInfoWindow = false;
+
+

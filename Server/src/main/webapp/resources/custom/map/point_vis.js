@@ -23,21 +23,25 @@ function generatePointVis(dataReading, visible, map, num) {
      label.setMap(map);
      */
 
-    var noisePercentage = rangePercentage(dataReading.noise, minNoise, maxNoise);
+    var noiseRadius = rangePercentage(dataReading.noise, minNoise, maxNoise)/10;
+    var coRadius = rangePercentage(dataReading.co, minCO, maxCO)/10;
+    var no2Radius = rangePercentage(dataReading.no2, minNO2, maxNO2)/10;
+
+
     var pollutionOptions = {
         //strokeColor: '#FF0000',
         //strokeOpacity: 0.8,
         strokeWeight: 0,
         fillColor: '#FF0000',
-        fillOpacity: noisePercentage / 100,
+        fillOpacity: noiseRadius/10,
         center: position,
         map: map,
         visible: visible,
-        radius: noisePercentage/10
+        radius: noiseRadius
     };
 
     var circle = new google.maps.Circle(pollutionOptions);
-    var element = {"circle": circle, "noise": dataReading.noise, "co": dataReading.co, "no2": dataReading.no2};
+    var element = {"circle": circle, "noise": noiseRadius, "co": coRadius, "no2": no2Radius};
 
     //bindWindow(circle, num);
     POINT_VISUALIZATION.push(element);

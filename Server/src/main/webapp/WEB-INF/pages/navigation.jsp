@@ -33,6 +33,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#" data-toggle="modal" data-target="#devices"><span class="glyphicon glyphicon-hdd" aria-hidden="true"></span> Devices</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#client"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> Client</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#sck"><img src="${pageContext.request.contextPath}/resources/images/sck_logo4.png" width="23" height="23">SCK</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#about">About</a></li>
             </ul>
 

@@ -8,6 +8,9 @@ function addPopUp(marker, content) {
 
 
     google.maps.event.addListener(marker, 'mouseover', function (e) {
+        if(disableMarkerInfoWindow){
+            return;
+        }
         console.log(e);
         popup.setContent(content);
         popup.open(map, marker);
@@ -43,7 +46,7 @@ function generateMarker(dataReading, visible, map) {
         visible: true
     });
 
-    var styledContent = generatePopUpContent(noise, co, no2, battery, null);
+    var styledContent = generatePopUpContent(noise, co, no2, battery, 0, null);
 
     addPopUp(marker, styledContent);
 
@@ -52,24 +55,38 @@ function generateMarker(dataReading, visible, map) {
 
 }
 
-function generatePopUpContent(noise, co, no2, battery, dataLength){
+/*
+dataTYpe coding
+
+- null = data reading
+- <=0 = grid tile
+- >0 = route
+ */
+function generatePopUpContent(noise, co, no2, battery, typeData, routeData){
     var content;
-    if(dataLength!=null){
-        content = "<b>Route:</b> " + dataLength.toString() + " data points" + "<br>";
+    var valueType = "(avg)";
+    if(typeData!=null && typeData>0){
+        content = "<b>Route</b> (" + typeData + " data points" + ")<br>";
+        content += "Distance: " + routeData+ " m" + "<br>";
     }
-    else{
+    else if(typeData<0){
+        content = "<b>Grid Index: </b>" + (typeData*(-1)) + "<br>";
+    }
+    else if(typeData==0){
+        valueType="";
         content = "<b>Data Reading</b><br>";
     }
-    content += "Noise: " + noise.toPrecision(3) + " dB" + progressEvaluate(noise, minNoise, maxNoise) ;
-    content += "CO: " + co.toPrecision(3) + " ppm" + progressEvaluate(co, minCO, maxCO);
-    content += "NO2: " + no2.toPrecision(3) + " ppm" + progressEvaluate(no2, minNO2, maxNO2) ;
+    content += "Noise" + valueType + ": " + noise.toPrecision(3) + " dB" + progressEvaluate(noise, minNoise, maxNoise) ;
+    content += "CO" + valueType + ": " + co.toPrecision(3) + " ppm" + progressEvaluate(co, minCO, maxCO);
+    content += "NO2" + valueType + ": " + no2.toPrecision(3) + " ppm" + progressEvaluate(no2, minNO2, maxNO2) ;
+
     content += "Battery: " + battery + " %" + progressEvaluate(battery, minBattery, maxBattery);
     var styledContent = '<div class="mapPopUp">' + content + '</div>';
 
     return styledContent;
 }
 
-function generateRoute(newRoute, noiseSUM, coSUM, no2SUM) {
+function generateRoute(newRoute, noiseSUM, coSUM, no2SUM, distance) {
 
     var route = new google.maps.Polyline({
         path: newRoute,
@@ -87,9 +104,12 @@ function generateRoute(newRoute, noiseSUM, coSUM, no2SUM) {
     var no2AVG = no2SUM / dataPoints;
     var routeDATA = {"route": route, "noiseAVG": noiseAVG, "coAVG": coAVG, "no2AVG": no2AVG};
 
-    var styledContent = generatePopUpContent(noiseAVG, coAVG, no2AVG, 100, dataPoints);
+    var styledContent = generatePopUpContent(noiseAVG, coAVG, no2AVG, 100, dataPoints, distance, null);
 
     google.maps.event.addListener(route, 'mouseover', function (event) {
+        if(disableRouteInfoWindow){
+            return;
+        }
         infowindow.setContent(styledContent);
         infowindow.setPosition(event.latLng);
         infowindow.open(map);
@@ -114,6 +134,11 @@ function progressEvaluate(value, min, max) {
     return progressContent;
 }
 
+//distance in meters
+function retrieveDistance(loc1, loc2){
+    return parseInt((google.maps.geometry.spherical.computeDistanceBetween(loc1, loc2).toFixed(2)));
+}
+
 function populateMap() {
     for (var i = 0; i < routes.length; i++) {
         var routeDR = dataReadings[routes[i].id];
@@ -123,6 +148,9 @@ function populateMap() {
         var coSUM = null;
         var no2SUM = null;
 
+        //distance in meters
+        var distance = 0;
+        var nextIndex = 0;
         for (var j = 0; j < routeDR.length; j++) {
 
             var dr = routeDR[j];
@@ -134,18 +162,25 @@ function populateMap() {
 
             //updateValueRange(dr);
 
+            if(j+1<routeDR.length){
+                nextIndex=j+1;
+            }
             var visible = false;
             generateMarker(dr, visible, map);
             generatePointVis(dr, visible, map, i);
+            var nextPos = new google.maps.LatLng(routeDR[nextIndex].latitude, routeDR[nextIndex].longitude);
             var pos = new google.maps.LatLng(dr.latitude, dr.longitude);
             newRoute.push(pos);
             locationARR.push(pos);
             aggregateGrid(pos, dr);
 
+            //distance
+            distance += retrieveDistance(pos, nextPos);
+
         }
 
-
-        generateRoute(newRoute, noiseSUM, coSUM, no2SUM);
+        //alert(distance);
+        generateRoute(newRoute, noiseSUM, coSUM, no2SUM, distance);
 
     }
 }

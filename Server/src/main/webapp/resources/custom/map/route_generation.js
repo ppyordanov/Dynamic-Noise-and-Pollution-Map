@@ -152,7 +152,7 @@ function generateUserRoutes() {
 
                 //variable weights can be changed
                 var score = noiseAVG * 1 + coAVG * 1 + no2AVG * 2 + routeDistance * 0.01 + routeDuration * 0.01;
-                var routeDATA = generateRoute(route, noiseAVG, coAVG, no2AVG, routeDistance, timeFormatted, score);
+                var routeDATA = generateRoute(route, noiseAVG, coAVG, no2AVG, routeDistance, timeFormatted, score, i+1);
                 USER_ROUTE_DATA.push({"data": routeDATA, "score": score});
             }
 

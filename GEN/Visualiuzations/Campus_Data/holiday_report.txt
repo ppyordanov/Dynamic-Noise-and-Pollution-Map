@@ -1,0 +1,19 @@
+
+
+
+- grid
+- config
+- database collections export/import
+- styles
+- controls
+- routes
+- color gradients
+
+- added books used
+
+computeLength()
+computeDistanceBetween()
+
+
+
+https://github.com/ppyordanov/Dynamic-Noise-and-Pollution-Map/issues/

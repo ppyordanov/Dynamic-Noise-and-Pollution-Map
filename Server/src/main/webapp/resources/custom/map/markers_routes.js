@@ -61,12 +61,12 @@ function generateMarker(dataReading, visible, map) {
  - <=0 = grid tile
  - >0 = route
  */
-function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, routeDuration, score) {
+function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, routeDuration, score, id) {
     var content;
     var valueType = "(avg)";
     var overall = "";
     if (typeData != null && typeData > 0) {
-        content = "<b>Route</b> (" + typeData + " data points" + ")<br>";
+        content = "<b>Route " + id + "</b> (" + typeData + " data points" + ")<br>";
         content += "Distance: " + routeDistance + " m" + "<br>";
     }
     else if (typeData < 0) {
@@ -93,7 +93,7 @@ function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, 
     return styledContent;
 }
 
-function generateRoute(newRoute, noiseAVG, coAVG, no2AVG, distance, duration, score) {
+function generateRoute(newRoute, noiseAVG, coAVG, no2AVG, distance, duration, score, id) {
 
     var route = new google.maps.Polyline({
         path: newRoute,
@@ -107,7 +107,7 @@ function generateRoute(newRoute, noiseAVG, coAVG, no2AVG, distance, duration, sc
 
     var dataPoints = newRoute.length;
     var routeDATA = {"route": route, "noiseAVG": noiseAVG, "coAVG": coAVG, "no2AVG": no2AVG};
-    var styledContent = generatePopUpContent(noiseAVG, coAVG, no2AVG, 100, dataPoints, distance, duration, score);
+    var styledContent = generatePopUpContent(noiseAVG, coAVG, no2AVG, 100, dataPoints, distance, duration, score, id);
 
     google.maps.event.addListener(route, 'mouseover', function (event) {
         if (disableRouteInfoWindow) {
@@ -182,7 +182,7 @@ function populateMap() {
         }
 
         //alert(distance);
-        var routeDATA = generateRoute(newRoute, noiseSUM / newRoute.length, coSUM / newRoute.length, no2SUM / newRoute.length, distance, null, null);
+        var routeDATA = generateRoute(newRoute, noiseSUM / newRoute.length, coSUM / newRoute.length, no2SUM / newRoute.length, distance, null, null, i+1);
         ROUTE_DATA.push(routeDATA);
     }
 }

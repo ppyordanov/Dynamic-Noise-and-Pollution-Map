@@ -10,18 +10,18 @@ function toggleHeatMap(value) {
     if (value) {
         HEAT_MAP.setMap(map);
         var radius = parseInt($("#radiusHeat").val());
-        var opacity = parseInt($("#opacityHeat").val())/100;
+        var opacity = parseInt($("#opacityHeat").val()) / 100;
 
-        if(opacity!= null && (opacity>0 && opacity<=1)){
+        if (opacity != null && (opacity > 0 && opacity <= 1)) {
             HEAT_MAP.set('opacity', opacity);
         }
-        else{
+        else {
             HEAT_MAP.set('opacity', 0.5);
         }
-        if(radius>0){
+        if (radius > 0) {
             HEAT_MAP.set('radius', radius);
         }
-        else{
+        else {
             HEAT_MAP.set('radius', 50);
         }
     }
@@ -55,6 +55,6 @@ function togglePointVis(value) {
     POINT_VISUALIZATION.forEach(function (entry) {
         entry["circle"].set("visible", value);
         entry["circle"].set("radius", entry[variable]);
-        entry["circle"].set("fillOpacity", entry[variable]/10);
+        entry["circle"].set("fillOpacity", entry[variable] / 10);
     });
 }

@@ -8,7 +8,7 @@ function addPopUp(marker, content) {
 
 
     google.maps.event.addListener(marker, 'mouseover', function (e) {
-        if(disableMarkerInfoWindow){
+        if (disableMarkerInfoWindow) {
             return;
         }
         console.log(e);
@@ -18,7 +18,6 @@ function addPopUp(marker, content) {
 
 
 }
-
 
 
 function generateMarker(dataReading, visible, map) {
@@ -56,39 +55,39 @@ function generateMarker(dataReading, visible, map) {
 }
 
 /*
-dataTYpe coding
+ dataTYpe coding
 
-- null = data reading
-- <=0 = grid tile
-- >0 = route
+ - null = data reading
+ - <=0 = grid tile
+ - >0 = route
  */
-function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, routeDuration, score){
+function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, routeDuration, score) {
     var content;
     var valueType = "(avg)";
-    var overall= "";
-    if(typeData!=null && typeData>0){
+    var overall = "";
+    if (typeData != null && typeData > 0) {
         content = "<b>Route</b> (" + typeData + " data points" + ")<br>";
-        content += "Distance: " + routeDistance+ " m" + "<br>";
+        content += "Distance: " + routeDistance + " m" + "<br>";
     }
-    else if(typeData<0){
-        content = "<b>Grid Index: </b>" + (typeData*(-1)) + "<br>";
+    else if (typeData < 0) {
+        content = "<b>Grid Index: </b>" + (typeData * (-1)) + "<br>";
     }
-    else if(typeData==0){
-        valueType="";
+    else if (typeData == 0) {
+        valueType = "";
         content = "<b>Data Reading</b><br>";
     }
-    if(routeDuration){
-        content+=routeDuration;
+    if (routeDuration) {
+        content += routeDuration;
         overall = "<b>Overall Pollution Index:</b> " + score.toPrecision(3) + "%<br>" + progressEvaluate(score, 0, 100);
     }
-    content += "Noise" + valueType + ": " + noise.toPrecision(3) + " dB" + progressEvaluate(noise, minNoise, maxNoise) ;
+    content += "Noise" + valueType + ": " + noise.toPrecision(3) + " dB" + progressEvaluate(noise, minNoise, maxNoise);
     content += "CO" + valueType + ": " + co.toPrecision(3) + " ppm" + progressEvaluate(co, minCO, maxCO);
-    content += "NO2" + valueType + ": " + no2.toPrecision(3) + " ppm" + progressEvaluate(no2, minNO2, maxNO2) ;
+    content += "NO2" + valueType + ": " + no2.toPrecision(3) + " ppm" + progressEvaluate(no2, minNO2, maxNO2);
 
-    if(valueType==""){
+    if (valueType == "") {
         content += "Battery: " + battery + " %" + progressEvaluate(battery, minBattery, maxBattery);
     }
-    content +=overall;
+    content += overall;
     var styledContent = '<div class="mapPopUp">' + content + '</div>';
 
     return styledContent;
@@ -111,7 +110,7 @@ function generateRoute(newRoute, noiseAVG, coAVG, no2AVG, distance, duration, sc
     var styledContent = generatePopUpContent(noiseAVG, coAVG, no2AVG, 100, dataPoints, distance, duration, score);
 
     google.maps.event.addListener(route, 'mouseover', function (event) {
-        if(disableRouteInfoWindow){
+        if (disableRouteInfoWindow) {
             return;
         }
         infowindow.setContent(styledContent);
@@ -138,7 +137,7 @@ function progressEvaluate(value, min, max) {
 }
 
 //distance in meters
-function retrieveDistance(loc1, loc2){
+function retrieveDistance(loc1, loc2) {
     return parseInt((google.maps.geometry.spherical.computeDistanceBetween(loc1, loc2).toFixed(2)));
 }
 
@@ -165,8 +164,8 @@ function populateMap() {
 
             //updateValueRange(dr);
 
-            if(j+1<routeDR.length){
-                nextIndex=j+1;
+            if (j + 1 < routeDR.length) {
+                nextIndex = j + 1;
             }
             var visible = false;
             generateMarker(dr, visible, map);
@@ -183,7 +182,7 @@ function populateMap() {
         }
 
         //alert(distance);
-        var routeDATA = generateRoute(newRoute, noiseSUM/newRoute.length, coSUM/newRoute.length, no2SUM/newRoute.length, distance, null,null);
+        var routeDATA = generateRoute(newRoute, noiseSUM / newRoute.length, coSUM / newRoute.length, no2SUM / newRoute.length, distance, null, null);
         ROUTE_DATA.push(routeDATA);
     }
 }

@@ -75,11 +75,11 @@ function generateGrid(tileSize) {
 function bindWindow(rectangle, indexNumber) {
     google.maps.event.addListener(rectangle, 'click', function (event) {
 
-        if(disableGridInfoWindow){
+        if (disableGridInfoWindow) {
             return;
         }
         var i = indexNumber;
-        var content= generatePopUpContent(calculateAverage(GRID[i]["noiseAVG"]["sum"], GRID[i]["noiseAVG"]["count"]),calculateAverage(GRID[i]["coAVG"]["sum"], GRID[i]["coAVG"]["count"]),calculateAverage(GRID[i]["no2AVG"]["sum"], GRID[i]["no2AVG"]["count"]), 0, (-1-i));
+        var content = generatePopUpContent(calculateAverage(GRID[i]["noiseAVG"]["sum"], GRID[i]["noiseAVG"]["count"]), calculateAverage(GRID[i]["coAVG"]["sum"], GRID[i]["coAVG"]["count"]), calculateAverage(GRID[i]["no2AVG"]["sum"], GRID[i]["no2AVG"]["count"]), 0, (-1 - i));
         infowindow.setContent(content);
         infowindow.setPosition(event.latLng);
 
@@ -165,68 +165,70 @@ function aggregateGrid(location, dataReading) {
 //forEach better in terms of performance changed from a conventional for loop
 function toggleGrid(value) {
 
-    if(value){
+    if (value) {
 
         var gridValue = $("input[name=gridValue]:checked").val();
         var outline = $('input[name=outline]:checked').val();
         var scale = $('input[name=scale]:checked').val();
-        var outlineOpacity = parseInt($("#outlineOpacity").val())/100;
-        var tileOpacity = parseInt($("#tileOpacity").val())/100;
+        var outlineOpacity = parseInt($("#outlineOpacity").val()) / 100;
+        var tileOpacity = parseInt($("#tileOpacity").val()) / 100;
         var colorGradient = $('input[name=gradient]:checked').val();
         var scale = $('input[name=scale]:checked').val();
-        var normal = (scale=="absolute");
+        var normal = (scale == "absolute");
         var outlineVis = 0;
         var fillVis = 0.35;
         disableGridInfoWindow = $('input[name=infoDisplayGrid]:checked').val();
 
-        if(tileOpacity!= null && (tileOpacity>0 && tileOpacity<=1)){
+        if (tileOpacity != null && (tileOpacity > 0 && tileOpacity <= 1)) {
             fillVis = tileOpacity;
         }
-        if(outline){
-            if(outlineOpacity!= null && (outlineOpacity>0 && outlineOpacity<=1)){
+        if (outline) {
+            if (outlineOpacity != null && (outlineOpacity > 0 && outlineOpacity <= 1)) {
                 outlineVis = outlineOpacity;
             }
-            else{
-                outlineVis=1;
+            else {
+                outlineVis = 1;
             }
         }
 
 
-        if(parseInt($("#tileSize").val())>=10){
+        if (parseInt($("#tileSize").val()) >= 10) {
             var tileSize = $("#tileSize").val();
-            GRID.forEach(function (entry) {entry["tile"].set("map",null);});
+            GRID.forEach(function (entry) {
+                entry["tile"].set("map", null);
+            });
             GRID = [];
             generateGrid(tileSize);
             updateGridAggregation();
         }
 
-        var max,min;
-        if(gridValue=='noiseAVG'){
-            if(normal){
+        var max, min;
+        if (gridValue == 'noiseAVG') {
+            if (normal) {
                 min = absoluteMinNoise;
                 max = absoluteMaxNoise;
             }
-            else{
+            else {
                 min = minNoise;
                 max = maxNoise;
             }
         }
-        else if(gridValue=='coAVG'){
-            if(normal){
+        else if (gridValue == 'coAVG') {
+            if (normal) {
                 min = absoluteMinCO;
                 max = absoluteMaxCO;
             }
-            else{
+            else {
                 min = minCO;
                 max = maxCO;
             }
         }
-        else{
-            if(normal){
+        else {
+            if (normal) {
                 min = absoluteMinNO2;
                 max = absoluteMaxNO2;
             }
-            else{
+            else {
                 min = minNO2;
                 max = maxNO2;
             }
@@ -238,9 +240,9 @@ function toggleGrid(value) {
             var average = calculateAverage(sum, count);
             var percentage = rangePercentage(average, min, max);
             var fillOp = entry["tile"].fillOpacity;
-            entry["tile"].set("fillColor", convertToColor(percentage,colorGradient));
+            entry["tile"].set("fillColor", convertToColor(percentage, colorGradient));
             entry["tile"].set("strokeOpacity", outlineVis);
-            if(fillOp>0){
+            if (fillOp > 0) {
                 entry["tile"].set("fillOpacity", fillVis);
             }
         });

@@ -29,7 +29,8 @@
     <script src="${pageContext.request.contextPath}/resources/custom/map/route_generation.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/ui/user_interface.js"></script>
 
-    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+    <script type="text/javascript"
+            src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
 
 
 </head>
@@ -37,7 +38,7 @@
 <body>
 
 <div id="loader_container">
-<img id="loader" alt="" src="${pageContext.request.contextPath}/resources/images/loader.gif"/>
+    <img id="loader" alt="" src="${pageContext.request.contextPath}/resources/images/loader.gif"/>
 </div>
 
 <c:set var="parser" value="parse.jsp"/>

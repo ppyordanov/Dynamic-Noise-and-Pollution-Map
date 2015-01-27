@@ -9,13 +9,13 @@
 
 }
 
-#loader_container{
-    position:absolute;
+#loader_container {
+    position: absolute;
     top: 50%;
     left: 50%;
     margin-top: -130px;
     margin-left: -130px;
-    z-index:-100;
+    z-index: -100;
 }
 
 html, body {
@@ -35,8 +35,8 @@ html, body {
     height: auto;
 }
 
-.tab{
-    margin-left:5em
+.tab {
+    margin-left: 5em
 }
 
 .mapPopUp {
@@ -56,7 +56,7 @@ html, body {
 
 .ui-slider-handle {
     top: -5px !important;
-    margin-left:-100px;
+    margin-left: -100px;
     font-size: 10px;
     width: 45px !important;
     height: 20px !important;

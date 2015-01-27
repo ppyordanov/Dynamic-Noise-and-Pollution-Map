@@ -23,9 +23,9 @@ function generatePointVis(dataReading, visible, map, num) {
      label.setMap(map);
      */
 
-    var noiseRadius = rangePercentage(dataReading.noise, minNoise, maxNoise)/10;
-    var coRadius = rangePercentage(dataReading.co, minCO, maxCO)/10;
-    var no2Radius = rangePercentage(dataReading.no2, minNO2, maxNO2)/10;
+    var noiseRadius = rangePercentage(dataReading.noise, minNoise, maxNoise) / 10;
+    var coRadius = rangePercentage(dataReading.co, minCO, maxCO) / 10;
+    var no2Radius = rangePercentage(dataReading.no2, minNO2, maxNO2) / 10;
 
 
     var pollutionOptions = {
@@ -33,7 +33,7 @@ function generatePointVis(dataReading, visible, map, num) {
         //strokeOpacity: 0.8,
         strokeWeight: 0,
         fillColor: '#FF0000',
-        fillOpacity: noiseRadius/10,
+        fillOpacity: noiseRadius / 10,
         center: position,
         map: map,
         visible: visible,

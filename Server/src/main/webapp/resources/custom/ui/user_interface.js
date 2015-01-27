@@ -40,10 +40,10 @@ $(document).ready(function () {
 
      */
 
-    $('#grid').on('click', function() {
+    $('#grid').on('click', function () {
         var selected = $(this).val();
 
-        if(selected) {
+        if (selected) {
             $("input[name*='gridValue']").prop('disabled', !$(this).is(':checked'));
             $("input[name*='outline']").prop('disabled', !$(this).is(':checked'));
             $("input[name*='gradient']").prop('disabled', !$(this).is(':checked'));
@@ -73,8 +73,6 @@ $(document).ready(function () {
 
 
 });
-
-
 
 
 function retrieveModes() {

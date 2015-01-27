@@ -28,8 +28,8 @@
     var rawNO2 = ${element.no2};
 
     dataReading["noise"] = ${element.noise};
-    dataReading["co"] = (rawCO/basePPMtokOhm);
-    dataReading["no2"] = (rawNO2/basePPMtokOhm);
+    dataReading["co"] = (rawCO / basePPMtokOhm);
+    dataReading["no2"] = (rawNO2 / basePPMtokOhm);
     dataReading["battery"] = ${element.battery};
 
     var routeId = dataReading["routeId"];

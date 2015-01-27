@@ -1,5 +1,3 @@
-
-
 function setStyles() {
 
     map.mapTypes.set('CLASSIC', styledMap0);

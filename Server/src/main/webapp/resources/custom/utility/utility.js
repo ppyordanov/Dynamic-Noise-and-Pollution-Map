@@ -38,25 +38,25 @@ function convertToRGB(n) {
 }
 
 //RED-YELLOW-GREEN better gradient - hue,satuartion, lightness
-function convertToHSL(n){
-    var H = (1-n/100)*120 //scale between 0 and 120 degrees
+function convertToHSL(n) {
+    var H = (1 - n / 100) * 120 //scale between 0 and 120 degrees
     var HSL = "hsl(" + H + ",100%,50%)";
     return HSL;
 }
 
-function convertToPPM(value){
+function convertToPPM(value) {
     var basePPMtokOhm = 75;
-    return value/basePPMtokOhm;
+    return value / basePPMtokOhm;
 }
 
 //convert to HSL or RGB depending on input parameters
-function convertToColor(n,type){
+function convertToColor(n, type) {
     var color = null;
-    if(type=='hsl'){
-        color=convertToHSL(n);
+    if (type == 'hsl') {
+        color = convertToHSL(n);
     }
-    else{
-        color=convertToRGB(n);
+    else {
+        color = convertToRGB(n);
     }
     return color;
 }

@@ -17,7 +17,6 @@
                 </p>
 
 
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="style_apply" data-dismiss="modal">OK</button>

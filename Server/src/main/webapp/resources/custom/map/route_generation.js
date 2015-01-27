@@ -40,6 +40,22 @@ $(document).ready(function () {
 
     $('#route_apply').on('click', function() {
 
+        var sourceLat,sourceLng, destinationLat, destinationLng;
+        if($( "#sourceLat").val()!="" && $( "#sourceLng").val()!=""){
+            sourceLat = parseFloat($( "#sourceLat").val());
+            sourceLng = parseFloat($( "#sourceLng").val());
+            if(sourceLat!=NaN && sourceLng!=NaN){
+                starting_point = new google.maps.LatLng(sourceLat, sourceLng);
+            }
+        }
+        if($( "#destinationLat").val()!="" && $( "#destinationLng").val()!=""){
+            destinationLat = parseFloat($( "#destinationLat").val());
+            destinationLng = parseFloat($( "#destinationLng").val());
+            if(destinationLat!=NaN && destinationLng!=NaN){
+                destination_point = new google.maps.LatLng(destinationLat, destinationLng);
+            }
+        }
+
         USER_ROUTE_DATA.forEach(function (entry) {entry.data["route"].set("map",null);});
         USER_ROUTE_DATA = [];
         generateUserRoutes();
@@ -65,6 +81,12 @@ function identifyBestRoute(){
     });
 }
 
+function calculateTime(seconds){
+    var minutes = Math.floor(seconds / 60);
+    var sec_remaining = seconds - minutes*60;
+    return  "Duration: " + minutes + " min. " + sec_remaining + " sec." + "<br>";
+}
+
 function generateUserRoutes() {
 
     mode = $( "#mode").val();
@@ -73,7 +95,8 @@ function generateUserRoutes() {
         origin: starting_point,
         destination: destination_point,
         provideRouteAlternatives:true,
-        travelMode: google.maps.TravelMode[mode]
+        travelMode: google.maps.TravelMode[mode],
+        unitSystem: google.maps.UnitSystem.IMPERIAL
     };
     // alert("ds");
     directionsService.route(request, function(response, status) {
@@ -81,6 +104,9 @@ function generateUserRoutes() {
 
             for (var i = 0; i<response.routes.length; i++) {
                 var route = response.routes[i].overview_path;
+                var routeDistance = response.routes[i].legs[0].distance.value; //meters
+                var routeDuration = response.routes[i].legs[0].duration.value; //seconds
+                var timeFormatted = calculateTime(routeDuration);
                 //alert(route);
                 //alert(response.routes.length);
 /*
@@ -106,7 +132,6 @@ function generateUserRoutes() {
                 for(var j=0;j<route.length;j++){
                     var loc = getGridLocation(route[j]);
                     var block = GRID[loc];
-
                     if(block){
                         if(block.coAVG.count>0) {
                             coSUM += block.coAVG.sum / block.coAVG.count;
@@ -122,8 +147,10 @@ function generateUserRoutes() {
                 var noiseAVG = noiseSUM/validCount;
                 var coAVG = coSUM/validCount;
                 var no2AVG = no2SUM/validCount;
-                var score = noiseAVG*1 + coAVG*1 + no2AVG*2;
-                var routeDATA = generateRoute(route, noiseAVG, coAVG , no2AVG, 100);
+
+                //variable weights can be changed
+                var score = noiseAVG*1 + coAVG*1 + no2AVG*2 + routeDistance*0.01 + routeDuration*0.01;
+                var routeDATA = generateRoute(route, noiseAVG, coAVG , no2AVG, routeDistance, timeFormatted, score);
                 USER_ROUTE_DATA.push({"data":routeDATA,"score": score});
             }
 

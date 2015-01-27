@@ -33,12 +33,12 @@
                     <input type="text" name="place" id="sourcePlace" class="form-control" placeholder="building" aria-describedby="sizing-addon3">
                 </div>
                 <div class="input-group input-group-sm">
-                    <span class="input-group-addon" id="sourceLat">Latitude:&emsp;</span>
-                    <input type="text" class="form-control" placeholder="lat" aria-describedby="sizing-addon3">
+                    <span class="input-group-addon">Latitude:&emsp;</span>
+                    <input type="text" class="form-control" id="sourceLat" placeholder="lat" aria-describedby="sizing-addon3">
                 </div>
                 <div class="input-group input-group-sm">
-                    <span class="input-group-addon" id="sourceLng">Longitude:</span>
-                    <input type="text" class="form-control" placeholder="lng" aria-describedby="sizing-addon3">
+                    <span class="input-group-addon">Longitude:</span>
+                    <input type="text" class="form-control" id="sourceLng" placeholder="lng" aria-describedby="sizing-addon3">
                 </div>
 
                 <b>Destination</b>
@@ -47,12 +47,12 @@
                     <input type="text" name="place" id="destinationPlace" class="form-control" placeholder="building" aria-describedby="sizing-addon3">
                 </div>
                 <div class="input-group input-group-sm">
-                    <span class="input-group-addon" id="destinationLat">Latitude:&emsp;</span>
-                    <input type="text" class="form-control" placeholder="lat" aria-describedby="sizing-addon3">
+                    <span class="input-group-addon">Latitude:&emsp;</span>
+                    <input type="text" class="form-control" id="destinationLat" placeholder="lat" aria-describedby="sizing-addon3">
                 </div>
                 <div class="input-group input-group-sm">
-                    <span class="input-group-addon" id="destinationLng">Longitude:</span>
-                    <input type="text" class="form-control" placeholder="lng" aria-describedby="sizing-addon3">
+                    <span class="input-group-addon">Longitude:</span>
+                    <input type="text" class="form-control"  id="destinationLng" placeholder="lng" aria-describedby="sizing-addon3">
                 </div>
 
 

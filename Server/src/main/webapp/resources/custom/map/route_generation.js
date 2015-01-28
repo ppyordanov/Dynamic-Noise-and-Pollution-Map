@@ -44,14 +44,16 @@ $(document).ready(function () {
         if ($("#sourceLat").val() != "" && $("#sourceLng").val() != "") {
             sourceLat = parseFloat($("#sourceLat").val());
             sourceLng = parseFloat($("#sourceLng").val());
-            if (sourceLat != NaN && sourceLng != NaN) {
+            alert(sourceLat);
+            if (!isNaN(sourceLat) && !isNaN(sourceLng)) {
+                alert("test");
                 starting_point = new google.maps.LatLng(sourceLat, sourceLng);
             }
         }
         if ($("#destinationLat").val() != "" && $("#destinationLng").val() != "") {
             destinationLat = parseFloat($("#destinationLat").val());
             destinationLng = parseFloat($("#destinationLng").val());
-            if (destinationLat != NaN && destinationLng != NaN) {
+            if (!isNaN(destinationLat) && !isNaN(destinationLng)) {
                 destination_point = new google.maps.LatLng(destinationLat, destinationLng);
             }
         }

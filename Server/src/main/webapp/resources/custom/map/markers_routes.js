@@ -4,10 +4,21 @@
 
 /* MARKERS ROUTES */
 
-function addPopUp(marker, content) {
+var mouseover = "mouseover";
+var mouseout = "mouseout";
+var click = "click";
+
+var pinIcon = {
+    url: image,
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(15,15),
+    scaledSize: new google.maps.Size(30,30)
+};
+
+function addPopUp(marker, content, trigger) {
 
 
-    google.maps.event.addListener(marker, 'mouseover', function (e) {
+    google.maps.event.addListener(marker, trigger, function (e) {
         if (disableMarkerInfoWindow) {
             return;
         }
@@ -17,6 +28,36 @@ function addPopUp(marker, content) {
     });
 
 
+}
+
+function generateRouteMarkers(source, destination, pointArray){
+    //alert(source + " " + destination);
+    var srcLoc = pointArray[0];
+    var destLoc = pointArray[pointArray.length-1];
+
+    var sourceMarker = new google.maps.Marker({
+        position: srcLoc,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        icon: pinIcon,
+        visible: true
+    });
+    var destinationMarker = new google.maps.Marker({
+        position: destLoc,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        icon: pinIcon,
+        visible: true
+    });
+
+    var sourceContent = '<div class="mapPopUp">' + "<b>Starting Point:</b> " + source ; //+"<br>" + "<b>Latitude: </b>" + srcLoc.lat() + "<br><b>Longitude: </b>" + srcLoc.lng() + "</div>";
+    var destinationContent = '<div class="mapPopUp">' + "<b>Destination:</b> " + destination ; //+"<br>" + "<b>Latitude: </b>" + destLoc.lat() + "<br><b>Longitude: </b>" + destLoc.lng() + "</div>";
+
+    addPopUp(sourceMarker, sourceContent, click);
+    addPopUp(destinationMarker,destinationContent, click);
+
+    USER_ROUTE_DATA.push({"data":{"route": sourceMarker},"score":null});
+    USER_ROUTE_DATA.push({"data":{"route": destinationMarker},"score":null});
 }
 
 
@@ -32,11 +73,6 @@ function generateMarker(dataReading, visible, map) {
     longitude = dataReading.longitude;
     position = new google.maps.LatLng(latitude, longitude);
 
-    var pinIcon = new google.maps.MarkerImage(
-        image,
-        new google.maps.Size(30, 30)
-    );
-
     marker = new google.maps.Marker({
         position: position,
         map: map,
@@ -47,7 +83,7 @@ function generateMarker(dataReading, visible, map) {
 
     var styledContent = generatePopUpContent(noise, co, no2, battery, 0, null);
 
-    addPopUp(marker, styledContent);
+    addPopUp(marker, styledContent, mouseover);
 
     var entry = {"marker": marker, "noise": noise, "no2": no2, "co": co};
     POINT_DATA.push(entry);
@@ -78,7 +114,7 @@ function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, 
     }
     if (routeDuration) {
         content += routeDuration;
-        overall = "<b>Overall Pollution Index:</b> " + score.toPrecision(3) + "%<br>" + progressEvaluate(score, 0, 100);
+        overall = "<b>Overall Pollution Index:</b> " + rangePercentage(score, 0, maximumOverallPollutionIndex).toPrecision(3) + "%<br>" + progressEvaluate(score, 0, maximumOverallPollutionIndex);
     }
     content += "Noise" + valueType + ": " + noise.toPrecision(3) + " dB" + progressEvaluate(noise, minNoise, maxNoise);
     content += "CO" + valueType + ": " + co.toPrecision(3) + " ppm" + progressEvaluate(co, minCO, maxCO);
@@ -107,9 +143,9 @@ function generateRoute(newRoute, noiseAVG, coAVG, no2AVG, distance, duration, sc
 
     var dataPoints = newRoute.length;
     var routeDATA = {"route": route, "noiseAVG": noiseAVG, "coAVG": coAVG, "no2AVG": no2AVG};
-    var styledContent = generatePopUpContent(noiseAVG, coAVG, no2AVG, 100, dataPoints, distance, duration, score, id);
+    var styledContent = generatePopUpContent(noiseAVG, coAVG, no2AVG, null, dataPoints, distance, duration, score, id);
 
-    google.maps.event.addListener(route, 'mouseover', function (event) {
+    google.maps.event.addListener(route, click, function (event) {
         if (disableRouteInfoWindow) {
             return;
         }
@@ -117,10 +153,10 @@ function generateRoute(newRoute, noiseAVG, coAVG, no2AVG, distance, duration, sc
         infowindow.setPosition(event.latLng);
         infowindow.open(map);
     });
-    google.maps.event.addListener(route, 'mouseover', function (event) {
+    google.maps.event.addListener(route, mouseover, function (event) {
         this.set("strokeWeight", 15);
     });
-    google.maps.event.addListener(route, 'mouseout', function () {
+    google.maps.event.addListener(route, mouseout, function () {
         this.set("strokeWeight", 10);
     });
 

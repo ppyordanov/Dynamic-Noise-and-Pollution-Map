@@ -30,6 +30,7 @@ var POINT_DATA = [];
 var POINT_VISUALIZATION = [];
 var ROUTE_DATA = [];
 var locationARR = [];
+var USER_ROUTE_DATA = [];
 var infowindow = new google.maps.InfoWindow();
 
 var maxNoise = null;
@@ -61,6 +62,18 @@ var absoluteMinCO = 0; //in ppm, parts per million
 var absoluteMaxCO = 30; //30-40 dangerous
 var absoluteMinNO2 = 0; //in ppm, parts per million
 var absoluteMaxNO2 = 150;
+
+var absoluteMaxRouteDistance = 1500; //1.5km
+var absoluteMaxRouteDuration = 15*60;//duration in seconds, 15 minutes
+
+var noiseMultiplier = 1;
+var coMultiplier = 1;
+var no2Multiplier = 2;
+var routeDistanceMultiplier = 0.001;
+var routeDurationMultiplier = 0.001;
+
+var maximumOverallPollutionIndex = absoluteMaxNoise * noiseMultiplier + absoluteMaxCO * coMultiplier +
+    absoluteMaxNO2 * no2Multiplier + absoluteMaxRouteDistance * routeDistanceMultiplier + absoluteMaxRouteDuration * routeDurationMultiplier;
 
 var id;
 var noise;

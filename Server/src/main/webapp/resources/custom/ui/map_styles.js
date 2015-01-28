@@ -23,7 +23,7 @@ var style1 = [
         featureType: "road",
         elementType: "labels",
         stylers: [
-            { visibility: "off" }
+            { visibility: "on" }
         ]
     }
 ];
@@ -49,7 +49,7 @@ var style2 = [
         featureType: "road",
         elementType: "labels.text.stroke",
         stylers: [
-            { visibility: "off" }
+            { visibility: "on" }
         ]
     },
 
@@ -110,7 +110,14 @@ var style3 = [
         {"color": "#144b53"},
         {"lightness": 20},
         {"weight": 1.4}
-    ]}
+    ]},
+    {
+        featureType: "road",
+        elementType: "labels",
+        stylers: [
+            { visibility: "on" }
+        ]
+    }
 ];
 
 //CLEAN CLASSIC
@@ -198,7 +205,13 @@ var style5 = [
         {"visibility": "on"},
         {"color": "#808080"}
     ]},
-    {}
+    {
+        featureType: "road",
+        elementType: "labels",
+        stylers: [
+            { visibility: "on" }
+        ]
+    }
 ];
 
 //SATELLITE

@@ -66,3 +66,7 @@ html, body {
 .ui-autocomplete {
     z-index: 1051 !important;
 }
+
+.right{
+    float:right;
+}

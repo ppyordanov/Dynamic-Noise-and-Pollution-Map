@@ -16,6 +16,9 @@
                     Browse university campus locations below:
                 </p>
 
+                <!-- ACCORDION -->
+                <div id="locationsAccordion"></div>
+
 
             </div>
             <div class="modal-footer">

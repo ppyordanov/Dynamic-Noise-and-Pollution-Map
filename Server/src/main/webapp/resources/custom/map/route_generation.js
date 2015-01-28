@@ -8,33 +8,28 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var starting_point = null;
 var destination_point = null;
+var sp_Name = null;
+var dp_Name = null;
 var mode = null;
 
-var USER_ROUTE_DATA = [];
 
 $(document).ready(function () {
 
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
 
-    var places = [
-        {label: "Adam Smith Building", loc: [55.873727, -4.289915]},
-        {label: "Boyd Orr Building", loc: [55.873525, -4.292630]},
-        {label: "Stevenson Building", loc: [55.872863, -4.285314]},
-        {label: "University Library", loc: [55.873257, -4.288472]},
-        {label: "Main Building", loc: [55.871948, -4.288302]}
-    ];
-
     $("#sourcePlace").autocomplete({
         source: places,
         select: function (event, ui) {
             starting_point = new google.maps.LatLng(ui.item.loc[0], ui.item.loc[1]);
+            sp_Name = ui.item.label;
         }
     });
     $("#destinationPlace").autocomplete({
         source: places,
         select: function (event, ui) {
             destination_point = new google.maps.LatLng(ui.item.loc[0], ui.item.loc[1]);
+            dp_Name = ui.item.label;
         }
     });
 
@@ -46,7 +41,7 @@ $(document).ready(function () {
             sourceLng = parseFloat($("#sourceLng").val());
             alert(sourceLat);
             if (!isNaN(sourceLat) && !isNaN(sourceLng)) {
-                alert("test");
+                //alert("test");
                 starting_point = new google.maps.LatLng(sourceLat, sourceLng);
             }
         }
@@ -69,15 +64,14 @@ $(document).ready(function () {
 });
 
 function identifyBestRoute() {
-    var index = 0;
     var lowestScore = Number.MAX_SAFE_INTEGER;
     USER_ROUTE_DATA.forEach(function (entry) {
-        if (entry.score < lowestScore) {
+        if (entry.score!== null && entry.score < lowestScore) {
             lowestScore = entry.score;
         }
     });
     USER_ROUTE_DATA.forEach(function (entry) {
-        if (entry.score == lowestScore) {
+        if (entry.score!== null && entry.score == lowestScore) {
             //#7FE817
             entry.data.route.set("strokeColor", "#4caf50");
             //entry.data.route.set("strokeOpacity", 0.7);
@@ -153,12 +147,15 @@ function generateUserRoutes() {
                 var no2AVG = no2SUM / validCount;
 
                 //variable weights can be changed
-                var score = noiseAVG * 1 + coAVG * 1 + no2AVG * 2 + routeDistance * 0.01 + routeDuration * 0.01;
+                var score = noiseAVG * noiseMultiplier + coAVG * coMultiplier + no2AVG * no2Multiplier + routeDistance * routeDistanceMultiplier + routeDuration * routeDurationMultiplier;
                 var routeDATA = generateRoute(route, noiseAVG, coAVG, no2AVG, routeDistance, timeFormatted, score, i+1);
+
                 USER_ROUTE_DATA.push({"data": routeDATA, "score": score});
             }
 
-            if (USER_ROUTE_DATA.length > 1) {
+            generateRouteMarkers(sp_Name,dp_Name,route);
+            //2 elements for route markers
+            if (USER_ROUTE_DATA.length > 3) {
                 identifyBestRoute();
             }
             //directionsDisplay.setDirections(response);

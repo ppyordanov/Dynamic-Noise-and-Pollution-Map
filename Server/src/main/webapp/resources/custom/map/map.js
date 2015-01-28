@@ -57,6 +57,7 @@ function init_map() {
         map.panTo(lastCenter);
     });
 
+
     setStyles();
     identifyValueRange();
     generateGrid(tileSize);

@@ -30,7 +30,7 @@
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapseOneF" class="panel-collapse collapse in" role="tabpanel"
+                            <div id="collapseOneF" class="panel-collapse collapse" role="tabpanel"
                                  aria-labelledby="headingOneF">
                                 <div class="panel-body">
 

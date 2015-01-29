@@ -40,14 +40,28 @@ $(document).ready(function () {
 
      */
 
-    $('#grid').on('click', function () {
-        var selected = $(this).val();
+    $('#accordionM').find('input[type=checkbox]:checked').removeAttr('checked');
 
-        if (selected) {
-            $("input[name*='gridValue']").prop('disabled', !$(this).is(':checked'));
-            $("input[name*='outline']").prop('disabled', !$(this).is(':checked'));
-            $("input[name*='gradient']").prop('disabled', !$(this).is(':checked'));
-        }
+    $("#gridOptions :input").attr("disabled", true);
+    $("#heatmapOptions :input").attr("disabled", true);
+    $("#pointvisOptions :input").attr("disabled", true);
+    $("#markersOptions :input").attr("disabled", true);
+    $("#routesOptions :input").attr("disabled", true);
+
+    $('#grid').on('click', function () {
+            $("#gridOptions :input").attr("disabled", !$('#grid').is(':checked'));
+    });
+    $('#markers').on('click', function () {
+        $("#markersOptions :input").attr("disabled", !$('#markers').is(':checked'));
+    });
+    $('#userroutes').on('click', function () {
+        $("#routesOptions :input").attr("disabled", !$('#userroutes').is(':checked'));
+    });
+    $('#heatmap').on('click', function () {
+        $("#heatmapOptions :input").attr("disabled", !$('#heatmap').is(':checked'));
+    });
+    $('#pointvis').on('click', function () {
+        $("#pointvisOptions :input").attr("disabled", !$('#pointvis').is(':checked'));
     });
 
 
@@ -79,6 +93,7 @@ function retrieveModes() {
     var selectedModes = [];
     $("input[name*='mode']").each(function () {
         var value = (this.checked ? true : false);
+        //alert(value);
         selectedModes.push(value);
     });
     return selectedModes;

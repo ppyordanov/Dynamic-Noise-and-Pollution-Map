@@ -34,19 +34,22 @@
         <div class="panel-body">
 
             <label>
-                <input type="checkbox" name="mode" value="MARKERS" checked> Show/Hide
+                <input type="checkbox" name="mode" id="markers" value="MARKERS" checked> Show/Hide
             </label>
 
-            <label>
-                <input type="checkbox" name="infoDisplayMarker"> Disable Information
-            </label>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
-            electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
-            Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-            Aldus PageMaker including versions of Lorem Ipsum.
-
+            <div id="markersOptions">
+                <label>
+                    <input type="checkbox" name="infoDisplayMarker"> Disable Information
+                </label>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                into
+                electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
+                release of
+                Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+                Aldus PageMaker including versions of Lorem Ipsum.
+            </div>
         </div>
     </div>
 </div>
@@ -65,21 +68,25 @@
         <div class="panel-body">
 
             <label>
-                <input type="checkbox" name="mode" value="ROUTES" checked> Show/Hide
-            </label>
-            <label>
-                <input type="checkbox" name="infoDisplayRoute"> Disable Information
+                <input type="checkbox" name="mode" id="userroutes" value="ROUTES" checked> Show/Hide
             </label>
 
-            <div class="input-group input-group-sm">
-                <span class="input-group-addon" id="thickness">Thickness:</span>
-                <input type="text" class="form-control" placeholder="px" aria-describedby="sizing-addon3">
+            <div id="routesOptions">
+                <label>
+                    <input type="checkbox" name="infoDisplayRoute"> Disable Information
+                </label>
+
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">Thickness:</span>
+                    <input type="text" class="form-control" id="thicknessRoutes" placeholder="px" aria-describedby="sizing-addon3">
+                </div>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">Opacity:&emsp;</span>
+                    <input type="text" class="form-control" id="opacityRoutes" placeholder="%" aria-describedby="sizing-addon3">
+                </div>
+                description
+
             </div>
-            <div class="input-group input-group-sm">
-                <span class="input-group-addon" id="opacity">Opacity:</span>
-                <input type="text" class="form-control" placeholder="%" aria-describedby="sizing-addon3">
-            </div>
-            description
 
         </div>
     </div>
@@ -99,19 +106,22 @@
         <div class="panel-body">
 
             <label>
-                <input type="checkbox" name="mode" value="HEAT_MAP"> Show/Hide
+                <input type="checkbox" name="mode" id="heatmap" value="HEAT_MAP"> Show/Hide
             </label>
 
-            <div class="input-group">
-                <span class="input-group-addon"> Radius: </span>
-                <input type="text" class="form-control" placeholder="px" id="radiusHeat">
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon"> Opacity size: </span>
-                <input type="text" class="form-control" placeholder="%" id="opacityHeat">
-            </div>
-            description
+            <div id="heatmapOptions">
 
+                <div class="input-group">
+                    <span class="input-group-addon"> Radius:&emsp;&emsp; </span>
+                    <input type="text" class="form-control" placeholder="px" id="radiusHeat">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"> Opacity size: </span>
+                    <input type="text" class="form-control" placeholder="%" id="opacityHeat">
+                </div>
+                description
+
+            </div>
         </div>
     </div>
 </div>
@@ -129,114 +139,150 @@
          aria-labelledby="headingFourM">
         <div class="panel-body">
 
+
             <label>
                 <input type="checkbox" name="mode" id="grid" value="GRID"> Show/Hide
             </label>
 
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s
+            <div id="gridOptions">
 
-            <p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s
 
-            <div class="container-fluid">
+                <p>
 
-                <div class="row">
-                    <div class="col-xs-4 col-md-4">Variables</div>
-                    <div class="col-xs-4 col-md-4">Grid</div>
-                    <div class="col-xs-4 col-md-4">Gradient</div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-4 col-md-4">
-
-                        <label>
-                            <input type="radio" name="gridValue" value="noiseAVG" disabled="true" checked> Noise
-                        </label>
-
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4 col-md-4"><b>Variables</b></div>
+                        <div class="col-xs-4 col-md-4 col-md-4"><b>Grid</b></div>
+                        <div class="col-xs-4 col-md-4 col-md-4"><b>Gradient</b></div>
                     </div>
-                    <div class="col-xs-4 col-md-4">
 
-                        <label>
-                            <input type="checkbox" name="outline" disabled="true"> Outline
-                        </label>(Show/Hide)
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4 col-md-4">
 
-                        <label>
-                            <input type="checkbox" name="infoDisplayGrid"> Disable Information
-                        </label>
-
-                    </div>
-                    <div class="col-xs-4 col-md-4">
-
-                        <label>
-                            <input type="radio" name="gradient" value="hsl" disabled="true" checked> HSL
-                        </label>(cleaner)
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-4 col-md-4">
+                            <label>
+                                <input type="radio" name="gridValue" value="noiseAVG" checked> Noise
+                            </label>
 
 
-                        <label>
-                            <input type="radio" name="gridValue" value="coAVG" disabled="true"> CO
-                        </label>
-
-
-                    </div>
-                    <div class="col-xs-4 col-md-4">
-
-                        <div class="input-group">
-                            <span class="input-group-addon"> Tile size:</span>
-                            <input type="text" class="form-control" placeholder="meters" id="tileSize">
                         </div>
+                        <div class="col-xs-4 col-md-4 col-md-4">
 
-                    </div>
-                    <div class="col-xs-4 col-md-4">
+                            <label>
+                                <input type="checkbox" name="infoDisplayGrid"> Disable Information
+                            </label>
 
-                        <label>
-                            <input type="radio" name="gradient" value="rgb" disabled="true"> RGB
-                        </label>
-
-                        <br>
-
-                        <label>
-                            <input type="radio" name="scale" value="relative" checked> Relative
-                        </label>
-                        <label>
-                            <input type="radio" name="scale" value="absolute"> Absolute
-                        </label>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-4 col-md-4">
-
-                        <label>
-                            <input type="radio" name="gridValue" value="no2AVG" disabled="true"> NO2
-                        </label>
-
-                    </div>
-                    <div class="col-xs-4 col-md-4">
-
-                        <div class="input-group">
-                            <span class="input-group-addon"> out op:</span>
-                            <input type="text" class="form-control" placeholder="meters" id="outlineOpacity">
                         </div>
+                        <div class="col-xs-4 col-md-4 col-md-4">
 
-                    </div>
-                    <div class="col-xs-4 col-md-4">
+                            <label>
+                                <input type="radio" name="gradient" value="hsl"  checked> HSL
+                            </label>(cleaner)
 
-                        <div class="input-group">
-                            <span class="input-group-addon"> Tile  op:</span>
-                            <input type="text" class="form-control" placeholder="meters" id="tileOpacity">
                         </div>
-
                     </div>
+
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4 col-md-4">
+
+                            <label>
+                                <input type="radio" name="gridValue" value="coAVG"> CO
+                            </label>
+
+                        </div>
+                        <div class="col-xs-4 col-md-4 col-md-4">
+
+                            <label>
+                                <input type="checkbox" name="outline" > Outline
+                            </label>(Show/Hide)
+
+                        </div>
+                        <div class="col-xs-4 col-md-4 col-md-4">
+
+                            <label>
+                                <input type="radio" name="gradient" value="rgb" > RGB
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4 col-md-4">
+
+                            <label>
+                                <input type="radio" name="gridValue" value="no2AVG" > NO2
+                            </label>
+
+                        </div>
+                        <div class="col-xs-4 col-md-4 col-md-4">
+
+                        <b> Controls </b>
+
+                        </div>
+                        <div class="col-xs-4 col-md-4 col-md-4">
+
+                            <b> Data Scaling </b>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4 col-md-4"></div>
+                        <div class="col-xs-4 col-md-4 col-md-4">
+
+                            <div class="input-group">
+                                <span class="input-group-addon"> Tile Size: </span>
+                                <input type="text" class="form-control" placeholder="meters" id="tileSize">
+                            </div>
+
+                        </div>
+                        <div class="col-xs-4 col-md-4 col-md-4">
+
+                            <label>
+                                <input type="radio" name="scale" value="relative"  checked> Relative
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4 col-md-4"></div>
+                        <div class="col-xs-4 col-md-4 col-md-4">
+
+                            <div class="input-group">
+                                <span class="input-group-addon"> Outline Opacity:</span>
+                                <input type="text" class="form-control" placeholder="%" id="outlineOpacity">
+                            </div>
+
+                        </div>
+                        <div class="col-xs-4 col-md-4 col-md-4">
+
+                            <label>
+                                <input type="radio" name="scale" value="absolute"> Absolute
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4 col-md-4"></div>
+                        <div class="col-xs-4 col-md-4 col-md-4">
+
+                            <div class="input-group">
+                                <span class="input-group-addon"> Tile  Opacity: </span>
+                                <input type="text" class="form-control" placeholder="%" id="tileOpacity">
+                            </div>
+
+                        </div>
+                        <div class="col-xs-4 col-md-4 col-md-4"></div>
+                    </div>
+
                 </div>
 
             </div>
-
         </div>
+
     </div>
 </div>
 
@@ -254,28 +300,145 @@
         <div class="panel-body">
 
             <label>
-                <input type="checkbox" name="mode" value="POINT_VIS"> Show/Hide
+                <input type="checkbox" name="mode" id="pointvis" value="POINT_VIS"> Show/Hide
             </label>
 
-            <label>
-                <input type="checkbox" name="labels"> Show/Hide Labels
-            </label>
+            <div id="pointvisOptions">
 
 
-            <label>
-                <input type="radio" name="pointsValue" value="noise" checked> Noise
-            </label>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4"><b>Variables</b></div>
+                        <div class="col-xs-4 col-md-4"><b>Radius Size</b></div>
+                        <div class="col-xs-4 col-md-4"><b>Color</b></div>
+                    </div>
 
-            <label>
-                <input type="radio" name="pointsValue" value="co"> CO
-            </label>
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4">
 
-            <label>
-                <input type="radio" name="pointsValue" value="no2"> NO2
-            </label>
+                            <label>
+                                <input type="checkbox" name="pointsValue" value="noise"> Noise
+                            </label> (1)
 
-            description
+                        </div>
+                        <div class="col-xs-4 col-md-4">
 
+                            <label>
+                                <input type="radio" name="pvRadius" value="1" checked> x1
+                            </label>
+
+                        </div>
+                        <div class="col-xs-4 col-md-4">
+
+                            <label>
+                                <input type="radio" name="noiseColor" value="blue" checked>
+                            </label>
+                            <label>
+                                <input type="radio" name="coColor" value="blue">
+                            </label>
+                            <label>
+                                <input type="radio" name="no2Color" value="blue"> <button type="button" class="btn btn-primary"></button>
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4">
+
+                            <label>
+                                <input type="checkbox" name="pointsValue" value="co"> CO
+                            </label> (2)
+
+                        </div>
+                        <div class="col-xs-4 col-md-4">
+
+                            <label>
+                                <input type="radio" name="pvRadius" value="2"> x2
+                            </label>
+
+                        </div>
+                        <div class="col-xs-4 col-md-4">
+
+                            <label>
+                                <input type="radio" name="noiseColor" value="green" >
+                            </label>
+                            <label>
+                                <input type="radio" name="coColor" value="green" checked>
+                            </label>
+                            <label>
+                                <input type="radio" name="no2Color" value="green"> <button type="button" class="btn btn-success"></button>
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4">
+
+
+                            <label>
+                                <input type="checkbox" name="pointsValue" value="no2"> NO2
+                            </label> (3)
+
+                        </div>
+                        <div class="col-xs-4 col-md-4">
+
+                            <label>
+                                <input type="radio" name="pvRadius" value="4"> x4
+                            </label>
+
+                        </div>
+                        <div class="col-xs-4 col-md-4">
+
+                            <label>
+                                <input type="radio" name="noiseColor" value="red">
+                            </label>
+                            <label>
+                                <input type="radio" name="coColor" value="red">
+                            </label>
+                            <label>
+                                <input type="radio" name="no2Color" value="red" checked> <button type="button" class="btn btn-danger"></button>
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4">a</div>
+                        <div class="col-xs-4 col-md-4">
+
+                            <label>
+                                <input type="radio" name="pvRadius" value="10"> x10
+                            </label>
+
+                        </div>
+                        <div class="col-xs-4 col-md-4">
+
+                            <label>
+                                <input type="radio" name="noiseColor" value="orange">
+                            </label>
+                            <label>
+                                <input type="radio" name="coColor" value="orange">
+                            </label>
+                            <label>
+                                <input type="radio" name="no2Color" value="orange"> <button type="button" class="btn btn-warning"></button>
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4"></div>
+                        <div class="col-xs-4 col-md-4"></div>
+                        <div class="col-xs-4 col-md-4">1&emsp;2&emsp;3</div>
+                    </div>
+
+</div>
+
+                description
+
+            </div>
         </div>
     </div>
 </div>

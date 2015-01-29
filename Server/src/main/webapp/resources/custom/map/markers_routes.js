@@ -81,7 +81,7 @@ function generateMarker(dataReading, visible, map) {
         visible: true
     });
 
-    var styledContent = generatePopUpContent(noise, co, no2, battery, 0, null);
+    var styledContent = generatePopUpContent(noise, co, no2, battery, 0, null, null, null, null, null);
 
     addPopUp(marker, styledContent, mouseover);
 
@@ -97,7 +97,7 @@ function generateMarker(dataReading, visible, map) {
  - <=0 = grid tile
  - >0 = route
  */
-function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, routeDuration, score, id) {
+function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, routeDuration, score, id, dataCount) {
     var content;
     var valueType = "(avg)";
     var overall = "";
@@ -107,6 +107,7 @@ function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, 
     }
     else if (typeData < 0) {
         content = "<b>Grid Index: </b>" + (typeData * (-1)) + "<br>";
+        content += "Aggregated Data Count: " + dataCount + "<br>";
     }
     else if (typeData == 0) {
         valueType = "";
@@ -143,7 +144,7 @@ function generateRoute(newRoute, noiseAVG, coAVG, no2AVG, distance, duration, sc
 
     var dataPoints = newRoute.length;
     var routeDATA = {"route": route, "noiseAVG": noiseAVG, "coAVG": coAVG, "no2AVG": no2AVG};
-    var styledContent = generatePopUpContent(noiseAVG, coAVG, no2AVG, null, dataPoints, distance, duration, score, id);
+    var styledContent = generatePopUpContent(noiseAVG, coAVG, no2AVG, null, dataPoints, distance, duration, score, id, null);
 
     google.maps.event.addListener(route, click, function (event) {
         if (disableRouteInfoWindow) {
@@ -154,10 +155,10 @@ function generateRoute(newRoute, noiseAVG, coAVG, no2AVG, distance, duration, sc
         infowindow.open(map);
     });
     google.maps.event.addListener(route, mouseover, function (event) {
-        this.set("strokeWeight", 15);
+        this.set("strokeWeight", this.get("strokeWeight") + 5);
     });
     google.maps.event.addListener(route, mouseout, function () {
-        this.set("strokeWeight", 10);
+        this.set("strokeWeight", this.get("strokeWeight")-5);
     });
 
 

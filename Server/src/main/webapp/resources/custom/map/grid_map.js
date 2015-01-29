@@ -79,7 +79,7 @@ function bindWindow(rectangle, indexNumber) {
             return;
         }
         var i = indexNumber;
-        var content = generatePopUpContent(calculateAverage(GRID[i]["noiseAVG"]["sum"], GRID[i]["noiseAVG"]["count"]), calculateAverage(GRID[i]["coAVG"]["sum"], GRID[i]["coAVG"]["count"]), calculateAverage(GRID[i]["no2AVG"]["sum"], GRID[i]["no2AVG"]["count"]), 0, (-1 - i));
+        var content = generatePopUpContent(calculateAverage(GRID[i]["noiseAVG"]["sum"], GRID[i]["noiseAVG"]["count"]), calculateAverage(GRID[i]["coAVG"]["sum"], GRID[i]["coAVG"]["count"]), calculateAverage(GRID[i]["no2AVG"]["sum"], GRID[i]["no2AVG"]["count"]), 0, (-1 - i),null,null,null,null, GRID[i]["no2AVG"]["count"]);
         infowindow.setContent(content);
         infowindow.setPosition(event.latLng);
 
@@ -173,7 +173,6 @@ function toggleGrid(value) {
         var outlineOpacity = parseInt($("#outlineOpacity").val()) / 100;
         var tileOpacity = parseInt($("#tileOpacity").val()) / 100;
         var colorGradient = $('input[name=gradient]:checked').val();
-        var scale = $('input[name=scale]:checked').val();
         var normal = (scale == "absolute");
         var outlineVis = 0;
         var fillVis = 0.35;

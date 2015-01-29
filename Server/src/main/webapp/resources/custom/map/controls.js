@@ -12,13 +12,13 @@ function toggleHeatMap(value) {
         var radius = parseInt($("#radiusHeat").val());
         var opacity = parseInt($("#opacityHeat").val()) / 100;
 
-        if (opacity != null && (opacity > 0 && opacity <= 1)) {
+        if (opacity !== "" && (opacity > 0 && opacity <= 1)) {
             HEAT_MAP.set('opacity', opacity);
         }
         else {
             HEAT_MAP.set('opacity', 0.5);
         }
-        if (radius > 0) {
+        if (radius!== "" && radius > 0) {
             HEAT_MAP.set('radius', radius);
         }
         else {
@@ -42,19 +42,48 @@ function toggleMarkers(value) {
 function toggleRoutes(value) {
 
     disableRouteInfoWindow = $('input[name=infoDisplayRoute]:checked').val();
-
     ROUTE_DATA.forEach(function (entry) {
         entry["route"].set("visible", value);
     });
+
+
+    if(value){
+        var thickness = parseInt($("#thicknessRoutes").val());
+        var opacity = parseInt($("#opacityRoutes").val()) / 100;
+        ROUTE_DATA.forEach(function (entry) {
+            if(thickness !== NaN && thickness >0){
+                entry["route"].set("strokeWeight", thickness);
+            }
+            if(opacity !== NaN && (opacity>0 && opacity <=1)){
+                entry["route"].set("strokeOpacity", opacity);
+            }
+        });
+
+    }
+
 }
 
 function togglePointVis(value) {
 
-    var variable = $('input[name=pointsValue]:checked').val();
+    //var variable = $('input[name=pointsValue]:checked').val();
+    var radiusSize = parseInt($('input[name=pvRadius]:checked').val());
+    var color;
+    var variable;
 
     POINT_VISUALIZATION.forEach(function (entry) {
-        entry["circle"].set("visible", value);
-        entry["circle"].set("radius", entry[variable]);
-        entry["circle"].set("fillOpacity", entry[variable] / 10);
+
+        $('input[name=pointsValue]:checked').each(function() {
+            variable = $(this).val();
+            color = $('input[name=' + variable +'Color]:checked').val();
+            //alert(color);
+            entry[variable + "Circle"].set("visible", value);
+            entry[variable + "Circle"].set("radius", entry[variable]*radiusSize);
+            entry[variable + "Circle"].set("fillOpacity", entry[variable] / 10);
+            entry[variable + "Circle"].set("fillColor" , color);
+        });
+        $('input[name=pointsValue]:not(:checked)').each(function() {
+            variable = $(this).val();
+            entry[variable + "Circle"].set("visible", false);
+        });
     });
 }

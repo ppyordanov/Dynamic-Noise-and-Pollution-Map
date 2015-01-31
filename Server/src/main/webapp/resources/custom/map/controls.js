@@ -66,7 +66,7 @@ function toggleRoutes(value) {
 function togglePointVis(value) {
 
     //var variable = $('input[name=pointsValue]:checked').val();
-    var radiusSize = parseInt($('input[name=pvRadius]:checked').val());
+    var radiusSize;
     var color;
     var variable;
 
@@ -75,6 +75,7 @@ function togglePointVis(value) {
         $('input[name=pointsValue]:checked').each(function() {
             variable = $(this).val();
             color = $('input[name=' + variable +'Color]:checked').val();
+            radiusSize = parseInt($('input[name='+ variable + 'Radius]:checked').val());
             //alert(color);
             entry[variable + "Circle"].set("visible", value);
             entry[variable + "Circle"].set("radius", entry[variable]*radiusSize);

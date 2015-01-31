@@ -122,94 +122,151 @@ var style3 = [
 
 //CLEAN CLASSIC
 var style4 = [
-    {"featureType": "administrative", "stylers": [
-        {"visibility": "off"}
-    ]},
-    {"featureType": "poi", "stylers": [
-        {"visibility": "simplified"}
-    ]},
-    {"featureType": "road", "elementType": "labels", "stylers": [
-        {"visibility": "simplified"}
-    ]},
-    {"featureType": "water", "stylers": [
-        {"visibility": "simplified"}
-    ]},
-    {"featureType": "transit", "stylers": [
-        {"visibility": "simplified"}
-    ]},
-    {"featureType": "landscape", "stylers": [
-        {"visibility": "simplified"}
-    ]},
-    {"featureType": "road.highway", "stylers": [
-        {"visibility": "off"}
-    ]},
-    {"featureType": "road.local", "stylers": [
-        {"visibility": "on"}
-    ]},
-    {"featureType": "road.highway", "elementType": "geometry", "stylers": [
-        {"visibility": "on"}
-    ]},
-    {"featureType": "water", "stylers": [
-        {"color": "#84afa3"},
-        {"lightness": 50}
-    ]},
-    {"stylers": [
-        {"saturation": -17},
-        {"gamma": 0.36}
-    ]},
-    {"featureType": "transit.line", "elementType": "geometry", "stylers": [
-        {"color": "#3f518c"}
-    ]}
-];
-
-//ROADS
-var style5 = [
-    {"elementType": "labels.text", "stylers": [
-        {"visibility": "off"}
-    ]},
-    {"elementType": "labels.icon", "stylers": [
-        {"visibility": "off"}
-    ]},
-    {"elementType": "geometry.stroke", "stylers": [
-        {"visibility": "off"}
-    ]},
-    {"featureType": "water", "elementType": "geometry.fill", "stylers": [
-        {"color": "#0099cc"}
-    ]},
-    {"featureType": "road", "elementType": "geometry.fill", "stylers": [
-        {"color": "#00314e"}
-    ]},
-    {"featureType": "transit.line", "elementType": "geometry.fill", "stylers": [
-        {"visibility": "on"},
-        {"color": "#f0f0f0"}
-    ]},
-    {"featureType": "landscape.man_made", "stylers": [
-        {"color": "#adbac9"}
-    ]},
-    {"featureType": "landscape.natural", "stylers": [
-        {"color": "#adb866"}
-    ]},
-    {"featureType": "poi", "stylers": [
-        {"color": "#f7c742"}
-    ]},
-    {"featureType": "poi.park", "stylers": [
-        {"color": "#adb866"}
-    ]},
-    {"featureType": "transit.station", "elementType": "geometry.fill", "stylers": [
-        {"color": "#ff8dd3"}
-    ]},
-    {"featureType": "transit.station", "stylers": [
-        {"color": "#ff8dd3"}
-    ]},
-    {"featureType": "transit.line", "elementType": "geometry.fill", "stylers": [
-        {"visibility": "on"},
-        {"color": "#808080"}
-    ]},
     {
-        featureType: "road",
-        elementType: "labels",
-        stylers: [
-            { visibility: "on" }
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#ffffff"
+            },
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#ffffff"
+            },
+            {
+                "saturation": -100
+            },
+            {
+                "gamma": -100
+            },
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "hue": "#000000"
+            },
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": -100
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "hue": "#ffffff"
+            },
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#ffffff"
+            },
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#ffffff"
+            },
+            {
+                "saturation": 0
+            },
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "hue": "#000000"
+            },
+            {
+                "saturation": 0
+            },
+            {
+                "lightness": -100
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "hue": "#ffffff"
+            },
+            {
+                "saturation": 0
+            },
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "off"
+            }
         ]
     }
 ];
@@ -221,8 +278,7 @@ var styledMap0 = new google.maps.StyledMapType(style0, {name: "Styled Map 1"});
 var styledMap1 = new google.maps.StyledMapType(style1, {name: "Styled Map 2"});
 var styledMap2 = new google.maps.StyledMapType(style2, {name: "Styled Map 3"});
 var styledMap3 = new google.maps.StyledMapType(style3, {name: "Styled Map 4"});
-var styledMap4 = new google.maps.StyledMapType(style4, {name: "Styled Map 5"});
-var styledMap5 = new google.maps.StyledMapType(style5, {name: "Styled Map 6"});
-var styledMap6 = google.maps.MapTypeId.SATELLITE;
+var styledMap4 = new google.maps.StyledMapType(style4, {name: "Styled Map 6"});
+var styledMap5 = google.maps.MapTypeId.SATELLITE;
 
-var styles = [styledMap0, styledMap1, styledMap2, styledMap3, styledMap4, styledMap5, styledMap6];
+var styles = [styledMap0, styledMap1, styledMap2, styledMap3, styledMap4, styledMap5];

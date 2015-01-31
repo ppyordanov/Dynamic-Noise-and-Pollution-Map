@@ -66,14 +66,16 @@ var absoluteMaxNO2 = 150;
 var absoluteMaxRouteDistance = 1500; //1.5km
 var absoluteMaxRouteDuration = 15*60;//duration in seconds, 15 minutes
 
-var noiseMultiplier = 1;
-var coMultiplier = 1;
-var no2Multiplier = 2;
-var routeDistanceMultiplier = 0.001;
-var routeDurationMultiplier = 0.001;
+var noiseMultiplier = 0.20; //20% weight
+var coMultiplier = 0.20; //20% weight
+var no2Multiplier = 0.58; //58% weight
+var routeDistanceMultiplier = 0.01; //1% weight
+var routeDurationMultiplier = 0.01; //1% weight
 
 var maximumOverallPollutionIndex = absoluteMaxNoise * noiseMultiplier + absoluteMaxCO * coMultiplier +
     absoluteMaxNO2 * no2Multiplier + absoluteMaxRouteDistance * routeDistanceMultiplier + absoluteMaxRouteDuration * routeDurationMultiplier;
+
+var baseWalkingTimePerMeter = 0.775; //seconds
 
 var id;
 var noise;

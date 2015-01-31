@@ -4,9 +4,9 @@ function setStyles() {
     map.mapTypes.set('GRAYSCALE_DEFAULT', styledMap1);
     map.mapTypes.set('BLUE_HUE', styledMap2);
     map.mapTypes.set('DARK_BLUE', styledMap3);
-    map.mapTypes.set('CLEAN_CLASSIC', styledMap4);
-    map.mapTypes.set('ROADS', styledMap5);
+    map.mapTypes.set('ROADS', styledMap4);
     map.setMapTypeId('GRAYSCALE_DEFAULT');
+
 
 }
 
@@ -95,7 +95,6 @@ function init_map() {
             minRangeNoise = ui.values[0];
             maxRangeNoise = ui.values[1];
             renderData();
-            alert(locationARR.length);
         }
     });
 
@@ -117,7 +116,6 @@ function init_map() {
             minRangeCO = ui.values[0];
             maxRangeCO = ui.values[1];
             renderData();
-            alert(locationARR.length);
         }
     });
 
@@ -138,7 +136,6 @@ function init_map() {
             minRangeNO2 = ui.values[0];
             maxRangeNO2 = ui.values[1];
             renderData();
-            alert(locationARR.length);
         }
     });
 
@@ -173,14 +170,19 @@ function renderData() {
             (pDataEntry["co"] >= minRangeCO && pDataEntry["co"] <= maxRangeCO) &&
             (pDataEntry["no2"] >= minRangeNO2 && pDataEntry["no2"] <= maxRangeNO2)) {
             pDataEntry["marker"].set("map", map);
-            pVisEntry["circle"].set("map", map);
+            pVisEntry["noiseCircle"].set("map", map);
+            pVisEntry["no2Circle"].set("map", map);
+            pVisEntry["coCircle"].set("map", map);
             locationARR.push(pDataEntry["marker"].getPosition());
         }
         else {
             pDataEntry["marker"].set("map", null);
-            pVisEntry["circle"].set("map", null);
+            pVisEntry["noiseCircle"].set("map", null);
+            pVisEntry["no2Circle"].set("map", null);
+            pVisEntry["coCircle"].set("map", null);
         }
     }
+    $('.locARR').html("(" + locationARR.length + " data readings)");
 
     /*
      POINT_DATA.forEach(function (entry) {

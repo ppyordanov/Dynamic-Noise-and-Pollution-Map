@@ -45,6 +45,13 @@ html, body {
     white-space: nowrap;
 }
 
+.locARR{
+    display:inline;
+    font-size: 10px;
+    font-style: italic;
+    float:right;
+}
+
 .navbar-default {
     margin-bottom: 0;
 }
@@ -69,4 +76,8 @@ html, body {
 
 .right{
     float:right;
+}
+
+#UI li{
+    padding-left: 30px !important;
 }

@@ -35,7 +35,7 @@
                                 <div class="panel-body">
 
                                      <span>
-                                     Noise (dB)
+                                     Noise (dB) <div class="locARR"></div>
                                     <div id="noise" class="slider"></div>
                                     </span>
 
@@ -57,7 +57,7 @@
                                 <div class="panel-body">
 
                                     <span>
-                                        CO (ppm)
+                                        CO (ppm) <div class="locARR"></div>
                                         <div id="co" class="slider"></div>
                                     </span>
 
@@ -79,7 +79,7 @@
                                 <div class="panel-body">
 
                                     <span>
-                                        NO2 (ppm)
+                                        NO2 (ppm) <div class="locARR"></div>
                                         <div id="no2" class="slider"></div>
                                     </span>
 

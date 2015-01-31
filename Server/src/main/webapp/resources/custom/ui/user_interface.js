@@ -15,30 +15,38 @@ $(document).ready(function () {
         $(".navbar-toggle").click();
     });
 
-    /*
+
      $('#style0').click(function () {
      map.setMapTypeId('CLASSIC');
      });
-     $('#style1').click(function () {
+    $('#style1').click(function () {
+        map.setMapTypeId(styledMap5);
+    });
+     $('#style2').click(function () {
      map.setMapTypeId('GRAYSCALE_DEFAULT');
      });
-     $('#style2').click(function () {
+     $('#style3').click(function () {
      map.setMapTypeId('BLUE_HUE');
      });
-     $('#style3').click(function () {
-     map.setMapTypeId('DARK_BLUE');
-     });
      $('#style4').click(function () {
-     map.setMapTypeId('CLEAN_CLASSIC');
+     map.setMapTypeId('DARK_BLUE');
      });
      $('#style5').click(function () {
      map.setMapTypeId('ROADS');
      });
-     $('#style6').click(function () {
-     map.setMapTypeId(styledMap6);
-     });
 
-     */
+    $('#styleDropdown .dropdown-menu').on({
+        "click":function(e){
+            e.stopPropagation();
+        }
+    });
+    $('#uiDropdown .dropdown-menu').on({
+        "click":function(e){
+            e.stopPropagation();
+        }
+    });
+
+
 
     $('#accordionM').find('input[type=checkbox]:checked').removeAttr('checked');
 
@@ -68,7 +76,7 @@ $(document).ready(function () {
     $('#style_apply').click(function () {
         var selected = $("input:radio[name='style']:checked").val();
         if (selected == 'SATELLITE') {
-            map.setMapTypeId(styledMap6);
+            map.setMapTypeId(styledMap5);
         }
         else {
             map.setMapTypeId(selected);
@@ -86,7 +94,36 @@ $(document).ready(function () {
     });
 
 
+    $("#UI").click(function () {
+        toggleMapControls()
+    });
+
+    $("#endisUI").click(function () {
+        var value = (this.checked ? true : false);
+        if(value){
+            $('#UI').find('input[type=checkbox]').prop("checked", true);
+        }
+        else{
+            $('#UI').find('input[type=checkbox]:checked').removeAttr('checked');
+        }
+        toggleMapControls();
+    });
+
 });
+
+
+//update values;
+//toggleMapControls();
+
+function toggleMapControls(){
+
+    $("input[name*='styleOpts']").each(function() {
+        var value = (this.checked ? true : false);
+        var type = $(this).attr("value");
+        map.set(type, value);
+    });
+
+}
 
 
 function retrieveModes() {

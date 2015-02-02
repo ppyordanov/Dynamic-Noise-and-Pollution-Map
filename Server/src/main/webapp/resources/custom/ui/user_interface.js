@@ -16,36 +16,35 @@ $(document).ready(function () {
     });
 
 
-     $('#style0').click(function () {
-     map.setMapTypeId('CLASSIC');
-     });
+    $('#style0').click(function () {
+        map.setMapTypeId('CLASSIC');
+    });
     $('#style1').click(function () {
         map.setMapTypeId(styledMap5);
     });
-     $('#style2').click(function () {
-     map.setMapTypeId('GRAYSCALE_DEFAULT');
-     });
-     $('#style3').click(function () {
-     map.setMapTypeId('BLUE_HUE');
-     });
-     $('#style4').click(function () {
-     map.setMapTypeId('DARK_BLUE');
-     });
-     $('#style5').click(function () {
-     map.setMapTypeId('ROADS');
-     });
+    $('#style2').click(function () {
+        map.setMapTypeId('GRAYSCALE_DEFAULT');
+    });
+    $('#style3').click(function () {
+        map.setMapTypeId('BLUE_HUE');
+    });
+    $('#style4').click(function () {
+        map.setMapTypeId('DARK_BLUE');
+    });
+    $('#style5').click(function () {
+        map.setMapTypeId('ROADS');
+    });
 
     $('#styleDropdown .dropdown-menu').on({
-        "click":function(e){
+        "click": function (e) {
             e.stopPropagation();
         }
     });
     $('#uiDropdown .dropdown-menu').on({
-        "click":function(e){
+        "click": function (e) {
             e.stopPropagation();
         }
     });
-
 
 
     $('#accordionM').find('input[type=checkbox]:checked').removeAttr('checked');
@@ -57,7 +56,7 @@ $(document).ready(function () {
     $("#routesOptions :input").attr("disabled", true);
 
     $('#grid').on('click', function () {
-            $("#gridOptions :input").attr("disabled", !$('#grid').is(':checked'));
+        $("#gridOptions :input").attr("disabled", !$('#grid').is(':checked'));
     });
     $('#markers').on('click', function () {
         $("#markersOptions :input").attr("disabled", !$('#markers').is(':checked'));
@@ -100,10 +99,10 @@ $(document).ready(function () {
 
     $("#endisUI").click(function () {
         var value = (this.checked ? true : false);
-        if(value){
+        if (value) {
             $('#UI').find('input[type=checkbox]').prop("checked", true);
         }
-        else{
+        else {
             $('#UI').find('input[type=checkbox]:checked').removeAttr('checked');
         }
         toggleMapControls();
@@ -115,9 +114,9 @@ $(document).ready(function () {
 //update values;
 //toggleMapControls();
 
-function toggleMapControls(){
+function toggleMapControls() {
 
-    $("input[name*='styleOpts']").each(function() {
+    $("input[name*='styleOpts']").each(function () {
         var value = (this.checked ? true : false);
         var type = $(this).attr("value");
         map.set(type, value);

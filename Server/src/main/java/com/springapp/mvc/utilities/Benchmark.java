@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -171,7 +172,7 @@ public class Benchmark {
     public String insertSingleBenchmark() {
 
         startTime = System.currentTimeMillis();
-        deviceRepository.save(new Device("horse", "horse", "horse", "horse"));
+        deviceRepository.save(new Device("horse", "horse", "horse", "horse", "horse", new Date()));
         endTime = System.currentTimeMillis();
         executionTimeResult = taskDuration(startTime, endTime);
 

@@ -11,7 +11,6 @@ var places = [
     {label: "Stevenson Building", loc: [55.872863, -4.285314]},
     {label: "University Library", loc: [55.873257, -4.288472]},
     {label: "Main Building", loc: [55.871948, -4.288302]},
-    {label: "University Library", loc: [55.873257, -4.288472]},
     {label: "Kelvin Building", loc: [55.871809, -4.291616]},
     {label: "Sir Alexander Stone Building", loc: [55.873539, -4.290988]},
     {label: "Hunterian Art Gallery", loc: [55.873022, -4.288998]},
@@ -51,37 +50,58 @@ $(document).ready(function () {
 
     places.sort(compareFieldValue);
 
+    /*
+    var streetViewOptions = {
+        position: new google.maps.LatLng(55.873701, -4.291456),
+        pov: {
+            heading: 34,
+            pitch: 10
+        },
+        linksControl: false,
+        panControl: false,
+        disableDefaultUI: true
+    };
+
+    var map2 = new google.maps.Map(
+        document.getElementById("pano"),
+        {position: new google.maps.LatLng(55.873701, -4.291456)});
+    //streetViewOptions.position = new google.maps.LatLng(55.873701, -4.291456);
+    var sViewSetup = new google.maps.StreetViewPanorama(document.getElementById('pano'), streetViewOptions);
+    map2.setStreetView(sViewSetup);
+    */
+    var sViewImage;
     places.forEach(function (entry) {
 
-
-                content = "<b>Latitude:</b> " + entry.loc[0] + "<br>" + "<b>Longitude:</b>" + entry.loc[1];
-                content += "<button type='button' class='btn btn-primary right' onclick='panAndZoom(" + entry.loc[0] + "," + entry.loc[1] + ");' data-dismiss='modal'>View</button>";
-                locationsContent +=
-                "<div class='panel panel-default'><div class='panel-heading' role='tab' id='heading" + index + "'>" +
-                "<h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordionL' href='#collapse" + index + "' aria-expanded='false' aria-controls='collapse" + index + "'>" + entry.label + "  </a></h4></div>" +
+            sViewImage = "<img class='streetViewImage' src='https://maps.googleapis.com/maps/api/streetview?size=200x120&location=" + entry.loc[0] + "," + entry.loc[1] + "&heading=34&pitch=10&fov=120'>";
+            content = "<div class='row'><div class='col-xs-6 col-md-6'>" + sViewImage + "</div>";
+            content += "<div class='col-xs-6 col-md-6'></div><b>Latitude:</b> " + entry.loc[0] + "<br>" + "<b>Longitude:</b>" + entry.loc[1];
+            content += "<br><button type='button' class='btn btn-primary left' onclick='panAndZoom(" + entry.loc[0] + "," + entry.loc[1] + ");' data-dismiss='modal'>View</button>";
+            content += "</div>";
+            //content +="<div class='sView' id='sView" + index + "'></div>";
+            locationsContent+=
+                "<div class='panel panel-primary'><div class='panel-heading' role='tab' id='heading" + index + "'>" +
+                "<h4 class='panel-title'><a class='collapsed' data-toggle='collapse' data-parent='#accordionL' href='#collapse" + index + "' aria-expanded='false' aria-controls='collapse" + index + "'>" + entry.label + "  </a></h4></div>" +
                 " <div id='collapse" + index + "' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading" + index + "'>" +
                 " <div class='panel-body'>" + content + "</div></div></div>";
 
             index++;
+
+            /*
+            var process= $( content).find('div');
+            process.appendTo("#time");
+            var map = new google.maps.Map(process);
+            streetViewOptions.position = new google.maps.LatLng(entry.loc[0], entry.loc[1]);
+            var sViewSetup = new google.maps.StreetViewPanorama(process, streetViewOptions);
+            map.setStreetView(sViewSetup);
+            */
+
         }
     );
     locationsContent += "</div>";
     $('#locationsAccordion').html(locationsContent);
 
-    $('#view').on('click', function () {});
+
+    $('#view').on('click', function () {
+    });
 
 });
-
-function panAndZoom(latitude, longitude){
-    var center = new google.maps.LatLng(latitude,longitude);
-    map.panTo(center);
-    map.setZoom(18);
-}
-
-function compareFieldValue(a,b) {
-    if (a.label < b.label)
-        return -1;
-    if (a.label > b.label)
-        return 1;
-    return 0;
-}

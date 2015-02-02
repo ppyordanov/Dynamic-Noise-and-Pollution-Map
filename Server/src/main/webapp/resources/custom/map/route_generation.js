@@ -66,12 +66,12 @@ $(document).ready(function () {
 function identifyBestRoute() {
     var lowestScore = Number.MAX_SAFE_INTEGER;
     USER_ROUTE_DATA.forEach(function (entry) {
-        if (entry.score!== null && entry.score < lowestScore) {
+        if (entry.score !== null && entry.score < lowestScore) {
             lowestScore = entry.score;
         }
     });
     USER_ROUTE_DATA.forEach(function (entry) {
-        if (entry.score!== null && entry.score == lowestScore) {
+        if (entry.score !== null && entry.score == lowestScore) {
             //#7FE817
             entry.data.route.set("strokeColor", "#4caf50");
             //entry.data.route.set("strokeOpacity", 0.7);
@@ -148,12 +148,12 @@ function generateUserRoutes() {
 
                 //variable weights can be changed
                 var score = noiseAVG * noiseMultiplier + coAVG * coMultiplier + no2AVG * no2Multiplier + routeDistance * routeDistanceMultiplier + routeDuration * routeDurationMultiplier;
-                var routeDATA = generateRoute(route, noiseAVG, coAVG, no2AVG, routeDistance, timeFormatted, score, i+1);
+                var routeDATA = generateRoute(route, noiseAVG, coAVG, no2AVG, routeDistance, timeFormatted, score, i + 1);
 
                 USER_ROUTE_DATA.push({"data": routeDATA, "score": score});
             }
 
-            generateRouteMarkers(sp_Name,dp_Name,route);
+            generateRouteMarkers(sp_Name, dp_Name, route);
             //2 elements for route markers
             if (USER_ROUTE_DATA.length > 3) {
                 identifyBestRoute();

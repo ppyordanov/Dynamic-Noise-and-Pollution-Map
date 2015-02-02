@@ -20,12 +20,12 @@
 
 <!-- ACCORDION -->
 <div class="panel-group" id="accordionM" role="tablist" aria-multiselectable="true">
-<div class="panel panel-default">
+<div class="panel panel-primary">
     <div class="panel-heading" role="tab" id="headingOneM">
         <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordionM" href="#collapseOneM"
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordionM" href="#collapseOneM"
                aria-expanded="true" aria-controls="collapseOneM">
-                Markers
+                Data Points
             </a>
         </h4>
     </div>
@@ -41,22 +41,26 @@
                 <label>
                     <input type="checkbox" name="infoDisplayMarker"> Disable Information
                 </label>
+
                 <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                into
-                electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                release of
-                Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-                Aldus PageMaker including versions of Lorem Ipsum.
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and
+                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                    leap
+                    into
+                    electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
+                    release of
+                    Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+                    like
+                    Aldus PageMaker including versions of Lorem Ipsum.
                 </p>
             </div>
         </div>
     </div>
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
     <div class="panel-heading" role="tab" id="headingTwoM">
         <h4 class="panel-title">
             <a class="collapsed" data-toggle="collapse" data-parent="#accordionM"
@@ -80,21 +84,26 @@
 
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">Thickness:</span>
-                    <input type="text" class="form-control" id="thicknessRoutes" placeholder="px" aria-describedby="sizing-addon3">
+                    <input type="text" class="form-control" id="thicknessRoutes" placeholder="px"
+                           aria-describedby="sizing-addon3">
                 </div>
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">Opacity:&emsp;</span>
-                    <input type="text" class="form-control" id="opacityRoutes" placeholder="%" aria-describedby="sizing-addon3">
+                    <input type="text" class="form-control" id="opacityRoutes" placeholder="%"
+                           aria-describedby="sizing-addon3">
                 </div>
 
                 <p>
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and
+                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                    leap
                     into
                     electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
                     release of
-                    Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+                    Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+                    like
                     Aldus PageMaker including versions of Lorem Ipsum.
                 </p>
 
@@ -104,7 +113,7 @@
     </div>
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
     <div class="panel-heading" role="tab" id="headingThreeM">
         <h4 class="panel-title">
             <a class="collapsed" data-toggle="collapse" data-parent="#accordionM"
@@ -135,12 +144,15 @@
 
                 <p>
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and
+                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                    leap
                     into
                     electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
                     release of
-                    Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+                    Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+                    like
                     Aldus PageMaker including versions of Lorem Ipsum.
                 </p>
 
@@ -149,7 +161,7 @@
     </div>
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
     <div class="panel-heading" role="tab" id="headingFourM">
         <h4 class="panel-title">
             <a class="collapsed" data-toggle="collapse" data-parent="#accordionM"
@@ -196,7 +208,7 @@
                         <div class="col-xs-4 col-md-4 col-md-4">
 
                             <label>
-                                <input type="radio" name="gradient" value="hsl"  checked> HSL
+                                <input type="radio" name="gradient" value="hsl" checked> HSL
                             </label>(cleaner)
 
                         </div>
@@ -213,14 +225,14 @@
                         <div class="col-xs-4 col-md-4 col-md-4">
 
                             <label>
-                                <input type="checkbox" name="outline" > Outline
+                                <input type="checkbox" name="outline"> Outline
                             </label>(Show/Hide)
 
                         </div>
                         <div class="col-xs-4 col-md-4 col-md-4">
 
                             <label>
-                                <input type="radio" name="gradient" value="rgb" > RGB
+                                <input type="radio" name="gradient" value="rgb"> RGB
                             </label>
 
                         </div>
@@ -230,13 +242,13 @@
                         <div class="col-xs-4 col-md-4 col-md-4">
 
                             <label>
-                                <input type="radio" name="gridValue" value="no2AVG" > NO2
+                                <input type="radio" name="gridValue" value="no2AVG"> NO2
                             </label>
 
                         </div>
                         <div class="col-xs-4 col-md-4 col-md-4">
 
-                        <b> Controls </b>
+                            <b> Controls </b>
 
                         </div>
                         <div class="col-xs-4 col-md-4 col-md-4">
@@ -247,11 +259,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-xs-4 col-md-4 col-md-4"></div>
+                        <div class="col-xs-4 col-md-4 col-md-4">Tile Size: </div>
                         <div class="col-xs-4 col-md-4 col-md-4">
 
                             <div class="input-group">
-                                <span class="input-group-addon"> Tile Size: </span>
                                 <input type="text" class="form-control" placeholder="meters" id="tileSize">
                             </div>
 
@@ -259,18 +270,17 @@
                         <div class="col-xs-4 col-md-4 col-md-4">
 
                             <label>
-                                <input type="radio" name="scale" value="relative"  checked> Relative
+                                <input type="radio" name="scale" value="relative" checked> Relative
                             </label>
 
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-xs-4 col-md-4 col-md-4"></div>
+                        <div class="col-xs-4 col-md-4 col-md-4">Outline Opacity: </div>
                         <div class="col-xs-4 col-md-4 col-md-4">
 
                             <div class="input-group">
-                                <span class="input-group-addon"> Outline Opacity:</span>
                                 <input type="text" class="form-control" placeholder="%" id="outlineOpacity">
                             </div>
 
@@ -285,11 +295,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-xs-4 col-md-4 col-md-4"></div>
+                        <div class="col-xs-4 col-md-4 col-md-4">Tile Opacity: </div>
                         <div class="col-xs-4 col-md-4 col-md-4">
 
                             <div class="input-group">
-                                <span class="input-group-addon"> Tile  Opacity: </span>
                                 <input type="text" class="form-control" placeholder="%" id="tileOpacity">
                             </div>
 
@@ -301,12 +310,15 @@
 
                 <p>
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and
+                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                    leap
                     into
                     electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
                     release of
-                    Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+                    Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+                    like
                     Aldus PageMaker including versions of Lorem Ipsum.
                 </p>
 
@@ -316,7 +328,7 @@
     </div>
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
     <div class="panel-heading" role="tab" id="headingFiveM">
         <h4 class="panel-title">
             <a class="collapsed" data-toggle="collapse" data-parent="#accordionM"
@@ -404,7 +416,7 @@
                         <div class="col-xs-4 col-md-4">
 
                             <label>
-                                <input type="radio" name="noiseColor" value="green" >
+                                <input type="radio" name="noiseColor" value="green">
                             </label>
                             <label>
                                 <input type="radio" name="coColor" value="green" checked>
@@ -493,16 +505,19 @@
                         <div class="col-xs-4 col-md-4">1&emsp;2&emsp;3</div>
                     </div>
 
-</div>
+                </div>
 
                 <p>
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and
+                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                    leap
                     into
                     electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
                     release of
-                    Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+                    Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+                    like
                     Aldus PageMaker including versions of Lorem Ipsum.
                 </p>
 

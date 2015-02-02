@@ -12,6 +12,8 @@
             </div>
             <div class="modal-body">
 
+                <!-- <div id="pano" class="sView"></div> -->
+
                 <p>
                     Browse university campus locations below:
                 </p>

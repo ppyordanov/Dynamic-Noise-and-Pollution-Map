@@ -39,7 +39,7 @@ function convertToRGB(n) {
 
 //RED-YELLOW-GREEN better gradient - hue,satuartion, lightness
 function convertToHSL(n) {
-    var H = (1 - n / 100) * 120 //scale between 0 and 120 degrees
+    var H = (1 - n / 100) * 120; //scale between 0 and 120 degrees
     var HSL = "hsl(" + H + ",100%,50%)";
     return HSL;
 }
@@ -75,3 +75,30 @@ for (var i = 1; i <= 100; i++) {
 }
 //var cols=["red","green","yellow","orange","gray"]
 console.log(cols);
+
+function compareFieldValue(a, b) {
+    if (a.label < b.label)
+        return -1;
+    if (a.label > b.label)
+        return 1;
+    return 0;
+}
+
+function panAndZoom(latitude, longitude) {
+    var center = new google.maps.LatLng(latitude, longitude);
+    map.panTo(center);
+    map.setZoom(18);
+}
+
+function formatDate(dateParam){
+    var months= ["January", "February", "March",
+        "April", "May", "June", "July", "August", "September",
+        "October", "November", "December"];
+
+    var date = dateParam.getDate();
+    var month = dateParam.getMonth();
+    var year = dateParam.getFullYear();
+    return date + "-" + months[month]
+        + "-" + year;
+
+}

@@ -65,6 +65,9 @@ function init_map() {
     populateMap();
     generateHeatMap();
 
+    generateDevicesContent();
+    generateUsersContent();
+
 
     //CONTROLS
 
@@ -140,6 +143,33 @@ function init_map() {
     });
 
 
+    var dayMS = 24*60*60*1000;
+    var timeBase=oldestTime.getTime()/dayMS;
+        //alert(oldestTime.getTime()/dayMS);
+    $("#timeRange").text("Time (days between " + formatDate(oldestTime) + " and " + formatDate(mostRecentTime) + ")");
+    $("#time").slider({
+        orientation: "horizontal",
+        range: true,
+        min: 0,
+        max: mostRecentTime.getTime()/dayMS-timeBase,
+        step: 1,
+        slide: function (event, ui) {
+            //$( "#co_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+            var v1 = ui.values[ 0 ];
+            var v2 = ui.values[ 1 ];
+            $("#time").find(".ui-slider-handle").eq(0).text(v1);
+            $("#time").find(".ui-slider-handle").eq(1).text(v2);
+        },
+        stop: function (event, ui) {
+            oldestTimeRange = new Date((parseInt(ui.values[0])+timeBase)*dayMS);
+            mostRecentTimeRange = new Date((parseInt(ui.values[1])+timeBase)*dayMS);
+            $("#timeRange").text("Time (days between " + formatDate(oldestTimeRange) + " and " + formatDate(mostRecentTimeRange) + ")");
+            //alert(oldestTimeRange);
+            renderData();
+        }
+    });
+
+
     $('#value_apply').click(function () {
 
         /*
@@ -168,7 +198,10 @@ function renderData() {
 
         if ((pDataEntry["noise"] >= minRangeNoise && pDataEntry["noise"] <= maxRangeNoise) &&
             (pDataEntry["co"] >= minRangeCO && pDataEntry["co"] <= maxRangeCO) &&
-            (pDataEntry["no2"] >= minRangeNO2 && pDataEntry["no2"] <= maxRangeNO2)) {
+            (pDataEntry["no2"] >= minRangeNO2 && pDataEntry["no2"] <= maxRangeNO2)
+            && (pDataEntry["time"] >= oldestTimeRange && pDataEntry["time"] <= mostRecentTimeRange)
+            ) {
+            alert(pDataEntry["marker"].getPosition());
             pDataEntry["marker"].set("map", map);
             pVisEntry["noiseCircle"].set("map", map);
             pVisEntry["no2Circle"].set("map", map);

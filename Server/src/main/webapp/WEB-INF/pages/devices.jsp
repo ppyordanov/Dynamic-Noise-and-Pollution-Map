@@ -16,6 +16,14 @@
                     Devices that have submitted data to the server are listed below:
                 </p>
 
+                <div id="devicesSCK"></div>
+
+                <h4 class="modal-title">Users</h4>
+
+                <p>Users who have transmitted data to the web application:</p>
+
+                <div id="usersSCK"></div>
+
 
             </div>
             <div class="modal-footer">

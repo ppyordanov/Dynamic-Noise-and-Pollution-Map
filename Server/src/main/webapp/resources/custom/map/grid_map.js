@@ -79,7 +79,7 @@ function bindWindow(rectangle, indexNumber) {
             return;
         }
         var i = indexNumber;
-        var content = generatePopUpContent(calculateAverage(GRID[i]["noiseAVG"]["sum"], GRID[i]["noiseAVG"]["count"]), calculateAverage(GRID[i]["coAVG"]["sum"], GRID[i]["coAVG"]["count"]), calculateAverage(GRID[i]["no2AVG"]["sum"], GRID[i]["no2AVG"]["count"]), 0, (-1 - i),null,null,null,null, GRID[i]["no2AVG"]["count"]);
+        var content = generatePopUpContent(calculateAverage(GRID[i]["noiseAVG"]["sum"], GRID[i]["noiseAVG"]["count"]), calculateAverage(GRID[i]["coAVG"]["sum"], GRID[i]["coAVG"]["count"]), calculateAverage(GRID[i]["no2AVG"]["sum"], GRID[i]["no2AVG"]["count"]), 0, (-1 - i), null, null, null, null, GRID[i]["no2AVG"]["count"]);
         infowindow.setContent(content);
         infowindow.setPosition(event.latLng);
 

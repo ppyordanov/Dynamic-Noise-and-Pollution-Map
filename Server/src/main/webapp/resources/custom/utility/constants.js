@@ -33,6 +33,11 @@ var locationARR = [];
 var USER_ROUTE_DATA = [];
 var infowindow = new google.maps.InfoWindow();
 
+var mostRecentTime = null;
+var oldestTime = null;
+var mostRecentTimeRange = new Date(2000,1,1);
+var oldestTimeRange = new Date();
+
 var maxNoise = null;
 var minNoise = null;
 var minRangeNoise = 0;
@@ -64,7 +69,7 @@ var absoluteMinNO2 = 0; //in ppm, parts per million
 var absoluteMaxNO2 = 150;
 
 var absoluteMaxRouteDistance = 1500; //1.5km
-var absoluteMaxRouteDuration = 15*60;//duration in seconds, 15 minutes
+var absoluteMaxRouteDuration = 15 * 60;//duration in seconds, 15 minutes
 
 var noiseMultiplier = 0.20; //20% weight
 var coMultiplier = 0.20; //20% weight
@@ -89,6 +94,8 @@ var position;
 
 var map;
 var image = '/resources/images/sck_logo4.png';
+var larger_image='/resources/images/user_device_scaled.png';
+var profile_image='/resources/images/profile2.png';
 var marker;
 var content;
 var styledContent;

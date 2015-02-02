@@ -1,8 +1,10 @@
 package com.springapp.mvc.models;
 
+import com.springapp.mvc.utilities.Constants;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
+import java.util.Date;
 
 /**
  * Created by Peter Yordanov on 19.10.2014 г..
@@ -16,7 +18,9 @@ public class Device {
     private String title;
     private String description;
     private String kitVersion;
-    private String macAddress;
+    private String location;
+    private Date created;
+    private String userId;
 
     //default constructor
     public Device() {
@@ -26,17 +30,21 @@ public class Device {
         this.title = null;
         this.description = null;
         this.kitVersion = null;
-        this.macAddress = null;
+        this.location = null;
+        this.userId= null;
+        this.created = null;
 
     }
 
     //parameterized constructor
-    public Device(String title, String description, String kitVersion, String macAddress) {
+    public Device(String title, String description, String kitVersion, String location, String userId, Date created) {
         this.id = null;
         this.title = title;
         this.description = description;
         this.kitVersion = kitVersion;
-        this.macAddress = macAddress;
+        this.location = location;
+        this.userId = userId;
+        this.created = created;
     }
 
     //copy constructor
@@ -45,15 +53,19 @@ public class Device {
         this.title = d.getTitle();
         this.description = d.getDescription();
         this.kitVersion = d.getKitVersion();
-        this.macAddress = d.getMacAddress();
+        this.location = d.getlocation();
+        this.userId = d.getUserId();
+        this.created = d.getCreated();
+
+
     }
 
-    public String getMacAddress() {
-        return macAddress;
+    public String getlocation() {
+        return location;
     }
 
-    public void setMacAddress(String macAddress) {
-        this.macAddress = macAddress;
+    public void setlocation(String location) {
+        this.location = location;
     }
 
     public String getKitVersion() {
@@ -88,18 +100,45 @@ public class Device {
         this.description = description;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+
     @Override
     public String toString() {
 
         StringBuilder string = new StringBuilder();
-        String newLine = System.getProperty("line.separator");
 
-        string.append(this.getClass().getName() + " Object {" + newLine);
-        string.append("id: " + id + newLine);
-        string.append("title: " + title + newLine);
-        string.append("description: " + description + newLine);
-        string.append("kitVersion: " + kitVersion + newLine);
-        string.append("macAddress: " + macAddress + newLine);
+        string.append(this.getClass().getName() + " Object {" + Constants.NEW_LINE);
+        string.append("id: " + id + Constants.NEW_LINE);
+        string.append("title: " + title + Constants.NEW_LINE);
+        string.append("description: " + description + Constants.NEW_LINE);
+        string.append("kitVersion: " + kitVersion + Constants.NEW_LINE);
+        string.append("location: " + location + Constants.NEW_LINE);
+        string.append("created: " + created + Constants.NEW_LINE);
+        string.append("userId: " + userId + Constants.NEW_LINE);
+        string.append("}" + Constants.NEW_LINE);
 
         return string.toString();
 

@@ -21,10 +21,11 @@
 
                     <!-- ACCORDION -->
                     <div class="panel-group" id="accordionF" role="tablist" aria-multiselectable="true">
-                        <div class="panel panel-default">
+
+                        <div class="panel panel-primary">
                             <div class="panel-heading" role="tab" id="headingOneF">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordionF" href="#collapseOneF"
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionF" href="#collapseOneF"
                                        aria-expanded="true" aria-controls="collapseOneF">
                                         Noise
                                     </a>
@@ -43,7 +44,7 @@
                             </div>
                         </div>
 
-                        <div class="panel panel-default">
+                        <div class="panel panel-primary">
                             <div class="panel-heading" role="tab" id="headingTwoF">
                                 <h4 class="panel-title">
                                     <a class="collapsed" data-toggle="collapse" data-parent="#accordionF"
@@ -65,7 +66,7 @@
                             </div>
                         </div>
 
-                        <div class="panel panel-default">
+                        <div class="panel panel-primary">
                             <div class="panel-heading" role="tab" id="headingThreeF">
                                 <h4 class="panel-title">
                                     <a class="collapsed" data-toggle="collapse" data-parent="#accordionF"
@@ -81,6 +82,28 @@
                                     <span>
                                         NO2 (ppm) <div class="locARR"></div>
                                         <div id="no2" class="slider"></div>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" role="tab" id="headingFourF">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionF" href="#collapseFourF"
+                                       aria-expanded="true" aria-controls="collapseFourF">
+                                        Time
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFourF" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingFourF">
+                                <div class="panel-body">
+
+                                     <span>
+                                     <div id="timeRange">Time</div><div class="locARR"></div><br>
+                                    <div id="time" class="slider"></div>
                                     </span>
 
                                 </div>

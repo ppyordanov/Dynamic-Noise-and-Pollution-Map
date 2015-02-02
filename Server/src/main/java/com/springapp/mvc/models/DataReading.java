@@ -1,9 +1,11 @@
 package com.springapp.mvc.models;
 
+import com.springapp.mvc.utilities.Constants;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Peter Yordanov on 14.10.2014 г..
@@ -17,7 +19,7 @@ public class DataReading {
     private String routeId;
     private String deviceId;
 
-    private Timestamp timestamp;
+    private Date timestamp;
     private Double latitude;
     private Double longitude;
     private Double noise;
@@ -105,11 +107,11 @@ public class DataReading {
         this.deviceId = deviceId;
     }
 
-    public Timestamp getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -164,19 +166,19 @@ public class DataReading {
     public String toString() {
 
         StringBuilder string = new StringBuilder();
-        String newLine = System.getProperty("line.separator");
 
-        string.append(this.getClass().getName() + " Object {" + newLine);
-        string.append("id: " + id + newLine);
-        string.append("routeId: " + routeId + newLine);
-        string.append("deviceId: " + deviceId + newLine);
-        string.append("timestamp: " + timestamp + newLine);
-        string.append("latitude: " + latitude + newLine);
-        string.append("longitude: " + longitude + newLine);
-        string.append("noise: " + noise + newLine);
-        string.append("co: " + co + newLine);
-        string.append("no2: " + no2 + newLine);
-        string.append("battery: " + battery + newLine);
+        string.append(this.getClass().getName() + " Object {" + Constants.NEW_LINE);
+        string.append("id: " + id + Constants.NEW_LINE);
+        string.append("routeId: " + routeId + Constants.NEW_LINE);
+        string.append("deviceId: " + deviceId + Constants.NEW_LINE);
+        string.append("timestamp: " + timestamp + Constants.NEW_LINE);
+        string.append("latitude: " + latitude + Constants.NEW_LINE);
+        string.append("longitude: " + longitude + Constants.NEW_LINE);
+        string.append("noise: " + noise + Constants.NEW_LINE);
+        string.append("co: " + co + Constants.NEW_LINE);
+        string.append("no2: " + no2 + Constants.NEW_LINE);
+        string.append("battery: " + battery + Constants.NEW_LINE);
+        string.append("}" + Constants.NEW_LINE);
 
         return string.toString();
 

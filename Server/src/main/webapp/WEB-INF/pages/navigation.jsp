@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
+        <!-- UG MAP BRAND -->
         <div class="navbar-header">
 
             <a class="navbar-brand" href="#">UG Map</a>
@@ -16,7 +16,7 @@
 
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- NAVIGATION LINKS -->
         <div class="collapse navbar-collapse" id="nav-collapse">
             <ul class="nav navbar-nav">
 
@@ -52,7 +52,7 @@
             </ul>
 
         </div>
-        <!-- /.navbar-collapse -->
+        <!-- NAVIGATION LINKS -->
     </div>
-    <!-- /.container-fluid -->
+    <!-- CONTAINER END -->
 </nav>

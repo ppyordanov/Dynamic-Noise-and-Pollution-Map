@@ -18,7 +18,7 @@ function toggleHeatMap(value) {
         else {
             HEAT_MAP.set('opacity', 0.5);
         }
-        if (radius!== "" && radius > 0) {
+        if (radius !== "" && radius > 0) {
             HEAT_MAP.set('radius', radius);
         }
         else {
@@ -47,14 +47,14 @@ function toggleRoutes(value) {
     });
 
 
-    if(value){
+    if (value) {
         var thickness = parseInt($("#thicknessRoutes").val());
         var opacity = parseInt($("#opacityRoutes").val()) / 100;
         ROUTE_DATA.forEach(function (entry) {
-            if(thickness !== NaN && thickness >0){
+            if (thickness !== NaN && thickness > 0) {
                 entry["route"].set("strokeWeight", thickness);
             }
-            if(opacity !== NaN && (opacity>0 && opacity <=1)){
+            if (opacity !== NaN && (opacity > 0 && opacity <= 1)) {
                 entry["route"].set("strokeOpacity", opacity);
             }
         });
@@ -72,17 +72,17 @@ function togglePointVis(value) {
 
     POINT_VISUALIZATION.forEach(function (entry) {
 
-        $('input[name=pointsValue]:checked').each(function() {
+        $('input[name=pointsValue]:checked').each(function () {
             variable = $(this).val();
-            color = $('input[name=' + variable +'Color]:checked').val();
-            radiusSize = parseInt($('input[name='+ variable + 'Radius]:checked').val());
+            color = $('input[name=' + variable + 'Color]:checked').val();
+            radiusSize = parseInt($('input[name=' + variable + 'Radius]:checked').val());
             //alert(color);
             entry[variable + "Circle"].set("visible", value);
-            entry[variable + "Circle"].set("radius", entry[variable]*radiusSize);
+            entry[variable + "Circle"].set("radius", entry[variable] * radiusSize);
             entry[variable + "Circle"].set("fillOpacity", entry[variable] / 10);
-            entry[variable + "Circle"].set("fillColor" , color);
+            entry[variable + "Circle"].set("fillColor", color);
         });
-        $('input[name=pointsValue]:not(:checked)').each(function() {
+        $('input[name=pointsValue]:not(:checked)').each(function () {
             variable = $(this).val();
             entry[variable + "Circle"].set("visible", false);
         });

@@ -10,4 +10,6 @@ public class Constants {
     public static final Double MIN_LON_BOUNDS = -4.278797;
     public static final Double MAX_LON_BOUNDS = -4.297637;
 
+    public static final String NEW_LINE = System.getProperty("line.separator");
+
 }

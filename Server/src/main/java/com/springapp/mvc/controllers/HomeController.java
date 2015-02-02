@@ -3,10 +3,13 @@ package com.springapp.mvc.controllers;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.springapp.mvc.models.DataReading;
+import com.springapp.mvc.models.Device;
 import com.springapp.mvc.models.Route;
+import com.springapp.mvc.models.User;
 import com.springapp.mvc.repositories.DataReadingRepository;
 import com.springapp.mvc.repositories.DeviceRepository;
 import com.springapp.mvc.repositories.RouteRepository;
+import com.springapp.mvc.repositories.UserRepository;
 import com.springapp.mvc.utilities.Benchmark;
 import com.springapp.mvc.utilities.DataPopulation;
 import org.slf4j.Logger;
@@ -37,6 +40,8 @@ public class HomeController {
     private RouteRepository routeRepository;
     @Autowired(required = true)
     private DeviceRepository deviceRepository;
+    @Autowired(required = true)
+    private UserRepository userRepository;
 
     private
     @Autowired
@@ -68,11 +73,19 @@ public class HomeController {
 
         List<DataReading> dataReadings = dataReadingRepository.findAll();
         List<Route> routes = routeRepository.findAll();
+        List<Device> devices = deviceRepository.findAll();
+        List<User> users = userRepository.findAll();
 
         model.addAttribute("dataReadingModels", dataReadings);
         model.addAttribute("routeModels", routes);
+        model.addAttribute("deviceModels", devices);
+        model.addAttribute("userModels", users);
 
-        LOGGER.info("Data readings in the database: " + dataReadings.size());
+        LOGGER.info("Data Readings: " + dataReadings.size());
+        LOGGER.info("Routes: " + routes.size());
+        LOGGER.info("Devices: " + devices.size());
+        LOGGER.info("Users: " + users.size());
+
         return HOME;
     }
 
@@ -92,28 +105,32 @@ public class HomeController {
     @RequestMapping(value = "/addRoute", method = RequestMethod.POST)
     public
     @ResponseBody
-    String addRoute(@RequestParam("json") String json) {
+    String addRoute(@RequestParam("context") String json, @RequestParam("user") String userJSON, @RequestParam("device") String deviceJSON) {
+
+        User user = new Gson().fromJson(userJSON,User.class);
+        Device device = new Gson().fromJson(deviceJSON, Device.class);
+
+        userRepository.save(user);
+        LOGGER.info("User saved: " + user);
+        device.setUserId(user.getid());
+        deviceRepository.save(device);
+        LOGGER.info("Device saved: " + device);
+
         //save new route
         Route newRoute = new Route();
+        newRoute.setDeviceId(device.getId());
         routeRepository.save(newRoute);
+        LOGGER.info("Route saved: " + newRoute);
 
         //save data reading
         Type listType = new TypeToken<List<DataReading>>() {
         }.getType();
         List<DataReading> data = new Gson().fromJson(json, listType);
 
-        //DataReading dr = new Gson().fromJson(json,DataReading.class);
-        LOGGER.info("Route saved: " + newRoute);
-        LOGGER.info("ds" + data.size());
+        LOGGER.info("Data Size:" + data.size());
         for (DataReading dr : data) {
-
+            dr.setDeviceId(device.getId());
             dr.setRouteId(newRoute.getId());
-            /*
-            Map<String, Double> position = dataPopulation.randomPosGen(Constants.MIN_LAT_BOUNDS, Constants.MAX_LAT_BOUNDS, Constants.MIN_LON_BOUNDS, Constants.MAX_LON_BOUNDS);
-            dr.setLatitude(position.get("latitude"));
-            dr.setLongitude(position.get("longitude"));
-            */
-
             dataReadingRepository.save(dr);
             LOGGER.info("Data reading saved: " + dr);
         }

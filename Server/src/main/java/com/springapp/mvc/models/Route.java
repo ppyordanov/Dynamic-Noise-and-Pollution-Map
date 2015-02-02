@@ -1,5 +1,6 @@
 package com.springapp.mvc.models;
 
+import com.springapp.mvc.utilities.Constants;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
@@ -56,11 +57,12 @@ public class Route {
 
 
         StringBuilder string = new StringBuilder();
-        String newLine = System.getProperty("line.separator");
 
-        string.append(this.getClass().getName() + " Object {" + newLine);
-        string.append("id: " + id + newLine);
-        string.append("deviceId: " + deviceId + newLine);
+        string.append(this.getClass().getName() + " Object {" + Constants.NEW_LINE);
+        string.append("id: " + id + Constants.NEW_LINE);
+        string.append("deviceId: " + deviceId + Constants.NEW_LINE);
+        string.append("}" + Constants.NEW_LINE);
+
         return string.toString();
 
     }

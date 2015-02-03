@@ -52,6 +52,9 @@
         dataReading["timestamp"] =  new Date(timestamp);
         //alert(dataReading.timestamp);
     }
+    else{
+        dataReading["timestamp"] = new Date();
+    }
     dataReading["latitude"] = "${element.latitude}";
     dataReading["longitude"] = "${element.longitude}";
     //conversion

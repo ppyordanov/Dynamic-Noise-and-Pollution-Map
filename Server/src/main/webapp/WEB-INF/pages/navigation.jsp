@@ -4,8 +4,9 @@
     <div class="container-fluid">
         <!-- UG MAP BRAND -->
         <div class="navbar-header">
-
-            <a class="navbar-brand" href="#">UG Map</a>
+            <a class="navbar-brand" href="#">
+                <img class="logopos" width="55" height="35" src="${pageContext.request.contextPath}/resources/images/site_logo.png"> UG Map
+                </a>
 
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#nav-collapse">

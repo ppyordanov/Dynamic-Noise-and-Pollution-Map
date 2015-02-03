@@ -7,3 +7,19 @@
     height: 70%;
 
 }
+
+.ui-body{
+    border-radius: 10px;
+}
+.footer{
+    font-size: 12px;
+    padding:10px;
+    float-right:10px !important;
+}
+
+a{
+    color:#000;
+}
+
+/*[data-role=page]{height: 100% !important; position:relative !important;}
+[data-role=footer]{bottom:0; position:absolute !important; top: auto !important; width:100%;} */

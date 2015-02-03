@@ -26,7 +26,7 @@ var places = [
     {label: "Wolfson Medical School Building", loc: [55.873148, -4.293478]},
     {label: "Sir Alwyn Williams Building", loc: [55.873949, -4.291857]},
     {label: "LilyBank House", loc: [55.874033, -4.290484]},
-    {label: "Mathematics Buildind", loc: [55.873280, -4.291777]},
+    {label: "Mathematics Building", loc: [55.873280, -4.291777]},
     {label: "Hetherington Building", loc: [55.874198, -4.288843]},
     {label: "Fraser Building", loc: [55.873106, -4.287748]},
     {label: "Wellington Church", loc: [55.872486, -4.287078]},

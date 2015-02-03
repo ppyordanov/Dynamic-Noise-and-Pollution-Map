@@ -50,8 +50,8 @@ function generateRouteMarkers(source, destination, pointArray) {
         visible: true
     });
 
-    var sourceContent = '<div class="mapPopUp">' + "<b>Starting Point:</b> " + source; //+"<br>" + "<b>Latitude: </b>" + srcLoc.lat() + "<br><b>Longitude: </b>" + srcLoc.lng() + "</div>";
-    var destinationContent = '<div class="mapPopUp">' + "<b>Destination:</b> " + destination; //+"<br>" + "<b>Latitude: </b>" + destLoc.lat() + "<br><b>Longitude: </b>" + destLoc.lng() + "</div>";
+    var sourceContent = '<div class="mapPopUp">' + "<b>Starting Point:</b> " + source + "<br>" + "<img class='streetViewImage' src='https://maps.googleapis.com/maps/api/streetview?size=250x150&location=" + srcLoc.lat() + "," + srcLoc.lng() + "&heading=34&pitch=10&fov=120'>"; //+"<br>" + "<b>Latitude: </b>" + srcLoc.lat() + "<br><b>Longitude: </b>" + srcLoc.lng() + "</div>";
+    var destinationContent = '<div class="mapPopUp">' + "<b>Destination:</b> " + destination + "<br>" + "<img class='streetViewImage' src='https://maps.googleapis.com/maps/api/streetview?size=250x150&location=" + destLoc.lat() + "," + destLoc.lng() + "&heading=34&pitch=10&fov=120'>"; //+"<br>" + "<b>Latitude: </b>" + destLoc.lat() + "<br><b>Longitude: </b>" + destLoc.lng() + "</div>";
 
     addPopUp(sourceMarker, sourceContent, click);
     addPopUp(destinationMarker, destinationContent, click);

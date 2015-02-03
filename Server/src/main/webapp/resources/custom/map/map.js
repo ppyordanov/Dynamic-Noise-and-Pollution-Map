@@ -201,7 +201,7 @@ function renderData() {
             (pDataEntry["no2"] >= minRangeNO2 && pDataEntry["no2"] <= maxRangeNO2)
             && (pDataEntry["time"] >= oldestTimeRange && pDataEntry["time"] <= mostRecentTimeRange)
             ) {
-            alert(pDataEntry["marker"].getPosition());
+            //alert(pDataEntry["marker"].getPosition());
             pDataEntry["marker"].set("map", map);
             pVisEntry["noiseCircle"].set("map", map);
             pVisEntry["no2Circle"].set("map", map);

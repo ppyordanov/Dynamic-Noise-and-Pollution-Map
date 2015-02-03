@@ -23,6 +23,12 @@
                 release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
                 software like Aldus PageMaker including versions of Lorem Ipsum.
 
+                <br><br>
+                <b>Android</b><br>
+                <a href="#" class="btn btn-primary">Download</a><br><br>
+                <b>Windows Phone</b><br>
+                <a href="#" class="btn btn-primary">Download</a>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>

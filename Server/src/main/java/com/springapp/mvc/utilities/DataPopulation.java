@@ -6,11 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Peter Yordanov on 1.11.2014 г..
@@ -47,7 +43,7 @@ public class DataPopulation {
         DataReading dataReading = null;
 
         String route_id = null, device_id = null;
-        Timestamp timestamp;
+        Date timestamp;
         Double latitude = null, longitude = null, noise, co, no2, battery;
 
 

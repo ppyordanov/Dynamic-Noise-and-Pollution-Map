@@ -4,7 +4,6 @@ import com.springapp.mvc.utilities.Constants;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -55,7 +54,7 @@ public class DataReading {
     }
 
     //parameterized constructor
-    public DataReading(String routeId, String deviceId, Timestamp timestamp, Double latitude, Double longitude, Double noise, Double co, Double no2, Double battery) {
+    public DataReading(String routeId, String deviceId, Date timestamp, Double latitude, Double longitude, Double noise, Double co, Double no2, Double battery) {
         this.id = null;
         this.routeId = routeId;
         this.deviceId = deviceId;

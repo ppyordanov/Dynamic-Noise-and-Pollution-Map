@@ -61,6 +61,13 @@ html, body {
     margin-top: 20px;
 }
 
+.logopos{
+    float:left;
+    margin-top: -5px;
+    margin-left:-10px;
+    margin-right: 5px;
+}
+
 #userImage{
     float:right;
     width:120px;

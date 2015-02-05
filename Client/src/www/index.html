@@ -9,155 +9,146 @@
     <link href="css/main.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-    <script src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script>
 
     <script type="text/javascript" src="js/external/json2.js"></script>
     <script type="text/javascript" src="js/custom/utility.js"></script>
     <script type="text/javascript" src="js/custom/track.js"></script>
-
+    <script src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script>
 
 </head>
 
+<body onload="init();"></body>
 
-
-<body onload="window.resizeTo(500,500)">
-
+<!-- HOME -->
 <div data-role="page" id="home">
 
     <div data-role="header" data-theme="b">
-        <h1>Dynamic Noise and Pollution Campus Map</h1>
-    </div><!-- /header -->
+        <h1 class="headMan"><a href="http://ugmap.me/"><img class="logoMan" src="img/icon.png"></a>
+
+            <div class="alignTitle">Dynamic Noise and Pollution Campus Map</div>
+        </h1>
+    </div>
 
     <div data-role="content">
 
         <div class="ui-body ui-body-b">
-            <h3>Route Tracking</h3>
+            <h4>Route Tracking Client</h4>
 
             <div id="spano"></div>
             <br>
 
             <div id="route_data">
-                <label>Route ID:</label>
+                <label><b>Route ID:</b></label>
                 <br>
                 <input type="text" name="route_id" id="route_id" placeholder="Please Enter an Identifier"/>
 
-                <label>Time Window:</label>
+                <label><b>Time Window:</b></label>
                 <br>
                 <input type="text" name="window" id="window" placeholder="Window (ms)"/>
             </div>
             <div id="server"></div>
             <div id="status"></div>
-            <div id="probe"></div>
             <br>
 
-            <div id="connection">Connected</div>
+            <a data-role="button" data-theme="c" id="connection" data-inline="true">Connected</a>
             <br>
+
             <p>Environmental data tracking can be performed via the buttons below.</p>
             <a data-role="button" data-theme="b" id="start" data-inline="true">Track</a>
             <a data-role="button" data-theme="b" id="stop" data-inline="true">Stop</a>
-            <a data-role="button" data-theme="b" id="clear" data-inline="true">Clear</a>
+
+            <div id="fade"></div>
+            <br>
+
+            <div id="probe"></div>
         </div>
-
-        <!--
-        <div data-demo-html="true">
-            <div data-role="collapsible-set" data-content-theme="c">
-                <div data-role="collapsible" data-theme="b" data-content-theme="b">
-                    <h3>Section header, swatch B</h3>
-                    <p>Collapsible content, swatch "b"</p>
-                </div>
-                <div data-role="collapsible" data-theme="a" data-content-theme="a">
-                    <h3>Section header, swatch A</h3>
-                    <p>Collapsible content, swatch "a"</p>
-                </div>
-                <div data-role="collapsible" data-theme="e" data-content-theme="d">
-                    <h3>Section header, swatch E</h3>
-                    <p>Collapsible content, swatch "d"</p>
-                </div>
-            </div>
-        </div>
--->
-
-
-        <br>
-        <br>
-        <!-- <a href="#history" data-transition="none">HISTORY</a> -->
 
     </div>
 
-    <div data-role="navbar">
+    <div data-role="navbar" data-position="fixed" class="navbarPos">
         <ul>
-            <li><a href="#home" data-transition="none" data-icon="grid" class="ui-btn-active ui-state-persist">Home</a></li>
-            <li><a href="#history" data-transition="none" data-icon="star">History</a></li>
+            <li><a href="#home" data-transition="none" data-icon="grid" class="ui-btn-active ui-state-persist">Home</a>
+            </li>
+            <li><a href="#history" data-transition="none" data-icon="gear">History</a></li>
         </ul>
-    </div><!-- /navbar -->
-    <div data-role="footer" data-theme="b">
+    </div>
+    <!-- /navbar -->
+    <div data-role="footer" data-theme="b" data-position="fixed">
         <div class="footer">UG Map Copyright 2015</div>
-    </div><!-- /footer -->
-
+    </div>
+    <!-- /footer -->
 </div>
 
+<!-- HISTORY -->
 <div data-role="page" id="history">
 
     <div data-role="header" data-theme="b">
-        <h1>Dynamic Noise and Pollution Campus Map</h1>
-    </div><!-- /header -->
+        <h1 class="headMan"><a href="http://ugmap.me/"><img class="logoMan" src="img/icon.png"></a>
+
+            <div class="alignTitle">Dynamic Noise and Pollution Campus Map</div>
+        </h1>
+    </div>
 
     <div data-role="content">
 
         <div class="ui-body ui-body-b">
-            Show history
-            <div id="route_number"></div>
+            <b>
+                <div id="route_number"></div>
+            </b>
             <br>
 
             <div id="list"></div>
             <br>
-            <br>
+            <a data-role="button" data-theme="b" id="clear" data-inline="true">Clear History</a>
         </div>
-       <!-- <a href="#home" data-transition="none">HOME</a> -->
     </div>
 
 
-    <div data-role="navbar">
+    <div data-role="navbar" data-position="fixed" class="navbarPos">
         <ul>
             <li><a href="#home" data-transition="none" data-icon="grid">Home</a></li>
-            <li><a href="#history" data-transition="none" data-icon="star" class="ui-btn-active ui-state-persist">History</a></li>
+            <li><a href="#history" data-transition="none" data-icon="gear" class="ui-btn-active ui-state-persist">History</a>
+            </li>
         </ul>
-    </div><!-- /navbar -->
-    <div data-role="footer" data-theme="b">
+    </div>
+    <!-- /navbar -->
+    <div data-role="footer" data-theme="b" data-position="fixed">
         <div class="footer">UG Map Copyright 2015</div>
-    </div><!-- /footer -->
-
+    </div>
+    <!-- /footer -->
 </div>
 
+<!-- ROUTE -->
 <div data-role="page" id="route">
 
     <div data-role="header" data-theme="b">
-        <h1>Dynamic Noise and Pollution Campus Map</h1>
-    </div><!-- /header -->
+        <h1 class="headMan"><a href="http://ugmap.me/"><img class="logoMan" src="img/icon.png"></a>
+
+            <div class="alignTitle">Dynamic Noise and Pollution Campus Map</div>
+        </h1>
+    </div>
 
     <div data-role="content">
-        Show route data:
-
-        <!-- <button data-role="button" id="upload">UPLOAD</button> -->
-        <br>
-
-        <div id="route_map">
-
-            <div id="map_canvas" class="map"></div>
-
-
+        <div class="ui-body ui-body-b">
+            <div id="route_map">
+                <div id="map_canvas" class="map"></div>
+            </div>
         </div>
     </div>
 
-    <div data-role="navbar">
+    <div data-role="navbar" data-position="fixed" class="navbarPos">
         <ul>
             <li><a href="#home" data-transition="none" data-icon="grid">Home</a></li>
-            <li><a href="#history" data-transition="none" data-icon="star" class="ui-btn-active ui-state-persist">History</a></li>
+            <li><a href="#history" data-transition="none" data-icon="gear">History</a></li>
         </ul>
-    </div><!-- /navbar -->
+    </div>
+    <!-- /navbar -->
     <div data-role="footer" data-theme="b" data-position="fixed">
         <div class="footer">UG Map Copyright 2015</div>
-    </div><!-- /footer -->
+    </div>
+    <!-- /footer -->
+
+
 </div>
 
 </body>

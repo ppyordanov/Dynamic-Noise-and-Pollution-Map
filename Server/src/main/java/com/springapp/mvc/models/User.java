@@ -32,10 +32,22 @@ public class User {
         this.email = null;
         this.created = null;
     }
+    //parameterized constructor
+    public User(String userName, String city, String country, String website, String email, Date created) {
+
+        this.id = null;
+        this.userName = userName;
+        this.city = city;
+        this.country = country;
+        this.website = website;
+        this.email = email;
+        this.created = created;
+    }
+
 
     //copy constructor
     public User(User r) {
-        this.id = r.getid();
+        this.id = r.getId();
         this.userName = r.getUserName();
         this.city = r.getCity();
         this.country = r.getCountry();
@@ -44,7 +56,7 @@ public class User {
         this.created = r.getCreated();
     }
 
-    public String getid() {
+    public String getId() {
         return id;
     }
 

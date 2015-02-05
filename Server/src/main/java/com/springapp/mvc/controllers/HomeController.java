@@ -43,6 +43,22 @@ public class HomeController {
     @Autowired(required = true)
     private UserRepository userRepository;
 
+    public RouteRepository getRouteRepository() {
+        return routeRepository;
+    }
+
+    public DeviceRepository getDeviceRepository() {
+        return deviceRepository;
+    }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    public DataReadingRepository getDataReadingRepository() {
+        return dataReadingRepository;
+    }
+
     private
     @Autowired
     ServletContext servletContext;
@@ -67,7 +83,6 @@ public class HomeController {
     private DataPopulation dataPopulation = new DataPopulation();
     private Benchmark benchmark;
 
-
     @RequestMapping(method = RequestMethod.GET)
     public String home(ModelMap model) {
 
@@ -86,7 +101,7 @@ public class HomeController {
         LOGGER.info("Devices: " + devices.size());
         LOGGER.info("Users: " + users.size());
 
-        return HOME;
+        return "home";
     }
 
     /*
@@ -112,7 +127,7 @@ public class HomeController {
 
         userRepository.save(user);
         LOGGER.info("User saved: " + user);
-        device.setUserId(user.getid());
+        device.setUserId(user.getId());
         deviceRepository.save(device);
         LOGGER.info("Device saved: " + device);
 

@@ -106,7 +106,7 @@ function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, 
     if (typeData != null && typeData > 0) {
         content = "<b>Route " + id + "</b> (" + typeData + " data points" + ")<br>";
         content += "Distance: " + routeDistance + " m" + "<br>";
-        content += calculateTime((routeDistance*baseWalkingTimePerMeter).toPrecision(3));
+        content += calculateTime((routeDistance*baseWalkingTimePerMeter));
     }
     else if (typeData < 0) {
         content = "<b>Grid Index: </b>" + (typeData * (-1)) + "<br>";

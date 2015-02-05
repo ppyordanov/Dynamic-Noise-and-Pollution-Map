@@ -1,24 +1,66 @@
+html{
+    height : 100%;
+}
+
 .map {
 
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 70%;
+    height: 100%!important;
 
 }
 
-.ui-body{
+.abs {
+    position:absolute;
+    z-index:99;
+}
+
+.alignTitle {
+    margin-top: 15px;
+}
+
+#route_map{
+    height:600px;
+}
+
+.headMan {
+    text-align: left !important;
+    font-size: 20px!important;
+    margin-left: 10px!important;
+    width:100%;
+}
+
+.rButton{
+    width:200px;
+    text-align: left;
+}
+.logoMan {
+    width: 80px;
+    height: 50px;
+    display: inline;
+    margin-right: 5px;
+    float: left;
+}
+
+.ui-body {
     border-radius: 10px;
-}
-.footer{
-    font-size: 12px;
-    padding:10px;
-    float-right:10px !important;
+    margin-bottom:60px;
 }
 
-a{
-    color:#000;
+.footer {
+    font-size: 12px;
+    padding: 10px;
+    float-right: 10px !important;
+}
+
+a {
+    color: #000;
+}
+
+.navbarPos {
+    margin-bottom: 36px !important;
 }
 
 /*[data-role=page]{height: 100% !important; position:relative !important;}

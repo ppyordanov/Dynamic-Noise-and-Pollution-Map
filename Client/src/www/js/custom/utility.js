@@ -45,7 +45,14 @@ function getSCKData(location, routeId) {
     sample_data.timestamp = timestamp;
     context_data.push(sample_data);
 
-    $("#probe").html("<br>Probe " + probe + "<br>noise " + noise + "<br>co " + co + "<br> no2 " + no2 + "<br> battery " + battery + "<br> latitude " + latitude + "<br> longitude " + longitude + "<br> time " + timestamp);
+    $("#probe").html("<br><b>Probe:</b> " +
+        probe + "<br><b>Noise:</b> " + noise + " dB" +
+        "<br><b>CO:</b> " + co + " kOhm" +
+        "<br><b>NO2:</b> " + no2 + " kOhm" +
+        "<br><b>Battery:</b> " + battery + " %" +
+        "<br><b>Latitude:</b> " + latitude +
+        "<br><b>Longitude:</b> " + longitude +
+        "<br><b>Time:</b> " + timestamp);
     probe++;
 
 

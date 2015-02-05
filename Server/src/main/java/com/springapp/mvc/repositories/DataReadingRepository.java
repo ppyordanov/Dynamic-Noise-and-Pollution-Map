@@ -16,5 +16,7 @@ public interface DataReadingRepository extends MongoRepository<DataReading, Stri
 
     public DataReading findByBattery(Double battery);
 
+    public DataReading findById(String id);
+
 
 }

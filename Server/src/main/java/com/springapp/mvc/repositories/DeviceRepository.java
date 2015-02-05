@@ -16,4 +16,6 @@ public interface DeviceRepository extends MongoRepository<Device, String> {
 
     public Device findByKitVersion(String kitVersion);
 
+    public Device findById(String id);
+
 }

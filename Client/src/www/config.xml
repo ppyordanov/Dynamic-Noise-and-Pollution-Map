@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "UGMAP"
+        version   = "1.0.0">
+
+    <name>Dynamic Noise And Polllution Campus Map</name>
+
+    <description>
+        Generate a dynamic campus map via the innovative Smart Citizen Kit, developed by Fab Lab, Barcelona.
+    </description>
+
+    <preference name="phonegap-version" value="3.0.0" /> 
+	<icon src="img/icon.png" />
+    
+	<author href="http://ppyordanov.com" email="ppyordanov@yahoo.com">
+        Peter Yordanov
+    </author>
+
+    <feature name="http://api.phonegap.com/1.0/file"/>
+    <feature name="http://api.phonegap.com/1.0/geolocation"/>
+    <feature name="http://api.phonegap.com/1.0/media"/>
+    <feature name="http://api.phonegap.com/1.0/network"/>
+    <feature name="http://api.phonegap.com/1.0/notification"/>
+	
+</widget>

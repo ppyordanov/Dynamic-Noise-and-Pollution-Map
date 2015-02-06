@@ -106,7 +106,6 @@ function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, 
     if (typeData != null && typeData > 0) {
         content = "<b>Route " + id + "</b> (" + typeData + " data points" + ")<br>";
         content += "Distance: " + routeDistance + " m" + "<br>";
-        content += calculateTime((routeDistance*baseWalkingTimePerMeter));
     }
     else if (typeData < 0) {
         content = "<b>Grid Index: </b>" + (typeData * (-1)) + "<br>";
@@ -119,6 +118,9 @@ function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, 
     if (routeDuration) {
         content += routeDuration;
         overall = "<b>Overall Pollution Index:</b> " + rangePercentage(score, 0, maximumOverallPollutionIndex).toPrecision(3) + "%<br>" + progressEvaluate(score, 0, maximumOverallPollutionIndex);
+    }
+    else{
+        content += calculateTime((routeDistance*baseWalkingTimePerMeter));
     }
     content += "Noise" + valueType + ": " + noise.toPrecision(3) + " dB" + progressEvaluate(noise, minNoise, maxNoise);
     content += "CO" + valueType + ": " + co.toPrecision(3) + " ppm" + progressEvaluate(co, minCO, maxCO);

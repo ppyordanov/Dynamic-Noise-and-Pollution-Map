@@ -36,6 +36,7 @@ Server:
     - ```mvn validate``` validate project
     - ```mvn clean compile``` compile source code
     - ```mvn jetty:run``` run the mobile webapp on a localhost server via the jetty servlet
+    - ```mvn test``` run Controller and Model unit tests
   
   _The app is running on port 8080 and can be accessed at: http://localhost:8080/_
 

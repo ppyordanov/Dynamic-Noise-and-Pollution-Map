@@ -82,7 +82,7 @@ function identifyBestRoute() {
 function calculateTime(seconds) {
     var minutes = Math.floor(seconds / 60);
     var sec_remaining = seconds - minutes * 60;
-    return  "Duration: " + minutes + " min. " + Math.floor( sec_remaining ); + " sec." + "<br>";
+    return  "Duration: " + minutes + " min. " + Math.floor( sec_remaining ) + " sec." + "<br>";
 }
 
 function generateUserRoutes() {

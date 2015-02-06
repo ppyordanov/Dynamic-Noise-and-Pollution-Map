@@ -4,8 +4,6 @@ import com.springapp.mvc.utilities.Constants;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-
 /**
  * Created by Peter Yordanov on 14.10.2014 г..
  */
@@ -18,7 +16,7 @@ public class DataReading {
     private String routeId;
     private String deviceId;
 
-    private Date timestamp;
+    private String timestamp;
     private Double latitude;
     private Double longitude;
     private Double noise;
@@ -54,7 +52,7 @@ public class DataReading {
     }
 
     //parameterized constructor
-    public DataReading(String routeId, String deviceId, Date timestamp, Double latitude, Double longitude, Double noise, Double co, Double no2, Double battery) {
+    public DataReading(String routeId, String deviceId, String timestamp, Double latitude, Double longitude, Double noise, Double co, Double no2, Double battery) {
         this.id = null;
         this.routeId = routeId;
         this.deviceId = deviceId;
@@ -106,11 +104,11 @@ public class DataReading {
         this.deviceId = deviceId;
     }
 
-    public Date getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 

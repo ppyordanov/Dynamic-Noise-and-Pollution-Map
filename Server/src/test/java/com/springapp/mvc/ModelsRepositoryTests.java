@@ -8,6 +8,7 @@ import com.springapp.mvc.repositories.DataReadingRepository;
 import com.springapp.mvc.repositories.DeviceRepository;
 import com.springapp.mvc.repositories.RouteRepository;
 import com.springapp.mvc.repositories.UserRepository;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,14 +18,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.Date;
-
 import static junit.framework.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration("file:src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml")
-public class ModelsTests {
+public class ModelsRepositoryTests {
 
 
     @SuppressWarnings("SpringJavaAutowiringInspection")
@@ -54,10 +53,12 @@ public class ModelsTests {
     private long currentDocumentsNumber;
     private DataReading currentDataReading;
     private DataReading savedDataReading;
+    private DataReading setupSavedDataReading;
     private double batteryValue;
 
     private User currentUser;
     private User savedUser;
+    private User setupSavedUser;
     private String userNameValue;
 
     private Device currentDevice;
@@ -65,18 +66,30 @@ public class ModelsTests {
 
     private Route currentRoute;
     private Route savedRoute;
+    private Route setupSavedRoute;
     private String deviceIdValue;
     private String descriptionValue;
 
+    private DataReading foundDataReading;
+    private Route foundRoute;
+    private Device foundDevice;
+    private User foundUser;
+
     @Before
     public void setup() {
-       //set up tests
+        //set up tests
         route = new Route();
-        dataReading = new DataReading(null, null, new Date(), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-        device = new Device("SCK", "description", "kit version", "Glasgow", null, new Date());
-        user = new User("user", "Glasgow", "United Kingdon", "http://ppyordanov.com", "email.com", new Date());
-        setupSavedDevice = new Device("SCK 2.0", "description", "2.1", "London", null, new Date());
+        device = new Device("SCK", "description", "kit version", "Glasgow", null, null);
+        dataReading = new DataReading(null, null, null, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+        user = new User("user", "Glasgow", "United Kingdom", "http://ppyordanov.com", "email.com", null);
+        setupSavedUser = new User("userSetup", "London", "United Kingdom", "website", "email", null);
+        userRepository.save(setupSavedUser);
+        setupSavedDevice = new Device("SCK 2.0", "description", "2.1", "London", setupSavedUser.getId(), null);
         setupSavedDevice = deviceRepository.save(setupSavedDevice);
+        setupSavedRoute = new Route(setupSavedDevice.getId());
+        routeRepository.save(setupSavedRoute);
+        setupSavedDataReading = new DataReading(setupSavedRoute.getId(), setupSavedDevice.getId(), null, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+        dataReadingRepository.save(setupSavedDataReading);
 
         routeNumber = routeRepository.count();
         dataReadingNumber = dataReadingRepository.count();
@@ -90,13 +103,34 @@ public class ModelsTests {
 
     }
 
+    @Test
+    public void dataReadingFindByRouteIdTest() throws Exception {
+        foundDataReading = dataReadingRepository.findByRouteId(setupSavedDataReading.getRouteId());
+        assertEquals(setupSavedDataReading.getId(), foundDataReading.getId());
+    }
+
+    @Test
+    public void dataReadingFindByDeviceIdTest() throws Exception {
+        foundDataReading = dataReadingRepository.findByDeviceId(setupSavedDataReading.getDeviceId());
+        assertEquals(setupSavedDataReading.getId(), foundDataReading.getId());
+    }
+
+    @Test
+    public void dataReadingFindByIdTest() throws Exception {
+        foundDataReading = dataReadingRepository.findById(setupSavedDataReading.getId());
+        assertEquals(setupSavedDataReading.getDeviceId(), foundDataReading.getDeviceId());
+        assertEquals(setupSavedDataReading.getNoise(), foundDataReading.getNoise());
+        assertEquals(setupSavedDataReading.getCo(), foundDataReading.getCo());
+        assertEquals(setupSavedDataReading.getNo2(), foundDataReading.getNo2());
+    }
+
 
     @Test
     public void dataReadingInsertTest() throws Exception {
 
         dataReadingRepository.save(dataReading);
         currentDocumentsNumber = dataReadingRepository.count();
-        assertEquals(dataReadingNumber+1, currentDocumentsNumber);
+        assertEquals(dataReadingNumber + 1, currentDocumentsNumber);
         dataReadingRepository.delete(dataReading);
 
     }
@@ -122,13 +156,18 @@ public class ModelsTests {
         assertEquals(dataReadingNumber, currentDocumentsNumber);
     }
 
+    @Test
+    public void userFindByIdTest() throws Exception {
+        foundUser = userRepository.findById(setupSavedUser.getId());
+        assertEquals(setupSavedUser.getUserName(), foundUser.getUserName());
+    }
 
     @Test
     public void userInsertTest() throws Exception {
 
         userRepository.save(user);
         currentDocumentsNumber = userRepository.count();
-        assertEquals(userNumber+1, currentDocumentsNumber);
+        assertEquals(userNumber + 1, currentDocumentsNumber);
         userRepository.delete(user);
 
     }
@@ -154,13 +193,24 @@ public class ModelsTests {
     }
 
 
+    @Test
+    public void routeFindByDeviceIdTest() throws Exception {
+        foundRoute = routeRepository.findByDeviceId(setupSavedRoute.getDeviceId());
+        assertEquals(setupSavedRoute.getId(), foundRoute.getId());
+    }
+
+    @Test
+    public void routeFindByIdTest() throws Exception {
+        foundRoute = routeRepository.findById(setupSavedRoute.getId());
+        assertEquals(setupSavedRoute.getDeviceId(), foundRoute.getDeviceId());
+    }
 
     @Test
     public void routeInsertTest() throws Exception {
 
         routeRepository.save(route);
         currentDocumentsNumber = routeRepository.count();
-        assertEquals(routeNumber+1, currentDocumentsNumber);
+        assertEquals(routeNumber + 1, currentDocumentsNumber);
         routeRepository.delete(route);
 
     }
@@ -169,7 +219,7 @@ public class ModelsTests {
     public void routeUpdateTest() throws Exception {
 
         routeRepository.save(route);
-        currentRoute= routeRepository.findById(route.getId());
+        currentRoute = routeRepository.findById(route.getId());
         currentRoute.setDeviceId(setupSavedDevice.getId());
         savedRoute = routeRepository.save(currentRoute);
         assertEquals(deviceIdValue, savedRoute.getDeviceId());
@@ -186,11 +236,19 @@ public class ModelsTests {
     }
 
     @Test
+    public void deviceFindByIdTest() throws Exception {
+        foundDevice = deviceRepository.findById(setupSavedDevice.getId());
+        assertEquals(setupSavedDevice.getTitle(), foundDevice.getTitle());
+        assertEquals(setupSavedDevice.getDescription(), foundDevice.getDescription());
+        assertEquals(setupSavedDevice.getLocation(), foundDevice.getLocation());
+    }
+
+    @Test
     public void deviceInsertTest() throws Exception {
 
         Device deviceId = deviceRepository.save(device);
         currentDocumentsNumber = deviceRepository.count();
-        assertEquals(deviceNumber+1, currentDocumentsNumber);
+        assertEquals(deviceNumber + 1, currentDocumentsNumber);
         deviceRepository.delete(deviceId);
 
     }
@@ -215,4 +273,11 @@ public class ModelsTests {
         assertEquals(deviceNumber, currentDocumentsNumber);
     }
 
+    @After
+    public void tearDown() {
+        dataReadingRepository.delete(setupSavedDataReading);
+        routeRepository.delete(setupSavedRoute);
+        deviceRepository.delete(setupSavedDevice);
+        userRepository.delete(setupSavedUser);
+    }
 }

@@ -4,7 +4,6 @@ import com.springapp.mvc.utilities.Constants;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
-import java.util.Date;
 
 /**
  * Created by Peter Yordanov on 19.10.2014 г..
@@ -19,7 +18,7 @@ public class Device {
     private String description;
     private String kitVersion;
     private String location;
-    private Date created;
+    private String created;
     private String userId;
 
     //default constructor
@@ -37,7 +36,7 @@ public class Device {
     }
 
     //parameterized constructor
-    public Device(String title, String description, String kitVersion, String location, String userId, Date created) {
+    public Device(String title, String description, String kitVersion, String location, String userId, String created) {
         this.id = null;
         this.title = title;
         this.description = description;
@@ -116,11 +115,11 @@ public class Device {
         this.location = location;
     }
 
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 

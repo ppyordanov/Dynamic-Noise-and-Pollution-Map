@@ -122,6 +122,8 @@ public class HomeController {
     @ResponseBody
     String addRoute(@RequestParam("context") String json, @RequestParam("user") String userJSON, @RequestParam("device") String deviceJSON) {
 
+        //Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+
         User user = new Gson().fromJson(userJSON,User.class);
         Device device = new Gson().fromJson(deviceJSON, Device.class);
 
@@ -140,6 +142,7 @@ public class HomeController {
         //save data reading
         Type listType = new TypeToken<List<DataReading>>() {
         }.getType();
+
         List<DataReading> data = new Gson().fromJson(json, listType);
 
         LOGGER.info("Data Size:" + data.size());

@@ -8,7 +8,7 @@
     <name>Dynamic-Noise-and-Pollution-Map</name>
 
     <properties>
-        <spring.version>4.0.3.RELEASE</spring.version>
+        <spring.version>4.0.2.RELEASE</spring.version>
         <org.slf4j-version>1.7.5</org.slf4j-version>
         <hibernate.version>4.3.5.Final</hibernate.version>
         <org.aspectj-version>1.7.4</org.aspectj-version>
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
+            <version>3.1.0</version>
         </dependency>
 
         <dependency>
@@ -88,12 +88,6 @@
         </dependency>
 
         <!-- Java EE -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>

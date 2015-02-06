@@ -13,6 +13,7 @@
 
 
     <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/images/favicon.ico" location="/resources/" />
 
     <mvc:annotation-driven/>
 

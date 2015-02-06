@@ -184,46 +184,48 @@ function retrieveDistance(loc1, loc2) {
 function populateMap() {
     for (var i = 0; i < routes.length; i++) {
         var routeDR = dataReadings[routes[i].id];
-        var newRoute = [];
+        if(routeDR) {
+            var newRoute = [];
 
-        var noiseSUM = null;
-        var coSUM = null;
-        var no2SUM = null;
+            var noiseSUM = null;
+            var coSUM = null;
+            var no2SUM = null;
 
-        //distance in meters
-        var distance = 0;
-        var nextIndex = 0;
-        for (var j = 0; j < routeDR.length; j++) {
+            //distance in meters
+            var distance = 0;
+            var nextIndex = 0;
+            for (var j = 0; j < routeDR.length; j++) {
 
-            var dr = routeDR[j];
+                var dr = routeDR[j];
 
-            noiseSUM += dr.noise;
-            coSUM += dr.co;
-            no2SUM += dr.no2;
+                noiseSUM += dr.noise;
+                coSUM += dr.co;
+                no2SUM += dr.no2;
 
 
-            //updateValueRange(dr);
+                //updateValueRange(dr);
 
-            if (j + 1 < routeDR.length) {
-                nextIndex = j + 1;
+                if (j + 1 < routeDR.length) {
+                    nextIndex = j + 1;
+                }
+                var visible = false;
+                generateMarker(dr, visible, map);
+                generatePointVis(dr, visible, map, i);
+                var nextPos = new google.maps.LatLng(routeDR[nextIndex].latitude, routeDR[nextIndex].longitude);
+                var pos = new google.maps.LatLng(dr.latitude, dr.longitude);
+                newRoute.push(pos);
+                locationARR.push(pos);
+                aggregateGrid(pos, dr);
+
+                //distance
+                distance += retrieveDistance(pos, nextPos);
+
             }
-            var visible = false;
-            generateMarker(dr, visible, map);
-            generatePointVis(dr, visible, map, i);
-            var nextPos = new google.maps.LatLng(routeDR[nextIndex].latitude, routeDR[nextIndex].longitude);
-            var pos = new google.maps.LatLng(dr.latitude, dr.longitude);
-            newRoute.push(pos);
-            locationARR.push(pos);
-            aggregateGrid(pos, dr);
 
-            //distance
-            distance += retrieveDistance(pos, nextPos);
-
+            //alert(distance);
+            var routeDATA = generateRoute(newRoute, noiseSUM / newRoute.length, coSUM / newRoute.length, no2SUM / newRoute.length, distance, null, null, i + 1); //routes[i].id);
+            ROUTE_DATA.push(routeDATA);
         }
-
-        //alert(distance);
-        var routeDATA = generateRoute(newRoute, noiseSUM / newRoute.length, coSUM / newRoute.length, no2SUM / newRoute.length, distance, null, null, i + 1); //routes[i].id);
-        ROUTE_DATA.push(routeDATA);
     }
 }
 
@@ -231,10 +233,12 @@ function populateMap() {
 function updateGridAggregation() {
     for (var i = 0; i < routes.length; i++) {
         var routeDR = dataReadings[routes[i].id];
-        for (var j = 0; j < routeDR.length; j++) {
-            var dr = routeDR[j];
-            var pos = new google.maps.LatLng(dr.latitude, dr.longitude);
-            aggregateGrid(pos, dr);
+        if(routeDR){
+            for (var j = 0; j < routeDR.length; j++) {
+                var dr = routeDR[j];
+                var pos = new google.maps.LatLng(dr.latitude, dr.longitude);
+                aggregateGrid(pos, dr);
+            }
         }
     }
 }
@@ -248,16 +252,18 @@ function identifyValueRange() {
 
     for (var i = 0; i < routes.length; i++) {
         var routeDR = dataReadings[routes[i].id];
-        for (var j = 0; j < routeDR.length; j++) {
+        if(routeDR){
+            for (var j = 0; j < routeDR.length; j++) {
 
-            var dr = routeDR[j];
+                var dr = routeDR[j];
 
-            noiseARR.push(dr.noise);
-            coARR.push(dr.co);
-            no2ARR.push(dr.no2);
-            timeARR.push(dr.timestamp);
-            //alert(timestamp);
+                noiseARR.push(dr.noise);
+                coARR.push(dr.co);
+                no2ARR.push(dr.no2);
+                timeARR.push(dr.timestamp);
+                //alert(timestamp);
 
+            }
         }
     }
 

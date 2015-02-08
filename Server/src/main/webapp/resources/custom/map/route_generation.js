@@ -35,6 +35,41 @@ $(document).ready(function () {
 
     $('#route_apply').on('click', function () {
 
+        //RANK STATISTICS
+        variableSwitch.distance = $("#distanceStat").is(':checked');
+        variableSwitch.duration = $("#durationStat").is(':checked');
+        variableSwitch.noise = $("#noiseStat").is(':checked');
+        variableSwitch.co = $("#coStat").is(':checked');
+        variableSwitch.no2 = $("#no2Stat").is(':checked');
+
+        if(variableSwitch.distance){
+            routeDistanceMultiplier = 0.01;
+        }else{
+            routeDistanceMultiplier = 0;
+        }
+        if(variableSwitch.duration){
+            routeDurationMultiplier = 0.01;
+        }else{
+            routeDistanceMultiplier = 0;
+        }
+        if(variableSwitch.noise){
+            noiseMultiplier = 0.20;
+        }else{
+            noiseMultiplier = 0;
+        }
+        if(variableSwitch.co){
+            coMultiplier = 0.20;
+        }else{
+            coMultiplier = 0;
+        }
+        if(variableSwitch.no2){
+            no2Multiplier = 0.58;
+        }else{
+            no2Multiplier = 0;
+        }
+
+        calculateMaximumOverallPollutionIndex();
+
         var sourceLat, sourceLng, destinationLat, destinationLng;
         if ($("#sourceLat").val() != "" && $("#sourceLng").val() != "") {
             sourceLat = parseFloat($("#sourceLat").val());
@@ -64,25 +99,43 @@ $(document).ready(function () {
 });
 
 function identifyBestRoute() {
-    var lowestScore = Number.MAX_SAFE_INTEGER;
+    //var lowestScore = Number.MAX_SAFE_INTEGER;
+
+    var scores = [];
+    var scoresColors = [];
     USER_ROUTE_DATA.forEach(function (entry) {
-        if (entry.score !== null && entry.score < lowestScore) {
-            lowestScore = entry.score;
+        if (entry.score !== null) {
+            scores.push(entry.score);
         }
     });
-    USER_ROUTE_DATA.forEach(function (entry) {
-        if (entry.score !== null && entry.score == lowestScore) {
-            //#7FE817
-            entry.data.route.set("strokeColor", "#4caf50");
-            //entry.data.route.set("strokeOpacity", 0.7);
+    //alert(scores.length);
+    scores = scores.sort(compareIntegers);
+    for (var i = 0; i < scores.length; i++) {
+        if (i < colors.length) {
+            scoresColors[scores[i]] = colors[i];
         }
+        else {
+            scoresColors[scores[i]] = colors[colors.length - 1]; //always red
+        }
+    }
+    USER_ROUTE_DATA.forEach(function (entry) {
+        if (entry.score !== null) {
+            entry.data.route.set("strokeColor", scoresColors[entry.score]);
+        }
+        /*
+         if (entry.score !== null && entry.score == lowestScore) {
+         //#7FE817
+         entry.data.route.set("strokeColor", "#4caf50");
+         //entry.data.route.set("strokeOpacity", 0.7);
+         }
+         */
     });
 }
 
 function calculateTime(seconds) {
     var minutes = Math.floor(seconds / 60);
     var sec_remaining = seconds - minutes * 60;
-    return  "Duration: " + minutes + " min. " + Math.floor( sec_remaining ) + " sec." + "<br>";
+    return  "Duration: " + minutes + " min. " + Math.floor(sec_remaining) + " sec." + "<br>";
 }
 
 function generateUserRoutes() {

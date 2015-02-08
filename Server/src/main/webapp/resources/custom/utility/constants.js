@@ -77,8 +77,10 @@ var no2Multiplier = 0.58; //58% weight
 var routeDistanceMultiplier = 0.01; //1% weight
 var routeDurationMultiplier = 0.01; //1% weight
 
-var maximumOverallPollutionIndex = absoluteMaxNoise * noiseMultiplier + absoluteMaxCO * coMultiplier +
-    absoluteMaxNO2 * no2Multiplier + absoluteMaxRouteDistance * routeDistanceMultiplier + absoluteMaxRouteDuration * routeDurationMultiplier;
+var variableSwitch = {"distance": true, "duration": true, "noise":true, "co": true, "no2":true};
+
+var maximumOverallPollutionIndex = 0;
+calculateMaximumOverallPollutionIndex();
 
 var baseWalkingTimePerMeter = 0.775; //seconds
 
@@ -105,5 +107,7 @@ var popup = new google.maps.InfoWindow({});
 var disableRouteInfoWindow = false;
 var disableMarkerInfoWindow = false;
 var disableGridInfoWindow = false;
+
+var colors = ["green", "yellow", "orange", "red"];
 
 

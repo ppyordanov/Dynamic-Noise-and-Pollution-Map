@@ -87,7 +87,7 @@ function generateMarker(dataReading, visible, map) {
 
     addPopUp(marker, styledContent, mouseover);
 
-    var entry = {"marker": marker, "noise": noise, "no2": no2, "co": co,"time":timestamp};
+    var entry = {"marker": marker, "noise": noise, "no2": no2, "co": co, "time": timestamp};
     POINT_DATA.push(entry);
 
 }
@@ -105,7 +105,9 @@ function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, 
     var overall = "";
     if (typeData != null && typeData > 0) {
         content = "<b>Route " + id + "</b> (" + typeData + " data points" + ")<br>";
-        content += "Distance: " + routeDistance + " m" + "<br>";
+        if (variableSwitch.distance) {
+            content += "Distance: " + routeDistance + " m" + "<br>";
+        }
     }
     else if (typeData < 0) {
         content = "<b>Grid Index: </b>" + (typeData * (-1)) + "<br>";
@@ -116,15 +118,23 @@ function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, 
         content = "<b>Data Reading</b><br>";
     }
     if (routeDuration) {
-        content += routeDuration;
+        if (variableSwitch.duration) {
+            content += routeDuration;
+        }
         overall = "<b>Overall Pollution Index:</b> " + rangePercentage(score, 0, maximumOverallPollutionIndex).toPrecision(3) + "%<br>" + progressEvaluate(score, 0, maximumOverallPollutionIndex);
     }
-    else{
-        content += calculateTime((routeDistance*baseWalkingTimePerMeter));
+    else {
+        content += calculateTime((routeDistance * baseWalkingTimePerMeter));
     }
-    content += "Noise" + valueType + ": " + noise.toPrecision(3) + " dB" + progressEvaluate(noise, minNoise, maxNoise);
-    content += "CO" + valueType + ": " + co.toPrecision(3) + " ppm" + progressEvaluate(co, minCO, maxCO);
-    content += "NO2" + valueType + ": " + no2.toPrecision(3) + " ppm" + progressEvaluate(no2, minNO2, maxNO2);
+    if (variableSwitch.noise) {
+        content += "Noise" + valueType + ": " + noise.toPrecision(3) + " dB" + progressEvaluate(noise, minNoise, maxNoise);
+    }
+    if (variableSwitch.co) {
+        content += "CO" + valueType + ": " + co.toPrecision(3) + " ppm" + progressEvaluate(co, minCO, maxCO);
+    }
+    if (variableSwitch.no2) {
+        content += "NO2" + valueType + ": " + no2.toPrecision(3) + " ppm" + progressEvaluate(no2, minNO2, maxNO2);
+    }
 
     if (valueType == "") {
         content += "Battery: " + battery + " %" + progressEvaluate(battery, minBattery, maxBattery);
@@ -186,7 +196,7 @@ function retrieveDistance(loc1, loc2) {
 function populateMap() {
     for (var i = 0; i < routes.length; i++) {
         var routeDR = dataReadings[routes[i].id];
-        if(routeDR) {
+        if (routeDR) {
             var newRoute = [];
 
             var noiseSUM = null;
@@ -235,7 +245,7 @@ function populateMap() {
 function updateGridAggregation() {
     for (var i = 0; i < routes.length; i++) {
         var routeDR = dataReadings[routes[i].id];
-        if(routeDR){
+        if (routeDR) {
             for (var j = 0; j < routeDR.length; j++) {
                 var dr = routeDR[j];
                 var pos = new google.maps.LatLng(dr.latitude, dr.longitude);
@@ -254,7 +264,7 @@ function identifyValueRange() {
 
     for (var i = 0; i < routes.length; i++) {
         var routeDR = dataReadings[routes[i].id];
-        if(routeDR){
+        if (routeDR) {
             for (var j = 0; j < routeDR.length; j++) {
 
                 var dr = routeDR[j];
@@ -280,9 +290,9 @@ function identifyValueRange() {
     maxNO2 = Math.max.apply(null, no2ARR);
     minNO2 = Math.min.apply(null, no2ARR);
     rangeNO2 = maxNO2 - minNO2;
-    var gon = [new Date(2000,1,20), new Date(2011,1,20), new Date(2015,3,20)];
-    mostRecentTime = new Date(Math.max.apply(null,gon));
-    oldestTime = new Date(Math.min.apply(null,gon));
+    var gon = [new Date(2000, 1, 20), new Date(2011, 1, 20), new Date(2015, 3, 20)];
+    mostRecentTime = new Date(Math.max.apply(null, gon));
+    oldestTime = new Date(Math.min.apply(null, gon));
 
     //alert(mostRecentTime + " " + oldestTime);
 

@@ -17,10 +17,10 @@
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,visualization&sensor=false"></script>
 
+    <script src="${pageContext.request.contextPath}/resources/custom/utility/utility.js"></script> <!--replaced-->
     <script src="${pageContext.request.contextPath}/resources/custom/utility/constants.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/map/locations.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/ui/map_styles.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/custom/utility/utility.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/map/users_devices.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/map/map.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/map/markers_routes.js"></script>

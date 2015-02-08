@@ -67,6 +67,14 @@ function convertToHSV(n) {
     var H = Math.floor((100 - n) * 120 / 100);
 }
 
+function calculateMaximumOverallPollutionIndex() {
+    maximumOverallPollutionIndex = absoluteMaxNoise * noiseMultiplier + absoluteMaxCO * coMultiplier +
+        absoluteMaxNO2 * no2Multiplier + absoluteMaxRouteDistance * routeDistanceMultiplier + absoluteMaxRouteDuration * routeDurationMultiplier;
+}
+
+function compareIntegers(a, b) {
+    return a - b;
+}
 
 //some color testing for the grid map implementation
 var cols = ["gray"];
@@ -90,8 +98,8 @@ function panAndZoom(latitude, longitude) {
     map.setZoom(18);
 }
 
-function formatDate(dateParam){
-    var months= ["January", "February", "March",
+function formatDate(dateParam) {
+    var months = ["January", "February", "March",
         "April", "May", "June", "July", "August", "September",
         "October", "November", "December"];
 

@@ -108,6 +108,15 @@ function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, 
         if (variableSwitch.distance) {
             content += "Distance: " + routeDistance + " m" + "<br>";
         }
+        if (routeDuration) {
+            if (variableSwitch.duration) {
+                content += routeDuration;
+            }
+            overall = "<b>Overall Pollution Index:</b> " + rangePercentage(score, 0, maximumOverallPollutionIndex).toPrecision(3) + "%<br>" + progressEvaluate(score, 0, maximumOverallPollutionIndex);
+        }
+        else {
+            content += calculateTime((routeDistance * baseWalkingTimePerMeter));
+        }
     }
     else if (typeData < 0) {
         content = "<b>Grid Index: </b>" + (typeData * (-1)) + "<br>";
@@ -117,15 +126,7 @@ function generatePopUpContent(noise, co, no2, battery, typeData, routeDistance, 
         valueType = "";
         content = "<b>Data Reading</b><br>";
     }
-    if (routeDuration) {
-        if (variableSwitch.duration) {
-            content += routeDuration;
-        }
-        overall = "<b>Overall Pollution Index:</b> " + rangePercentage(score, 0, maximumOverallPollutionIndex).toPrecision(3) + "%<br>" + progressEvaluate(score, 0, maximumOverallPollutionIndex);
-    }
-    else {
-        content += calculateTime((routeDistance * baseWalkingTimePerMeter));
-    }
+
     if (variableSwitch.noise) {
         content += "Noise" + valueType + ": " + noise.toPrecision(3) + " dB" + progressEvaluate(noise, minNoise, maxNoise);
     }

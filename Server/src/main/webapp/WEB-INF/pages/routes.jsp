@@ -17,7 +17,7 @@
                     <div class='panel-heading'><h3 class='panel-title'>Travel Mode</h3></div>
                     <div class='panel-body'>
 
-                        <span class='left'>
+                        <span class='left width60'>
 
                         <p>
                             Please select a travel mode, a starting point and a destination:
@@ -48,7 +48,7 @@
                     <div class='panel-heading'><h3 class='panel-title'>Journey Planner</h3></div>
                     <div class='panel-body'>
 
-                        <span class='left'>
+                        <span class='left width60'>
 
 
                             <b>Starting Point</b>

@@ -59,6 +59,9 @@ html, body {
 .left{
     float:left;
     margin-top: 20px;
+}
+
+.width60{
     width:60%;
 }
 

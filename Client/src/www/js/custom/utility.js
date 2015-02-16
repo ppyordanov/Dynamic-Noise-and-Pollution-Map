@@ -58,7 +58,7 @@ function getSCKData(location, routeId) {
 
 }
 
-function getDeviceData(){
+function getDeviceData() {
 
     /*
      var form_data = {
@@ -98,6 +98,13 @@ function getDeviceData(){
         success: function (response) {
             console.log(response);
             return response;
+        },
+        error: function () {
+            $('<div class="ui-body ui-body-c abs">You have supplied an invalid SCK API code! Falling back to the devault authentication code provided.</div>').insertAfter('#route_data').delay(3000).fadeOut();
+            //get default API code
+            $("#sckapicode").val(SCK_API_CODE);
+            DATA_SOURCE = 'http://api.smartcitizen.me/v0.0.1/' + SCK_API_CODE + '/lastpost.json';
+            DS2 = 'http://api.smartcitizen.me/v0.0.1/' + SCK_API_CODE + '/me.json';
         }
     }).responseText);
 
@@ -127,6 +134,12 @@ function getUserData() {
             console.log(response);
             return response;
         }
+        /*
+         ,
+         error: function() {
+         $('<div class="ui-body ui-body-c abs">You have supplied an invalid SCK API code!</div>').insertAfter('#route_data').delay(3000).fadeOut();
+         }
+         */
     }).responseText);
 }
 
@@ -135,7 +148,7 @@ function getSCKReading() {
     var form_data = {
         devices: [
             {
-                id:"",
+                id: "",
                 posts: {
                     timestamp: "",
                     temp: "",

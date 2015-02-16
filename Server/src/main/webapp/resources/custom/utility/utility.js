@@ -19,7 +19,7 @@ function rangePercentage(value, min, max) {
 
 function calculateAverage(sum, count) {
     return sum / count;
-};
+}
 
 function logPageLoadingTime() {
     var loadingComplete = Date.now();

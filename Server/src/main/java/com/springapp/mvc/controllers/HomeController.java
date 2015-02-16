@@ -127,12 +127,18 @@ public class HomeController {
         User user = new Gson().fromJson(userJSON,User.class);
         Device device = new Gson().fromJson(deviceJSON, Device.class);
 
-        userRepository.save(user);
-        LOGGER.info("User saved: " + user);
-        device.setUserId(user.getId());
-        deviceRepository.save(device);
-        LOGGER.info("Device saved: " + device);
+        if(user != null && device != null){
+            if(!user.getId().equals(null)){
+                userRepository.save(user);
+                LOGGER.info("User saved: " + user);
+                device.setUserId(user.getId());
+                if(!device.getId().equals(null)){
+                    deviceRepository.save(device);
+                    LOGGER.info("Device saved: " + device);
+                }
+            }
 
+        }
         //save new route
         Route newRoute = new Route();
         newRoute.setDeviceId(device.getId());

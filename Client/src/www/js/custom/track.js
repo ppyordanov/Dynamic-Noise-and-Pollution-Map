@@ -9,18 +9,23 @@ var popup = new google.maps.InfoWindow({});
 var map;
 var probe = 0;
 
-var device ={};
-var user={};
+var device = {};
+var user = {};
 
 var trackIntervalId;
 var sample_data;
-var DATA_SOURCE = 'http://api.smartcitizen.me/v0.0.1/084122509ae13c389bf752915861249cff652249/lastpost.json';
-var DS2 = 'http://api.smartcitizen.me/v0.0.1/084122509ae13c389bf752915861249cff652249/me.json';
 
+var SCK_API_CODE = "084122509ae13c389bf752915861249cff652249";
+var DATA_SOURCE;
+var DS2;
 
 
 function init() {
     $('#connection').prop('disabled', true).addClass('ui-disabled');
+
+    //get default API code
+    $("#sckapicode").val(SCK_API_CODE);
+
     $('#stop').hide();
     if ((navigator.network.connection.type === 'none' || navigator.network.connection.type === null || navigator.network.connection.type === 'unknown' )) {
         $('#connection').html('Not Connected');
@@ -28,7 +33,6 @@ function init() {
     }
 
 }
-
 
 
 $("#start").live('click', function () {
@@ -41,11 +45,28 @@ $("#start").live('click', function () {
         WINDOW = parseInt(winVal);
     }
 
+    //Retrieve API code
+    var sckAPIval = $("#sckapicode").val();
+    DATA_SOURCE = 'http://api.smartcitizen.me/v0.0.1/' + sckAPIval + '/lastpost.json';
+    DS2 = 'http://api.smartcitizen.me/v0.0.1/' + sckAPIval + '/me.json';
+
+    route_id = $("#route_id").val();
+    $("#window").val(WINDOW);
+
+    var time_now;
+
+    if (route_id == '' || route_id == 'null') {
+        time_now = new Date().toLocaleString();
+        route_id = "Route " + time_now;
+        $("#route_id").val(route_id);
+    }
+
     //update location every x seconds, 30 by default
     localize();
 
     var userData = getUserData();
     var deviceData = getDeviceData();
+
 
     user.id = userData.me.id;
     user.userName = userData.me.username;
@@ -60,19 +81,6 @@ $("#start").live('click', function () {
     device.description = deviceData.devices[0].description;
     device.created = deviceData.devices[0].created;
     device.location = deviceData.devices[0].location;
-    device.kitVersion = deviceData.devices[0].kit_version;
-
-    route_id = $("#route_id").val();
-    $("#window").val(WINDOW);
-
-    var time_now;
-
-    if (route_id == '') {
-        time_now = new Date().toLocaleString();
-        route_id = "Route " + time_now;
-        $("#route_id").val(route_id);
-    }
-
 
     //$("#clear").hide();
     $('<div class="ui-body ui-body-c abs">Tracking in progress!</div>').insertAfter('#route_data').delay(3000).fadeOut();
@@ -94,8 +102,8 @@ $("#stop").live('click', function () {
     //if there is data to be transmitted, send to server
     if (context_data.length != 0) {
         var dataReadings = {context: JSON.stringify(context_data),
-                            user: JSON.stringify(user),
-                            device: JSON.stringify(device)};
+            user: JSON.stringify(user),
+            device: JSON.stringify(device)};
         console.log(dataReadings);
         $.ajax({
             type: 'POST',

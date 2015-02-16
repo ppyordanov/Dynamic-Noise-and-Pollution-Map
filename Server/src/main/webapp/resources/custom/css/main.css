@@ -135,3 +135,12 @@ html, body {
     margin: -10px -15px;
     padding: 10px 15px;
 }
+
+/* Enlarge input buttons for mobile devices
+
+input[type=checkbox],input[type=radio] {
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    margin-right:3px;
+}
+*/

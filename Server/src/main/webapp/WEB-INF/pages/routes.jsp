@@ -60,20 +60,18 @@
                                        aria-describedby="sizing-addon3">
                             </div>
 
-<%--
 
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon">Latitude:&emsp;</span>
                                 <input type="text" class="form-control" id="sourceLat" placeholder="lat"
-                                       aria-describedby="sizing-addon3">
+                                       aria-describedby="sizing-addon3"  disabled>
                             </div>
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon">Longitude:</span>
                                 <input type="text" class="form-control" id="sourceLng" placeholder="lng"
-                                       aria-describedby="sizing-addon3">
+                                       aria-describedby="sizing-addon3"  disabled>
                             </div>
 
---%>
 
                             <b>Destination</b>
 
@@ -84,20 +82,18 @@
                                        aria-describedby="sizing-addon3">
                             </div>
 
-<%--
 
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon">Latitude:&emsp;</span>
                                 <input type="text" class="form-control" id="destinationLat" placeholder="lat"
-                                       aria-describedby="sizing-addon3">
+                                       aria-describedby="sizing-addon3"  disabled>
                             </div>
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon">Longitude:</span>
                                 <input type="text" class="form-control" id="destinationLng" placeholder="lng"
-                                       aria-describedby="sizing-addon3">
+                                       aria-describedby="sizing-addon3"  disabled>
                             </div>
 
---%>
 
                         </span>
 

@@ -20,6 +20,8 @@ $(document).ready(function () {
             select: function (event, ui) {
                 starting_point = new google.maps.LatLng(ui.item.loc[0], ui.item.loc[1]);
                 sp_Name = ui.item.label;
+                $("#sourceLat").val(starting_point.lat());
+                $("#sourceLng").val(starting_point.lng());
             }
         }).val(sp_Name).data('autocomplete');
 
@@ -28,8 +30,19 @@ $(document).ready(function () {
             select: function (event, ui) {
                 destination_point = new google.maps.LatLng(ui.item.loc[0], ui.item.loc[1]);
                 dp_Name = ui.item.label;
+                $("#destinationLat").val(destination_point.lat());
+                $("#destinationLng").val(destination_point.lng());
             }
         });
+
+        $("#sourceLat").val(starting_point.lat());
+        $("#sourceLng").val(starting_point.lng());
+
+        if(destination_point!=null){
+            $("#destinationLat").val(destination_point.lat());
+            $("#destinationLng").val(destination_point.lng());
+        }
+
     });
 
     $('#route_apply').on('click', function () {
@@ -83,8 +96,8 @@ $(document).ready(function () {
         }
 
         calculateMaximumOverallPollutionIndex();
-/*
 
+/*
         var sourceLat, sourceLng, destinationLat, destinationLng;
         if ($("#sourceLat").val() != "" && $("#sourceLng").val() != "") {
             sourceLat = parseFloat($("#sourceLat").val());

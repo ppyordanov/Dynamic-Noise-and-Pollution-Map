@@ -5,14 +5,41 @@
 /* ROUTE GENERATION */
 
 
-
 $(document).ready(function () {
 
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
+    var closest;
 
+    toggleUserTracking(currentlyTrackingLocation);
+
+    $('#startTracking').on('click', function () {
+        userWatch = navigator.geolocation.watchPosition(function (position) {
+            renderMarker(map, currentUserLocation, position.coords.latitude, position.coords.longitude);
+        });
+        currentUserLocation.set("visible", true);
+        currentlyTrackingLocation = true;
+        toggleUserTracking(currentlyTrackingLocation);
+        closest = findClosestCampusLocation(source);
+        $('#currentLocation').html("<b>" + closest.label + "</b>");
+    });
+
+    $('#stopTracking').on('click', function () {
+        navigator.geolocation.clearWatch(userWatch);
+        currentUserLocation.set("visible", false);
+        currentlyTrackingLocation = false;
+        toggleUserTracking(currentlyTrackingLocation);
+        var message = "Stopped watching for location changes.";
+        console.log(message);
+        $('#currentLocation').html(message);
+    });
+
+    $('#locationsCheck').on('click', function () {
+        closest = findClosestCampusLocation(source);
+        $('#currentLocation').html("<b>" + closest.label + "</b>");
+    });
     $('#routesCheck').on('click', function () {
-        var closest = findClosestCampusLocation(source);
+        closest = findClosestCampusLocation(source);
         starting_point = new google.maps.LatLng(closest.loc[0], closest.loc[1]);
         sp_Name = closest.label;
         $("#sourcePlace").autocomplete({
@@ -38,7 +65,7 @@ $(document).ready(function () {
         $("#sourceLat").val(starting_point.lat());
         $("#sourceLng").val(starting_point.lng());
 
-        if(destination_point!=null){
+        if (destination_point != null) {
             $("#destinationLat").val(destination_point.lat());
             $("#destinationLng").val(destination_point.lng());
         }
@@ -47,6 +74,7 @@ $(document).ready(function () {
 
     $('#route_apply').on('click', function () {
 
+        currentlyTrackingDestination = true;
         //starting_point = source;
 
         //hide markers and routes
@@ -57,9 +85,9 @@ $(document).ready(function () {
         destination = destination_point;
         //currentUserLocation.set("visible", true);
 
-/*        userWatch = navigator.geolocation.watchPosition(function (position) {
-            renderMarker(map, currentUserLocation, position.coords.latitude, position.coords.longitude);
-        });*/
+        /*        userWatch = navigator.geolocation.watchPosition(function (position) {
+         renderMarker(map, currentUserLocation, position.coords.latitude, position.coords.longitude);
+         });*/
 
 
         //RANK STATISTICS
@@ -69,53 +97,53 @@ $(document).ready(function () {
         variableSwitch.co = $("#coStat").is(':checked');
         variableSwitch.no2 = $("#no2Stat").is(':checked');
 
-        if(variableSwitch.distance){
+        if (variableSwitch.distance) {
             routeDistanceMultiplier = 0.01;
-        }else{
+        } else {
             routeDistanceMultiplier = 0;
         }
-        if(variableSwitch.duration){
+        if (variableSwitch.duration) {
             routeDurationMultiplier = 0.01;
-        }else{
+        } else {
             routeDistanceMultiplier = 0;
         }
-        if(variableSwitch.noise){
+        if (variableSwitch.noise) {
             noiseMultiplier = 0.20;
-        }else{
+        } else {
             noiseMultiplier = 0;
         }
-        if(variableSwitch.co){
+        if (variableSwitch.co) {
             coMultiplier = 0.20;
-        }else{
+        } else {
             coMultiplier = 0;
         }
-        if(variableSwitch.no2){
+        if (variableSwitch.no2) {
             no2Multiplier = 0.58;
-        }else{
+        } else {
             no2Multiplier = 0;
         }
 
         calculateMaximumOverallPollutionIndex();
 
-/*
-        var sourceLat, sourceLng, destinationLat, destinationLng;
-        if ($("#sourceLat").val() != "" && $("#sourceLng").val() != "") {
-            sourceLat = parseFloat($("#sourceLat").val());
-            sourceLng = parseFloat($("#sourceLng").val());
-            //alert(sourceLat);
-            if (!isNaN(sourceLat) && !isNaN(sourceLng)) {
-                //alert("test");
-                starting_point = new google.maps.LatLng(sourceLat, sourceLng);
-            }
-        }
-        if ($("#destinationLat").val() != "" && $("#destinationLng").val() != "") {
-            destinationLat = parseFloat($("#destinationLat").val());
-            destinationLng = parseFloat($("#destinationLng").val());
-            if (!isNaN(destinationLat) && !isNaN(destinationLng)) {
-                destination_point = new google.maps.LatLng(destinationLat, destinationLng);
-            }
-        }
-*/
+        /*
+         var sourceLat, sourceLng, destinationLat, destinationLng;
+         if ($("#sourceLat").val() != "" && $("#sourceLng").val() != "") {
+         sourceLat = parseFloat($("#sourceLat").val());
+         sourceLng = parseFloat($("#sourceLng").val());
+         //alert(sourceLat);
+         if (!isNaN(sourceLat) && !isNaN(sourceLng)) {
+         //alert("test");
+         starting_point = new google.maps.LatLng(sourceLat, sourceLng);
+         }
+         }
+         if ($("#destinationLat").val() != "" && $("#destinationLng").val() != "") {
+         destinationLat = parseFloat($("#destinationLat").val());
+         destinationLng = parseFloat($("#destinationLng").val());
+         if (!isNaN(destinationLat) && !isNaN(destinationLng)) {
+         destination_point = new google.maps.LatLng(destinationLat, destinationLng);
+         }
+         }
+         */
 
         USER_ROUTE_DATA.forEach(function (entry) {
             entry.data["route"].set("map", null);
@@ -165,6 +193,18 @@ function calculateTime(seconds) {
     var minutes = Math.floor(seconds / 60);
     var sec_remaining = seconds - minutes * 60;
     return  "Duration: " + minutes + " min. " + Math.floor(sec_remaining) + " sec." + "<br>";
+}
+
+function toggleUserTracking(track){
+    if(track){
+        $('#startTracking').attr('disabled','disabled');
+        $('#stopTracking').removeAttr('disabled');
+    }
+    else{
+        $('#stopTracking').attr('disabled','disabled');
+        $('#startTracking').removeAttr('disabled');
+    }
+
 }
 
 function generateUserRoutes() {

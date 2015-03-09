@@ -33,7 +33,7 @@
                 <li><a href="#" id="routesCheck" data-toggle="modal" data-target="#routes"><span class="glyphicon glyphicon-random"
                                                                                 aria-hidden="true"></span> Routes</a>
                 </li>
-                <li><a href="#" data-toggle="modal" data-target="#locations"><span
+                <li><a href="#" id="locationsCheck" data-toggle="modal" data-target="#locations"><span
                         class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Locations</a></li>
 
             </ul>

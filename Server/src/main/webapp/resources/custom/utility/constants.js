@@ -37,10 +37,12 @@ var mode = null;
 
 /* USER NAVIGATION */
 
-var destination;
+var destination = new google.maps.LatLng( 0, 0 );
 var source = center;
 var userWatch;
 var currentUserLocation;
+var currentlyTrackingDestination = false;
+var currentlyTrackingLocation = true;
 
 var GRID = [];
 var HEAT_MAP;

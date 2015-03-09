@@ -15,6 +15,15 @@
                 <!-- <div id="pano" class="sView"></div> -->
 
                 <p>
+                    This application tracks your geo-location as you move. You can disable and enable this process via
+                    the buttons below. You are currently closest to:
+                    <div id="currentLocation"></div>
+                </p>
+
+                <a href="#" id="startTracking" class="btn btn-primary">Start Tracking</a>
+                <a href="#" id="stopTracking" class="btn btn-primary">Stop Tracking</a>
+                <br><br>
+                <p>
                     Browse university campus locations below:
                 </p>
 

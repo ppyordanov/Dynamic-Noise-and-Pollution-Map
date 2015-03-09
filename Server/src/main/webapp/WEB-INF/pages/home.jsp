@@ -29,6 +29,7 @@
     <script src="${pageContext.request.contextPath}/resources/custom/map/point_vis.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/map/controls.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/map/route_generation.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/custom/map/navigator.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/ui/user_interface.js"></script>
 
     <script type="text/javascript"

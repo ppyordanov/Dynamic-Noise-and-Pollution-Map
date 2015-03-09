@@ -24,6 +24,24 @@ var centerLon = -4.289657;
 var center = new google.maps.LatLng(centerLat, centerLon);
 var origin = new google.maps.LatLng(maxLatBounds, minLonBounds);
 
+
+/* ROUTE GENERATION */
+
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+var starting_point = null;
+var destination_point = null;
+var sp_Name = null;
+var dp_Name = null;
+var mode = null;
+
+/* USER NAVIGATION */
+
+var destination;
+var source = center;
+var userWatch;
+var currentUserLocation;
+
 var GRID = [];
 var HEAT_MAP;
 var POINT_DATA = [];
@@ -96,6 +114,7 @@ var position;
 
 var map;
 var image = '/resources/images/sck_logo4.png';
+var userLocationImage = '/resources/images/user_location.gif';
 var larger_image='/resources/images/user_device_scaled.png';
 var profile_image='/resources/images/profile2.png';
 var marker;

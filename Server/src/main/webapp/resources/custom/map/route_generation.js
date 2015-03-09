@@ -4,13 +4,6 @@
 
 /* ROUTE GENERATION */
 
-var directionsDisplay;
-var directionsService = new google.maps.DirectionsService();
-var starting_point = null;
-var destination_point = null;
-var sp_Name = null;
-var dp_Name = null;
-var mode = null;
 
 
 $(document).ready(function () {
@@ -18,22 +11,43 @@ $(document).ready(function () {
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
 
-    $("#sourcePlace").autocomplete({
-        source: places,
-        select: function (event, ui) {
-            starting_point = new google.maps.LatLng(ui.item.loc[0], ui.item.loc[1]);
-            sp_Name = ui.item.label;
-        }
-    });
-    $("#destinationPlace").autocomplete({
-        source: places,
-        select: function (event, ui) {
-            destination_point = new google.maps.LatLng(ui.item.loc[0], ui.item.loc[1]);
-            dp_Name = ui.item.label;
-        }
+    $('#routesCheck').on('click', function () {
+        var closest = findClosestCampusLocation(source);
+        starting_point = new google.maps.LatLng(closest.loc[0], closest.loc[1]);
+        sp_Name = closest.label;
+        $("#sourcePlace").autocomplete({
+            source: places,
+            select: function (event, ui) {
+                starting_point = new google.maps.LatLng(ui.item.loc[0], ui.item.loc[1]);
+                sp_Name = ui.item.label;
+            }
+        }).val(sp_Name).data('autocomplete');
+
+        $("#destinationPlace").autocomplete({
+            source: places,
+            select: function (event, ui) {
+                destination_point = new google.maps.LatLng(ui.item.loc[0], ui.item.loc[1]);
+                dp_Name = ui.item.label;
+            }
+        });
     });
 
     $('#route_apply').on('click', function () {
+
+        //starting_point = source;
+
+        //hide markers and routes
+        toggleMarkers(false);
+        toggleRoutes(false);
+
+        /* USER NAVIGATOR */
+        destination = destination_point;
+        //currentUserLocation.set("visible", true);
+
+/*        userWatch = navigator.geolocation.watchPosition(function (position) {
+            renderMarker(map, currentUserLocation, position.coords.latitude, position.coords.longitude);
+        });*/
+
 
         //RANK STATISTICS
         variableSwitch.distance = $("#distanceStat").is(':checked');
@@ -69,12 +83,13 @@ $(document).ready(function () {
         }
 
         calculateMaximumOverallPollutionIndex();
+/*
 
         var sourceLat, sourceLng, destinationLat, destinationLng;
         if ($("#sourceLat").val() != "" && $("#sourceLng").val() != "") {
             sourceLat = parseFloat($("#sourceLat").val());
             sourceLng = parseFloat($("#sourceLng").val());
-            alert(sourceLat);
+            //alert(sourceLat);
             if (!isNaN(sourceLat) && !isNaN(sourceLng)) {
                 //alert("test");
                 starting_point = new google.maps.LatLng(sourceLat, sourceLng);
@@ -87,6 +102,7 @@ $(document).ready(function () {
                 destination_point = new google.maps.LatLng(destinationLat, destinationLng);
             }
         }
+*/
 
         USER_ROUTE_DATA.forEach(function (entry) {
             entry.data["route"].set("map", null);
@@ -141,7 +157,7 @@ function calculateTime(seconds) {
 function generateUserRoutes() {
 
     mode = $("#mode").val();
-
+    //alert(starting_point);
     var request = {
         origin: starting_point,
         destination: destination_point,

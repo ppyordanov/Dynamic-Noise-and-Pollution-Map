@@ -14,8 +14,8 @@ function init_map() {
 
     var myOptions = {
         zoom: 16,
-        minZoom: 15,
-        maxZoom: 18,
+        minZoom: 8,//15,
+        maxZoom: 18,//18,
         center: center,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         disableDefaultUI: false,
@@ -57,6 +57,34 @@ function init_map() {
         map.panTo(lastCenter);
     });
 
+
+    /* USER NAVIGATOR */
+    currentUserLocation = new google.maps.Marker({
+        position: center,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        icon: userLocationIcon,
+        title:"Current user location.",
+        visible: true,
+        optimized: false
+    });
+    var content = "You are here.";
+    addPopUp(currentUserLocation, content, click);
+
+    userWatch = navigator.geolocation.watchPosition(function (position) {
+        renderMarker(map, currentUserLocation, position.coords.latitude, position.coords.longitude);
+    });
+
+    /* copy location on map click */
+    google.maps.event.addListener(map, "click", function(event) {
+        var lat = event.latLng.lat();
+        var lng = event.latLng.lng();
+        var loc = new google.maps.LatLng(lat, lng);
+        var dest = findClosestCampusLocation(loc);
+        $("#destinationPlace").val(dest.label).data('autocomplete');
+        dp_Name = dest.label;
+        destination_point = new google.maps.LatLng(dest.loc[0], dest.loc[1]);
+    });
 
     setStyles();
     identifyValueRange();

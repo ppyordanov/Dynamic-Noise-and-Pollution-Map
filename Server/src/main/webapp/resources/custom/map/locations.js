@@ -42,6 +42,21 @@ var places = [
 ];
 
 
+function findClosestCampusLocation(source){
+    var closest = "";
+    var currentMinimumDistance = Number.MAX_VALUE;
+    var location;
+    places.forEach(function (entry) {
+        location = new google.maps.LatLng(entry.loc[0], entry.loc[1]);
+        if(retrieveDistance(source, location)<currentMinimumDistance){
+            currentMinimumDistance = retrieveDistance(source, location);
+            closest = entry;
+        }
+    });
+
+    return closest;
+}
+
 $(document).ready(function () {
 
     var locationsContent = "<div class='panel-group' id='accordionL' role='tablist' aria-multiselectable='true'>";

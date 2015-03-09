@@ -15,6 +15,13 @@ var pinIcon = {
     scaledSize: new google.maps.Size(30, 30)
 };
 
+var userLocationIcon = {
+    url: userLocationImage,
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(15, 15),
+    scaledSize: new google.maps.Size(25, 25)
+};
+
 function addPopUp(marker, content, trigger) {
 
 

@@ -59,6 +59,9 @@
                                        placeholder="building"
                                        aria-describedby="sizing-addon3">
                             </div>
+
+<%--
+
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon">Latitude:&emsp;</span>
                                 <input type="text" class="form-control" id="sourceLat" placeholder="lat"
@@ -70,6 +73,8 @@
                                        aria-describedby="sizing-addon3">
                             </div>
 
+--%>
+
                             <b>Destination</b>
 
                             <div class="input-group input-group-sm">
@@ -78,6 +83,9 @@
                                        placeholder="building"
                                        aria-describedby="sizing-addon3">
                             </div>
+
+<%--
+
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon">Latitude:&emsp;</span>
                                 <input type="text" class="form-control" id="destinationLat" placeholder="lat"
@@ -88,6 +96,8 @@
                                 <input type="text" class="form-control" id="destinationLng" placeholder="lng"
                                        aria-describedby="sizing-addon3">
                             </div>
+
+--%>
 
                         </span>
 

@@ -30,7 +30,7 @@
                 <li><a href="#" data-toggle="modal" data-target="#values"><span class="glyphicon glyphicon-wrench"
                                                                                 aria-hidden="true"></span> Filters</a>
                 </li>
-                <li><a href="#" data-toggle="modal" data-target="#routes"><span class="glyphicon glyphicon-random"
+                <li><a href="#" id="routesCheck" data-toggle="modal" data-target="#routes"><span class="glyphicon glyphicon-random"
                                                                                 aria-hidden="true"></span> Routes</a>
                 </li>
                 <li><a href="#" data-toggle="modal" data-target="#locations"><span

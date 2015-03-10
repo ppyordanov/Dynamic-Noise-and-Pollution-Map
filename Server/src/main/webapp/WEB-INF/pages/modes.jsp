@@ -12,7 +12,8 @@
 <div class="modal-body">
 
 <p>
-    Please choose the map mode you would like renderred:
+    The visualization modes above can be used to gain a cpomprehensive data understanding as
+    the environment information can be filtered by variable, accuracy and can also be aggregated to discover correlations and build a matrix data representation.Please choose the map mode you would like renderred:
 </p>
 
 
@@ -43,17 +44,7 @@
                 </label>
 
                 <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                    and
-                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-                    leap
-                    into
-                    electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                    release of
-                    Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
-                    like
-                    Aldus PageMaker including versions of Lorem Ipsum.
+                    This mode shows and hides sensor reading data markers. They are visible on the map space by default but can be hidden using the controls above. The environmental data (noise, CO, NO2, battery, available on hover han also be endabled/ disabled).
                 </p>
             </div>
         </div>
@@ -94,17 +85,7 @@
                 </div>
 
                 <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                    and
-                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-                    leap
-                    into
-                    electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                    release of
-                    Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
-                    like
-                    Aldus PageMaker including versions of Lorem Ipsum.
+                    Route poly-lines and information pop-ups can be disabled/enabled using the controls above. Route pop-ups show the aggregated environment variable data for all of its data points (the average is displayed). Configuration options such as route path thickness and opacity are also present for producing combined vizualisations with multiple features.
                 </p>
 
             </div>
@@ -143,17 +124,7 @@
 
 
                 <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                    and
-                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-                    leap
-                    into
-                    electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                    release of
-                    Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
-                    like
-                    Aldus PageMaker including versions of Lorem Ipsum.
+                    The heat map can be used to identify the campus areas where the data point concentration is highest. This can be used to infer where the dynamic noise and pollution campus map is most accurate. The route and opacity can also be controlled to match the desired scaling and for producing combined vizualisations.
                 </p>
 
             </div>
@@ -309,17 +280,7 @@
                 </div>
 
                 <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                    and
-                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-                    leap
-                    into
-                    electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                    release of
-                    Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
-                    like
-                    Aldus PageMaker including versions of Lorem Ipsum.
+                    This map overlay is used to show the values for the environmental variables (noise, CO, NO2) on the map as a square indexed matrix - grid. The configuration options include variable selection, enabling/ disabling pop-up information on click, showing/hiding the grid cells outling. Other options are the gradient choice - using HSL (red-yellow-green) it is easier to identify the middle value range while RGB (which uses red-green) allows for more comprehensive comparison between any pair of cells. Data scaling can also be controlled - relative data scaling allows users to identify the most polluted areas in the campus as the range of the data is always constrained to the maximum value in the current data set. Using absolute scaling, however, allows users to see the information in relation to the norms imposed by the government and uses the following data constraints in terms of maximum values (calculated in ppm /parts per million/ and dB correspondingly): 30-40 ppm is the danger threshold for CO, while for NO2 this is 150-160 ppm (it is not that toxic). In terms of noise, the pain threshold is around 130-150 dB and this is used for its scaling. In order to improve the accuracy of the grid, the matrix cell size can be controlled. The minimum size is 10 m, while the default one is 50 m. The opacity of the cells' filling and outline can be controlled as well.
                 </p>
 
             </div>
@@ -508,17 +469,7 @@
                 </div>
 
                 <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                    and
-                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-                    leap
-                    into
-                    electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                    release of
-                    Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
-                    like
-                    Aldus PageMaker including versions of Lorem Ipsum.
+                    The grid map and marker visualization allow only a single variable to be rendered on the map surface at any given time. In order to be able to inspect all of the variables simultaneously, the point visualization mode has been designed. It allows users to plot the three main variables on the map, choosing different color codings and scaling the radius (using multipliers as follows: x1, x2, x4, x10) for each one. This makes maximum values very easy to inspect and enables users to be able to conclude whether there are correlations in the locations where max/min values for noise, CO and NO2 are recorded.
                 </p>
 
             </div>
@@ -534,7 +485,8 @@
 
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary" id="mode_apply" data-dismiss="modal">Apply</button>
+    <button type="button" class="btn btn-success" id="mode_apply" data-dismiss="modal">Apply</button>
+    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 </div>
 </div>
 </div>

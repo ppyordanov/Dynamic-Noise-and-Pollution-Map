@@ -40,6 +40,8 @@
                                     <div id="noise" class="slider"></div>
                                     </span>
 
+                                    <br><img src="${pageContext.request.contextPath}/resources/images/noise_levels.png" />
+
                                 </div>
                             </div>
                         </div>
@@ -62,6 +64,7 @@
                                         <div id="co" class="slider"></div>
                                     </span>
 
+                                    <br><img src="${pageContext.request.contextPath}/resources/images/co_levels.jpg" />
                                 </div>
                             </div>
                         </div>
@@ -79,11 +82,13 @@
                                  aria-labelledby="headingThreeF">
                                 <div class="panel-body">
 
+
                                     <span>
                                         NO2 (ppm) <div class="locARR"></div>
                                         <div id="no2" class="slider"></div>
                                     </span>
 
+                                    <br><img src="${pageContext.request.contextPath}/resources/images/no2_levels.png" />
                                 </div>
                             </div>
                         </div>
@@ -117,7 +122,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="value_apply" data-dismiss="modal">Apply</button>
+                <button type="button" class="btn btn-success" id="value_apply" data-dismiss="modal">Apply</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

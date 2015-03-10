@@ -60,7 +60,7 @@ function init_map() {
 
     /* USER NAVIGATOR */
     currentUserLocation = new google.maps.Marker({
-        position: center,
+        position: null,
         map: map,
         animation: google.maps.Animation.DROP,
         icon: userLocationIcon,
@@ -104,6 +104,7 @@ function init_map() {
         range: true,
         min: Math.floor(minNoise),
         max: Math.ceil(maxNoise),
+        values: [ Math.floor(minNoise), Math.floor(maxNoise) ],
         step: baseStep,
         slide: function (event, ui) {
             var v1 = ui.values[ 0 ];
@@ -128,13 +129,17 @@ function init_map() {
             renderData();
         }
     });
-
+    minRangeNoise = minNoise;
+    maxRangeNoise = maxNoise;
+    $("#noise").find(".ui-slider-handle").eq(0).text(minNoise.toFixed(2));
+    $("#noise").find(".ui-slider-handle").eq(1).text(maxNoise.toFixed(2));
 
     $("#co").slider({
         orientation: "horizontal",
         range: true,
         min: Math.floor(minCO),
         max: Math.ceil(maxCO),
+        values: [ Math.floor(minCO),Math.ceil(maxCO) ],
         step: baseStep,
         slide: function (event, ui) {
             //$( "#co_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
@@ -149,12 +154,17 @@ function init_map() {
             renderData();
         }
     });
+    minRangeCO = minCO;
+    maxRangeCO = maxCO;
+    $("#co").find(".ui-slider-handle").eq(0).text(minCO.toFixed(2));
+    $("#co").find(".ui-slider-handle").eq(1).text(maxCO.toFixed(2));
 
     $("#no2").slider({
         orientation: "horizontal",
         range: true,
         min: Math.floor(minNO2),
         max: Math.ceil(maxNO2),
+        values: [  Math.floor(minNO2), Math.ceil(maxNO2) ],
         step: baseStep,
         slide: function (event, ui) {
             var v1 = ui.values[ 0 ];
@@ -169,17 +179,21 @@ function init_map() {
             renderData();
         }
     });
-
+    minRangeNO2 = minNO2;
+    maxRangeNO2 = maxNO2;
+    $("#no2").find(".ui-slider-handle").eq(0).text(minNO2.toFixed(2));
+    $("#no2").find(".ui-slider-handle").eq(1).text(maxNO2.toFixed(2));
 
     var dayMS = 24*60*60*1000;
     var timeBase=oldestTime.getTime()/dayMS;
-        //alert(oldestTime.getTime()/dayMS);
+    var maxDays = mostRecentTime.getTime()/dayMS-timeBase;
     $("#timeRange").text("Time (days between " + formatDate(oldestTime) + " and " + formatDate(mostRecentTime) + ")");
     $("#time").slider({
         orientation: "horizontal",
         range: true,
         min: 0,
-        max: mostRecentTime.getTime()/dayMS-timeBase,
+        max: maxDays,
+        values: [ 0,  maxDays],
         step: 1,
         slide: function (event, ui) {
             //$( "#co_level" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
@@ -189,13 +203,16 @@ function init_map() {
             $("#time").find(".ui-slider-handle").eq(1).text(v2);
         },
         stop: function (event, ui) {
-            oldestTimeRange = new Date((parseInt(ui.values[0])+timeBase)*dayMS);
-            mostRecentTimeRange = new Date((parseInt(ui.values[1])+timeBase)*dayMS);
+            oldestTimeRange = new Date((parseInt(ui.values[0])+timeBase-1)*dayMS);
+            mostRecentTimeRange = new Date((parseInt(ui.values[1])+timeBase+1)*dayMS);
             $("#timeRange").text("Time (days between " + formatDate(oldestTimeRange) + " and " + formatDate(mostRecentTimeRange) + ")");
-            //alert(oldestTimeRange);
             renderData();
         }
     });
+    oldestTimeRange = 0;
+    mostRecentTimeRange = mostRecentTime.getTime()/dayMS-timeBase;
+    $("#time").find(".ui-slider-handle").eq(0).text(0);
+    $("#time").find(".ui-slider-handle").eq(1).text(maxDays.toFixed(0));
 
 
     $('#value_apply').click(function () {
@@ -223,7 +240,7 @@ function renderData() {
 
         var pDataEntry = POINT_DATA[index];
         var pVisEntry = POINT_VISUALIZATION[index];
-
+        //alert(pDataEntry["time"]);
         if ((pDataEntry["noise"] >= minRangeNoise && pDataEntry["noise"] <= maxRangeNoise) &&
             (pDataEntry["co"] >= minRangeCO && pDataEntry["co"] <= maxRangeCO) &&
             (pDataEntry["no2"] >= minRangeNO2 && pDataEntry["no2"] <= maxRangeNO2)

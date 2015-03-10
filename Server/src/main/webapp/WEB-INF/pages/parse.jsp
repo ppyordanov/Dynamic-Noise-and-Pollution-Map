@@ -53,7 +53,7 @@
         //alert(dataReading.timestamp);
     }
     else{
-        dataReading["timestamp"] = new Date();
+        dataReading["timestamp"] = new Date(2014,12,15);
     }
     dataReading["latitude"] = "${element.latitude}";
     dataReading["longitude"] = "${element.longitude}";

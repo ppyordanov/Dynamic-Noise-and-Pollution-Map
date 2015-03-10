@@ -298,9 +298,9 @@ function identifyValueRange() {
     maxNO2 = Math.max.apply(null, no2ARR);
     minNO2 = Math.min.apply(null, no2ARR);
     rangeNO2 = maxNO2 - minNO2;
-    var gon = [new Date(2000, 1, 20), new Date(2011, 1, 20), new Date(2015, 3, 20)];
-    mostRecentTime = new Date(Math.max.apply(null, gon));
-    oldestTime = new Date(Math.min.apply(null, gon));
+    //var gon = [new Date(2000, 1, 20), new Date(2011, 1, 20), new Date(2015, 3, 20)];
+    mostRecentTime = new Date(Math.max.apply(null, timeARR));
+    oldestTime = new Date(Math.min.apply(null, timeARR));
 
     //alert(mostRecentTime + " " + oldestTime);
 

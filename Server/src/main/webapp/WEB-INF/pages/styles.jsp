@@ -150,12 +150,8 @@
                 <br><br>
 
                 <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                    and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-                    leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
-                    with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-                    publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    Hint: styles allow you to view different aspects of the map. For instance, using the sattelite view, you can zoom in and use the tilted mode in order to have a better notion of where you are currently located.
+                    Controls can be used to enable/ disable keyboard shortcuts as well as control the appearance of the map&quot;s UI controls.
                 </p>
 
             </div>

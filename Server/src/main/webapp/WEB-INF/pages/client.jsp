@@ -16,18 +16,40 @@
                     You can read more about the client application here:
                 </p>
 
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                software like Aldus PageMaker including versions of Lorem Ipsum.
+                <div class="container-fluid">
+                    <p>
+                        The client application for data collection can be downloaded using the links below. It supports Android 1.9 and up(.apk file included) as well as Windows Mobile (.xap file included). It can be used to pair with any Smart Citizen Kit device and transmit information to this server.
+                    </p>
+                    <div class="row">
+                        <div class="col-sm-4" align="center" >
 
-                <br><br>
-                <b>Android</b><br>
-                <a href="#" class="btn btn-primary">Download</a><br><br>
-                <b>Windows Phone</b><br>
-                <a href="#" class="btn btn-primary">Download</a>
+                            <a href="${pageContext.request.contextPath}/resources/client/compiled/dnpcm_android.apk"><img src="${pageContext.request.contextPath}/resources/images/android.png" /></a><br><br>
+                            <b>Android</b>
+
+                        </div>
+
+                        <div class="col-sm-4" align="center">
+
+                            <a href="${pageContext.request.contextPath}/resources/client/compiled/dnpcm_windows_mobile.xap"><img src="${pageContext.request.contextPath}/resources/images/windows.png" /></a><br><br>
+                            <b>Windows Phone</b>
+
+                        </div>
+
+                        <div class="col-sm-4" align="center">
+
+                            <a href="#"><img src="${pageContext.request.contextPath}/resources/images/ios.png" /></a><br><br>
+                            <b>Apple iOS Coming Soon</b>
+
+                        </div>
+                    </div>
+
+                    <div class="row" align="center">
+                        <br>
+                        <a href="#"><img src="${pageContext.request.contextPath}/resources/images/app_data.png" /></a>
+
+                    </div>
+                </div>
+
 
             </div>
             <div class="modal-footer">

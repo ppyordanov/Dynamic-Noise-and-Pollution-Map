@@ -20,8 +20,7 @@ $(document).ready(function () {
         currentUserLocation.set("visible", true);
         currentlyTrackingLocation = true;
         toggleUserTracking(currentlyTrackingLocation);
-        closest = findClosestCampusLocation(source);
-        $('#currentLocation').html("<b>" + closest.label + "</b>");
+        renderLocationData(source, currentlyTrackingLocation);
     });
 
     $('#stopTracking').on('click', function () {
@@ -29,14 +28,11 @@ $(document).ready(function () {
         currentUserLocation.set("visible", false);
         currentlyTrackingLocation = false;
         toggleUserTracking(currentlyTrackingLocation);
-        var message = "Stopped watching for location changes.";
-        console.log(message);
-        $('#currentLocation').html(message);
+        renderLocationData(source, currentlyTrackingLocation);
     });
 
     $('#locationsCheck').on('click', function () {
-        closest = findClosestCampusLocation(source);
-        $('#currentLocation').html("<b>" + closest.label + "</b>");
+        renderLocationData(source, currentlyTrackingLocation);
     });
     $('#routesCheck').on('click', function () {
         closest = findClosestCampusLocation(source);
@@ -155,6 +151,26 @@ $(document).ready(function () {
 
 });
 
+function renderLocationData(source, track) {
+    var closest = findClosestCampusLocation(source);
+    var sViewImage;
+    var content;
+    if(track){
+        sViewImage = "<img class='streetViewImage' src='https://maps.googleapis.com/maps/api/streetview?size=200x120&location=" + closest.loc[0] + "," + closest.loc[1] + "&heading=34&pitch=10&fov=120'>";
+        content =
+            "<div class='panel panel-success'><div class='panel-heading'><h3 class='panel-title'>" + closest.label + "</h3></div><div class='panel-body'><span class='left'>" +
+            "<div class='row'><div class='col-xs-6 col-md-6'>" + sViewImage + "</div>" +
+            "<div class='col-xs-6 col-md-6'></div>" + "<span class='right'><b>Latitude:</b> " + closest.loc[0] + "<br>" + "<b>Longitude:</b>" + closest.loc[1] +
+            "<br><br><button type='button' class='btn btn-primary' onclick='panAndZoom(" + closest.loc[0] + "," + closest.loc[1] + ");' data-dismiss='modal'>View</button></span></div>" +
+            "</div></div>";
+    }
+    else{
+        content = "<b>Stopped watching for location changes.</b>";
+        console.log(sViewImage);
+    }
+    $('#currentLocation').html(content);
+}
+
 function identifyBestRoute() {
     //var lowestScore = Number.MAX_SAFE_INTEGER;
 
@@ -195,13 +211,13 @@ function calculateTime(seconds) {
     return  "Duration: " + minutes + " min. " + Math.floor(sec_remaining) + " sec." + "<br>";
 }
 
-function toggleUserTracking(track){
-    if(track){
-        $('#startTracking').attr('disabled','disabled');
+function toggleUserTracking(track) {
+    if (track) {
+        $('#startTracking').attr('disabled', 'disabled');
         $('#stopTracking').removeAttr('disabled');
     }
-    else{
-        $('#stopTracking').attr('disabled','disabled');
+    else {
+        $('#stopTracking').attr('disabled', 'disabled');
         $('#startTracking').removeAttr('disabled');
     }
 

@@ -38,7 +38,8 @@
 
                         <span class="right">
 
-                            <img id='userImage' src='${pageContext.request.contextPath}/resources/images/user_device_scaled.png'>
+                            <img id='userImage'
+                                 src='${pageContext.request.contextPath}/resources/images/user_device_scaled.png'>
 
                         </span>
                     </div>
@@ -49,7 +50,6 @@
                     <div class='panel-body'>
 
                         <span class='left width60'>
-
 
                             <b>Starting Point</b>
 
@@ -64,12 +64,12 @@
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon">Latitude:&emsp;</span>
                                 <input type="text" class="form-control" id="sourceLat" placeholder="lat"
-                                       aria-describedby="sizing-addon3"  disabled>
+                                       aria-describedby="sizing-addon3" disabled>
                             </div>
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon">Longitude:</span>
                                 <input type="text" class="form-control" id="sourceLng" placeholder="lng"
-                                       aria-describedby="sizing-addon3"  disabled>
+                                       aria-describedby="sizing-addon3" disabled>
                             </div>
 
 
@@ -86,12 +86,12 @@
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon">Latitude:&emsp;</span>
                                 <input type="text" class="form-control" id="destinationLat" placeholder="lat"
-                                       aria-describedby="sizing-addon3"  disabled>
+                                       aria-describedby="sizing-addon3" disabled>
                             </div>
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon">Longitude:</span>
                                 <input type="text" class="form-control" id="destinationLng" placeholder="lng"
-                                       aria-describedby="sizing-addon3"  disabled>
+                                       aria-describedby="sizing-addon3" disabled>
                             </div>
 
 
@@ -118,13 +118,18 @@
                             </label>
 
                         </span>
+
+                        <p class="left">
+                            The starting point of your journey is the building on Glasgow University Campus that you are closest to at the moment. It has been automatically determined to improve query efficiency and can be changed. The destination point can be typed in manually (using the assistance of the auto-complete functionality) or you can tap anywhere on the map to select the closest matching building on campus. Latitude and longitude values are also populated automatically to show the location accurately. When you reach your destination, the application will let you know!
+                        </p>
+
                     </div>
                 </div>
-
-
             </div>
+
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="route_apply" data-dismiss="modal">Apply</button>
+                <button type="button" class="btn btn-success" id="route_apply" data-dismiss="modal">Apply</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

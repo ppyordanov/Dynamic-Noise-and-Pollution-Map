@@ -6,7 +6,7 @@
         id        = "UGMAP"
         version   = "1.0.0">
 
-    <name>Dynamic Noise And Polllution Campus Map</name>
+    <name>Dynamic Noise And Pollution Campus Map</name>
 
     <description>
         Generate a dynamic campus map via the innovative Smart Citizen Kit, developed by Fab Lab, Barcelona.

@@ -1,0 +1,47 @@
+styles
+
+Hint: different styles allow you to view different aspect of the map. For instance, using the sattelite view, you can zoom in and use the tilted view in order to have a better notion of where you are currently located.
+
+modes
+data points
+
+This mode shows and hides sensor reading data markers. They are visible on the map space by default but can be hidden using the controls above. The environmental data (noise, CO, NO2, battery, available on hover han also be endabled/ disabled).
+
+routes
+
+Route poly-lines and information pop-ups can be disabled/enabled using the controls above. Route pop-ups show the aggregated environment variable data for all of its data points (the average is displayed). Configuration options such as route path thickness and opacity are also present for producing combined vizualisations with multiple features.
+
+heat map
+
+The heat map can be used to identify the campus areas where the data point concentration is highest. This can be used to infer where the dynamic noise and pollution campus map is most accurate. The route and opacity can also be controlled to match the desired scaling and for producing combined vizualisations.
+
+grid
+
+This map overlay is used to show the values for the environmental variables (noise, CO, NO2) on the map as a square indexed matrix - grid. The configuration options include variable selection, enabling/ disabling pop-up information on click, showing/hiding the grid cells outling. Other options are the gradient choice - using HSL (red-yellow-green) it is easier to identify the middle value range while RGB (which uses red-green) allows for more comprehensive comparison between any pair of cells. Data scaling can also be controlled - relative data scaling allows users to identify the most polluted areas in the campus as the range of the data is always constrained to the maximum value in the current data set. Using absolute scaling, however, allows users to see the information in relation to the norms imposed by the government and uses the following data constraints in terms of maximum values (calculated in ppm /parts per million/ and dB correspondingly): 30-40 ppm is the danger threshold for CO, while for NO2 this is 150-160 ppm (it is not that toxic). In terms of noise, the pain threshold is around 130-150 dB and this is used for its scaling. In order to improve the accuracy of the grid, the matrix cell size can be controlled. The minimum size is 10 m, while the default one is 50 m. The opacity of the cells' filling and outline can be controlled as well.
+
+point visualization
+
+The grid map and marker visualization allow only a single variable to be rendered on the map surface at any given time. In order to be able to inspect all of the variables simultaneously, the point visualization mode has been designed. It allows users to plot the three main variables on the map, choosing different color codings and scaling the radius (using multipliers as follows: x1, x2, x4, x10) for each one. This makes maximum values very easy to inspect and enables users to be able to conclude whether there are correlations in the locations where max/min values for noise, CO and NO2 are recorded.
+
+journey planner
+
+The starting point of your journey is the building on Glasgow University Campus that you are closest to at the moment. It has been automatically determined to improve query efficiency and can be changed. The destination point can be typed in manually (using the assistance of the auto-complete functionality) or you can tap anywhere on the map to select the closest matching building on campus. Latitude and longitude values are also populated automatically to show the location accurately. When you reach your destination, the application will let you know!
+
+locations
+
+You can track your location by using the red dot on the map.
+
+client
+
+The client application for data collection can be downloaded using the links below. It supports Android 1.9 and up(.apk file included) as well as Windows Mobile (.xap file included). It can be used to pair with any Smart Citizen Kit device and transmit information to this server.
+
+SCK
+
+The project’s goal is building a dynamic noise and pollution campus map via using the innovative Smart Citizen Kit board ( https://smartcitizen.me/ ) developed by the company FabLab in Barcelona, Spain. The device consists of two main boards that are connected together - one is a modified Arduino Leonardo board and the other houses sensors for environmental data retrieval. Sensors that are available in version 1.1 of the device (the one this project is using) include – temperature, NO2, CO, solar, noise and humidity sensor.
+The Smart Citizen Kit also has a micro SD card slot for firmware updates (there is an integrated USB 2.0 connector port that can be used for this purpose as well). There is a battery port that allows for device portability when it is not being charged via a USB cable and a small battery slot for RTC settings (real-time clock) that can be used for better accuracy configuration - normally, sensors update their values once every 60 seconds.
+
+About
+
+It is important that both students and staff are aware of the air quality and levels of noise around the university campus in order to allow them to know where the most appropriate places to walk and study are. Building a dynamic map of the campus that can aggregate information about air pollution (in PPM – parts per million) and noise (decibels) while at the same time educating users what the normal values for these variables (noise and NO2, CO, the main air pollutants) is a good solution to this task.
+The features that the startup kit provides make it a very suitable product for this project’s needs. It can be used as a portable probing device paired with a mobile device’s GPS sensor in order to generate a dynamic campus map that is flexible and intuitive to use. One of the possible use cases is suggesting quiet and clean air routes to end users. The final project deliverable is a mobile application and a backend infrastructure. The project makes use of the client-server software engineering paradigm allowing system users to consult the application whenever they need environmental data information and also improve it by participating in the data collection process (provided they have access to a Smart Citizen Kit).
+The software system will be evaluated by recruiting volunteer participants to collect environmental data and test the mobile application.

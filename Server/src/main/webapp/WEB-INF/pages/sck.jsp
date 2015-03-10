@@ -13,17 +13,9 @@
             <div class="modal-body">
 
                 <p>
-                    SCK:
+                    The project&lsquo;s goal is building a dynamic noise and pollution campus map via using the innovative Smart Citizen Kit board ( <b><a href="http://smartcitizen.me/">http://smartcitizen.me/</a></b> ) developed by the company FabLab in Barcelona, Spain. The device consists of two main boards that are connected together - one is a modified Arduino Leonardo board and the other houses sensors for environmental data retrieval. Sensors that are available in version 1.1 of the device (the one this project is using) include: temperature, NO2, CO, solar, noise and humidity sensor.
+                    The Smart Citizen Kit also has a micro SD card slot for firmware updates (there is an integrated USB 2.0 connector port that can be used for this purpose as well). There is a battery port that allows for device portability when it is not being charged via a USB cable and a small battery slot for RTC settings (real-time clock) that can be used for better accuracy configuration - normally, sensors update their values once every 60 seconds.
                 </p>
-
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                software like Aldus PageMaker including versions of Lorem Ipsum.
-                <br>
-                <b>Website: <a href="http://smartcitizen.me/">http://smartcitizen.me/</a></b>
 
             </div>
             <div class="modal-footer">

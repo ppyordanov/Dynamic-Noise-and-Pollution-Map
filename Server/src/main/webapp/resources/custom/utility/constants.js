@@ -55,7 +55,7 @@ var infowindow = new google.maps.InfoWindow();
 
 var mostRecentTime = null;
 var oldestTime = null;
-var mostRecentTimeRange = new Date(2000,1,1);
+var mostRecentTimeRange = new Date();
 var oldestTimeRange = new Date();
 
 var maxNoise = null;

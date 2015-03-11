@@ -18,35 +18,42 @@
 
                 <div class="container-fluid">
                     <p>
-                        The client application for data collection can be downloaded using the links below. It supports Android 1.9 and up(.apk file included) as well as Windows Mobile (.xap file included). It can be used to pair with any Smart Citizen Kit device and transmit information to this server.
+                        The client application for data collection can be downloaded using the links below. It supports
+                        Android 1.9 and up(.apk file included) as well as Windows Mobile (.xap file included). It can be
+                        used to pair with any Smart Citizen Kit device and transmit information to this server.
                     </p>
-                    <div class="row">
-                        <div class="col-sm-4" align="center" >
 
-                            <a href="${pageContext.request.contextPath}/resources/client/compiled/dnpcm_android.apk"><img src="${pageContext.request.contextPath}/resources/images/android.png" /></a><br><br>
+                    <div class="row">
+                        <div class="col-xs-4" align="center">
+
+                            <a href="${pageContext.request.contextPath}/resources/client/compiled/dnpcm_android.apk"><img
+                                    src="${pageContext.request.contextPath}/resources/images/android.png"/></a><br><br>
                             <b>Android</b>
 
                         </div>
 
-                        <div class="col-sm-4" align="center">
+                        <div class="col-xs-4" align="center">
 
-                            <a href="${pageContext.request.contextPath}/resources/client/compiled/dnpcm_windows_mobile.xap"><img src="${pageContext.request.contextPath}/resources/images/windows.png" /></a><br><br>
+                            <a href="${pageContext.request.contextPath}/resources/client/compiled/dnpcm_windows_mobile.xap"><img
+                                    src="${pageContext.request.contextPath}/resources/images/windows.png"/></a><br><br>
                             <b>Windows Phone</b>
 
                         </div>
 
-                        <div class="col-sm-4" align="center">
+                        <div class="col-xs-4" align="center">
 
-                            <a href="#"><img src="${pageContext.request.contextPath}/resources/images/ios.png" /></a><br><br>
+                            <a href="#"><img src="${pageContext.request.contextPath}/resources/images/ios.png"/></a><br><br>
                             <b>Apple iOS Coming Soon</b>
 
                         </div>
                     </div>
 
                     <div class="row" align="center">
-                        <br>
-                        <a href="#"><img src="${pageContext.request.contextPath}/resources/images/app_data.png" /></a>
-
+                        <div class="col-xs-12" align="center">
+                            <br>
+                            <a href="#"><img
+                                    src="${pageContext.request.contextPath}/resources/images/app_data.png"/></a>
+                        </div>
                     </div>
                 </div>
 

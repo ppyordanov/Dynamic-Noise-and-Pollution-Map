@@ -191,7 +191,7 @@ function toggleGrid(value) {
         }
 
 
-        if (parseInt($("#tileSize").val()) >= 10) {
+        if (parseInt($("#tileSize").val()) >= 20) {
             var tileSize = $("#tileSize").val();
             GRID.forEach(function (entry) {
                 entry["tile"].set("map", null);

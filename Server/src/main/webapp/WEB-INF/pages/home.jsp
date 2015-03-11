@@ -13,6 +13,7 @@
     <script src="${pageContext.request.contextPath}/resources/external/jquery/jquery-1.11.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/external/bs/js/bootstrap.js"></script>
     <script src="${pageContext.request.contextPath}/resources/external/jquery/jquery-ui.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/external/jquery/jquery.ui.touch-punch.min.js"></script>
 
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,visualization&sensor=false"></script>

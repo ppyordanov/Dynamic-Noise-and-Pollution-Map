@@ -209,10 +209,10 @@ function init_map() {
             renderData();
         }
     });
-    oldestTimeRange = 0;
-    mostRecentTimeRange = mostRecentTime.getTime()/dayMS-timeBase;
-    $("#time").find(".ui-slider-handle").eq(0).text(0);
-    $("#time").find(".ui-slider-handle").eq(1).text(maxDays.toFixed(0));
+    oldestTimeRange = new Date((timeBase)*dayMS);
+    mostRecentTimeRange = new Date((maxDays+timeBase)*dayMS);
+    $("#time").find(".ui-slider-handle").eq(0).text("0");
+    $("#time").find(".ui-slider-handle").eq(1).text(maxDays.toFixed(0).toString());
 
 
     $('#value_apply').click(function () {

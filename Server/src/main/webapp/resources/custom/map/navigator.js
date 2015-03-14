@@ -10,7 +10,7 @@ function renderMarker( map, marker, latitude, longitude ) {
 
     source = new google.maps.LatLng( latitude, longitude );
     marker.set("position", source);
-    map.panTo( source );
+    //map.panTo( source );
 
     if(currentlyTrackingDestination){
         if(retrieveDistance(source, destination)<50){

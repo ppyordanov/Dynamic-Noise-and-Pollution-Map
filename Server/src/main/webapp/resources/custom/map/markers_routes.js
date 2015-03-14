@@ -92,7 +92,7 @@ function generateMarker(dataReading, visible, map) {
 
     var styledContent = generatePopUpContent(noise, co, no2, battery, 0, null, null, null, null, null);
 
-    addPopUp(marker, styledContent, mouseover);
+    addPopUp(marker, styledContent, click); //mouseover); alternative
 
     var entry = {"marker": marker, "noise": noise, "no2": no2, "co": co, "time": timestamp};
     POINT_DATA.push(entry);

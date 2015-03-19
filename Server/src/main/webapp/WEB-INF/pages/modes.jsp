@@ -44,6 +44,7 @@
                 </label>
 
                 <p>
+                    <span id="dp"></span>
                     This mode shows and hides sensor reading data markers. They are visible on the map space by default but can be hidden using the controls above. The environmental data (noise, CO, NO2, battery, available on hover han also be endabled/ disabled).
                 </p>
             </div>
@@ -85,6 +86,7 @@
                 </div>
 
                 <p>
+                    <span id="rn"></span>
                     Route poly-lines and information pop-ups can be disabled/enabled using the controls above. Route pop-ups show the aggregated environment variable data for all of its data points (the average is displayed). Configuration options such as route path thickness and opacity are also present for producing combined vizualisations with multiple features.
                 </p>
 
@@ -278,6 +280,13 @@
                     </div>
 
                 </div>
+
+                <p>
+
+                    <div id="explorationPercentage"></div> <br><div id="explorationData"></div><br>
+                <b>Please contribute to the exploration process by downloading the client application from the menu above.</b><br>
+
+                </p>
 
                 <p>
                     This map overlay is used to show the values for the environmental variables (noise, CO, NO2) on the map as a square indexed matrix - grid. The configuration options include variable selection, enabling/ disabling pop-up information on click, showing/hiding the grid cells outling. Other options are the gradient choice - using HSL (red-yellow-green) it is easier to identify the middle value range while RGB (which uses red-green) allows for more comprehensive comparison between any pair of cells. Data scaling can also be controlled - relative data scaling allows users to identify the most polluted areas in the campus as the range of the data is always constrained to the maximum value in the current data set. Using absolute scaling, however, allows users to see the information in relation to the norms imposed by the government and uses the following data constraints in terms of maximum values (calculated in ppm /parts per million/ and dB correspondingly): 30-40 ppm is the danger threshold for CO, while for NO2 this is 150-160 ppm (it is not that toxic). In terms of noise, the pain threshold is around 130-150 dB and this is used for its scaling. In order to improve the accuracy of the grid, the matrix cell size can be controlled. The minimum size is 20 m, while the default one is 50 m. The opacity of the cells' filling and outline can be controlled as well.

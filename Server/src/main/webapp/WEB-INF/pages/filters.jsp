@@ -12,7 +12,8 @@
             <div class="modal-body">
 
                 <p>
-                    Please configure the map using the sliders below:
+                    Noise levels are represented in decibels (dB) while CO and NO2 levels - in parts per million (ppm).
+                    Please configure the map using the sliders below (there are tables showing the variable level category ranges - from safe to dangerous):
                 </p>
 
 
@@ -40,7 +41,7 @@
                                     <div id="noise" class="slider"></div>
                                     </span>
 
-                                    <br><img src="${pageContext.request.contextPath}/resources/images/noise_levels.png" />
+                                    <br><img class="scaledImage60 center-block img-responsive" src="${pageContext.request.contextPath}/resources/images/noise_levels.png" />
 
                                 </div>
                             </div>
@@ -64,7 +65,7 @@
                                         <div id="co" class="slider"></div>
                                     </span>
 
-                                    <br><img src="${pageContext.request.contextPath}/resources/images/co_levels.jpg" />
+                                    <br><img class="center-block img-responsive" src="${pageContext.request.contextPath}/resources/images/co_levels.jpg" />
                                 </div>
                             </div>
                         </div>
@@ -88,7 +89,7 @@
                                         <div id="no2" class="slider"></div>
                                     </span>
 
-                                    <br><img src="${pageContext.request.contextPath}/resources/images/no2_levels.png" />
+                                    <br><img class="scaledImage70 center-block img-responsive" src="${pageContext.request.contextPath}/resources/images/no2_levels.png" />
                                 </div>
                             </div>
                         </div>

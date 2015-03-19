@@ -35,6 +35,16 @@ html, body {
     height: auto;
 }
 
+.scaledImage70{
+    width:70%;
+    height:70%;
+}
+
+.scaledImage60{
+    width:60%;
+    height:60%;
+}
+
 .tab {
     margin-left: 5em
 }

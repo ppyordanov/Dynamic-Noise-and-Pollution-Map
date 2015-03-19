@@ -96,6 +96,12 @@ function init_map() {
     generateDevicesContent();
     generateUsersContent();
 
+    //data points and routes number
+    $("#dp").html("There are currently <b>" + POINT_DATA.length + "</b> data readings in the database.<br>");
+    $("#rn").html("There are currently <b>" + routes.length + "</b> routes in the database.<br>");
+
+    //map exploration data render
+    mapExplorationProgress(exploredCellNumber, cellTotalNumber);
 
     //CONTROLS
 

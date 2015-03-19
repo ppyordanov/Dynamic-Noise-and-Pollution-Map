@@ -3,6 +3,14 @@
 <html lang="en">
 <head>
 
+    <%-- Metadata information included for on-page SEO optimization --%>
+    <title>UG Map</title>
+    <meta name="description" content="The project&quot;s goal is building a dynamic noise and pollution campus map via using the innovative Smart Citizen Kit board
+     developed by the company FabLab in Barcelona, Spain.">
+    <meta name="keywords" content="sck, smart citizen, smart citizen kit, i-o-t, web application, mobile application, University of Glasgow">
+    <meta name="author" content="Petar Yordanov (ppyordanov)">
+
+
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
     <link type="text/css" href="${pageContext.request.contextPath}/resources/external/bs/css/bootstrap.css"

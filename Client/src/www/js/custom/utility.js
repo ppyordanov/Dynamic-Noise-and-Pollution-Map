@@ -112,14 +112,14 @@ function getDeviceData() {
 
 function getUserData() {
     var form_data = {
-        "me": {
-            "id": "",
-            "username": "",
-            "city": "",
-            "country": "",
-            "website": "",
-            "email": "",
-            "created": ""
+        me: {
+            id: "",
+            username: "",
+            city: "",
+            country: "",
+            website: "",
+            email: "",
+            created: ""
         }
     };
 

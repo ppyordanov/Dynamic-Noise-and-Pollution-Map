@@ -64,9 +64,19 @@ $("#start").live('click', function () {
     //update location every x seconds, 30 by default
     localize();
 
+    //$("#clear").hide();
+    $('<div class="ui-body ui-body-c abs">Tracking in progress!</div>').insertAfter('#route_data').delay(3000).fadeOut();
+    //$("#stop").show();
+
+});
+
+$("#stop").live('click', function () {
+
+    $("#stop").hide();
+    $("#start").show();
+
     var userData = getUserData();
     var deviceData = getDeviceData();
-
 
     user.id = userData.me.id;
     user.userName = userData.me.username;
@@ -81,17 +91,6 @@ $("#start").live('click', function () {
     device.description = deviceData.devices[0].description;
     device.created = deviceData.devices[0].created;
     device.location = deviceData.devices[0].location;
-
-    //$("#clear").hide();
-    $('<div class="ui-body ui-body-c abs">Tracking in progress!</div>').insertAfter('#route_data').delay(3000).fadeOut();
-    //$("#stop").show();
-
-});
-
-$("#stop").live('click', function () {
-
-    $("#stop").hide();
-    $("#start").show();
 
     //stop getting current location
     clearInterval(trackIntervalId);

@@ -5,6 +5,9 @@
 
 /* GRID MAP */
 
+var cellTotalNumber;
+var exploredCellNumber;
+
 function generateGrid(tileSize) {
 
     var northWestStart = origin;
@@ -16,6 +19,9 @@ function generateGrid(tileSize) {
     var southAngleDegrees = 180;
     var eastAngleDegrees = 90;
     var westAngleDegrees = -90;
+
+    cellTotalNumber = 0;
+    exploredCellNumber = 0;
 
     var east = google.maps.geometry.spherical.computeOffset(northWestStart, tileSizeMeters, eastAngleDegrees);
     var south = google.maps.geometry.spherical.computeOffset(northWestStart, tileSizeMeters, southAngleDegrees);
@@ -66,6 +72,8 @@ function generateGrid(tileSize) {
 
             var newEast = google.maps.geometry.spherical.computeOffset(newEast, tileSizeMeters, eastAngleDegrees);
             var newSouth = google.maps.geometry.spherical.computeOffset(newSouth, tileSizeMeters, eastAngleDegrees);
+
+            cellTotalNumber++; //count the number of cells in the grid matrix
         }
 
     }
@@ -95,6 +103,14 @@ function bindWindow(rectangle, indexNumber) {
          */
         infowindow.open(map);
     });
+}
+
+function mapExplorationProgress(exploredCellNumber, cellTotalNumber){
+
+    var exploredPercentage = (exploredCellNumber/cellTotalNumber)*100;
+    $("#explorationPercentage").html("<b>Grid map exploration progress (" + exploredPercentage.toFixed(2) + "%):</b>");
+    $("#explorationData").html(progressEvaluate(exploredCellNumber, 0, cellTotalNumber));
+
 }
 
 function getGridLocation(location) {
@@ -129,6 +145,9 @@ function aggregateGrid(location, dataReading) {
     //if such grid tile exists, update information and aggregate data
     if (GRID[gridIndex]) {
 
+        if(GRID[gridIndex]["noiseAVG"]["count"] == 0){ //check if the cell has been explored
+            exploredCellNumber++; //if not, increment counter
+        }
         GRID[gridIndex]["noiseAVG"]["sum"] += dataReading.noise;
         GRID[gridIndex]["noiseAVG"]["count"]++;
         var noiseSum = GRID[gridIndex]["noiseAVG"]["sum"];
@@ -199,7 +218,11 @@ function toggleGrid(value) {
             GRID = [];
             generateGrid(tileSize);
             updateGridAggregation();
+
         }
+
+        //map exploration update data render
+        mapExplorationProgress(exploredCellNumber, cellTotalNumber);
 
         var max, min;
         if (gridValue == 'noiseAVG') {

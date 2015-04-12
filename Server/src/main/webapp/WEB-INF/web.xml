@@ -21,6 +21,11 @@
         <param-value>/WEB-INF/classes/log4j.properties</param-value>
     </context-param>
 
+    <mime-mapping>
+        <extension>json</extension>
+        <mime-type>application/json</mime-type>
+    </mime-mapping>
+
     <listener>
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>

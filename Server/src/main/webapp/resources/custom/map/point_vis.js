@@ -44,7 +44,7 @@ function generatePointVis(dataReading, visible, map, num) {
     var coCircle = new google.maps.Circle(pollutionOptions);
     var no2Circle = new google.maps.Circle(pollutionOptions);
 
-    var element = {"noiseCircle": noiseCircle, "coCircle": coCircle, "no2Circle": no2Circle, "noise": noiseRadius, "co": coRadius, "no2": no2Radius};
+    var element = {noiseCircle: noiseCircle, coCircle: coCircle, no2Circle: no2Circle, noise: noiseRadius, co: coRadius, no2: no2Radius};
 
     //bindWindow(circle, num);
     POINT_VISUALIZATION.push(element);

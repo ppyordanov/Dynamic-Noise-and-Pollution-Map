@@ -68,6 +68,12 @@ $(document).ready(function () {
 
     });
 
+    $('#route_hide').on('click', function () {
+        USER_ROUTE_DATA.forEach(function (entry) {
+            entry.data["route"].set("map", null);
+        });
+    });
+
     $('#route_apply').on('click', function () {
 
         currentlyTrackingDestination = true;
@@ -94,58 +100,40 @@ $(document).ready(function () {
         variableSwitch.no2 = $("#no2Stat").is(':checked');
 
         if (variableSwitch.distance) {
-            routeDistanceMultiplier = 0.01;
+            routeDistanceMultiplier = defaultRouteDistanceMultiplier;
         } else {
             routeDistanceMultiplier = 0;
         }
         if (variableSwitch.duration) {
-            routeDurationMultiplier = 0.01;
+            routeDurationMultiplier = defaultRouteDurationMultiplier;
         } else {
             routeDistanceMultiplier = 0;
         }
         if (variableSwitch.noise) {
-            noiseMultiplier = 0.20;
+            noiseMultiplier = defaultNoiseMultiplier;
         } else {
             noiseMultiplier = 0;
         }
         if (variableSwitch.co) {
-            coMultiplier = 0.20;
+            coMultiplier = defaultCoMultiplier;
         } else {
             coMultiplier = 0;
         }
         if (variableSwitch.no2) {
-            no2Multiplier = 0.58;
+            no2Multiplier = defaultNo2Multiplier;
         } else {
             no2Multiplier = 0;
         }
 
         calculateMaximumOverallPollutionIndex();
 
-        /*
-         var sourceLat, sourceLng, destinationLat, destinationLng;
-         if ($("#sourceLat").val() != "" && $("#sourceLng").val() != "") {
-         sourceLat = parseFloat($("#sourceLat").val());
-         sourceLng = parseFloat($("#sourceLng").val());
-         //alert(sourceLat);
-         if (!isNaN(sourceLat) && !isNaN(sourceLng)) {
-         //alert("test");
-         starting_point = new google.maps.LatLng(sourceLat, sourceLng);
-         }
-         }
-         if ($("#destinationLat").val() != "" && $("#destinationLng").val() != "") {
-         destinationLat = parseFloat($("#destinationLat").val());
-         destinationLng = parseFloat($("#destinationLng").val());
-         if (!isNaN(destinationLat) && !isNaN(destinationLng)) {
-         destination_point = new google.maps.LatLng(destinationLat, destinationLng);
-         }
-         }
-         */
-
         USER_ROUTE_DATA.forEach(function (entry) {
             entry.data["route"].set("map", null);
         });
         USER_ROUTE_DATA = [];
-        generateUserRoutes();
+        if(destination != null){
+            generateUserRoutes();
+        }
 
     });
 
@@ -232,7 +220,7 @@ function generateUserRoutes() {
         destination: destination_point,
         provideRouteAlternatives: true,
         travelMode: google.maps.TravelMode[mode],
-        unitSystem: google.maps.UnitSystem.IMPERIAL
+        unitSystem: google.maps.UnitSystem.METRIC
     };
     // alert("ds");
     directionsService.route(request, function (response, status) {
@@ -243,36 +231,16 @@ function generateUserRoutes() {
                 var routeDistance = response.routes[i].legs[0].distance.value; //meters
                 var routeDuration = response.routes[i].legs[0].duration.value; //seconds
                 var timeFormatted = calculateTime(routeDuration);
-                //alert(route);
-                //alert(response.routes.length);
-                /*
-                 var routeShot = new google.maps.Polyline({
-                 path: route,
-                 strokeColor: "#2196f3",
-                 strokeOpacity: 0.5,
-                 strokeWeight: 10,
-                 fillOpacity: 0.0,
-                 map: map,
-                 visible: true
-                 });
-                 */
-                /*
-                 new google.maps.DirectionsRenderer({
-                 map: map,
-                 directions: response,
-                 routeIndex: i
-                 });
-                 */
                 var noiseSUM = 0, coSUM = 0, no2SUM = 0;
                 var validCount = 0;
                 for (var j = 0; j < route.length; j++) {
                     var loc = getGridLocation(route[j]);
                     var block = GRID[loc];
                     if (block) {
-                        if (block.coAVG.count > 0) {
-                            coSUM += block.coAVG.sum / block.coAVG.count;
-                            noiseSUM += block.noiseAVG.sum / block.noiseAVG.count;
-                            no2SUM += block.no2AVG.sum / block.noiseAVG.count;
+                        if (block.count > 0) {
+                            coSUM += block.coAVG.sum / block.count;
+                            noiseSUM += block.noiseAVG.sum / block.count;
+                            no2SUM += block.no2AVG.sum / block.count;
 
                             validCount++;
                         }

@@ -5,6 +5,7 @@
 
     <%-- Metadata information included for on-page SEO optimization --%>
     <title>UG Map</title>
+    <meta name="title" content="Glasgow University Dynamic Noise and Pollution Campus Map">
     <meta name="description" content="The project&quot;s goal is building a dynamic noise and pollution campus map via using the innovative Smart Citizen Kit board
      developed by the company FabLab in Barcelona, Spain.">
     <meta name="keywords" content="sck, smart citizen, smart citizen kit, i-o-t, web application, mobile application, University of Glasgow">
@@ -28,7 +29,7 @@
             src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,visualization&sensor=false"></script>
 
     <script src="${pageContext.request.contextPath}/resources/custom/utility/utility.js"></script> <!--replaced-->
-    <script src="${pageContext.request.contextPath}/resources/custom/utility/constants.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/custom/utility/constants_global.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/map/locations.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/ui/map_styles.js"></script>
     <script src="${pageContext.request.contextPath}/resources/custom/map/users_devices.js"></script>

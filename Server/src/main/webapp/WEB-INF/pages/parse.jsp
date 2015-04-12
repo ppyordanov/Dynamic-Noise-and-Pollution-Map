@@ -57,13 +57,11 @@
     }
     dataReading["latitude"] = "${element.latitude}";
     dataReading["longitude"] = "${element.longitude}";
-    //conversion
-    var basePPMtokOhm = 75;
     var rawCO = ${element.co};
     var rawNO2 = ${element.no2};
     dataReading["noise"] = ${element.noise};
-    dataReading["co"] = (rawCO / basePPMtokOhm);
-    dataReading["no2"] = (rawNO2 / basePPMtokOhm);
+    dataReading["co"] = convertToPPM(rawCO);
+    dataReading["no2"] = convertToPPM(rawNO2);
     dataReading["battery"] = ${element.battery};
     var routeId = dataReading["routeId"];
     if (!(routeId in dataReadings)) {

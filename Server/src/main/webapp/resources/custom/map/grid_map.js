@@ -65,7 +65,7 @@ function generateGrid(tileSize) {
             tile.setOptions(tileOptions);
             //tile.set("fillColor", "gray");
 
-            var tileDATA = {"tile": tile, "noiseAVG": {"sum": 0, "count": 0}, "coAVG": {"sum": 0, "count": 0}, "no2AVG": {"sum": 0, "count": 0}};
+            var tileDATA = {tile: tile, noiseAVG: {sum: 0}, coAVG: {sum: 0}, no2AVG: {sum: 0}, count: 0};
 
             GRID.push(tileDATA);
             bindWindow(tile, GRID.length - 1);
@@ -87,7 +87,7 @@ function bindWindow(rectangle, indexNumber) {
             return;
         }
         var i = indexNumber;
-        var content = generatePopUpContent(calculateAverage(GRID[i]["noiseAVG"]["sum"], GRID[i]["noiseAVG"]["count"]), calculateAverage(GRID[i]["coAVG"]["sum"], GRID[i]["coAVG"]["count"]), calculateAverage(GRID[i]["no2AVG"]["sum"], GRID[i]["no2AVG"]["count"]), 0, (-1 - i), null, null, null, null, GRID[i]["no2AVG"]["count"]);
+        var content = generatePopUpContent(calculateAverage(GRID[i]["noiseAVG"]["sum"], GRID[i]["count"]), calculateAverage(GRID[i]["coAVG"]["sum"], GRID[i]["count"]), calculateAverage(GRID[i]["no2AVG"]["sum"], GRID[i]["count"]), 0, (-1 - i), null, null, null, null, GRID[i]["count"]);
         infowindow.setContent(content);
         infowindow.setPosition(event.latLng);
 
@@ -107,7 +107,7 @@ function bindWindow(rectangle, indexNumber) {
 
 function mapExplorationProgress(exploredCellNumber, cellTotalNumber){
 
-    var exploredPercentage = (exploredCellNumber/cellTotalNumber)*100;
+    var exploredPercentage = rangePercentage(exploredCellNumber, 0, cellTotalNumber);
     $("#explorationPercentage").html("<b>Grid map exploration progress (" + exploredPercentage.toFixed(2) + "%):</b>");
     $("#explorationData").html(progressEvaluate(exploredCellNumber, 0, cellTotalNumber));
 
@@ -145,35 +145,16 @@ function aggregateGrid(location, dataReading) {
     //if such grid tile exists, update information and aggregate data
     if (GRID[gridIndex]) {
 
-        if(GRID[gridIndex]["noiseAVG"]["count"] == 0){ //check if the cell has been explored
+        if(GRID[gridIndex]["count"] == 0){ //check if the cell has been explored
             exploredCellNumber++; //if not, increment counter
         }
+        GRID[gridIndex]["count"]++;
         GRID[gridIndex]["noiseAVG"]["sum"] += dataReading.noise;
-        GRID[gridIndex]["noiseAVG"]["count"]++;
-        var noiseSum = GRID[gridIndex]["noiseAVG"]["sum"];
-        var noiseCount = GRID[gridIndex]["noiseAVG"]["count"];
-        var noiseAverage = calculateAverage(noiseSum, noiseCount);
-        var noisePercentage = rangePercentage(noiseAverage, minNoise, maxNoise);
-
         GRID[gridIndex]["coAVG"]["sum"] += dataReading.co;
-        GRID[gridIndex]["coAVG"]["count"]++;
-        var coSum = GRID[gridIndex]["coAVG"]["sum"];
-        var coCount = GRID[gridIndex]["coAVG"]["count"];
-        var coAverage = coSum / coCount;
-        var coPercentage = rangePercentage(coAverage, minCO, maxCO);
-
         GRID[gridIndex]["no2AVG"]["sum"] += dataReading.no2;
-        GRID[gridIndex]["no2AVG"]["count"]++;
-        var no2Sum = GRID[gridIndex]["no2AVG"]["sum"];
-        var no2Count = GRID[gridIndex]["no2AVG"]["count"];
-        var no2Average = no2Sum / no2Count;
-        var no2Percentage = rangePercentage(no2Average, minNO2, maxNO2);
-
         //TESTING
         //alert("Noise AVG grid tile: " + noiseAverage + " MIN: " + minNoise + " MAX: " + maxNoise + " noise avg sum " + noiseSum + " noise count" + noiseCount);
-        //alert(coPercentage);
-        //alert(coPercentage);
-        GRID[gridIndex]["tile"].set("fillColor", convertToHSL(noisePercentage));
+        //GRID[gridIndex]["tile"].set("fillColor", convertToHSL(noisePercentage));
         GRID[gridIndex]["tile"].set("fillOpacity", 0.5);
     }
 
@@ -225,30 +206,29 @@ function toggleGrid(value) {
         mapExplorationProgress(exploredCellNumber, cellTotalNumber);
 
         var max, min;
-        if (gridValue == 'noiseAVG') {
-            if (normal) {
+
+        if (normal) {
+            if (gridValue == 'noiseAVG') {
                 min = absoluteMinNoise;
                 max = absoluteMaxNoise;
             }
-            else {
-                min = minNoise;
-                max = maxNoise;
-            }
-        }
-        else if (gridValue == 'coAVG') {
-            if (normal) {
+            else if (gridValue == 'coAVG') {
                 min = absoluteMinCO;
                 max = absoluteMaxCO;
             }
             else {
-                min = minCO;
-                max = maxCO;
+                min = absoluteMinNO2;
+                max = absoluteMaxNO2;
             }
         }
         else {
-            if (normal) {
-                min = absoluteMinNO2;
-                max = absoluteMaxNO2;
+            if (gridValue == 'noiseAVG') {
+                min = minNoise;
+                max = maxNoise;
+            }
+            else if (gridValue == 'coAVG') {
+                min = minCO;
+                max = maxCO;
             }
             else {
                 min = minNO2;
@@ -258,7 +238,7 @@ function toggleGrid(value) {
 
         GRID.forEach(function (entry) {
             var sum = entry[gridValue]["sum"];
-            var count = entry[gridValue]["count"];
+            var count = entry["count"];
             var average = calculateAverage(sum, count);
             var percentage = rangePercentage(average, min, max);
             var fillOp = entry["tile"].fillOpacity;

@@ -8,7 +8,6 @@
 
 function generateHeatMap() {
     var points = new google.maps.MVCArray(locationARR);
-    //alert(points.length);
     HEAT_MAP = new google.maps.visualization.HeatmapLayer({
         data: points,
         radius: 50,

@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletContext;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -104,82 +107,50 @@ public class HomeController {
         return "home";
     }
 
-    /*
-    @RequestMapping(value = "/del")
-    public
-    @ResponseBody
-    String truncate() {
-
-        dataReadingRepository.deleteAll();
-        routeRepository.deleteAll();
-        return "done";
-    }
-    */
-
-
     @RequestMapping(value = "/addRoute", method = RequestMethod.POST)
     public
     @ResponseBody
-    String addRoute(@RequestParam("context") String json, @RequestParam("user") String userJSON, @RequestParam("device") String deviceJSON) {
+    ResponseEntity<String> addRoute(@RequestParam("context") String json, @RequestParam("user") String userJSON, @RequestParam("device") String deviceJSON) {
 
-        //Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+        //bad request handling and response, s
+        try {
+            User user = new Gson().fromJson(userJSON,User.class);
+            Device device = new Gson().fromJson(deviceJSON, Device.class);
+            Type listType = new TypeToken<List<DataReading>>() {
+            }.getType();
+            List<DataReading> data = new Gson().fromJson(json, listType);
 
-        User user = new Gson().fromJson(userJSON,User.class);
-        Device device = new Gson().fromJson(deviceJSON, Device.class);
+            userRepository.save(user);
+            LOGGER.info("User saved: " + user);
+            device.setUserId(user.getId());
+            deviceRepository.save(device);
+            LOGGER.info("Device saved: " + device);
 
-        if(user != null && device != null){
-            if(!user.getId().equals(null)){
-                userRepository.save(user);
-                LOGGER.info("User saved: " + user);
-                device.setUserId(user.getId());
-                if(!device.getId().equals(null)){
-                    deviceRepository.save(device);
-                    LOGGER.info("Device saved: " + device);
-                }
+            //save new route
+            Route newRoute = new Route();
+            newRoute.setDeviceId(device.getId());
+            routeRepository.save(newRoute);
+            LOGGER.info("Route saved: " + newRoute);
+
+            //save data reading
+            LOGGER.info("Data Size:" + data.size());
+            for (DataReading dr : data) {
+                dr.setDeviceId(device.getId());
+                dr.setRouteId(newRoute.getId());
+                dataReadingRepository.save(dr);
+                LOGGER.info("Data reading saved: " + dr);
             }
 
-        }
-        //save new route
-        Route newRoute = new Route();
-        newRoute.setDeviceId(device.getId());
-        routeRepository.save(newRoute);
-        LOGGER.info("Route saved: " + newRoute);
-
-        //save data reading
-        Type listType = new TypeToken<List<DataReading>>() {
-        }.getType();
-
-        List<DataReading> data = new Gson().fromJson(json, listType);
-
-        LOGGER.info("Data Size:" + data.size());
-        for (DataReading dr : data) {
-            dr.setDeviceId(device.getId());
-            dr.setRouteId(newRoute.getId());
-            dataReadingRepository.save(dr);
-            LOGGER.info("Data reading saved: " + dr);
+        } catch(com.google.gson.JsonSyntaxException | NullPointerException | IllegalArgumentException e) {
+            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         }
 
-        return "success";
+        return new ResponseEntity<String>(HttpStatus.OK);
     }
 
-    /*
-    @RequestMapping(value = "/addRoute" , method = RequestMethod.GET)
-    public @ResponseBody
-    String save(@RequestBody String jsonString) {
-        //Route route = routeRepository.save(jsonString);
 
-        dataReadingRepository.deleteAll();
-
-        System.out.println(jsonString);
-        LOGGER.info(jsonString);
-
-        return jsonString;
-    }
-
-    */
-
-    /*
-    @RequestMapping(value = MAPPING_DATA)
+    /* DB benchmark - MySQL and MongoDB */
+    //@RequestMapping(value = MAPPING_DATA)
     public String dataPopulation(ModelMap model) {
 
         benchmark = new Benchmark();
@@ -226,5 +197,5 @@ public class HomeController {
         return "data";
     }
 
-    */
+
 }

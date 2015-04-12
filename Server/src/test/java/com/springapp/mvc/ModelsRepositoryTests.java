@@ -246,10 +246,10 @@ public class ModelsRepositoryTests {
     @Test
     public void deviceInsertTest() throws Exception {
 
-        Device deviceId = deviceRepository.save(device);
+        deviceRepository.save(device);
         currentDocumentsNumber = deviceRepository.count();
         assertEquals(deviceNumber + 1, currentDocumentsNumber);
-        deviceRepository.delete(deviceId);
+        deviceRepository.delete(device);
 
     }
 

@@ -117,18 +117,7 @@ function init_map() {
             var v2 = ui.values[ 1 ];
             $("#noise").find(".ui-slider-handle").eq(0).text(v1);
             $("#noise").find(".ui-slider-handle").eq(1).text(v2);
-
-            //$("#noise_level").val(v1 + " - " + v2);
         },
-
-        /*
-         change: function (event, ui) {
-         minRangeNoise = ui.values[0];
-         maxRangeNoise = ui.values[1];
-         //generateGrid();
-         },
-         */
-
         stop: function (event, ui) {
             minRangeNoise = ui.values[0];
             maxRangeNoise = ui.values[1];

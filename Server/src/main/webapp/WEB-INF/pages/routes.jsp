@@ -129,6 +129,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" id="route_apply" data-dismiss="modal">Apply</button>
+                <button type="button" class="btn btn-warning" id="route_hide" data-dismiss="modal">Hide Routes</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>

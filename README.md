@@ -1,7 +1,7 @@
 Dynamic-Noise-and-Pollution-Map
 ===============================
 
-/DEVELOPMENT BRANCH/
+/MASTER BRANCH/
 
 Fourth year University of Glasgow Computer Science project
 
